@@ -1,5 +1,5 @@
 import sys
-from PyU6 import U6
+from u6 import U6
 from PyQt5.QtCore import QCoreApplication, QObject, QUrl, QTimer, Slot, Property
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
