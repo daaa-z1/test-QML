@@ -1,8 +1,8 @@
 import sys
 from u6 import U6
-from PyQt5.QtCore import QCoreApplication, QObject, QUrl, QTimer
+from PyQt5.QtCore import QCoreApplication, QObject, QUrl, QTimer, pyqtSlot, pyqtProperty
+from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import pyqtSlot, pyqtProperty
 
 class LabJackReader(QObject):
     def __init__(self):
@@ -25,7 +25,7 @@ class LabJackReader(QObject):
         return self._ain0_value
 
 if __name__ == "__main__":
-    app = QCoreApplication(sys.argv)
+    app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
     labjack_reader = LabJackReader()
 
