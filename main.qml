@@ -1,21 +1,19 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.5
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 ApplicationWindow {
     visible: true
-    width: 640
-    height: 480
+    width: 400
+    height: 200
     title: "LabJack U6 AIN0 Reader"
 
-    Button {
-        id: button
-        text: "Read AIN0"
-        onClicked: labjack.readAIN0()
-    }
+    Rectangle {
+        anchors.fill: parent
+        color: "lightgray"
 
-    Label {
-        id: label
-        text: "AIN0: " + labjack.ain0
-        anchors.top: button.bottom
+        Text {
+            anchors.centerIn: parent
+            text: "AIN0 Value: " + u6Value
+        }
     }
 }
