@@ -1,8 +1,8 @@
 import sys
 from u6 import U6
-from PyQt5.QtCore import QCoreApplication, QObject, QUrl, QTimer, Slot, Property
-from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtCore import QCoreApplication, QObject, QUrl, QTimer
 from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtCore import pyqtSlot, pyqtProperty
 
 class LabJackReader(QObject):
     def __init__(self):
@@ -11,21 +11,21 @@ class LabJackReader(QObject):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.read_ain0)
         self.timer.start(1000)  # Baca setiap 1 detik
-        self.ain0_value = 0.0
+        self._ain0_value = 0.0
 
-    @Slot()
+    @pyqtSlot()
     def read_ain0(self):
         try:
-            self.ain0_value = self.labjack.getAIN(0)
+            self._ain0_value = self.labjack.getAIN(0)
         except Exception as e:
             print(f"Error reading AIN0: {e}")
 
-    @Property(float)
+    @pyqtProperty(float)
     def ain0(self):
-        return self.ain0_value
+        return self._ain0_value
 
 if __name__ == "__main__":
-    app = QGuiApplication(sys.argv)
+    app = QCoreApplication(sys.argv)
     engine = QQmlApplicationEngine()
     labjack_reader = LabJackReader()
 
