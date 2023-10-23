@@ -5,8 +5,8 @@ import QtQuick.Extras 1.4
 
 ApplicationWindow {
     visible: true
-    width: Screen.desktopAvailableWidth
-    height: Screen.desktopAvailableHeight
+    width: screen.width
+    height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
     // Splash Screen
