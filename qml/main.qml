@@ -9,21 +9,11 @@ ApplicationWindow {
     height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
-    // Membuat variabel dashboard
-    Dashboard {
-        id: dashboard
-    }
-
-    // StackView
     StackView {
         id: stackView
         initialItem: Item {
             // Tampilkan splash screen saat aplikasi dimulai
-            Splash {
-                onLoadingComplete: {
-                    stackView.push(dashboard); // Setelah loading selesai, tampilkan dashboard
-                }
-            }
+            Splash {}
         }
     }
 
@@ -32,19 +22,19 @@ ApplicationWindow {
             title: "Page"
             MenuItem {
                 text: "Dashboard"
-                onTriggered: stackView.push(dashboard);
+                onTriggered: stackView.push(Dashboard)
             }
             MenuItem {
                 text: "Graph"
-                onTriggered: stackView.push(Graph);
+                onTriggered: stackView.push(Graph)
             }
             MenuItem {
                 text: "History"
-                onTriggered: stackView.push(History);
+                onTriggered: stackView.push(History)
             }
             MenuItem {
                 text: "Pengaturan"
-                onTriggered: stackView.push(Settings);
+                onTriggered: stackView.push(Settings)
             }
         }
     }
