@@ -4,6 +4,9 @@ import QtQuick.Layouts 1.3
 
 Page {
     title: "Dashboard"
+    background: Rectangle {
+        color: "#1E2C3C" // Warna biru gelap sebagai primary
+    }
 
     ColumnLayout {
         anchors.fill: parent
