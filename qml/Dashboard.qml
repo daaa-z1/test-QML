@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Extras 1.4
 
 Page {
+    id = "Dashboard"
     title: "Dashboard"
 
     ColumnLayout {
