@@ -1,17 +1,17 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.5
+import QtQuick.Controls 2.3
 
 ApplicationWindow {
     visible: true
-    width: screen.width
-    height: screen.height
+    width: 1024
+    height: 768
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
     // Splash Screen
     Rectangle {
         id: splashScreen
-        width: 350
-        height: 350
+        width: parent.width
+        height: parent.height
         color: "#1E2C3C" // Warna biru gelap
         visible: true
 
