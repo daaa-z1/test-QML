@@ -25,6 +25,7 @@ ApplicationWindow {
         }
 
         ProgressBar {
+            id: splashProgressBarItem  // Ubah nama variabel ini menjadi splashProgressBarItem
             width: parent.width * 0.8
             height: 20
             anchors.centerIn: parent
@@ -35,10 +36,10 @@ ApplicationWindow {
             // Simulasikan loading screen selesai
             SequentialAnimation {
                 NumberAnimation {
-                    target: splashProgressBar
+                    target: splashProgressBarItem  // Ubah target menjadi splashProgressBarItem
                     property: "value"
                     to: 100
-                    duration: 2000 // Ubah durasi sesuai kebutuhan
+                    duration: 3000 // Ubah durasi sesuai kebutuhan
                 }
 
                 onRunningChanged: {
