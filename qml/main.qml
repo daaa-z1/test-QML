@@ -5,15 +5,15 @@ import QtQuick.Extras 1.4
 
 ApplicationWindow {
     visible: true
-    width: 1024
-    height: 768
+    width: screen.width
+    height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
     // Splash Screen
     Rectangle {
         id: splashScreen
-        width: parent.width
-        height: parent.height
+        width: parent.width / 0.25
+        height: parent.height / 0.25
         color: "#1E2C3C" // Warna biru gelap
         visible: true
 
