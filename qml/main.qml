@@ -1,17 +1,19 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.3
+import QtQuick.Layouts 1.3
+import QtQuick.Extras 1.4
 
 ApplicationWindow {
     visible: true
-    width: screen.width
-    height: screen.height
+    width: 1024
+    height: 768
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
     // Splash Screen
     Rectangle {
         id: splashScreen
-        width: 350
-        height: 350
+        width: parent.width
+        height: parent.height
         color: "#1E2C3C" // Warna biru gelap
         visible: true
 
@@ -36,43 +38,33 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: Component {
-            Dashboard {
-                onReady: {
-                    // Hilangkan splash screen setelah aplikasi siap
-                    splashScreen.visible = false
-                }
+        initialItem: Dashboard {
+            onReady: {
+                // Hilangkan splash screen setelah aplikasi siap
+                splashScreen.visible = false
             }
         }
     }
-
 
     MenuBar {
         Menu {
             title: "File"
             MenuItem {
                 text: "Dashboard"
-                onTriggered: stackView.push("Dashboard.qml")
+                onTriggered: stackView.push(Dashboard)
             }
-            // MenuItem {
-            //     text: "Graph"
-            //     onTriggered: stackView.push("Graph.qml")
-            // }
-            // MenuItem {
-            //     text: "History"
-            //     onTriggered: stackView.push("History.qml")
-            // }
-            // MenuItem {
-            //     text: "Pengaturan"
-            //     onTriggered: stackView.push("Settings.qml")
-            // }
+            MenuItem {
+                text: "Graph"
+                onTriggered: stackView.push(Graph)
+            }
+            MenuItem {
+                text: "History"
+                onTriggered: stackView.push(History)
+            }
+            MenuItem {
+                text: "Pengaturan"
+                onTriggered: stackView.push(Settings)
+            }
         }
-    }
-
-    // Status Bar
-    Component.onCompleted: {
-        // Menambahkan status bar ke jendela aplikasi
-        var statusBarItem = statusBar.addItem("StatusBarItem", statusBar.statusBar);
-        statusBarItem.text = "Tanggal: " + new Date().toLocaleDateString();
     }
 }
