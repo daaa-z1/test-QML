@@ -11,7 +11,11 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: Dashboard {}
+        initialItem: Item {
+            Component.onCompleted: {
+                stackView.push(Dashboard {})
+            }
+        }
     }
 
     MenuBar {
