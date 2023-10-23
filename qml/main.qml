@@ -25,7 +25,6 @@ ApplicationWindow {
         }
 
         ProgressBar {
-            id: splashProgressBar
             width: parent.width * 0.8
             height: 20
             anchors.centerIn: parent
@@ -45,6 +44,7 @@ ApplicationWindow {
                 onRunningChanged: {
                     if (!running) {
                         splashScreen.visible = false; // Hilangkan splash screen
+                        stackView.push(dashboard); // Tampilkan dashboard
                     }
                 }
             }
@@ -53,21 +53,18 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-
-        // Tambahkan item Dashboard saat splash screen selesai
         initialItem: Item {
             visible: false
 
-            onVisibleChanged: {
-                if (visible) {
-                    // Aktifkan tampilan dashboard
-                    dashboard.visible = true;
-                }
-            }
-
             Dashboard {
                 id: dashboard
+                anchors.fill: parent
                 visible: false
+
+                Component.onCompleted: {
+                    // Aktifkan tampilan dashboard setelah splash screen selesai
+                    visible = true;
+                }
             }
         }
     }
@@ -77,24 +74,20 @@ ApplicationWindow {
             title: "Page"
             MenuItem {
                 text: "Dashboard"
-                onTriggered: {
-                    // Tampilkan dashboard saat memilih menu Dashboard
-                    dashboard.visible = true;
-                    stackView.push(dashboard);
-                }
+                onTriggered: stackView.push(dashboard);
             }
-            MenuItem {
-                text: "Graph"
-                onTriggered: stackView.push(Graph)
-            }
-            MenuItem {
-                text: "History"
-                onTriggered: stackView.push(History)
-            }
-            MenuItem {
-                text: "Pengaturan"
-                onTriggered: stackView.push(Settings)
-            }
+            // MenuItem {
+            //     text: "Graph"
+            //     onTriggered: stackView.push(Graph);
+            // }
+            // MenuItem {
+            //     text: "History"
+            //     onTriggered: stackView.push(History);
+            // }
+            // MenuItem {
+            //     text: "Pengaturan"
+            //     onTriggered: stackView.push(Settings);
+            // }
         }
     }
 }
