@@ -9,9 +9,21 @@ ApplicationWindow {
     height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
+    // StackView untuk tampilan
     StackView {
         id: stackView
-        initialItem: Dashboard {}
+        initialItem: Item {
+            // Tampilkan dashboard saat aplikasi dimulai
+            Component.onCompleted: {
+                var dashboardComponent = Qt.createComponent("Dashboard.qml");
+                if (dashboardComponent.status === Component.Ready) {
+                    var dashboard = dashboardComponent.createObject(stackView);
+                    if (dashboard) {
+                        stackView.push(dashboard);
+                    }
+                }
+            }
+        }
     }
 
     MenuBar {
@@ -19,7 +31,15 @@ ApplicationWindow {
             title: "Page"
             MenuItem {
                 text: "Dashboard"
-                onTriggered: stackView.push(Dashboard {})
+                onTriggered: {
+                    var dashboardComponent = Qt.createComponent("Dashboard.qml");
+                    if (dashboardComponent.status === Component.Ready) {
+                        var dashboard = dashboardComponent.createObject(stackView);
+                        if (dashboard) {
+                            stackView.push(dashboard);
+                        }
+                    }
+                }
             }
             MenuItem {
                 text: "Graph"
