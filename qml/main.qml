@@ -38,12 +38,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: Dashboard {
-            onReady: {
-                // Hilangkan splash screen setelah aplikasi siap
-                splashScreen.visible = false
-            }
-        }
+        initialItem: Dashboard {}
     }
 
     MenuBar {
