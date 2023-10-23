@@ -1,90 +1,91 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.3
+import QtQuick.Layouts 1.3
+import QtQuick.Extras 1.4
 
 Page {
     title: "Dashboard"
 
-    Column {
+    ColumnLayout {
         spacing: 10
-        anchors.centerIn: parent
+        anchors.fill: parent
 
-        // Indikator Gauge untuk Parameter Pengujian
         Gauge {
             id: pressureGauge
-            value: 0
+            value: 50
             minimumValue: 0
             maximumValue: 100
-            width: parent.width
-            height: parent.height * 0.3
-            label: "Tekanan (psi)"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
         Gauge {
             id: flowGauge
-            value: 0
+            value: 30
             minimumValue: 0
             maximumValue: 100
-            width: parent.width
-            height: parent.height * 0.3
-            label: "Aliran Fluida (L/min)"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
         Gauge {
             id: positionGauge
-            value: 0
+            value: 75
             minimumValue: 0
             maximumValue: 100
-            width: parent.width
-            height: parent.height * 0.3
-            label: "Posisi Servo Valve"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
-        // Kontrol Output dari LabJack
-        CheckBox {
-            text: "Output Aktif"
-            checked: false
-        }
+        RowLayout {
+            anchors.horizontalCenter: parent.horizontalCenter
 
-        // Tombol untuk Menyimpan Data
-        Button {
-            text: "Simpan Data"
-            onClicked: {
-                // Tambahkan logika untuk menyimpan data ke database
+            Button {
+                text: "Mulai"
+                onClicked: {
+                    // Kode untuk memulai pengukuran
+                }
+            }
+
+            Button {
+                text: "Berhenti"
+                onClicked: {
+                    // Kode untuk menghentikan pengukuran
+                }
+            }
+
+            Button {
+                text: "Simpan Data"
+                onClicked: {
+                    // Kode untuk menyimpan data
+                }
             }
         }
 
-        // Tombol untuk Memulai/Pause Pembacaan Parameter
-        Button {
-            text: "Start"
-            onClicked: {
-                // Tambahkan logika untuk memulai atau menghentikan pembacaan parameter
+        RowLayout {
+            spacing: 10
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            CheckBox {
+                text: "Pengaturan Amplifier"
+                Layout.alignment: Qt.AlignLeft
+                checked: false
+            }
+
+            RangeSlider {
+                from: 0
+                to: 100
+                stepSize: 1
+                to: 100
+                Layout.fillWidth: true
             }
         }
+    }
 
-        // Pengaturan Amplifier
-        Label {
-            text: "Pengaturan Amplifier"
-            font.bold: true
-        }
-
-        Slider {
-            id: amplifierSlider
-            from: 0
-            to: 100
-            stepSize: 1
-            value: 50
-        }
-
-        Text {
-            text: "Output Ranges: " + amplifierSlider.value
-        }
-
-        // Tombol untuk Menyimpan Pengaturan
-        Button {
-            text: "Simpan Pengaturan"
-            onClicked: {
-                // Tambahkan logika untuk menyimpan pengaturan ke database
-            }
+    onStatusChanged: {
+        if (status === Loader.Ready) {
+            // Emit signal to inform main.qml that this page is ready
+            onReady()
         }
     }
 }

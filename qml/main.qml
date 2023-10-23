@@ -3,15 +3,15 @@ import QtQuick.Controls 2.3
 
 ApplicationWindow {
     visible: true
-    width: 1024
-    height: 768
+    width: screen.width
+    height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
     // Splash Screen
     Rectangle {
         id: splashScreen
-        width: parent.width
-        height: parent.height
+        width: 350
+        height: 350
         color: "#1E2C3C" // Warna biru gelap
         visible: true
 
@@ -68,10 +68,10 @@ ApplicationWindow {
         }
     }
 
-    StatusBar {
-        Row {
-            Text { text: "Tanggal: " + new Date().toLocaleDateString() }
-            Text { text: "Waktu: " + new Date().toLocaleTimeString() }
-        }
+    // Status Bar
+    Component.onCompleted: {
+        // Menambahkan status bar ke jendela aplikasi
+        var statusBarItem = statusBar.addItem("StatusBarItem", statusBar.statusBar);
+        statusBarItem.text = "Tanggal: " + new Date().toLocaleDateString();
     }
 }
