@@ -53,18 +53,18 @@ ApplicationWindow {
                 text: "Dashboard"
                 onTriggered: stackView.push("Dashboard.qml")
             }
-            MenuItem {
-                text: "Graph"
-                onTriggered: stackView.push("Graph.qml")
-            }
-            MenuItem {
-                text: "History"
-                onTriggered: stackView.push("History.qml")
-            }
-            MenuItem {
-                text: "Pengaturan"
-                onTriggered: stackView.push("Settings.qml")
-            }
+            // MenuItem {
+            //     text: "Graph"
+            //     onTriggered: stackView.push("Graph.qml")
+            // }
+            // MenuItem {
+            //     text: "History"
+            //     onTriggered: stackView.push("History.qml")
+            // }
+            // MenuItem {
+            //     text: "Pengaturan"
+            //     onTriggered: stackView.push("Settings.qml")
+            // }
         }
     }
 
