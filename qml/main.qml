@@ -46,6 +46,7 @@ ApplicationWindow {
         }
     }
 
+
     MenuBar {
         Menu {
             title: "File"
