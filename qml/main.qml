@@ -9,26 +9,19 @@ ApplicationWindow {
     height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
+    // Membuat variabel dashboard
+    Dashboard {
+        id: dashboard
+    }
+
+    // StackView
     StackView {
         id: stackView
         initialItem: Item {
             // Tampilkan splash screen saat aplikasi dimulai
-            Loader {
-                source: "splash.qml"
-                onLoaded: {
-                    // Simulasikan loading screen selesai
-                    var progressBar = item.progressBarItem;
-                    if (progressBar) {
-                        progressBar.from = 0;
-                        progressBar.to = 100;
-                        progressBar.value = 0;
-                        progressBar.running = true;
-                        progressBar.runningChanged.connect(function () {
-                            if (!progressBar.running) {
-                                stackView.push(dashboard);
-                            }
-                        });
-                    }
+            Splash {
+                onLoadingComplete: {
+                    stackView.push(dashboard); // Setelah loading selesai, tampilkan dashboard
                 }
             }
         }
