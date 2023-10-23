@@ -12,12 +12,8 @@ ApplicationWindow {
     // StackView untuk tampilan
     StackView {
         id: stackView
-        initialItem: Item {
-            // Tampilkan dashboard saat aplikasi dimulai
-            Component.onCompleted: {
-                Qt.include("Dashboard.qml"); // Memuat Dashboard.qml
-                stackView.push(dashboardComponent);
-            }
+        initialItem: Loader {
+            source: "Dashboard.qml"
         }
     }
 
@@ -27,21 +23,20 @@ ApplicationWindow {
             MenuItem {
                 text: "Dashboard"
                 onTriggered: {
-                    Qt.include("Dashboard.qml"); // Memuat Dashboard.qml
-                    stackView.push(dashboardComponent);
+                    stackView.push("Dashboard.qml");
                 }
             }
             MenuItem {
                 text: "Graph"
-                onTriggered: stackView.push(Graph);
+                onTriggered: stackView.push("Graph.qml");
             }
             MenuItem {
                 text: "History"
-                onTriggered: stackView.push(History);
+                onTriggered: stackView.push("History.qml");
             }
             MenuItem {
                 text: "Pengaturan"
-                onTriggered: stackView.push(Settings);
+                onTriggered: stackView.push("Settings.qml");
             }
         }
     }
