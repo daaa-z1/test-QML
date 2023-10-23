@@ -9,7 +9,7 @@ ApplicationWindow {
     height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
-    // Splash Screen
+    // Komponen Splash Screen
     Component {
         id: splashComponent
 
@@ -26,6 +26,7 @@ ApplicationWindow {
             }
 
             ProgressBar {
+                id: progressBar // Tambahkan ID progressBar di sini
                 width: parent.width * 0.8
                 height: 20
                 anchors.centerIn: parent
@@ -52,6 +53,7 @@ ApplicationWindow {
         }
     }
 
+    // StackView untuk tampilan
     StackView {
         id: stackView
         initialItem: Item {
@@ -61,7 +63,7 @@ ApplicationWindow {
         }
     }
 
-    // Dashboard
+    // Komponen Dashboard
     Component {
         id: dashboardComponent
 
