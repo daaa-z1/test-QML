@@ -15,13 +15,8 @@ ApplicationWindow {
         initialItem: Item {
             // Tampilkan dashboard saat aplikasi dimulai
             Component.onCompleted: {
-                var dashboardComponent = Qt.createComponent("Dashboard.qml");
-                if (dashboardComponent.status === Component.Ready) {
-                    var dashboard = dashboardComponent.createObject(stackView);
-                    if (dashboard) {
-                        stackView.push(dashboard);
-                    }
-                }
+                Qt.include("Dashboard.qml"); // Memuat Dashboard.qml
+                stackView.push(dashboardComponent);
             }
         }
     }
@@ -32,13 +27,8 @@ ApplicationWindow {
             MenuItem {
                 text: "Dashboard"
                 onTriggered: {
-                    var dashboardComponent = Qt.createComponent("Dashboard.qml");
-                    if (dashboardComponent.status === Component.Ready) {
-                        var dashboard = dashboardComponent.createObject(stackView);
-                        if (dashboard) {
-                            stackView.push(dashboard);
-                        }
-                    }
+                    Qt.include("Dashboard.qml"); // Memuat Dashboard.qml
+                    stackView.push(dashboardComponent);
                 }
             }
             MenuItem {
