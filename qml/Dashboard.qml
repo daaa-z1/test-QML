@@ -16,7 +16,6 @@ Page {
             anchors.fill: parent
 
             Gauge {
-                id: pressureGauge
                 value: 50
                 minimumValue: 0
                 maximumValue: 100
@@ -25,7 +24,6 @@ Page {
             }
 
             Gauge {
-                id: flowGauge
                 value: 30
                 minimumValue: 0
                 maximumValue: 100
@@ -34,7 +32,6 @@ Page {
             }
 
             Gauge {
-                id: positionGauge
                 value: 75
                 minimumValue: 0
                 maximumValue: 100
@@ -82,14 +79,15 @@ Page {
                 from: 0
                 to: 100
                 stepSize: 1
-                to: 100
                 Layout.fillWidth: true
             }
         }
     }
 
-    Component.onCompleted: {
-        // Emit signal to inform main.qml that this page is ready
-        onReady()
+    onStatusChanged: {
+        if (status === PageStatus.Ready) {
+            // Emit signal to inform main.qml that this page is ready
+            onReady()
+        }
     }
 }
