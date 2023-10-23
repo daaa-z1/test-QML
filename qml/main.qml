@@ -13,9 +13,16 @@ ApplicationWindow {
         id: stackView
         initialItem: Item {
             Component.onCompleted: {
-                stackView.push(Dashboard {})
+                // Tampilkan dashboard saat aplikasi dimulai
+                stackView.push(dashboardComponent);
             }
         }
+    }
+
+    // Komponen Dashboard
+    Component {
+        id: dashboardComponent
+        Dashboard {}
     }
 
     MenuBar {
@@ -23,19 +30,19 @@ ApplicationWindow {
             title: "Page"
             MenuItem {
                 text: "Dashboard"
-                onTriggered: stackView.push(Dashboard {})
+                onTriggered: stackView.push(dashboardComponent);
             }
             MenuItem {
                 text: "Graph"
-                onTriggered: stackView.push(Graph {})
+                onTriggered: stackView.push(Graph);
             }
             MenuItem {
                 text: "History"
-                onTriggered: stackView.push(History {})
+                onTriggered: stackView.push(History);
             }
             MenuItem {
                 text: "Pengaturan"
-                onTriggered: stackView.push(Settings {})
+                onTriggered: stackView.push(Settings);
             }
         }
     }
