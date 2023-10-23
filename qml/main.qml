@@ -25,6 +25,7 @@ ApplicationWindow {
         }
 
         ProgressBar {
+            id: splashProgressBar
             width: parent.width * 0.8
             height: 20
             anchors.centerIn: parent
