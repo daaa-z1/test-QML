@@ -5,15 +5,15 @@ import QtQuick.Extras 1.4
 
 ApplicationWindow {
     visible: true
-    width: screen.width
-    height: screen.height
+    width: Screen.desktopAvailableWidth // Menggunakan lebar layar desktop yang tersedia
+    height: Screen.desktopAvailableHeight // Menggunakan tinggi layar desktop yang tersedia
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
     // Splash Screen
     Rectangle {
         id: splashScreen
-        width: parent.width / 4
-        height: parent.height / 4
+        width: parent.width // Menggunakan lebar layar
+        height: parent.height // Menggunakan tinggi layar
         color: "#1E2C3C" // Warna biru gelap
         visible: true
 
@@ -59,6 +59,17 @@ ApplicationWindow {
             MenuItem {
                 text: "Pengaturan"
                 onTriggered: stackView.push(Settings)
+            }
+        }
+    }
+
+    Connections {
+        target: stackView
+
+        // Sembunyikan splash screen ketika halaman utama (Dashboard) sudah siap
+        onStatusChanged: {
+            if (stackView.currentItem.status === StackView.Ready) {
+                splashScreen.visible = false;
             }
         }
     }
