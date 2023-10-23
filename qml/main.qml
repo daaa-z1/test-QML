@@ -9,6 +9,26 @@ ApplicationWindow {
     height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
+    // Timer untuk simulasi splash screen
+    Timer {
+        id: splashTimer
+        interval: 2000 // Ubah sesuai durasi yang Anda inginkan (dalam milidetik)
+        onTriggered: {
+            stackView.push(dashboardComponent);
+        }
+    }
+
+    StackView {
+        id: stackView
+        initialItem: Item {
+            Component.onCompleted: {
+                // Tampilkan splash screen saat aplikasi dimulai
+                stackView.push(splashComponent);
+                splashTimer.start(); // Mulai timer untuk menampilkan dashboard setelah waktu tertentu
+            }
+        }
+    }
+
     // Komponen Splash Screen
     Component {
         id: splashComponent
@@ -26,39 +46,12 @@ ApplicationWindow {
             }
 
             ProgressBar {
-                id: progressBar // Tambahkan ID progressBar di sini
                 width: parent.width * 0.8
                 height: 20
                 anchors.centerIn: parent
                 from: 0
                 to: 100
                 value: 0
-
-                // Simulasikan loading screen selesai
-                SequentialAnimation {
-                    NumberAnimation {
-                        target: progressBar
-                        property: "value"
-                        to: 100
-                        duration: 2000 // Ubah durasi sesuai kebutuhan
-                    }
-
-                    onRunningChanged: {
-                        if (!running) {
-                            stackView.push(dashboardComponent);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // StackView untuk tampilan
-    StackView {
-        id: stackView
-        initialItem: Item {
-            Component.onCompleted: {
-                stackView.push(splashComponent);
             }
         }
     }
