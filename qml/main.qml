@@ -12,12 +12,7 @@ ApplicationWindow {
     // StackView untuk tampilan
     StackView {
         id: stackView
-        initialItem: Item {
-            // Tampilkan dashboard saat aplikasi dimulai
-            Component.onCompleted: {
-                stackView.push(dashboardComponent);
-            }
-        }
+        initialItem: dashboardComponent
     }
 
     // Komponen Dashboard
@@ -31,7 +26,7 @@ ApplicationWindow {
             title: "Page"
             MenuItem {
                 text: "Dashboard"
-                onTriggered: stackView.push(dashboardComponent.definition);
+                onTriggered: stackView.push(dashboardComponent);
             }
             MenuItem {
                 text: "Graph"
