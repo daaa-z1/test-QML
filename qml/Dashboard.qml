@@ -4,38 +4,43 @@ import QtQuick.Layouts 1.3
 import QtQuick.Extras 1.4
 
 Page {
-    id: "dashboard"
     title: "Dashboard"
 
-    ColumnLayout {
-        spacing: 10
-        anchors.fill: parent
+    // Content Item
+    Item {
+        width: parent.width
+        height: parent.height
 
-        Gauge {
-            id: pressureGauge
-            value: 50
-            minimumValue: 0
-            maximumValue: 100
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
+        ColumnLayout {
+            spacing: 10
+            anchors.fill: parent
 
-        Gauge {
-            id: flowGauge
-            value: 30
-            minimumValue: 0
-            maximumValue: 100
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
+            Gauge {
+                id: pressureGauge
+                value: 50
+                minimumValue: 0
+                maximumValue: 100
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
 
-        Gauge {
-            id: positionGauge
-            value: 75
-            minimumValue: 0
-            maximumValue: 100
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            Gauge {
+                id: flowGauge
+                value: 30
+                minimumValue: 0
+                maximumValue: 100
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+
+            Gauge {
+                id: positionGauge
+                value: 75
+                minimumValue: 0
+                maximumValue: 100
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
         }
 
         RowLayout {
@@ -83,10 +88,8 @@ Page {
         }
     }
 
-    onStatusChanged: {
-        if (status === Loader.Ready) {
-            // Emit signal to inform main.qml that this page is ready
-            onReady()
-        }
+    Component.onCompleted: {
+        // Emit signal to inform main.qml that this page is ready
+        onReady()
     }
 }
