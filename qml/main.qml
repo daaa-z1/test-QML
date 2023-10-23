@@ -12,7 +12,7 @@ ApplicationWindow {
     // StackView untuk tampilan
     StackView {
         id: stackView
-        initialItem: dashboardComponent
+        initialItem: dashboardComponent // Tampilkan dashboard saat aplikasi dimulai
     }
 
     // Komponen Dashboard
