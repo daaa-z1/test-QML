@@ -38,8 +38,7 @@ Page {
         }
 
         RowLayout {
-            anchors.horizontalCenter: parent.horizontalCenter
-
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter // Mengganti anchors.horizontalCenter
             Button {
                 text: "Mulai"
                 onClicked: {
@@ -64,11 +63,9 @@ Page {
 
         RowLayout {
             spacing: 10
-            anchors.horizontalCenter: parent.horizontalCenter
-
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter // Mengganti anchors.horizontalCenter
             CheckBox {
                 text: "Pengaturan Amplifier"
-                Layout.alignment: Qt.AlignLeft
                 checked: false
             }
 
