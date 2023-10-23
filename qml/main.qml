@@ -9,11 +9,12 @@ ApplicationWindow {
     height: screen.height
     title: "Aplikasi Uji Servo Valve Hydraulic"
 
+    // StackView untuk tampilan
     StackView {
         id: stackView
         initialItem: Item {
+            // Tampilkan dashboard saat aplikasi dimulai
             Component.onCompleted: {
-                // Tampilkan dashboard saat aplikasi dimulai
                 stackView.push(dashboardComponent);
             }
         }
@@ -30,7 +31,7 @@ ApplicationWindow {
             title: "Page"
             MenuItem {
                 text: "Dashboard"
-                onTriggered: stackView.push(dashboardComponent);
+                onTriggered: stackView.push(dashboardComponent.definition);
             }
             MenuItem {
                 text: "Graph"
