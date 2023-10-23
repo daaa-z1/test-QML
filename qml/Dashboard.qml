@@ -1,79 +1,87 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
-import QtQuick.Extras 1.4
 
 Page {
-    title: "Dashboard"
+    id: dashboard
 
-    ColumnLayout {
+    header: ToolBar {
+        contentItem: Text {
+            text: "Dashboard"
+            font.pixelSize: 24
+        }
+    }
+
+    contentItem: ColumnLayout {
         spacing: 10
         anchors.fill: parent
 
         Gauge {
             id: pressureGauge
-            value: 50
+            value: 50 // Ganti dengan nilai tekanan aktual
             minimumValue: 0
             maximumValue: 100
-            Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
         Gauge {
             id: flowGauge
-            value: 30
+            value: 30 // Ganti dengan nilai aliran fluida aktual
             minimumValue: 0
             maximumValue: 100
-            Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
         Gauge {
             id: positionGauge
-            value: 75
+            value: 70 // Ganti dengan nilai posisi aktual servo valve
             minimumValue: 0
             maximumValue: 100
-            Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
         RowLayout {
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter // Mengganti anchors.horizontalCenter
             Button {
-                text: "Mulai"
+                text: "Save Data"
                 onClicked: {
-                    // Kode untuk memulai pengukuran
+                    // Tambahkan logika untuk menyimpan data
                 }
             }
 
             Button {
-                text: "Berhenti"
+                text: "Start/Stop"
                 onClicked: {
-                    // Kode untuk menghentikan pengukuran
-                }
-            }
-
-            Button {
-                text: "Simpan Data"
-                onClicked: {
-                    // Kode untuk menyimpan data
+                    // Tambahkan logika untuk memulai atau menghentikan pembacaan parameter
                 }
             }
         }
 
+        ControlKnob {
+            id: controlKnob
+            value: 50 // Ganti dengan nilai kontrol knob
+            minimumValue: 0
+            maximumValue: 100
+            Layout.fillWidth: true
+            onValueChanged: {
+                // Tambahkan logika untuk mengatur amplifier sesuai dengan kontrol knob
+            }
+        }
+
         RowLayout {
-            spacing: 10
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter // Mengganti anchors.horizontalCenter
-            CheckBox {
-                text: "Pengaturan Amplifier"
-                checked: false
+            Label {
+                text: "Output Range:"
             }
 
-            RangeSlider {
-                from: 0
-                to: 100
-                stepSize: 1
-                Layout.fillWidth: true
+            ComboBox {
+                id: outputRangeComboBox
+                model: ["Low", "Medium", "High"]
+                currentIndex: 1 // Ganti sesuai dengan pengaturan yang sesuai
+                onCurrentIndexChanged: {
+                    // Tambahkan logika untuk mengubah rentang keluaran amplifier
+                }
             }
         }
     }
