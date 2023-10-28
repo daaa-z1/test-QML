@@ -9,7 +9,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: "pages/Dashboard.qml"
+        initialItem: "pages/Dashboard.qml" | dashboardPage
         anchors.fill: parent
 
         // Properti popEnter dan popExit untuk mengatur animasi
@@ -26,28 +26,19 @@ ApplicationWindow {
         currentIndex: stackView.currentIndex
 
         TabButton {
-            text: "Dashboard"
-            onClicked: {
-                stackView.replace("pages/Dashboard.qml")
-                switchPage("dashboardPage") // Ubah "dashboardPage" sesuai dengan nama ID halaman Dashboard.qml
-            }
-        }
+        text: "Dashboard"
+        onClicked: pageController.changePage("pages/Dashboard.qml")
+    }
 
-        TabButton {
-            text: "Graph"
-            onClicked: {
-                stackView.replace("pages/Graph.qml")
-                switchPage("graphPage") // Ubah "graphPage" sesuai dengan nama ID halaman Graph.qml
-            }
-        }
+    TabButton {
+        text: "Graph"
+        onClicked: pageController.changePage("pages/Graph.qml")
+    }
 
-        TabButton {
-            text: "History"
-            onClicked: {
-                stackView.replace("pages/History.qml")
-                switchPage("historyPage") // Ubah "historyPage" sesuai dengan nama ID halaman History.qml
-            }
-        }
+    TabButton {
+        text: "History"
+        onClicked: pageController.changePage("pages/History.qml")
+    }
 
     }
 }

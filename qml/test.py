@@ -4,15 +4,17 @@ from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSlot
 from labjack import LabJackReader
 
-activePage = None
+class PageController(QObject):
+    def __init__(self):
+        super().__init__()
 
-def switchPage(pageName):
-    global activePage
-    if activePage:
-        activePage.setVisible(False)
-    activePage = engine.rootObjects()[0].findChild(QObject(), pageName)
-    if activePage:
-        activePage.setVisible(True)
+    @pyqtSlot(str)
+    def changePage(self, pageName):
+        # Hapus halaman yang aktif dari StackView
+        stackView.pop()
+
+        # Tambahkan halaman baru ke StackView
+        stackView.push(pageName)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -28,8 +30,9 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("currentValue", currentValue)
     engine.rootContext().setContextProperty("pressureValue", pressureValue)
 
-    # Hubungkan fungsi Python ke QML
-    engine.rootContext().setContextProperty("switchPage", switchPage)
+    # Tambahkan controller untuk mengubah halaman
+    controller = PageController()
+    engine.rootContext().setContextProperty("pageController", controller)
     
     # Membuat instance dari LabJackReader dan mendaftarkannya ke QML
     reader = LabJackReader()
