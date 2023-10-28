@@ -9,7 +9,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: "pages/Dashboard.qml" | dashboardPage
+        initialItem: dashboardPage
         anchors.fill: parent
 
         // Properti popEnter dan popExit untuk mengatur animasi
