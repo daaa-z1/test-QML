@@ -27,6 +27,7 @@ Item {
 
             // Draw the numbers around the arc.
             ctx.font = "20px Arial";
+            ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
@@ -41,9 +42,15 @@ Item {
             ctx.beginPath();
             ctx.moveTo(width / 2, height / 2);
             ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - 20), height / 2 + Math.sin(valueAngle) * (height / 2 - 20));
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 4;
             ctx.strokeStyle = "red";
             ctx.stroke();
+
+            // Draw the needle base.
+            ctx.beginPath();
+            ctx.arc(width / 2, height / 2, width / 20, 0, Math.PI * 2, false);
+            ctx.fillStyle = "red";
+            ctx.fill();
         }
     }
 
