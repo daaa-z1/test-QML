@@ -1,40 +1,38 @@
-// File: qml/pages/Dashboard.qml
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import "../controls"
+import QtQuick 2.11
+import QtQuick.Controls 2.4
 
 Page {
-    id: dashboardPage
-    width: 640
-    height: 480
+    title: "Dashboard"
 
-    Grid {
-        columns: 3
-        spacing: 20
-        anchors.centerIn: parent
+    Rectangle {
+        width: parent.width
+        height: parent.height
 
+        // Voltage Gauge
         CircleGauge {
-            id: voltageGauge
-            minValue: 0
-            maxValue: 220
-            value: 110 // AIN0
-            symbol: "V"
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            value: voltageValue
+            label: "Voltage"
+            unit: "V"
         }
 
+        // mA Gauge
         CircleGauge {
-            id: currentGauge
-            minValue: 0
-            maxValue: 1000
-            value: 500 // AIN1
-            symbol: "mA"
+            anchors.top: voltageGauge.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            value: mAValue
+            label: "mA"
+            unit: "mA"
         }
 
+        // Fluid Pressure Gauge
         CircleGauge {
-            id: pressureGauge
-            minValue: 0
-            maxValue: 100
-            value: 50 // AIN2
-            symbol: "Psi"
+            anchors.top: mAGauge.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            value: pressureValue
+            label: "Fluid Pressure"
+            unit: "psi"
         }
     }
 }
