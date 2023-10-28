@@ -15,7 +15,7 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
             value: voltageValue
             label: "Voltage"
-            unit: "V"
+            symbol: "V"
         }
 
         // mA Gauge
@@ -24,7 +24,7 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
             value: mAValue
             label: "mA"
-            unit: "mA"
+            symbol: "mA"
         }
 
         // Fluid Pressure Gauge
@@ -33,7 +33,7 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
             value: pressureValue
             label: "Fluid Pressure"
-            unit: "psi"
+            symbol: "psi"
         }
     }
 }

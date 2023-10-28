@@ -6,6 +6,7 @@ Item {
     property real minValue: 0
     property real maxValue: 100
     property string fontFamily: "Arial"
+    property string label: ""
     property string symbol: ""
 
     width: 200
@@ -53,6 +54,13 @@ Item {
             ctx.fillStyle = "red";
             ctx.fill();
         }
+    }
+
+    Text {
+    anchors.right: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    text: label
+    font.pixelSize: parent.height * 0.1
     }
 
     Text {
