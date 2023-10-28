@@ -1,8 +1,5 @@
-// File: main.qml
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-
-// import "pages"
 
 ApplicationWindow {
     visible: true
@@ -13,6 +10,24 @@ ApplicationWindow {
         id: stackView
         initialItem: "pages/Dashboard.qml"
         anchors.fill: parent
+
+        // Atur agar halaman lain tidak berjalan di latar belakang
+        clear: Transition {
+            ParallelAnimation {
+                NumberAnimation {
+                    properties: "x"
+                    from: 0
+                    to: -parent.width
+                    duration: 300
+                }
+                NumberAnimation {
+                    properties: "x"
+                    from: parent.width
+                    to: 0
+                    duration: 300
+                }
+            }
+        }
     }
 
     footer: TabBar {
