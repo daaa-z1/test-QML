@@ -60,7 +60,7 @@ Item {
     Text {
         id: valueText
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: canvas.bottom
+        anchors.top: canvas.verticalCenter
         text: valueItem.value.toFixed(1)
         font.pixelSize: parent.height * 0.1
     }
