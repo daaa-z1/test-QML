@@ -7,6 +7,7 @@ from labjack import LabJackReader
 class PageController(QObject):
     def __init__(self):
         super().__init__()
+        self.stackView = stackView
 
     @pyqtSlot(str)
     def changePage(self, pageName):
