@@ -60,8 +60,8 @@ Item {
     Text {
         id: valueText
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.verticalCenter
-        text: valueItem.value.toFixed(1) + " " + label
+        anchors.bottom: canvas.bottom
+        text: valueItem.value.toFixed(1) + " " + symbol
         font.pixelSize: parent.height * 0.1
     }
 
