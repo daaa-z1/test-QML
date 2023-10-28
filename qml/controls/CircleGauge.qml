@@ -75,7 +75,7 @@ Item {
 
     Text {
         id: symbolText
-        anchors.horizontalCenter: valueText.horizontalCenter
+        // anchors.horizontalCenter: valueText.horizontalCenter
         anchors.left: valueText.right
         text: symbol
         font.pixelSize: parent.height * 0.1
