@@ -58,7 +58,7 @@ Item {
     }
 
     Text {
-    anchors.right: parent.left
+    anchors.bottom: parent.top
     anchors.verticalCenter: parent.verticalCenter
     text: label
     font.pixelSize: parent.height * 0.1
@@ -74,7 +74,7 @@ Item {
 
     Text {
         id: valueText
-        anchors.top: symbolText.bottom
+        anchors.right: symbolText.left
         anchors.horizontalCenter: parent.horizontalCenter
         text: valueItem.value.toFixed(1)
         font.pixelSize: parent.height * 0.1
