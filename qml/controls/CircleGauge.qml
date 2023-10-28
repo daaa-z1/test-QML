@@ -18,11 +18,6 @@ Item {
             var ctx = getContext("2d");
             ctx.reset();
 
-            // Rotate the canvas by 90 degrees.
-            ctx.translate(width / 2, height / 2);
-            ctx.rotate(Math.PI * 90 / 180);
-            ctx.translate(-width / 2, -height / 2);
-
             // Draw the background arc.
             ctx.beginPath();
             ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.15, Math.PI * 1.85, false);
@@ -36,8 +31,8 @@ Item {
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
                 var angle = i * Math.PI * 1.7 / (maxValue - minValue) + Math.PI * 0.15;
-                var x = width - (width / 2 + Math.cos(angle) * (width / 2 - 30));
-                var y = height - (height / 2 + Math.sin(angle) * (height / 2 - 30));
+                var x = width / 2 + Math.cos(angle) * (width / 2 - 30);
+                var y = height / 2 + Math.sin(angle) * (height / 2 - 30);
                 ctx.fillText(i.toFixed(0), x, y);
             }
             
