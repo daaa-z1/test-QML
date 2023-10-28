@@ -9,12 +9,6 @@ Item {
 
     width: 200
     height: 200
-    
-    Rotation {
-        id: rotation
-        axis: { x: 0; y: 0; z: 1 }
-        angle: 90
-    }
 
     Canvas {
         id: canvas
@@ -50,6 +44,11 @@ Item {
             ctx.lineWidth = 2;
             ctx.strokeStyle = "red";
             ctx.stroke();
+
+            // Rotate the canvas by 90 degrees.
+            ctx.translate(width / 2, height / 2);
+            ctx.rotate(Math.PI * 90 / 180);
+            ctx.translate(-width / 2, -height / 2);
         }
     }
     
