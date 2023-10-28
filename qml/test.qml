@@ -11,7 +11,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: "qml/pages/Dashboard.qml"
+        initialItem: "../pages/Dashboard.qml"
         anchors.fill: parent
     }
 
@@ -21,17 +21,17 @@ ApplicationWindow {
 
         TabButton {
             text: "Dashboard"
-            onClicked: stackView.replace("qml/pages/Dashboard.qml")
+            onClicked: stackView.replace("../pages/Dashboard.qml")
         }
 
         TabButton {
             text: "Graph"
-            onClicked: stackView.replace("qml/pages/Graph.qml")
+            onClicked: stackView.replace("../pages/Graph.qml")
         }
 
         TabButton {
             text: "History"
-            onClicked: stackView.replace("qml/pages/History.qml")
+            onClicked: stackView.replace("../pages/History.qml")
         }
     }
 }
