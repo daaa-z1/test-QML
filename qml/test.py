@@ -34,7 +34,7 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("pageController", controller)
 
     # Muat halaman utama
-    engine.load("main.qml")
+    engine.load("test.qml")
 
     if not engine.rootObjects():
         sys.exit(-1)
