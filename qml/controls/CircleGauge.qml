@@ -58,23 +58,27 @@ Item {
     }
 
     Text {
-        anchors.centerIn: parent
+        id: valueText
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.bottom
         text: valueItem.value.toFixed(1)
         font.pixelSize: parent.height * 0.1
     }
 
     Text {
-        anchors.top: valueText.bottom
+        id: labelText
         anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.top
         text: label
-        font.pixelSize: parent.height * 0.05
+        font.pixelSize: parent.height * 0.1
     }
 
     Text {
-        anchors.top: symbolText.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
+        id: symbolText
+        anchors.horizontalCenter: valueText.horizontalCenter
+        anchors.left: valueText.right
         text: symbol
-        font.pixelSize: parent.height * 0.05
+        font.pixelSize: parent.height * 0.1
     }
 
     Item {
