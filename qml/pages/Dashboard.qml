@@ -18,7 +18,7 @@ Page {
             id: voltageGauge
             minValue: 0
             maxValue: 220
-            value: 110 // AIN0
+            value: voltageValue // AIN0
             symbol: "V"
             label: "Voltage"
         }
@@ -27,7 +27,7 @@ Page {
             id: currentGauge
             minValue: 0
             maxValue: 1000
-            value: 500 // AIN1
+            value: currentValue // AIN1
             symbol: "mA"
             label: "Current"
         }
@@ -36,7 +36,7 @@ Page {
             id: pressureGauge
             minValue: 0
             maxValue: 100
-            value: 50 // AIN2
+            value: pressureValue // AIN2
             symbol: "Psi"
             label: "Pressure"
         }

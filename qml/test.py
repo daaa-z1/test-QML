@@ -8,11 +8,11 @@ if __name__ == "__main__":
 
     # Variabel untuk mengatur nilai gauge
     voltageValue = 12.3  # Contoh nilai Voltage
-    mAValue = 5.6       # Contoh nilai mA
+    currentValue = 5.6       # Contoh nilai mA
     pressureValue = 25  # Contoh nilai tekanan fluida
 
     engine.rootContext().setContextProperty("voltageValue", voltageValue)
-    engine.rootContext().setContextProperty("mAValue", mAValue)
+    engine.rootContext().setContextProperty("mAValue", currentValue)
     engine.rootContext().setContextProperty("pressureValue", pressureValue)
 
     engine.load("test.qml")
