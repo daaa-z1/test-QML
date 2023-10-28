@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSlot
+from labjack import LabJackReader
 
 class PageController(QObject):
     def __init__(self):
@@ -32,6 +33,10 @@ if __name__ == "__main__":
     # Tambahkan controller untuk mengubah halaman
     controller = PageController()
     engine.rootContext().setContextProperty("pageController", controller)
+    
+    # Membuat instance dari LabJackReader dan mendaftarkannya ke QML
+    reader = LabJackReader()
+    engine.rootContext().setContextProperty("labJackReader", reader)
 
     # Muat halaman utama
     engine.load("test.qml")
