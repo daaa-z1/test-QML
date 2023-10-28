@@ -2,7 +2,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 
-import "pages"
+// import "pages"
 
 ApplicationWindow {
     visible: true
@@ -11,7 +11,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: "../pages/Dashboard.qml"
+        initialItem: "pages/Dashboard.qml"
         anchors.fill: parent
     }
 
@@ -21,17 +21,17 @@ ApplicationWindow {
 
         TabButton {
             text: "Dashboard"
-            onClicked: stackView.replace("../pages/Dashboard.qml")
+            onClicked: stackView.replace("pages/Dashboard.qml")
         }
 
         TabButton {
             text: "Graph"
-            onClicked: stackView.replace("../pages/Graph.qml")
+            onClicked: stackView.replace("pages/Graph.qml")
         }
 
         TabButton {
             text: "History"
-            onClicked: stackView.replace("../pages/History.qml")
+            onClicked: stackView.replace("pages/History.qml")
         }
     }
 }
