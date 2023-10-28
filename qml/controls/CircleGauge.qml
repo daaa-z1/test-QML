@@ -29,23 +29,24 @@ Item {
             ctx.arc(width / 2, height / 2, width / 2 - 2, -Math.PI / 2, valueItem.value * Math.PI * 2 / (maxValue - minValue) - Math.PI / 2, false);
             ctx.strokeStyle = "red";
             ctx.stroke();
-        }
-    }
 
-    Text {
-        id: valueText
-        anchors.centerIn: parent
-        text: valueItem.value.toFixed(1)
-        font.pixelSize: parent.height * 0.3
+            // Draw the numbers around the circle.
+            ctx.font = "20px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
+                var angle = i * Math.PI * 2 / (maxValue - minValue) - Math.PI / 2;
+                var x = width / 2 + Math.cos(angle) * (width / 2 - 30);
+                var y = height / 2 + Math.sin(angle) * (height / 2 - 30);
+                ctx.fillText(i.toFixed(0), x, y);
+            }
+        }
     }
 
     Item {
         id: valueItem
         property real value: 0
 
-        onValueChanged: {
-            canvas.requestPaint();
-            valueText.text = value.toFixed(1);
-        }
+        onValueChanged: canvas.requestPaint()
     }
 }
