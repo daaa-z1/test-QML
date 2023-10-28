@@ -10,13 +10,14 @@ class PageController(QObject):
 
     @pyqtSlot(str)
     def changePage(self, pageName):
-        # Get a reference to the StackView
-        stackView = engine.rootObjects()[0].findChild(QObject, "stackView")
-        # Hapus halaman yang aktif dari StackView
-        stackView.pop()
-
-        # Tambahkan halaman baru ke StackView
-        stackView.push(pageName)
+        # Dapatkan referensi ke engine
+        engine = self.parent
+        # Muat halaman baru
+        component = QQmlComponent(engine)
+        component.loadUrl(QUrl.fromLocalFile(pageName))
+        if component.status() == QQmlComponent.Ready:
+            self.parent.rootContext().setContextProperty("currentItem", component.beginCreate(engine.rootContext()))
+            component.completeCreate()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -41,13 +42,5 @@ if __name__ == "__main__":
 
     if not engine.rootObjects():
         sys.exit(-1)
-    
-    # # Dapatkan referensi ke StackView
-    # root = engine.rootObjects()[0]
-    # stackView = root.findChild(QObject, "stackView")
-
-    # Tambahkan controller untuk mengubah halaman
-    controller = PageController()
-    engine.rootContext().setContextProperty("pageController", controller)
 
     sys.exit(app.exec_())
