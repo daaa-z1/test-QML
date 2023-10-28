@@ -10,11 +10,13 @@ class PageController(QObject):
 
     @pyqtSlot(str)
     def changePage(self, pageName):
+        # Get a reference to the StackView
+        stackView = engine.rootObjects()[0].findChild(QObject, "stackView")
         # Hapus halaman yang aktif dari StackView
-        self.stackView.pop()
+        stackView.pop()
 
         # Tambahkan halaman baru ke StackView
-        self.stackView.push(pageName)
+        stackView.push(pageName)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
