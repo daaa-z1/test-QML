@@ -45,7 +45,7 @@ if __name__ == "__main__":
     # stackView = root.findChild(QObject, "stackView")
 
     # Tambahkan controller untuk mengubah halaman
-    controller = PageController(stackView)
+    controller = PageController()
     engine.rootContext().setContextProperty("pageController", controller)
 
     sys.exit(app.exec_())
