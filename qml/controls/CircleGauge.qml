@@ -8,6 +8,7 @@ Item {
     property string fontFamily: "Arial"
     property string label: ""
     property string symbol: ""
+    property color backgroundColor: "lightgray"
 
     width: 200
     height: 200
@@ -24,7 +25,7 @@ Item {
             ctx.beginPath();
             ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.85, Math.PI * 0.15, false);
             ctx.lineWidth = 4;
-            ctx.strokeStyle = "lightgray";
+            ctx.strokeStyle = backgroundColor;
             ctx.stroke();
 
             // Draw the numbers around the arc.
