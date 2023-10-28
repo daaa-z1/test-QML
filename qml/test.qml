@@ -26,19 +26,19 @@ ApplicationWindow {
         currentIndex: stackView.currentIndex
 
         TabButton {
-        text: "Dashboard"
-        onClicked: pageController.changePage("pages/Dashboard.qml")
-    }
+            text: "Dashboard"
+            onClicked: pageController.changePage("pages/Dashboard.qml")
+        }
 
-    TabButton {
-        text: "Graph"
-        onClicked: pageController.changePage("pages/Graph.qml")
-    }
+        TabButton {
+            text: "Graph"
+            onClicked: pageController.changePage("pages/Graph.qml")
+        }
 
-    TabButton {
-        text: "History"
-        onClicked: pageController.changePage("pages/History.qml")
-    }
+        TabButton {
+            text: "History"
+            onClicked: pageController.changePage("pages/History.qml")
+        }
 
     }
 }

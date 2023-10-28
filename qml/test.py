@@ -7,15 +7,14 @@ from labjack import LabJackReader
 class PageController(QObject):
     def __init__(self):
         super().__init__()
-        self.stackView = stackView
 
     @pyqtSlot(str)
     def changePage(self, pageName):
         # Hapus halaman yang aktif dari StackView
-        self.stackView.pop()
+        stackView.pop()
 
         # Tambahkan halaman baru ke StackView
-        self.stackView.push(pageName)
+        stackView.push(pageName)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -41,9 +40,9 @@ if __name__ == "__main__":
     if not engine.rootObjects():
         sys.exit(-1)
     
-    # Dapatkan referensi ke StackView
-    root = engine.rootObjects()[0]
-    stackView = root.findChild(QObject, "stackView")
+    # # Dapatkan referensi ke StackView
+    # root = engine.rootObjects()[0]
+    # stackView = root.findChild(QObject, "stackView")
 
     # Tambahkan controller untuk mengubah halaman
     controller = PageController(stackView)
