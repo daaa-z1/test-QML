@@ -1,5 +1,6 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick 2.11
+import QtQuick.Controls 2.4
+import "pages"
 
 ApplicationWindow {
     visible: true
@@ -11,22 +12,12 @@ ApplicationWindow {
         initialItem: "pages/Dashboard.qml"
         anchors.fill: parent
 
-        // Atur agar halaman lain tidak berjalan di latar belakang
-        clear: Transition {
-            ParallelAnimation {
-                NumberAnimation {
-                    properties: "x"
-                    from: 0
-                    to: -parent.width
-                    duration: 300
-                }
-                NumberAnimation {
-                    properties: "x"
-                    from: parent.width
-                    to: 0
-                    duration: 300
-                }
-            }
+        // Properti popEnter dan popExit untuk mengatur animasi
+        pushEnter: Transition {
+            NumberAnimation { properties: "x"; from: -parent.width; to: 0; duration: 300 }
+        }
+        pushExit: Transition {
+            NumberAnimation { properties: "x"; from: 0; to: parent.width; duration: 300 }
         }
     }
 
