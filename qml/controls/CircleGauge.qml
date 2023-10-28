@@ -2,9 +2,10 @@
 import QtQuick 2.0
 
 Item {
-    property alias value: valueItem.value
+    property real value: valueItem.value
     property real minValue: 0
     property real maxValue: 100
+    property string fontFamily: "Arial"
     property string symbol: ""
 
     width: 200
@@ -26,7 +27,7 @@ Item {
             ctx.stroke();
 
             // Draw the numbers around the arc.
-            ctx.font = "20px Arial";
+            ctx.font = "20px " + fontFamily;
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
