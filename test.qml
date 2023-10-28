@@ -20,17 +20,17 @@ ApplicationWindow {
 
         TabButton {
             text: "Dashboard"
-            onClicked: stackView.replace(Dashboard{})
+            onClicked: stackView.replace(Dashboard {})
         }
 
         TabButton {
             text: "Graph"
-            onClicked: stackView.replace(Graph{})
+            onClicked: stackView.replace(Graph {})
         }
 
         TabButton {
             text: "History"
-            onClicked: stackView.replace(History{})
+            onClicked: stackView.replace(History {})
         }
     }
 }
