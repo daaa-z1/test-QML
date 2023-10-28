@@ -91,10 +91,53 @@ ApplicationWindow {
         }
     }
 
-    TopBar {
+    Rectangle {
         id: topBar
+        color: "#1E2C3C" // Warna biru gelap
+        height: 60
         anchors.top: parent.top
         width: parent.width
-        // Tambahkan nama aplikasi, tanggal, waktu, ikon minimize, dan close di sini
+
+        TopBarBtn {
+            id: closeBtn
+            text: ""
+            btnIconSource: "../images/svg_images/close_icon.svg"
+            btnColorDefault: "transparent"
+            btnColorMouseOver: "#005280"
+            btnColorClicked: "#00a1f1"
+            textColor: "#ffffff"
+            iconWidth: 32
+            iconHeight: 32
+
+            anchors.left: topBar.left
+            anchors.leftMargin: 10
+            anchors.verticalCenter: topBar.verticalCenter
+
+            onClicked: {
+                // Handle tombol close di sini
+                Qt.quit();
+            }
+        }
+
+        TopBarBtn {
+            id: minimizeBtn
+            text: ""
+            btnIconSource: "../images/svg_images/minimize_icon.svg"
+            btnColorDefault: "transparent"
+            btnColorMouseOver: "#005280"
+            btnColorClicked: "#00a1f1"
+            textColor: "#ffffff"
+            iconWidth: 32
+            iconHeight: 32
+
+            anchors.left: closeBtn.right
+            anchors.leftMargin: 10
+            anchors.verticalCenter: topBar.verticalCenter
+
+            onClicked: {
+                // Handle tombol minimize di sini
+                ApplicationWindow.windowState = Qt.WindowMinimized;
+            }
+        }
     }
 }

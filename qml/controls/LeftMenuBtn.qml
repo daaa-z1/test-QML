@@ -1,5 +1,6 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
+import QtQuick.Controls 2.3
+import QtQuick.Controls.Material 2.3
 
 Button {
     id: btnLeftMenu
@@ -22,16 +23,8 @@ Button {
     implicitWidth: 250
     implicitHeight: 60
 
-    QtObject {
-        id: internal
-        // MOUSE OVER AND CLICK CHANGE COLOR
-        property var dynamicColor:
-            btnLeftMenu.down ? btnColorClicked : (btnLeftMenu.hovered ? btnColorMouseOver : btnColorDefault)
-    }
-
-    background: Rectangle {
-        id: bgBtn
-        color: internal.dynamicColor
+    Material.background: Rectangle {
+        color: btnLeftMenu.down ? btnColorClicked : (btnLeftMenu.hovered ? btnColorMouseOver : btnColorDefault)
         Rectangle {
             anchors {
                 top: parent.top
@@ -57,7 +50,6 @@ Button {
 
     contentItem: Item {
         anchors.fill: parent
-        id: content
         Image {
             id: iconBtn
             source: btnIconSource
@@ -70,13 +62,11 @@ Button {
             height: iconHeight
             fillMode: Image.PreserveAspectFit
             visible: false
-            antialiasing: true
         }
 
         Rectangle {
             anchors.fill: iconBtn
             color: isActiveMenu ? activeMenuColorRight : "#909090"
-            antialiasing: true
             width: iconWidth
             height: iconHeight
         }
