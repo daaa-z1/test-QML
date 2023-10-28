@@ -35,7 +35,10 @@ Item {
                 var y = height / 2 + Math.sin(angle) * (height / 2 - 30);
                 ctx.fillText(i.toFixed(0), x, y);
             }
-
+            // Rotate the canvas by 90 degrees.
+            ctx.translate(width / 2, height / 2);
+            ctx.rotate(Math.PI * 90 / 180);
+            ctx.translate(-width / 2, -height / 2);
             // Draw the needle.
             var valueAngle = valueItem.value * Math.PI * 1.7 / (maxValue - minValue) + Math.PI * 0.15;
             ctx.beginPath();
@@ -44,11 +47,6 @@ Item {
             ctx.lineWidth = 2;
             ctx.strokeStyle = "red";
             ctx.stroke();
-
-            // Rotate the canvas by 90 degrees.
-            ctx.translate(width / 2, height / 2);
-            ctx.rotate(Math.PI * 90 / 180);
-            ctx.translate(-width / 2, -height / 2);
         }
     }
     
