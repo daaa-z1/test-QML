@@ -1,125 +1,40 @@
-import QtQuick 2.11
-import QtQuick.Controls 2.3
-import QtQuick.Layouts 1.3
-import QtQuick.Extras 1.4
+// File: qml/pages/Dashboard.qml
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import "qml/controls"
 
 Page {
-    title: "Dashboard"
-    background: Rectangle {
-        color: "#1E2C3C" // Warna biru gelap sebagai primary
-    }
+    id: dashboardPage
+    width: 640
+    height: 480
 
-    ColumnLayout {
-        anchors.fill: parent
-        spacing: 10
+    Grid {
+        columns: 3
+        spacing: 20
+        anchors.centerIn: parent
 
-        // Bagian Kiri (Gauge dan Output LabJack)
-        GridLayout {
-            columns: 3
-            rowSpacing: 10
-            columnSpacing: 10
-            Layout.fillWidth: true
-
-            Gauge {
-                id: pressureGauge
-                value: 0
-                minimumValue: 0
-                maximumValue: 100
-                Label {
-                    text: "Tekanan"
-                    Layout.fillWidth: true
-                }
-            }
-
-            Gauge {
-                id: flowGauge
-                value: 0
-                minimumValue: 0
-                maximumValue: 100
-                Label {
-                    text: "Aliran Fluida"
-                    Layout.fillWidth: true
-                }
-            }
-
-            Gauge {
-                id: positionGauge
-                value: 0
-                minimumValue: 0
-                maximumValue: 100
-                Label {
-                    text: "Posisi Aktual Servo Valve"
-                    Layout.fillWidth: true
-                }
-            }
-
-            // Output LabJack
-            Button {
-                text: "Start"
-                onClicked: {
-                    // Lakukan aksi saat tombol "Start" ditekan
-                }
-            }
-
-            Button {
-                text: "Stop"
-                onClicked: {
-                    // Lakukan aksi saat tombol "Stop" ditekan
-                }
-            }
+        CircleGauge {
+            id: voltageGauge
+            minValue: 0
+            maxValue: 220
+            value: 110 // AIN0
+            symbol: "V"
         }
 
-        // Bagian Kanan (Kontrol Simpan Data, Start/Stop, Pengaturan Amplifier)
-        ColumnLayout {
-            Layout.fillWidth: true
-            spacing: 10
+        CircleGauge {
+            id: currentGauge
+            minValue: 0
+            maxValue: 1000
+            value: 500 // AIN1
+            symbol: "mA"
+        }
 
-            // Kontrol Simpan Data
-            Button {
-                text: "Simpan Data"
-                onClicked: {
-                    // Lakukan aksi saat tombol "Simpan Data" ditekan
-                }
-            }
-
-            Button {
-                text: "Start Pembacaan"
-                onClicked: {
-                    // Lakukan aksi saat tombol "Start Pembacaan" ditekan
-                }
-            }
-
-            Button {
-                text: "Stop Pembacaan"
-                onClicked: {
-                    // Lakukan aksi saat tombol "Stop Pembacaan" ditekan
-                }
-            }
-
-            // Pengaturan Amplifier
-            Label {
-                text: "Pengaturan Amplifier"
-            }
-
-            // Kontrol Knob
-            Slider {
-                from: 0
-                to: 100
-                stepSize: 1
-                value: 50
-            }
-
-            // Output Ranges
-            Label {
-                text: "Output Ranges"
-            }
-
-            Slider {
-                from: 0
-                to: 100
-                stepSize: 1
-                value: 50
-            }
+        CircleGauge {
+            id: pressureGauge
+            minValue: 0
+            maxValue: 100
+            value: 50 // AIN2
+            symbol: "Psi"
         }
     }
 }
