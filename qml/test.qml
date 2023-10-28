@@ -27,17 +27,18 @@ ApplicationWindow {
 
         TabButton {
             text: "Dashboard"
-            onClicked: stackView.replace("pages/Dashboard.qml")
+            onClicked: pageController.changePage("pages/Dashboard.qml")
         }
 
         TabButton {
             text: "Graph"
-            onClicked: stackView.replace("pages/Graph.qml")
+            onClicked: pageController.changePage("pages/Graph.qml")
         }
 
         TabButton {
             text: "History"
-            onClicked: stackView.replace("pages/History.qml")
+            onClicked: pageController.changePage("pages/History.qml")
         }
+
     }
 }
