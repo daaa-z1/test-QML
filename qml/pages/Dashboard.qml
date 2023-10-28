@@ -1,7 +1,7 @@
 // File: qml/pages/Dashboard.qml
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import "controls"
+import "../controls"
 
 Page {
     id: dashboardPage
