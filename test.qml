@@ -6,38 +6,32 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: "Contoh Aplikasi"
+    title: "Dashboard"
 
     Grid {
         columns: 3
         spacing: 20
         anchors.centerIn: parent
 
-        Dial {
-            id: voltageDial
-            from: 0
-            to: 220
-            value: 110
-            stepSize: 1
-            snapMode: Dial.SnapOnRelease
+        CircleGauge {
+            id: voltageGauge
+            minValue: 0
+            maxValue: 220
+            value: 110 // Ganti dengan nilai sebenarnya dari perangkat keras Anda.
         }
 
-        Dial {
-            id: currentDial
-            from: 0
-            to: 1000
-            value: 500
-            stepSize: 1
-            snapMode: Dial.SnapOnRelease
+        CircleGauge {
+            id: currentGauge
+            minValue: 0
+            maxValue: 1000
+            value: 500 // Ganti dengan nilai sebenarnya dari perangkat keras Anda.
         }
 
-        Dial {
-            id: pressureDial
-            from: 0
-            to: 100
-            value: 50
-            stepSize: 1
-            snapMode: Dial.SnapOnRelease
+        CircleGauge {
+            id: pressureGauge
+            minValue: 0
+            maxValue: 100
+            value: 50 // Ganti dengan nilai sebenarnya dari perangkat keras Anda.
         }
     }
 }
