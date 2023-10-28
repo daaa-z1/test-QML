@@ -24,12 +24,6 @@ Item {
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
-            // Draw the foreground circle.
-            ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 2 - 2, -Math.PI / 2, valueItem.value * Math.PI * 2 / (maxValue - minValue) - Math.PI / 2, false);
-            ctx.strokeStyle = "red";
-            ctx.stroke();
-
             // Draw the numbers around the circle.
             ctx.font = "20px Arial";
             ctx.textAlign = "center";
@@ -40,6 +34,15 @@ Item {
                 var y = height / 2 + Math.sin(angle) * (height / 2 - 30);
                 ctx.fillText(i.toFixed(0), x, y);
             }
+
+            // Draw the needle.
+            var valueAngle = valueItem.value * Math.PI * 2 / (maxValue - minValue) - Math.PI / 2;
+            ctx.beginPath();
+            ctx.moveTo(width / 2, height / 2);
+            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - 20), height / 2 + Math.sin(valueAngle) * (height / 2 - 20));
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "red";
+            ctx.stroke();
         }
     }
 
