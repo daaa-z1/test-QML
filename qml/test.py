@@ -11,10 +11,10 @@ class PageController(QObject):
     @pyqtSlot(str)
     def changePage(self, pageName):
         # Hapus halaman yang aktif dari StackView
-        stackView.pop()
+        self.stackView.pop()
 
         # Tambahkan halaman baru ke StackView
-        stackView.push(pageName)
+        self.stackView.push(pageName)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -30,10 +30,6 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("currentValue", currentValue)
     engine.rootContext().setContextProperty("pressureValue", pressureValue)
 
-    # Tambahkan controller untuk mengubah halaman
-    controller = PageController()
-    engine.rootContext().setContextProperty("pageController", controller)
-    
     # Membuat instance dari LabJackReader dan mendaftarkannya ke QML
     reader = LabJackReader()
     engine.rootContext().setContextProperty("labJackReader", reader)
@@ -43,5 +39,13 @@ if __name__ == "__main__":
 
     if not engine.rootObjects():
         sys.exit(-1)
+    
+    # Dapatkan referensi ke StackView
+    root = engine.rootObjects()[0]
+    stackView = root.findChild(QObject, "stackView")
+
+    # Tambahkan controller untuk mengubah halaman
+    controller = PageController(stackView)
+    engine.rootContext().setContextProperty("pageController", controller)
 
     sys.exit(app.exec_())
