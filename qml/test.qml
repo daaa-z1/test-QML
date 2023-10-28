@@ -27,17 +27,26 @@ ApplicationWindow {
 
         TabButton {
             text: "Dashboard"
-            onClicked: pageController.changePage("pages/Dashboard.qml")
+            onClicked: {
+                stackView.replace("pages/Dashboard.qml")
+                switchPage("dashboardPage") // Ubah "dashboardPage" sesuai dengan nama ID halaman Dashboard.qml
+            }
         }
 
         TabButton {
             text: "Graph"
-            onClicked: pageController.changePage("pages/Graph.qml")
+            onClicked: {
+                stackView.replace("pages/Graph.qml")
+                switchPage("graphPage") // Ubah "graphPage" sesuai dengan nama ID halaman Graph.qml
+            }
         }
 
         TabButton {
             text: "History"
-            onClicked: pageController.changePage("pages/History.qml")
+            onClicked: {
+                stackView.replace("pages/History.qml")
+                switchPage("historyPage") // Ubah "historyPage" sesuai dengan nama ID halaman History.qml
+            }
         }
 
     }
