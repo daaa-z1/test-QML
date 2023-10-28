@@ -24,7 +24,7 @@ Item {
             ctx.translate(width / 2, height / 2);
             ctx.rotate(Math.PI * 90 / 180);
             ctx.translate(-width / 2, -height / 2);
-            
+
             ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.15, Math.PI * 1.85, false);
             ctx.lineWidth = 4;
             ctx.strokeStyle = "lightgray";
@@ -38,6 +38,12 @@ Item {
                 var angle = i * Math.PI * 1.7 / (maxValue - minValue) + Math.PI * 0.15;
                 var x = width / 2 + Math.cos(angle) * (width / 2 - 30);
                 var y = height / 2 + Math.sin(angle) * (height / 2 - 30);
+
+                // Correct the rotation of the numbers.
+                ctx.translate(width / 2, height / 2);
+                ctx.rotate(-Math.PI * 90 / 180);
+                ctx.translate(-width / 2, -height / 2);
+                
                 ctx.fillText(i.toFixed(0), x, y);
             }
             
