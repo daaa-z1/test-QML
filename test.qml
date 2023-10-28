@@ -18,6 +18,7 @@ Window {
             minValue: 0
             maxValue: 220
             value: 110 // Ganti dengan nilai sebenarnya dari perangkat keras Anda.
+            symbol: "V"
         }
 
         CircleGauge {
@@ -25,6 +26,7 @@ Window {
             minValue: 0
             maxValue: 1000
             value: 500 // Ganti dengan nilai sebenarnya dari perangkat keras Anda.
+            symbol: "mA"
         }
 
         CircleGauge {
@@ -32,6 +34,7 @@ Window {
             minValue: 0
             maxValue: 100
             value: 50 // Ganti dengan nilai sebenarnya dari perangkat keras Anda.
+            symbol: "Psi"
         }
     }
 }
