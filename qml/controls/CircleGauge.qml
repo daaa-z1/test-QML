@@ -1,3 +1,4 @@
+// File: qml/controls/CircleGauge.qml
 import QtQuick 2.0
 
 Item {
@@ -31,10 +32,20 @@ Item {
         }
     }
 
+    Text {
+        id: valueText
+        anchors.centerIn: parent
+        text: valueItem.value.toFixed(1)
+        font.pixelSize: parent.height * 0.3
+    }
+
     Item {
         id: valueItem
         property real value: 0
 
-        onValueChanged: canvas.requestPaint()
+        onValueChanged: {
+            canvas.requestPaint();
+            valueText.text = value.toFixed(1);
+        }
     }
 }
