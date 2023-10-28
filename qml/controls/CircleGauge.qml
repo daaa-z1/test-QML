@@ -61,7 +61,7 @@ Item {
         id: valueText
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.verticalCenter
-        text: valueItem.value.toFixed(1)
+        text: valueItem.value.toFixed(1) + " " + label
         font.pixelSize: parent.height * 0.1
     }
 
@@ -70,14 +70,6 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.top
         text: label
-        font.pixelSize: parent.height * 0.1
-    }
-
-    Text {
-        id: symbolText
-        anchors.centerIn: valueText.right
-        anchors.left: valueText.right
-        text: symbol
         font.pixelSize: parent.height * 0.1
     }
 
