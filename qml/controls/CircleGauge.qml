@@ -9,6 +9,12 @@ Item {
 
     width: 200
     height: 200
+    
+    Rotation {
+        id: rotation
+        axis: { x: 0; y: 0; z: 1 }
+        angle: 90
+    }
 
     Canvas {
         id: canvas
@@ -17,9 +23,6 @@ Item {
         onPaint: {
             var ctx = getContext("2d");
             ctx.reset();
-            // Rotate the canvas by 90 degrees around its center.
-            ctx.transformOrigin = Qt.point(width / 2, height / 2);
-            ctx.rotate(90);
 
             // Draw the background arc.
             ctx.beginPath();
@@ -49,7 +52,7 @@ Item {
             ctx.stroke();
         }
     }
-
+    
     Text {
         id: symbolText
         anchors.bottom: parent.bottom
