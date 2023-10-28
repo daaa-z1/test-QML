@@ -29,7 +29,7 @@ Item {
             ctx.stroke();
 
             // Draw the numbers around the arc.
-            ctx.font = "20px " + fontFamily;
+            ctx.font = "16px " + fontFamily;
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
@@ -58,26 +58,23 @@ Item {
     }
 
     Text {
-    anchors.bottom: parent.top
-    anchors.verticalCenter: parent.verticalCenter
-    text: label
-    font.pixelSize: parent.height * 0.1
-    }
-
-    Text {
-        id: symbolText
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: symbol
-        font.pixelSize: parent.height * 0.1
-    }
-
-    Text {
-        id: valueText
-        anchors.right: symbolText.left
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.centerIn: parent
         text: valueItem.value.toFixed(1)
         font.pixelSize: parent.height * 0.1
+    }
+
+    Text {
+        anchors.top: valueText.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: label
+        font.pixelSize: parent.height * 0.05
+    }
+
+    Text {
+        anchors.top: symbolText.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: symbol
+        font.pixelSize: parent.height * 0.05
     }
 
     Item {
@@ -86,7 +83,6 @@ Item {
 
         onValueChanged: {
             canvas.requestPaint();
-            valueText.text = value.toFixed(1);
         }
     }
 }
