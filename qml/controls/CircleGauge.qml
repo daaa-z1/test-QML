@@ -60,7 +60,7 @@ Item {
     Text {
         id: valueText
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: canvas.verticalCenter
+        anchors.top: parent.verticalCenter
         text: valueItem.value.toFixed(1)
         font.pixelSize: parent.height * 0.1
     }
@@ -75,7 +75,7 @@ Item {
 
     Text {
         id: symbolText
-        anchors.top: canvas.bottom
+        anchors.center: valueText.right
         anchors.left: valueText.right
         text: symbol
         font.pixelSize: parent.height * 0.1
