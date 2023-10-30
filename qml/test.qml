@@ -1,10 +1,12 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
+import QtQuick.Layouts 1.3
 
 ApplicationWindow {
     visible: true
-    width: 640
-    height: 480
+    width: Screen.width
+    height: Screen.height
+    color: "#000080" // Warna biru tua sebagai warna latar belakang
 
     StackView {
         id: stackView
@@ -37,6 +39,26 @@ ApplicationWindow {
         TabButton {
             text: "History"
             onClicked: stackView.push("pages/History.qml")
+        }
+    }
+
+    Rectangle {
+        id: container
+        color: "#000080" // Warna biru tua sebagai warna latar belakang
+        width: parent.width * 0.7 // Lebar container adalah 70% dari lebar jendela aplikasi
+        height: parent.height * 0.7 // Tinggi container adalah 70% dari tinggi jendela aplikasi
+        anchors.centerIn: parent
+
+        GridLayout {
+            id: gridLayout
+            columns: 3 // Tiga kolom untuk grid
+            anchors.bottom: parent.bottom // Grid berada di bagian bawah container
+            width: parent.width // Lebar grid sama dengan lebar container
+            height: parent.height * 0.3 // Tinggi grid adalah 30% dari tinggi container
+
+            Rectangle { color: "#0000FF" } // Warna biru untuk kotak pertama
+            Rectangle { color: "#0000CD" } // Warna biru medium untuk kotak kedua
+            Rectangle { color: "#00008B" } // Warna biru gelap untuk kotak ketiga
         }
     }
 }
