@@ -46,4 +46,24 @@ ApplicationWindow {
             Rectangle { color: "#00008B" } // Warna biru gelap untuk kotak ketiga
         }
     }
+
+    footer: TabBar {
+        id: tabBar
+        currentIndex: stackView.currentIndex
+
+        TabButton {
+            text: "Dashboard"
+            onClicked: stackView.push("pages/Dashboard.qml")
+        }
+
+        TabButton {
+            text: "Graph"
+            onClicked: stackView.push("pages/Graph.qml")
+        }
+
+        TabButton {
+            text: "History"
+            onClicked: stackView.push("pages/History.qml")
+        }
+    }
 }
