@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtCharts 2.0
+import QtQuick 2.11
+import QtQuick.Controls 2.4
 
 Page {
     visible: true
@@ -7,25 +7,9 @@ Page {
     height: 480
     title: "Contoh Aplikasi"
 
-    ChartView {
-        id: chartView
-        title: "Temperature"
+    Rectangle {
+        id: graph
+        color: "black"
         anchors.fill: parent
-        antialiasing: true
-
-        LineSeries {
-            id: lineSeries
-            name: "Temperature"
-        }
-
-        Component.onCompleted: {
-            labJackReader.dataReady.connect(updateData);
-            labJackReader.readData();
-        }
-
-        function updateData(temperature) {
-            lineSeries.append(new Date().getTime(), temperature);
-            labJackReader.readData();
-        }
     }
 }

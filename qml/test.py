@@ -33,10 +33,6 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("currentValue", currentValue)
     engine.rootContext().setContextProperty("pressureValue", pressureValue)
 
-    # Tambahkan controller untuk mengubah halaman
-    controller = PageController()
-    engine.rootContext().setContextProperty("pageController", controller)
-    
     # Membuat instance dari LabJackReader dan mendaftarkannya ke QML
     reader = LabJackReader()
     engine.rootContext().setContextProperty("labJackReader", reader)

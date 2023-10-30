@@ -1,6 +1,5 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
-import "pages"
 
 ApplicationWindow {
     visible: true
@@ -27,18 +26,17 @@ ApplicationWindow {
 
         TabButton {
             text: "Dashboard"
-            onClicked: pageController.changePage("pages/Dashboard.qml")
+            onClicked: stackView.push("pages/Dashboard.qml")
         }
 
         TabButton {
             text: "Graph"
-            onClicked: pageController.changePage("pages/Graph.qml")
+            onClicked: stackView.push("pages/Graph.qml")
         }
 
         TabButton {
             text: "History"
-            onClicked: pageController.changePage("pages/History.qml")
+            onClicked: stackView.push("pages/History.qml")
         }
-
     }
 }
