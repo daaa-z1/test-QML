@@ -1,10 +1,14 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import "../controls"
+import "controls"
 
 Page {
     id: dashboardPage
+
+    header: PageHeader {
+        title: "Dashboard"
+    }
 
     property real ain0Value: 30
     property real ain1Value: 50
@@ -19,128 +23,123 @@ Page {
         width: parent.width
         height: parent.height
 
-        ColumnLayout {
-            id: mainLayout
+        GridLayout {
+            id: gaugeGrid
+            rows: 2
+            columns: 4
             anchors.centerIn: parent
-            spacing: 10
+            rowSpacing: 10
+            columnSpacing: 10
 
-            RowLayout {
-                spacing: 10
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
 
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#3498db"
-                    border.width: 3
-                    radius: Math.min(width, height) / 2
-
-                    CircleGauge {
-                        value: ain0Value
-                        minValue: 0
-                        maxValue: 100
-                    }
-                }
-
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#3498db"
-                    border.width: 3
-                    radius: Math.min(width, height) / 2
-
-                    CircleGauge {
-                        value: ain1Value
-                        minValue: 0
-                        maxValue: 100
-                    }
-                }
-
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#3498db"
-                    border.width: 3
-                    radius: Math.min(width, height) / 2
-
-                    CircleGauge {
-                        value: ain2Value
-                        minValue: 0
-                        maxValue: 100
-                    }
-                }
-
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#3498db"
-                    border.width: 3
-                    radius: Math.min(width, height) / 2
-
-                    CircleGauge {
-                        value: ain3Value
-                        minValue: 0
-                        maxValue: 100
-                    }
+                CircleGauge {
+                    value: ain0Value
+                    minValue: 0
+                    maxValue: 100
                 }
             }
 
-            RowLayout {
-                spacing: 10
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
 
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#3498db"
-                    border.width: 3
-                    radius: Math.min(width, height) / 2
-
-                    CircleGauge {
-                        value: ain4Value
-                        minValue: 0
-                        maxValue: 100
-                    }
+                CircleGauge {
+                    value: ain1Value
+                    minValue: 0
+                    maxValue: 100
                 }
+            }
 
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#3498db"
-                    border.width: 3
-                    radius: Math.min(width, height) / 2
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
 
-                    CircleGauge {
-                        value: ain5Value
-                        minValue: 0
-                        maxValue: 100
-                    }
+                CircleGauge {
+                    value: ain2Value
+                    minValue: 0
+                    maxValue: 100
                 }
+            }
 
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#3498db"
-                    border.width: 3
-                    radius: Math.min(width, height) / 2
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
 
-                    CircleGauge {
-                        value: ain6Value
-                        minValue: 0
-                        maxValue: 100
-                    }
+                CircleGauge {
+                    value: ain3Value
+                    minValue: 0
+                    maxValue: 100
                 }
+            }
 
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#3498db"
-                    border.width: 3
-                    radius: Math.min(width, height) / 2
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
 
-                    CircleGauge {
-                        value: ain7Value
-                        minValue: 0
-                        maxValue: 100
-                    }
+                CircleGauge {
+                    value: ain4Value
+                    minValue: 0
+                    maxValue: 100
+                }
+            }
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain5Value
+                    minValue: 0
+                    maxValue: 100
+                }
+            }
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain6Value
+                    minValue: 0
+                    maxValue: 100
+                }
+            }
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain7Value
+                    minValue: 0
+                    maxValue: 100
                 }
             }
         }
