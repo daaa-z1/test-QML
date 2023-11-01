@@ -11,16 +11,8 @@ ApplicationWindow {
         id: mainLayout
         anchors.fill: parent
 
-        Rectangle{
-            id: headerArea
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            Loader {
-                id: header
-                anchors.top: parent.top
-                sourceComponent: Qt.createComponent("controls/Header.qml")
-            } 
+        Header {
+            id: appHeader
         }
 
         Rectangle {
@@ -96,17 +88,8 @@ ApplicationWindow {
             }
         }
 
-        
-        Rectangle {
-            id: footerArea
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            Loader {
-                id: footer
-                anchors.bottom: parent.bottom
-                sourceComponent: Qt.createComponent("controls/Footer.qml")
-            }
+        Footer {
+            id: appFooter
         }
     }
 }
