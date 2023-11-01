@@ -6,10 +6,6 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    header: PageHeader {
-        title: "Dashboard"
-    }
-
     property real ain0Value: 30
     property real ain1Value: 50
     property real ain2Value: 70
