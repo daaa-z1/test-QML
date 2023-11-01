@@ -24,17 +24,24 @@ Rectangle {
     }
 
     // Tombol untuk menutup aplikasi
-    Rectangle {
-        id: closeButton
+    MouseArea {
+        id: closeButtonArea
+        anchors {
+            right: parent.right
+            verticalCenter: parent.verticalCenter
+        }
         width: 30
-        height: parent.height
-        radius: 15
-        color: "red"
-        anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
-        MouseArea {
-            anchors.fill: parent
-            onClicked: Qt.quit() // Menutup aplikasi saat tombol diklik
+        height: 30
+        onClicked: Qt.quit()
+
+        Rectangle {
+            width: 30
+            height: 30
+            color: "red" // Warna latar belakang tombol
+            radius: 15 // Mengubah ke bentuk lingkaran
+            border.color: "white"
+            border.width: 2
+            opacity: closeButtonArea.containsMouse ? 0.7 : 1.0 // Efek timbul saat mouse hover
         }
     }
 }
