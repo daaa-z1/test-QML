@@ -27,7 +27,7 @@ Rectangle {
     MouseArea {
         id: closeButtonArea
         anchors {
-            right: parent.right
+            right: parent.right + 3
             verticalCenter: parent.verticalCenter
         }
         width: 30
@@ -39,7 +39,6 @@ Rectangle {
         Rectangle {
             width: parent.width
             height: parent.height
-            padding: 10
 
             radius: width / 2
             color: "#e74c3c" // Warna merah
