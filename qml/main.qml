@@ -23,7 +23,7 @@ ApplicationWindow {
         sourceComponent: Qt.createComponent("pages/Dashboard.qml")
         }
 
-        RowLayout {
+        Row {
             anchors{
                 left: contentArea.left
                 bottom: contentArea.bottom
@@ -50,7 +50,7 @@ ApplicationWindow {
         }
     }
 
-    RowLayout {
+    Row {
         id: controlArea
         spacing: 10
         anchors.top: contentArea.bottom
