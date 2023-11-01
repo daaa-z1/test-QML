@@ -60,6 +60,7 @@ ApplicationWindow {
         // Grid 1 untuk komponen dari item controls
         Rectangle {
             id: controlAmplifier
+            width: parent.width/3
             color: "lightgray"
             border.color: "black" // Tambahkan border
             anchors {
@@ -72,6 +73,7 @@ ApplicationWindow {
         // Grid 2 untuk komponen dari item controls
         Rectangle {
             id: config
+            width: parent.width/3
             color: "lightgray"
             border.color: "black" // Tambahkan border
             anchors {
@@ -84,6 +86,7 @@ ApplicationWindow {
         // Grid 3 untuk komponen dari item controls
         Rectangle {
             id: dataSection
+            width: parent.width/3
             color: "lightgray"
             border.color: "black" // Tambahkan border
             anchors {
