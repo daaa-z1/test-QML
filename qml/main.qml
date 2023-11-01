@@ -10,19 +10,16 @@ ApplicationWindow {
     ColumnLayout {
         anchors.fill: parent
 
-        Rectangle{
+        Header {
+            id: appHeader
             Layout.preferredHeight: 30
             Layout.fillWidth: true
-            anchors.top: parent.top
-            
-            Header {
-            id: appHeader
-            }
+            Layout.alignment: Qt.AlignTop
         }
 
         Rectangle {
             id: contentArea
-            Layout.preferredHeight: (parent.height - appHeader.height) * 0.7
+            Layout.preferredHeight: (parent.height - appHeader.height - appFooter.height) * 0.7
             color: "transparent"
             Layout.fillWidth: true
 
@@ -94,14 +91,11 @@ ApplicationWindow {
             }
         }
 
-        Rectangle{
+        Footer {
+            id: appFooter
             Layout.preferredHeight: 30
             Layout.fillWidth: true
-            anchors.bottom: parent.bottom
-            
-            Footer {
-            id: appFooter
-            }
+            Layout.alignment: Qt.AlignBottom
         }
     }
 }
