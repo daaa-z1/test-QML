@@ -25,7 +25,7 @@ Rectangle {
 
     // Tombol untuk menutup aplikasi
     MouseArea {
-        id: closeButtonArea
+        id: closeArea
         anchors {
             right: parent.right
             verticalCenter: parent.verticalCenter
@@ -33,15 +33,25 @@ Rectangle {
         width: 30
         height: 30
         onClicked: Qt.quit()
+        onPressed: {
+                    closeEffect.source = closeArea
+                    closeEffect.start()
+        }
 
         Rectangle {
             width: 30
             height: 30
-            color: "red"
             radius: 15
-            border.color: "white"
-            border.width: 2
-            opacity: closeButtonArea.containsMouse ? 0.7 : 1.0 // Efek timbul saat mouse hover
         }
+
+        DropShadow {
+                id: closeEffect
+                horizontalOffset: 2
+                verticalOffset: 2
+                radius: 10
+                samples: 16
+                color: "red"
+                source: null
+            }
     }
 }
