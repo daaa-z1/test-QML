@@ -31,7 +31,7 @@ ApplicationWindow {
 
             Row {
                 anchors{
-                    left: contentArea.left
+                    horizontalCenter: parent.horizontalCenter
                     bottom: contentArea.bottom
                 }
                 spacing: 10
