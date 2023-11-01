@@ -27,7 +27,7 @@ Rectangle {
     MouseArea {
         id: closeButtonArea
         anchors {
-            right: parent.right + 3
+            right: parent.right + 0.3
             verticalCenter: parent.verticalCenter
         }
         width: 30
