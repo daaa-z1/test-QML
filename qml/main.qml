@@ -7,9 +7,9 @@ ApplicationWindow {
     visible: true
     visibility: "FullScreen"
 
-    ColumnLayout{
+    GridLayout{
         id: structureApp
-        spacing: 2
+        columns: 1
 
             Header {
                 id: appHeader
