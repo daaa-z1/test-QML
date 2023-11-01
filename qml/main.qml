@@ -17,9 +17,10 @@ ApplicationWindow {
 
         Rectangle {
             id: contentArea
-            Layout.fillHeight: true
+            // Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.preferredHeight: mainLayout.height * 0.7
+            Layout.preferredHeight: (mainLayout.height - appHeader.height) * 0.7
+            anchors.top: appHeader.bottom
             color: "transparent"
 
             Loader {
@@ -58,8 +59,10 @@ ApplicationWindow {
         RowLayout {
             id: controlArea
             spacing: 10
-            Layout.fillHeight: true
+            // Layout.fillHeight: true
+            Layout.preferredHeight: appHeader.height - contentArea.height - appFooter.height
             Layout.fillWidth: true
+            anchors.top: contentArea.bottom
 
             Rectangle {
                 id: controlAmplifier
@@ -91,6 +94,7 @@ ApplicationWindow {
 
         Footer {
             id: appFooter
+            anchors.bottom: parent.bottom
         }
     }
 }
