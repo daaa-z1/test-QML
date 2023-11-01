@@ -39,7 +39,7 @@ Rectangle {
         Rectangle {
             width: parent.width
             height: parent.height
-            margin: 10
+            padding: 10
 
             radius: width / 2
             color: "#e74c3c" // Warna merah
