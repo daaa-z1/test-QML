@@ -1,14 +1,10 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import "controls"
+import "../controls"
 
 Page {
     id: dashboardPage
-
-    header: PageHeader {
-        title: "Dashboard"
-    }
 
     property real ain0Value: 30
     property real ain1Value: 50
