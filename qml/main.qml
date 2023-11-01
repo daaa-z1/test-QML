@@ -8,7 +8,6 @@ ApplicationWindow {
     visibility: "FullScreen"
 
     ColumnLayout {
-        id: mainLayout
         anchors.fill: parent
 
         Header {
@@ -17,11 +16,9 @@ ApplicationWindow {
 
         Rectangle {
             id: contentArea
-            // Layout.fillHeight: true
-            Layout.fillWidth: true
-            height: (mainLayout.height - appHeader.height) * 0.7
-            anchors.top: appHeader.bottom
+            Layout.fillHeight: true
             color: "transparent"
+            Layout.fillWidth: true
 
             Loader {
                 id: pageLoader
@@ -29,12 +26,11 @@ ApplicationWindow {
                 sourceComponent: Qt.createComponent("pages/Dashboard.qml")
             }
 
-            Row {
-                anchors{
-                    horizontalCenter: parent.horizontalCenter
-                    bottom: contentArea.bottom
-                }
+            RowLayout {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
                 spacing: 10
+
                 Button {
                     text: "Dashboard"
                     onClicked: {
@@ -58,43 +54,40 @@ ApplicationWindow {
 
         RowLayout {
             id: controlArea
-            spacing: 10
-            // Layout.fillHeight: true
-            height: appHeader.height - contentArea.height - appFooter.height
+            Layout.fillHeight: true
             Layout.fillWidth: true
-            anchors.top: contentArea.bottom
+            spacing: 10
 
             Rectangle {
                 id: controlAmplifier
-                color: "lightgray"
-                border.color: "black"
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                color: "lightgray"
+                border.color: "black"
                 // Tambahkan komponen dari item controls di sini
             }
 
             Rectangle {
                 id: config
-                color: "lightgray"
-                border.color: "black"
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                color: "lightgray"
+                border.color: "black"
                 // Tambahkan komponen dari item controls di sini
             }
 
             Rectangle {
                 id: dataSection
-                color: "lightgray"
-                border.color: "black"
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                color: "lightgray"
+                border.color: "black"
                 // Tambahkan komponen dari item controls di sini
             }
         }
 
         Footer {
             id: appFooter
-            anchors.bottom: parent.bottom
         }
     }
 }
