@@ -37,8 +37,8 @@ Rectangle {
         Rectangle {
             width: 30
             height: 30
-            color: "red" // Warna latar belakang tombol
-            radius: 15 // Mengubah ke bentuk lingkaran
+            color: "red"
+            radius: 15
             border.color: "white"
             border.width: 2
             opacity: closeButtonArea.containsMouse ? 0.7 : 1.0 // Efek timbul saat mouse hover
