@@ -8,11 +8,6 @@ ApplicationWindow {
 
     header: Header {
         id: appHeader
-        text: "Aplikasi Servo Valve"
-        background: Rectangle {
-            color: "#3498db"
-            height: 30
-        }
     }
 
     Rectangle {
