@@ -1,10 +1,14 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import "../controls"
+import "controls"
 
 Page {
     id: dashboardPage
+
+    header: PageHeader {
+        title: "Dashboard"
+    }
 
     property real ain0Value: 30
     property real ain1Value: 50
@@ -27,9 +31,10 @@ Page {
             rowSpacing: 10
             columnSpacing: 10
 
+            // Baris pertama
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -42,8 +47,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -56,8 +61,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -70,8 +75,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -83,9 +88,10 @@ Page {
                 }
             }
 
+            // Baris kedua
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -98,8 +104,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -112,8 +118,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -126,8 +132,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
