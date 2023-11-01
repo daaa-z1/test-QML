@@ -10,8 +10,14 @@ ApplicationWindow {
     ColumnLayout {
         anchors.fill: parent
 
-        Header {
+        Rectangle{
+            Layout.preferredHeight: 30
+            Layout.fillWidth: true
+            anchors.top: parent.top
+            
+            Header {
             id: appHeader
+            }
         }
 
         Rectangle {
@@ -27,8 +33,10 @@ ApplicationWindow {
             }
 
             RowLayout {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+                anchors {
+                    bottom: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
                 spacing: 10
 
                 Button {
@@ -86,8 +94,14 @@ ApplicationWindow {
             }
         }
 
-        Footer {
+        Rectangle{
+            Layout.preferredHeight: 30
+            Layout.fillWidth: true
+            anchors.bottom: parent.bottom
+            
+            Footer {
             id: appFooter
+            }
         }
     }
 }
