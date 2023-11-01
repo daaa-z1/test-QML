@@ -64,7 +64,6 @@ ApplicationWindow {
             color: "lightgray"
             border.color: "black" // Tambahkan border
             anchors {
-                fill: parent
                 left: parent.left
             }
             // Tambahkan komponen dari item controls di sini
@@ -77,7 +76,6 @@ ApplicationWindow {
             color: "lightgray"
             border.color: "black" // Tambahkan border
             anchors {
-                fill: parent
                 left: parent.left
             } 
             // Tambahkan komponen dari item controls di sini
@@ -90,7 +88,6 @@ ApplicationWindow {
             color: "lightgray"
             border.color: "black" // Tambahkan border
             anchors {
-                fill: parent
                 left: parent.left
             }
             // Tambahkan komponen dari item controls di sini
