@@ -7,7 +7,7 @@ ApplicationWindow {
     visible: true
     visibility: "FullScreen"
 
-    GridLayout{
+    GridLayout.TopToBottom{
         id: structureApp
         columns: 1
 
