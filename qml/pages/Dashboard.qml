@@ -6,10 +6,6 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    header: PageHeader {
-        title: "Dashboard"
-    }
-
     contentItem: Item {
         width: parent.width
         height: parent.height
