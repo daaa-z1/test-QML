@@ -55,5 +55,6 @@ Rectangle {
                     closeButtonArea.opacity = 0.5
                 }
             }
+        }
     }
 }
