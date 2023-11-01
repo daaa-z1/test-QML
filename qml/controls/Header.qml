@@ -3,8 +3,8 @@ import QtQuick.Controls 2.15
 
 Item{
     id: appHeader
-    fillWidth: parent.fillWidth
-    height: parent.height
+    width: parent.width
+    height: 30
     Rectangle {
         color: "#3498db"
         height: 30
