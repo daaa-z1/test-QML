@@ -44,19 +44,6 @@ Rectangle {
             color: "#e74c3c" // Warna merah
             border.color: "#c0392b"
             border.width: 1
-
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: 300
-                }
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    closeButtonArea.opacity = 0.5
-                }
-            }
         }
     }
 }
