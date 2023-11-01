@@ -16,7 +16,7 @@ ApplicationWindow {
 
         Rectangle {
             id: contentArea
-            Layout.preferredHeight: parent.height * 0.7
+            Layout.preferredHeight: (parent.height - appHeader.height) * 0.7
             color: "transparent"
             Layout.fillWidth: true
 
