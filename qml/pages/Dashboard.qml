@@ -9,38 +9,54 @@ Page {
     width: parent.width
     height: parent.height
 
-    GridLayout {
-        id: gaugeGrid
-        columns: 4
-        anchors.centerIn: parent
-        rowSpacing: 10
-        columnSpacing: 10
+    property real ain0Value: 30
+    property real ain1Value: 50
+    property real ain2Value: 70
+    property real ain3Value: 40
+    property real ain4Value: 60
+    property real ain5Value: 20
+    property real ain6Value: 80
+    property real ain7Value: 90
 
-        CircleGauge {
-            id: voltageGauge
-            minValue: 0
-            maxValue: 220
-            value: voltageValue // AIN0
-            symbol: "V"
-            label: "Voltage"
-        }
+    contentItem: Item {
+        width: parent.width
+        height: parent.height
 
-        CircleGauge {
-            id: currentGauge
-            minValue: 0
-            maxValue: 1000
-            value: currentValue // AIN1
-            symbol: "mA"
-            label: "Current"
-        }
+        GridLayout {
+            id: gaugeGrid
+            rows: 2
+            columns: 4
+            anchors.centerIn: parent
+            rowSpacing: 10
+            columnSpacing: 10
 
-        CircleGauge {
-            id: pressureGauge
-            minValue: 0
-            maxValue: 100
-            value: pressureValue // AIN2
-            symbol: "Psi"
-            label: "Pressure"
+            function createGaugeWrapper(value, minValue, maxValue) {
+                Rectangle {
+                    width: gaugeGrid.cellWidth
+                    height: gaugeGrid.cellHeight
+                    color: "transparent"
+                    border.color: "#3498db"
+                    border.width: 3
+                    radius: Math.min(width, height) / 2 - 10
+
+                    CircleGauge {
+                        width: parent.width
+                        height: parent.height
+                        value: value
+                        minValue: minValue
+                        maxValue: maxValue
+                    }
+                }
+            }
+
+            createGaugeWrapper(ain0Value, 0, 100)
+            createGaugeWrapper(ain1Value, 0, 100)
+            createGaugeWrapper(ain2Value, 0, 100)
+            createGaugeWrapper(ain3Value, 0, 100)
+            createGaugeWrapper(ain4Value, 0, 100)
+            createGaugeWrapper(ain5Value, 0, 100)
+            createGaugeWrapper(ain6Value, 0, 100)
+            createGaugeWrapper(ain7Value, 0, 100)
         }
     }
 }
