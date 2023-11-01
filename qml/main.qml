@@ -10,8 +10,8 @@ ApplicationWindow {
     GridLayout{
         id: gridApp
         row: 4
-        
-            header: Header {
+
+            Header {
                 id: appHeader
             }
 
