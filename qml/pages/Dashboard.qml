@@ -1,73 +1,142 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import "../controls"
+import "controls"
 
 Page {
     id: dashboardPage
-    title: "Dashboard"
-    width: parent.width
-    height: parent.height
 
-    GridLayout {
-        id: gaugeGrid
-        columns: 4
-        rows: 2
-        anchors.centerIn: parent
-        rowSpacing: 10
-        columnSpacing: 10
+    property real ain0Value: 30
+    property real ain1Value: 50
+    property real ain2Value: 70
+    property real ain3Value: 40
+    property real ain4Value: 60
+    property real ain5Value: 20
+    property real ain6Value: 80
+    property real ain7Value: 90
 
-        Rectangle {
-            width: gaugeGrid.cellWidth
-            height: gaugeGrid.cellHeight
-            color: "transparent"
-            border.color: "#3498db"
-            border.width: 2
-            // radius: Math.min(width, height) / 2 - 10
-            
-            CircleGauge {
-                id: voltageGauge
-                minValue: 0
-                maxValue: 220
-                value: voltageValue // AIN0
-                symbol: "V"
-                label: "Voltage"
+    contentItem: Item {
+        width: parent.width
+        height: parent.height
+
+        GridLayout {
+            id: gaugeGrid
+            rows: 2
+            columns: 4
+            anchors.centerIn: parent
+            rowSpacing: 10
+            columnSpacing: 10
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain0Value
+                    minValue: 0
+                    maxValue: 100
+                }
             }
-        }
 
-        Rectangle {
-            width: gaugeGrid.cellWidth
-            height: gaugeGrid.cellHeight
-            color: "transparent"
-            border.color: "#3498db"
-            border.width: 2
-            // radius: Math.min(width, height) / 2 - 10
-            
-            CircleGauge {
-                id: currentGauge
-                minValue: 0
-                maxValue: 1000
-                value: currentValue // AIN1
-                symbol: "mA"
-                label: "Current"
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain1Value
+                    minValue: 0
+                    maxValue: 100
+                }
             }
-        }
 
-        Rectangle {
-            width: gaugeGrid.cellWidth
-            height: gaugeGrid.cellHeight
-            color: "transparent"
-            border.color: "#3498db"
-            border.width: 2
-            // radius: Math.min(width, height) / 2 - 10
-            
-            CircleGauge {
-                id: pressureGauge
-                minValue: 0
-                maxValue: 100
-                value: pressureValue // AIN2
-                symbol: "Psi"
-                label: "Pressure"
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain2Value
+                    minValue: 0
+                    maxValue: 100
+                }
+            }
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain3Value
+                    minValue: 0
+                    maxValue: 100
+                }
+            }
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain4Value
+                    minValue: 0
+                    maxValue: 100
+                }
+            }
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain5Value
+                    minValue: 0
+                    maxValue: 100
+                }
+            }
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain6Value
+                    minValue: 0
+                    maxValue: 100
+                }
+            }
+
+            Rectangle {
+                width: gaugeGrid.cellWidth
+                height: gaugeGrid.cellHeight
+                border.color: "#3498db"
+                border.width: 3
+                radius: Math.min(width, height) / 2
+
+                CircleGauge {
+                    value: ain7Value
+                    minValue: 0
+                    maxValue: 100
+                }
             }
         }
     }
