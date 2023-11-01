@@ -32,6 +32,7 @@ Rectangle {
         }
         width: 30
         height: 30
+        rightPadding: 10
         onClicked:{
             Qt.quit();
         }
