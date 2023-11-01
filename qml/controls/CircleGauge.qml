@@ -2,10 +2,10 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 Item {
-    property real value: 0 // Nilai gauge
-    property real minValue: 0 // Nilai minimum
-    property real maxValue: 100 // Nilai maksimum
-    property alias text: valueText.text // Untuk mengakses teks nilai
+    property real value: 0
+    property real minValue: 0
+    property real maxValue: 100
+    property alias text: valueText.text
 
     width: 100
     height: 100
@@ -52,8 +52,7 @@ Item {
         }
     }
 
-    Connections {
-        target: needleRotation
-        onAngleChanged: value = (angle / 180) * (maxValue - minValue) + minValue
+    Component.onCompleted: {
+        needleRotation.angle = (value - minValue) / (maxValue - minValue) * 180;
     }
 }
