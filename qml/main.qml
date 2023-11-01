@@ -64,10 +64,5 @@ ApplicationWindow {
 
     Footer {
         id: appFooter
-        text: "© 2023 Nama Anda"
-        background: Rectangle {
-            color: "#2c3e50" // Ganti dengan warna latar belakang yang Anda inginkan
-            height: 30
-        }
     }
 }
