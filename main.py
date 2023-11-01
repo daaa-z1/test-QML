@@ -38,7 +38,7 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("labJackReader", reader)
 
     # Muat halaman utama
-    engine.load("/qml/main.qml")
+    engine.load("qml/main.qml")
 
     if not engine.rootObjects():
         sys.exit(-1) 
