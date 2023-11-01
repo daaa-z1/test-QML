@@ -1,6 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.11
+import QtQuick.Layouts 1.15
 import "controls"
 
 ApplicationWindow {
@@ -15,6 +15,8 @@ ApplicationWindow {
 
             Header {
                 id: appHeader
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
 
             Rectangle {
@@ -66,6 +68,8 @@ ApplicationWindow {
 
             Footer {
                 id: appFooter
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
         }
     }
