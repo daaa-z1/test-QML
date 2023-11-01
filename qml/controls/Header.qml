@@ -32,7 +32,6 @@ Rectangle {
         }
         width: 30
         height: 30
-        rightPadding: 10
         onClicked:{
             Qt.quit();
         }
@@ -40,6 +39,7 @@ Rectangle {
         Rectangle {
             width: parent.width
             height: parent.height
+            rightPadding: 10
 
             radius: width / 2
             color: "#e74c3c" // Warna merah
