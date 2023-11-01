@@ -15,7 +15,6 @@ ApplicationWindow {
             id: headerArea
             Layout.fillHeight: true
             Layout.fillWidth: true
-            color: "transparent"
 
             Loader {
                 id: header
@@ -28,6 +27,7 @@ ApplicationWindow {
             id: contentArea
             Layout.fillHeight: true
             Layout.fillWidth: true
+            color: "transparent"
 
             Loader {
                 id: pageLoader
