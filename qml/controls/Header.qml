@@ -7,8 +7,9 @@ Rectangle {
     height: 30
 
     Text {
-        text: "Aplikasi Servo Valve"
-        font.pixelSize: 18
+        id: titleHeader
+        text: "Test Bench Expert"
+        font.pixelSize: 16
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
         leftPadding: 10
@@ -16,17 +17,21 @@ Rectangle {
 
     Text {
         text: "V 1.0.1"
-        font.pixelSize: 15
-        anchors.right: closeButton.left
+        font.pixelSize: 12
+        anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
-        rightPadding: 10
+        anchors.leftMargin: 10
     }
 
     // Tombol untuk menutup aplikasi
     Rectangle {
-        width: 15
+        id: closeButton
+        width: 30
         height: parent.height
+        radius: 15
         color: "red"
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
         MouseArea {
             anchors.fill: parent
             onClicked: Qt.quit() // Menutup aplikasi saat tombol diklik
