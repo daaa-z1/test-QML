@@ -1,39 +1,46 @@
 import sys
-from u6 import U6
-from PyQt5.QtCore import QCoreApplication, QObject, QUrl, QTimer, pyqtSlot, pyqtProperty
-from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtCore import QObject, pyqtSlot
+from labjack import LabJackReader
 
-class LabJackReader(QObject):
+class PageController(QObject):
     def __init__(self):
         super().__init__()
-        self.labjack = U6()
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.read_ain0)
-        self.timer.start(1000)  # Baca setiap 1 detik
-        self._ain0_value = 0.0
 
-    @pyqtSlot()
-    def read_ain0(self):
-        try:
-            self._ain0_value = self.labjack.getAIN(0)
-        except Exception as e:
-            print(f"Error reading AIN0: {e}")
-
-    @pyqtProperty(float)
-    def ain0(self):
-        return self._ain0_value
+    @pyqtSlot(str)
+    def changePage(self, pageName):
+        # Dapatkan referensi ke engine
+        engine = self.parent
+        # Muat halaman baru
+        component = QQmlComponent(engine)
+        component.loadUrl(QUrl.fromLocalFile(pageName))
+        if component.status() == QQmlComponent.Ready:
+            self.parent.rootContext().setContextProperty("currentItem", component.beginCreate(engine.rootContext()))
+            component.completeCreate()
 
 if __name__ == "__main__":
-    app = QGuiApplication(sys.argv)
+    app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
-    labjack_reader = LabJackReader()
 
-    engine.rootContext().setContextProperty("labjackReader", labjack_reader)
+    # Variabel untuk mengatur nilai gauge di halaman Dashboard
+    voltageValue = 120
+    currentValue = 500
+    pressureValue = 50
 
-    engine.load(QUrl("main.qml"))
-    
+    # Hubungkan variabel Python dengan variabel QML
+    engine.rootContext().setContextProperty("voltageValue", voltageValue)
+    engine.rootContext().setContextProperty("currentValue", currentValue)
+    engine.rootContext().setContextProperty("pressureValue", pressureValue)
+
+    # Membuat instance dari LabJackReader dan mendaftarkannya ke QML
+    reader = LabJackReader()
+    engine.rootContext().setContextProperty("labJackReader", reader)
+
+    # Muat halaman utama
+    engine.load("/qml/main.qml")
+
     if not engine.rootObjects():
-        sys.exit(-1)
+        sys.exit(-1) 
 
     sys.exit(app.exec_())
