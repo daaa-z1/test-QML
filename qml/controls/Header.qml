@@ -32,7 +32,9 @@ Rectangle {
         }
         width: 30
         height: 30
-        onClicked: Qt.quit()
+        onClicked:{
+            Qt.quit();
+        }
 
         Rectangle {
             width: parent.width
