@@ -12,6 +12,7 @@ Page {
     GridLayout {
         id: gaugeGrid
         columns: 4
+        rows: 2
         anchors.centerIn: parent
         rowSpacing: 10
         columnSpacing: 10
@@ -21,8 +22,8 @@ Page {
             height: gaugeGrid.cellHeight
             color: "transparent"
             border.color: "#3498db"
-            border.width: 3
-            radius: Math.min(width, height) / 2 - 10
+            border.width: 2
+            // radius: Math.min(width, height) / 2 - 10
             
             CircleGauge {
                 id: voltageGauge
@@ -34,22 +35,40 @@ Page {
             }
         }
 
-        CircleGauge {
-            id: currentGauge
-            minValue: 0
-            maxValue: 1000
-            value: currentValue // AIN1
-            symbol: "mA"
-            label: "Current"
+        Rectangle {
+            width: gaugeGrid.cellWidth
+            height: gaugeGrid.cellHeight
+            color: "transparent"
+            border.color: "#3498db"
+            border.width: 2
+            // radius: Math.min(width, height) / 2 - 10
+            
+            CircleGauge {
+                id: currentGauge
+                minValue: 0
+                maxValue: 1000
+                value: currentValue // AIN1
+                symbol: "mA"
+                label: "Current"
+            }
         }
 
-        CircleGauge {
-            id: pressureGauge
-            minValue: 0
-            maxValue: 100
-            value: pressureValue // AIN2
-            symbol: "Psi"
-            label: "Pressure"
+        Rectangle {
+            width: gaugeGrid.cellWidth
+            height: gaugeGrid.cellHeight
+            color: "transparent"
+            border.color: "#3498db"
+            border.width: 2
+            // radius: Math.min(width, height) / 2 - 10
+            
+            CircleGauge {
+                id: pressureGauge
+                minValue: 0
+                maxValue: 100
+                value: pressureValue // AIN2
+                symbol: "Psi"
+                label: "Pressure"
+            }
         }
     }
 }
