@@ -27,9 +27,10 @@ Page {
             rowSpacing: 10
             columnSpacing: 10
 
+            // Baris pertama
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -42,8 +43,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -56,8 +57,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -70,8 +71,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -83,9 +84,10 @@ Page {
                 }
             }
 
+            // Baris kedua
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -98,8 +100,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -112,8 +114,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
@@ -126,8 +128,8 @@ Page {
             }
 
             Rectangle {
-                width: gaugeGrid.cellWidth
-                height: gaugeGrid.cellHeight
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 border.color: "#3498db"
                 border.width: 3
                 radius: Math.min(width, height) / 2
