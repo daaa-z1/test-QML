@@ -13,12 +13,12 @@ ApplicationWindow {
 
         Rectangle{
             id: headerArea
-            Layout.fillHeight: false
-            Layout.fillWidth: false
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
             Loader {
                 id: header
-                anchors.fill: parent
+                anchors.top: parent.top
                 sourceComponent: Qt.createComponent("controls/Header.qml")
             } 
         }
@@ -99,12 +99,12 @@ ApplicationWindow {
         
         Rectangle {
             id: footerArea
-            Layout.fillHeight: false
-            Layout.fillWidth: false
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
             Loader {
                 id: footer
-                anchors.fill: parent
+                anchors.bottom: parent.bottom
                 sourceComponent: Qt.createComponent("controls/Footer.qml")
             }
         }
