@@ -12,12 +12,11 @@ ApplicationWindow {
 
         Header {
             id: appHeader
-            Layout.preferredHeight: contentHeight
         }
 
         Rectangle {
             id: contentArea
-            Layout.fillHeight: true
+            Layout.preferredHeight: parent.height * 0.7
             color: "transparent"
             Layout.fillWidth: true
 
@@ -28,7 +27,7 @@ ApplicationWindow {
             }
 
             RowLayout {
-                Layout.preferredHeight: contentHeight
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 spacing: 10
 
@@ -55,13 +54,13 @@ ApplicationWindow {
 
         RowLayout {
             id: controlArea
-            Layout.preferredHeight: contentHeight
+            Layout.preferredHeight: contentArea.height - appFooter.height
             Layout.fillWidth: true
             spacing: 10
 
             Rectangle {
                 id: controlAmplifier
-                Layout.preferredHeight: controlArea.height
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
@@ -70,7 +69,7 @@ ApplicationWindow {
 
             Rectangle {
                 id: config
-                Layout.preferredHeight: controlArea.height
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
@@ -79,7 +78,7 @@ ApplicationWindow {
 
             Rectangle {
                 id: dataSection
-                Layout.preferredHeight: controlArea.height
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
@@ -89,7 +88,6 @@ ApplicationWindow {
 
         Footer {
             id: appFooter
-            Layout.preferredHeight: contentHeight
         }
     }
 }
