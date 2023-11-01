@@ -60,21 +60,21 @@ ApplicationWindow {
         // Grid 1 untuk komponen dari item controls
         Rectangle {
             color: "lightgray"
-            anchors.fill: parent
+            anchors.fill: parent/3
             // Tambahkan komponen dari item controls di sini
         }
 
         // Grid 2 untuk komponen dari item controls
         Rectangle {
             color: "lightgray"
-            anchors.fill: parent
+            anchors.fill: parent/3
             // Tambahkan komponen dari item controls di sini
         }
 
         // Grid 3 untuk komponen dari item controls
         Rectangle {
             color: "lightgray"
-            anchors.fill: parent
+            anchors.fill: parent/3
             // Tambahkan komponen dari item controls di sini
         }
     }
