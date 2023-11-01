@@ -5,46 +5,42 @@ import "../controls"
 
 Page {
     id: dashboardPage
+    title: "Dashboard"
+    width: parent.width
+    height: parent.height
 
-    property var ainData: [
-        { value: 30, minValue: 0, maxValue: 100 },
-        { value: 50, minValue: 0, maxValue: 100 },
-        { value: 70, minValue: 0, maxValue: 100 },
-        { value: 40, minValue: 0, maxValue: 100 },
-        { value: 60, minValue: 0, maxValue: 100 },
-        { value: 20, minValue: 0, maxValue: 100 },
-        { value: 80, minValue: 0, maxValue: 100 },
-        { value: 90, minValue: 0, maxValue: 100 }
-    ]
+    GridLayout {
+        id: gaugeGrid
+        columns: 4
+        anchors.centerIn: parent
+        rowSpacing: 10
+        columnSpacing: 10
 
-    contentItem: Item {
-        width: parent.width
-        height: parent.height
+        CircleGauge {
+            id: voltageGauge
+            minValue: 0
+            maxValue: 220
+            value: voltageValue // AIN0
+            symbol: "V"
+            label: "Voltage"
+        }
 
-        GridLayout {
-            id: gaugeGrid
-            rows: 2
-            columns: 4
-            anchors.centerIn: parent
-            rowSpacing: 10
-            columnSpacing: 10
+        CircleGauge {
+            id: currentGauge
+            minValue: 0
+            maxValue: 1000
+            value: currentValue // AIN1
+            symbol: "mA"
+            label: "Current"
+        }
 
-            Repeater {
-                model: ainData.length
-                Item {
-                    width: gaugeGrid.cellWidth
-                    height: gaugeGrid.cellHeight
-
-                    CircleGauge {
-                        id: gauge
-                        width: parent.width
-                        height: parent.height
-                        value: ainData[index].value
-                        minValue: ainData[index].minValue
-                        maxValue: ainData[index].maxValue
-                    }
-                }
-            }
+        CircleGauge {
+            id: pressureGauge
+            minValue: 0
+            maxValue: 100
+            value: pressureValue // AIN2
+            symbol: "Psi"
+            label: "Pressure"
         }
     }
 }
