@@ -19,7 +19,7 @@ ApplicationWindow {
             id: contentArea
             // Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.preferredHeight: (mainLayout.height - appHeader.height) * 0.7
+            height: (mainLayout.height - appHeader.height) * 0.7
             anchors.top: appHeader.bottom
             color: "transparent"
 
@@ -60,7 +60,7 @@ ApplicationWindow {
             id: controlArea
             spacing: 10
             // Layout.fillHeight: true
-            Layout.preferredHeight: appHeader.height - contentArea.height - appFooter.height
+            height: appHeader.height - contentArea.height - appFooter.height
             Layout.fillWidth: true
             anchors.top: contentArea.bottom
 
