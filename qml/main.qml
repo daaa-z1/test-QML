@@ -61,8 +61,9 @@ ApplicationWindow {
         Rectangle {
             id: controlAmplifier
             color: "lightgray"
+            border.color: "black" // Tambahkan border
             anchors {
-                fill: parent/3
+                fill: parent
                 left: parent.left
             }
             // Tambahkan komponen dari item controls di sini
@@ -72,9 +73,10 @@ ApplicationWindow {
         Rectangle {
             id: config
             color: "lightgray"
+            border.color: "black" // Tambahkan border
             anchors {
-                fill: parent/3
-                left: controlAmplifier.right
+                fill: parent
+                left: parent.left
             } 
             // Tambahkan komponen dari item controls di sini
         }
@@ -83,9 +85,10 @@ ApplicationWindow {
         Rectangle {
             id: dataSection
             color: "lightgray"
+            border.color: "black" // Tambahkan border
             anchors {
-                fill: parent/3
-                left: config.right
+                fill: parent
+                left: parent.left
             }
             // Tambahkan komponen dari item controls di sini
         }
