@@ -11,8 +11,10 @@ ApplicationWindow {
         id: mainLayout
         anchors.fill: parent
 
-        Header {
+        Rectangle{
+            Header {
             id: appHeader
+            } 
         }
 
         Rectangle {
@@ -88,8 +90,11 @@ ApplicationWindow {
             }
         }
 
-        Footer {
-            id: appFooter
+        
+        Rectangle {
+            Footer {
+                id: appFooter
+            }
         }
     }
 }
