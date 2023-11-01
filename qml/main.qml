@@ -7,21 +7,19 @@ ApplicationWindow {
     visible: true
     visibility: "FullScreen"
 
-    Header {
-        id: appHeader
-    }
-
     ColumnLayout {
         id: mainLayout
-        anchors{
-            top: appHeader.bottom
-        }
+        anchors.fill: parent
 
+        Header {
+            id: appHeader
+        }
 
         Rectangle {
             id: contentArea
             Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.preferredHeight: mainLayout.height * 0.7
             color: "transparent"
 
             Loader {
@@ -91,9 +89,8 @@ ApplicationWindow {
             }
         }
 
-    }
-    Footer {
-        id: appFooter
-        anchors.top: mainLayout.bottom
+        Footer {
+            id: appFooter
+        }
     }
 }
