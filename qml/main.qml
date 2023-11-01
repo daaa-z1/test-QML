@@ -86,7 +86,7 @@ ApplicationWindow {
         // Grid 3 untuk komponen dari item controls
         Rectangle {
             id: dataSection
-            width: parent.width/3
+            width: parent.width/3 
             color: "lightgray"
             border.color: "black" // Tambahkan border
             anchors {
