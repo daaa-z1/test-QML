@@ -10,14 +10,14 @@ Rectangle {
         id: titleHeader
         text: "Test Bench Expert"
         font.pixelSize: 16
-        anchors.left: parent.left
+        anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         leftPadding: 10
     }
 
     Text {
         text: "V 1.0.1"
-        font.pixelSize: 12
+        font.pixelSize: 14
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: 10
