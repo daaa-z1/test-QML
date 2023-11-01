@@ -59,22 +59,34 @@ ApplicationWindow {
 
         // Grid 1 untuk komponen dari item controls
         Rectangle {
+            id: controlAmplifier
             color: "lightgray"
-            anchors.fill: parent/3
+            anchors {
+                fill: parent/3
+                left: parent.left
+            }
             // Tambahkan komponen dari item controls di sini
         }
 
         // Grid 2 untuk komponen dari item controls
         Rectangle {
+            id: config
             color: "lightgray"
-            anchors.fill: parent/3
+            anchors {
+                fill: parent/3
+                left: controlAmplifier.right
+            } 
             // Tambahkan komponen dari item controls di sini
         }
 
         // Grid 3 untuk komponen dari item controls
         Rectangle {
+            id: dataSection
             color: "lightgray"
-            anchors.fill: parent/3
+            anchors {
+                fill: parent/3
+                left: config.right
+            }
             // Tambahkan komponen dari item controls di sini
         }
     }
