@@ -13,8 +13,8 @@ ApplicationWindow {
 
         Rectangle{
             id: headerArea
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            Layout.fillHeight: false
+            Layout.fillWidth: false
 
             Loader {
                 id: header
@@ -99,8 +99,8 @@ ApplicationWindow {
         
         Rectangle {
             id: footerArea
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            Layout.fillHeight: false
+            Layout.fillWidth: false
 
             Loader {
                 id: footer
