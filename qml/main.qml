@@ -7,7 +7,7 @@ ApplicationWindow {
     visible: true
     visibility: "FullScreen"
 
-    columnLayout{
+    ColumnLayout{
         id: structureApp
         spacing: 2
 
