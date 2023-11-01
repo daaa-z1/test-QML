@@ -22,8 +22,7 @@ Page {
         ColumnLayout {
             id: mainLayout
             anchors.centerIn: parent
-            rowSpacing: 10
-            columnSpacing: 10
+            spacing: 10
 
             RowLayout {
                 spacing: 10
