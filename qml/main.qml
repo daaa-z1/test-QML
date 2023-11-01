@@ -50,50 +50,41 @@ ApplicationWindow {
         }
     }
 
-    Row {
+    RowLayout {
         id: controlArea
         spacing: 10
         anchors.top: contentArea.bottom
         height: parent.height - contentArea.height - appFooter.height
         width: parent.width
 
-        // Grid 1 untuk komponen dari item controls
         Rectangle {
             id: controlAmplifier
-            width: parent.width/3
             color: "lightgray"
-            border.color: "black" // Tambahkan border
-            anchors {
-                left: parent.left
-            }
+            border.color: "black"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
             // Tambahkan komponen dari item controls di sini
         }
 
-        // Grid 2 untuk komponen dari item controls
         Rectangle {
             id: config
-            width: parent.width/3
             color: "lightgray"
-            border.color: "black" // Tambahkan border
-            anchors {
-                left: parent.left
-            } 
+            border.color: "black"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
             // Tambahkan komponen dari item controls di sini
         }
 
-        // Grid 3 untuk komponen dari item controls
         Rectangle {
             id: dataSection
-            width: parent.width/3 
             color: "lightgray"
-            border.color: "black" // Tambahkan border
-            anchors {
-                left: parent.left
-            }
+            border.color: "black"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
             // Tambahkan komponen dari item controls di sini
         }
     }
-
+    
     Footer {
         id: appFooter
     }
