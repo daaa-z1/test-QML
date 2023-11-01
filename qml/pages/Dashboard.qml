@@ -26,7 +26,8 @@ Page {
             rows: 2
             columns: 4
             anchors.centerIn: parent
-            spacing: 10
+            rowSpacing: 10
+            columnSpacing: 10
 
             Repeater {
                 model: ainData.length
