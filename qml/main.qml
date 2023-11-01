@@ -23,39 +23,60 @@ ApplicationWindow {
         sourceComponent: Qt.createComponent("pages/Dashboard.qml")
         }
 
-        // Tombol untuk memuat halaman Dashboard
-        Button {
-            text: "Dashboard"
-            onClicked: {
-                pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
+        RowLayout {
+            anchors{
+                left: contentArea.left
+                bottom: contentArea.bottom
             }
-        }
-
-        // Tombol untuk memuat halaman Graph
-        Button {
-            text: "Graph"
-            onClicked: {
-                pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
+            spacing: 10
+            Button {
+                text: "Dashboard"
+                onClicked: {
+                    pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
+                }
             }
-        }
-
-        // Tombol untuk memuat halaman History
-        Button {
-            text: "History"
-            onClicked: {
-                pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
+            Button {
+                text: "Graph"
+                onClicked: {
+                    pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
+                }
+            }
+            Button {
+                text: "History"
+                onClicked: {
+                    pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
+                }
             }
         }
     }
 
-    Rectangle {
+    RowLayout {
         id: controlArea
-        color: "lightgray" // Ganti dengan warna latar belakang yang Anda inginkan
+        spacing: 10
         anchors.top: contentArea.bottom
         height: parent.height - contentArea.height - appFooter.height
         width: parent.width
 
-        // Tambahkan bagian kontrol aplikasi LabJack di sini
+        // Grid 1 untuk komponen dari item controls
+        Rectangle {
+            color: "lightgray"
+            anchors.fill: parent
+            // Tambahkan komponen dari item controls di sini
+        }
+
+        // Grid 2 untuk komponen dari item controls
+        Rectangle {
+            color: "lightgray"
+            anchors.fill: parent
+            // Tambahkan komponen dari item controls di sini
+        }
+
+        // Grid 3 untuk komponen dari item controls
+        Rectangle {
+            color: "lightgray"
+            anchors.fill: parent
+            // Tambahkan komponen dari item controls di sini
+        }
     }
 
     Footer {
