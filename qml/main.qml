@@ -16,7 +16,6 @@ ApplicationWindow {
 
         Rectangle {
             id: contentArea
-            Layout.fillHeight: true
             color: "transparent"
             Layout.fillWidth: true
 
@@ -27,7 +26,6 @@ ApplicationWindow {
             }
 
             RowLayout {
-                Layout.fillHeight: true
                 Layout.fillWidth: true
                 spacing: 10
 
@@ -54,13 +52,12 @@ ApplicationWindow {
 
         RowLayout {
             id: controlArea
-            Layout.fillHeight: true
-            Layout.fillWidth: true
             spacing: 10
+            Layout.preferredHeight: 200 // Atur tinggi sesuai preferensi Anda
+            Layout.fillWidth: true
 
             Rectangle {
                 id: controlAmplifier
-                Layout.fillHeight: true
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
@@ -69,7 +66,6 @@ ApplicationWindow {
 
             Rectangle {
                 id: config
-                Layout.fillHeight: true
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
@@ -78,7 +74,6 @@ ApplicationWindow {
 
             Rectangle {
                 id: dataSection
-                Layout.fillHeight: true
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
