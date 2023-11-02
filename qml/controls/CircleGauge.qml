@@ -21,7 +21,7 @@ Item {
             var centerY = height / 2;
             var radius = Math.min(centerX, centerY) - 10;
             var startAngle = -Math.PI * 0.75;
-            var endAngle = startAngle + (Math.PI * 1.5);
+            var endAngle = -Math.PI * 0.75 + Math.PI * 1.5;
 
             // Draw the background arc.
             ctx.beginPath();
