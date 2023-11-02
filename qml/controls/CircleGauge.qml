@@ -24,37 +24,36 @@ Item {
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
-            // Draw major tickmarks and numbers.
-            ctx.font = width * 0.1 + "px Arial";
+            // Draw major tickmarks and labels.
+            ctx.font = width * 0.08 + "px Arial";
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
                 var angle = (i - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
-                var x1 = width / 2 + Math.cos(angle) * (width / 2 - width * 0.1);
-                var y1 = height / 2 + Math.sin(angle) * (height / 2 - height * 0.1);
-                var x2 = width / 2 + Math.cos(angle) * (width / 2 - width * 0.13);
-                var y2 = height / 2 + Math.sin(angle) * (height / 2 - height * 0.13);
-
+                var x1 = width / 2 + Math.cos(angle) * (width / 2 - width * 0.18);
+                var y1 = height / 2 + Math.sin(angle) * (height / 2 - height * 0.18);
+                var x2 = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
+                var y2 = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
+                ctx.fillText(i.toFixed(0), x1, y1);
                 ctx.beginPath();
                 ctx.moveTo(x1, y1);
                 ctx.lineTo(x2, y2);
                 ctx.lineWidth = width * 0.02;
                 ctx.strokeStyle = "black";
                 ctx.stroke();
-
-                ctx.fillText(i.toFixed(0), x2, y2);
             }
 
             // Draw minor tickmarks.
-            for (var j = minValue; j <= maxValue; j += (maxValue - minValue) / 100) {
-                var minorAngle = (j - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
-                var x3 = width / 2 + Math.cos(minorAngle) * (width / 2 - width * 0.12);
-                var y3 = height / 2 + Math.sin(minorAngle) * (height / 2 - height * 0.12);
-
+            for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 20) {
+                var angle = (i - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
+                var x1 = width / 2 + Math.cos(angle) * (width / 2 - width * 0.17);
+                var y1 = height / 2 + Math.sin(angle) * (height / 2 - height * 0.17);
+                var x2 = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
+                var y2 = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
                 ctx.beginPath();
-                ctx.moveTo(x3, y3);
-                ctx.lineTo(x2, y2); // Connect to the nearest major tickmark
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
                 ctx.lineWidth = width * 0.01;
                 ctx.strokeStyle = "black";
                 ctx.stroke();
@@ -71,7 +70,7 @@ Item {
 
             // Draw the needle base.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 15, 0, Math.PI * 2, false);
+            ctx.arc(width / 2, height / 2, width / 20, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
