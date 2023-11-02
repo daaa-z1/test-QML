@@ -12,7 +12,7 @@ Item {
     Canvas {
         id: canvas
         anchors.fill: parent
-        y: parent.height * 0.1 // Menurunkan posisi gauge
+        y: parent.height * 0.5 // Menurunkan posisi gauge
 
         onPaint: {
             var ctx = getContext("2d");
