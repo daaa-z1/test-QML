@@ -26,10 +26,10 @@ Page {
             model: ainData.length
 
             Rectangle {
-                id: container
+                id : container
                 Layout.fillWidth : true
                 Layout.fillHeight : true
-                color : "#3498db"
+                color : "#D3D3D3"
                 radius : width * 0.1
 
                 CircularGauge {
@@ -45,11 +45,17 @@ Page {
                     Label {
                         text : ainData[index].label
                         font.pixelSize : Math.min(container.width, container.height) * 0.1
-                        color : "#ffffff"
-                        anchors {
-                            horizontalCenter: container.horizontalCenter
-                            top: container.top
-                        }
+                        color : "#000000"
+                        anchors.bottom : parent.verticalCenter
+                        anchors.horizontalCenter : parent.horizontalCenter
+                    }
+
+                    Label {
+                        text : ainData[index].value.toFixed(2)
+                        font.pixelSize : Math.min(container.width, container.height) * 0.1
+                        color : "#000000"
+                        anchors.top : parent.verticalCenter
+                        anchors.horizontalCenter : parent.horizontalCenter
                     }
                 }
             }
