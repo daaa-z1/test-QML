@@ -48,7 +48,7 @@ Page {
                         color : "#ffffff"
                         anchors {
                             horizontalCenter: parent.horizontalCenter
-                            bottom: parent.Top
+                            top: container.top
                         }
                     }
                 }
