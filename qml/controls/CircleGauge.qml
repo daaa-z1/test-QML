@@ -67,15 +67,15 @@ Item {
             // Draw the needle.
             var valueAngle = (value - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
             ctx.beginPath();
-            ctx.moveTo(width / 2, height / 2);
-            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.05), height / 2 + Math.sin(valueAngle) * (height / 2 - width * 0.05));
+            ctx.moveTo(width / 2, height / 2 + height * 0.2);
+            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.05), height / 2 + Math.sin(valueAngle) * (height / 2 - width * 0.05) + height * 0.2);
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
             // Draw the smaller needle base.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width * 0.02, 0, Math.PI * 2, false);
+            ctx.arc(width / 2, height / 2 + height * 0.2, width * 0.02, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
