@@ -6,8 +6,8 @@ Item {
     property real maxValue: 100
     property string label: ""
 
-    width: parent.width
-    height: parent.width * 0.7  // Lebarnya diatur sebagai 70% dari tinggi parent.
+    width: width
+    height: height
 
     Canvas {
         id: canvas
