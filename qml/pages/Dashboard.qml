@@ -15,7 +15,7 @@ Page {
         { value: 20, minValue: 0, maxValue: 100 },
         { value: 80, minValue: 0, maxValue: 100 },
         { value: 90, minValue: 0, maxValue: 100 }
-    ]
+    }
 
     contentItem: Item {
         width: parent.width
@@ -49,7 +49,6 @@ Page {
                             color: "transparent"
                             border.color: "#3498db"
                             border.width: 3
-                            radius: Math.min(width, height) / 2
 
                             Rectangle {
                                 width: parent.width
@@ -67,6 +66,26 @@ Page {
                     }
                 }
             }
+        }
+    }
+
+    onWidthChanged: {
+        // Menyesuaikan lebar Gauge saat tampilan berubah
+        for (var i = 0; i < gaugeGrid.count; i++) {
+            gaugeGrid.itemAt(i).width = gaugeGrid.cellWidth;
+            gaugeGrid.itemAt(i).height = gaugeGrid.cellHeight;
+            gaugeGrid.itemAt(i).children[0].width = gaugeGrid.itemAt(i).width;
+            gaugeGrid.itemAt(i).children[0].height = gaugeGrid.itemAt(i).height;
+        }
+    }
+
+    onHeightChanged: {
+        // Menyesuaikan tinggi Gauge saat tampilan berubah
+        for (var i = 0; i < gaugeGrid.count; i++) {
+            gaugeGrid.itemAt(i).width = gaugeGrid.cellWidth;
+            gaugeGrid.itemAt(i).height = gaugeGrid.cellHeight;
+            gaugeGrid.itemAt(i).children[0].width = gaugeGrid.itemAt(i).width;
+            gaugeGrid.itemAt(i).children[0].height = gaugeGrid.itemAt(i).height;
         }
     }
 }
