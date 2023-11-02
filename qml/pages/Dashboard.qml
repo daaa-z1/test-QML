@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Extras 1.4 // Ini adalah tambahan untuk mendukung Gauge
+import QtQuick.Extras 1.4
 
 Page {
     id: dashboardPage
@@ -49,6 +49,7 @@ Page {
                             color: "transparent"
                             border.color: "#3498db"
                             border.width: 3
+                            radius: Math.min(width, height) / 2
 
                             Rectangle {
                                 width: parent.width
