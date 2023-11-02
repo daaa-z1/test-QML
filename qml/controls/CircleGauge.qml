@@ -53,9 +53,9 @@ Item {
             for (var j = minValue; j <= maxValue; j += (maxValue - minValue) / 50) {
                 var minorAngle = (j - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
                 var minorStartX = width / 2 + Math.cos(minorAngle) * (width / 2 - width * 0.05);
-                var minorStartY = height / 2 + Math.sin(minorAngle) * (height / 2 - width * 0.05);
+                var minorStartY = height / 2 + Math.sin(minorAngle) * (height / 2 - height * 0.05) + height * 0.2;
                 var minorEndX = width / 2 + Math.cos(minorAngle) * (width / 2 - width * 0.075);
-                var minorEndY = height / 2 + Math.sin(minorAngle) * (height / 2 - width * 0.075);
+                var minorEndY = height / 2 + Math.sin(minorAngle) * (height / 2 - height * 0.075) + height * 0.2;
                 ctx.beginPath();
                 ctx.moveTo(minorStartX, minorStartY);
                 ctx.lineTo(minorEndX, minorEndY);
