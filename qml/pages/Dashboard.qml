@@ -7,14 +7,14 @@ Page {
     id: dashboardPage
 
     property var ainData: [
-        { value: 30, minValue: 0, maxValue: 100 },
-        { value: 50, minValue: 0, maxValue: 100 },
-        { value: 70, minValue: 0, maxValue: 100 },
-        { value: 40, minValue: 0, maxValue: 100 },
-        { value: 60, minValue: 0, maxValue: 100 },
-        { value: 20, minValue: 0, maxValue: 100 },
-        { value: 80, minValue: 0, maxValue: 100 },
-        { value: 90, minValue: 0, maxValue: 100 }
+        { label: "Pressure A", value: 30, minValue: 0, maxValue: 100 },
+        { label: "Actual" value: 50, minValue: 0, maxValue: 100 },
+        { label: "Actual" value: 70, minValue: 0, maxValue: 100 },
+        { label: "Actual" value: 40, minValue: 0, maxValue: 100 },
+        { label: "Actual" value: 60, minValue: 0, maxValue: 100 },
+        { label: "Actual" value: 20, minValue: 0, maxValue: 100 },
+        { label: "Actual" value: 80, minValue: 0, maxValue: 100 },
+        { label: "Actual" value: 90, minValue: 0, maxValue: 100 }
     ]
 
     contentItem: Item {
@@ -34,32 +34,18 @@ Page {
                     width: gaugeGrid.cellWidth
                     height: gaugeGrid.cellHeight
 
-                    Gauge {
+                    CircularGauge {
                         id: gauge
                         width: parent.width
                         height: parent.height
                         value: ainData[index].value
                         minimumValue: ainData[index].minValue
                         maximumValue: ainData[index].maxValue
-                        anchors.fill: parent
 
-                        Rectangle {
-                            width: parent.width
-                            height: parent.height
-                            color: "transparent"
-                            border.color: "#3498db"
-                            border.width: 3
-
-                            Rectangle {
-                                width: parent.width
-                                height: parent.height
-                                color: Qt.rgba(0, 0, 0, 0.1)
-                            }
-                        }
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: gauge.value.toFixed(1)
+                        Label {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.bottom: parent.top
+                            text: ainData[index].label
                             font.pixelSize: 20
                             color: "#3498db"
                         }
