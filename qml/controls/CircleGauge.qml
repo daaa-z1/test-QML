@@ -33,7 +33,7 @@ Item {
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
                 var angle = (i - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
                 var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
-                var y = height / 2 + Math.sin(angle) * (height / 2 - width * 0.15) + height * 0.2;
+                var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15) + height * 0.2;
                 ctx.fillText(i.toFixed(0), x, y);
 
                 // Draw major tickmark
