@@ -31,7 +31,7 @@ Page {
 
             Repeater {
                 model: ainData.length
-                Gauge {
+                CircularGauge {
                     id: gauge
                     width: gaugeGrid.cellWidth
                     height: gaugeGrid.cellHeight
