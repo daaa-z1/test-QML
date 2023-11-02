@@ -46,15 +46,16 @@ Page {
                         text : ainData[index].label
                         font.pixelSize : Math.min(container.width, container.height) * 0.1
                         color : "#000000"
-                        anchors.bottom : parent.verticalCenter
+                        anchors.bottom : parent.top
+                        anchors.marginBottom : 15
                         anchors.horizontalCenter : parent.horizontalCenter
                     }
 
                     Label {
-                        text : ainData[index].value.toFixed(2)
+                        text : ainData[index].value.toFixed(0)
                         font.pixelSize : Math.min(container.width, container.height) * 0.1
                         color : "#000000"
-                        anchors.top : parent.verticalCenter
+                        anchors.bottom : parent.bottom
                         anchors.horizontalCenter : parent.horizontalCenter
                     }
                 }
