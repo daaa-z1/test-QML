@@ -46,7 +46,10 @@ Page {
                         text : ainData[index].label
                         font.pixelSize : Math.min(container.width, container.height) * 0.1
                         color : "#ffffff"
-                        anchors.centerIn : parent
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            bottom: parent.AlignTop
+                        }
                     }
                 }
             }
