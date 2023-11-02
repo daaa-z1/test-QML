@@ -18,15 +18,12 @@ Item {
             ctx.reset();
 
             var centerX = width / 2;
-            var centerY = height; // Lingkaran mencakup 100% tinggi
-
-            // Draw the background arc.
-            var startAngle = Math.PI * 0.15; // Mulai dari 15% lingkaran
-            var endAngle = Math.PI * 1.85; // Berakhir di 185% lingkaran
+            var centerY = height * 0.7; // Membuat lingkaran bagian bawah
             var radius = Math.min(centerX, centerY) - 10;
 
+            // Draw the background arc.
             ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, startAngle, endAngle, false);
+            ctx.arc(centerX, centerY, radius, -Math.PI * 0.75, Math.PI * 0.75, false);
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
@@ -37,14 +34,14 @@ Item {
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
-                var angle = (i - minValue) / (maxValue - minValue) * (endAngle - startAngle) + startAngle;
+                var angle = (i - minValue) / (maxValue - minValue) * Math.PI * 1.5 - Math.PI * 0.75;
                 var x = centerX + Math.cos(angle) * (radius - width * 0.15);
                 var y = centerY + Math.sin(angle) * (radius - height * 0.15);
                 ctx.fillText(i.toFixed(0), x, y);
             }
 
             // Draw the needle.
-            var valueAngle = (value - minValue) / (maxValue - minValue) * (endAngle - startAngle) + startAngle;
+            var valueAngle = (value - minValue) / (maxValue - minValue) * Math.PI * 1.5 - Math.PI * 0.75;
             ctx.beginPath();
             ctx.moveTo(centerX, centerY);
             ctx.lineTo(centerX + Math.cos(valueAngle) * (radius - width * 0.1), centerY + Math.sin(valueAngle) * (radius - height * 0.1));
