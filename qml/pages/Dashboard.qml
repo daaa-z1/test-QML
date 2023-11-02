@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.15
 import QtQuick.Extras 1.4
 
@@ -18,12 +19,12 @@ Page {
     ]
 
     GridLayout {
-        id: gridLayout
-        anchors.fill: parent
-        columns: ainData.length > 4 ? ainData.length / 2 : ainData.length
+        id : gridLayout
+        anchors.fill : parent
+        columns : ainData.length > 4 ? ainData.length / 2 : ainData.length
 
         Repeater {
-            model: ainData.length
+            model : ainData.length
 
             Rectangle {
                 id : container
@@ -42,12 +43,17 @@ Page {
                     minimumValue : ainData[index].minValue
                     maximumValue : ainData[index].maxValue
 
+                    style : GaugeStyle {
+                        tickmarkStepSize : model.max / 50 // adjust as needed
+                        tickmarkColor : "#000000"
+                        needleColor : "#3498db"
+                    }
+
                     Label {
                         text : ainData[index].label
                         font.pixelSize : Math.min(container.width, container.height) * 0.1
                         color : "#000000"
-                        anchors.bottom : parent.top
-                        anchors.marginBottom : 15
+                        anchors.bottom : parent.verticalCenter
                         anchors.horizontalCenter : parent.horizontalCenter
                     }
 
@@ -55,7 +61,7 @@ Page {
                         text : ainData[index].value.toFixed(0)
                         font.pixelSize : Math.min(container.width, container.height) * 0.1
                         color : "#000000"
-                        anchors.bottom : parent.bottom
+                        anchors.top : parent.verticalCenter
                         anchors.horizontalCenter : parent.horizontalCenter
                     }
                 }
