@@ -38,7 +38,7 @@ Item {
 
                 // Draw major tickmark
                 var startX = width / 2 + Math.cos(angle) * (width / 2 - width * 0.05);
-                var startY = height / 2 + Math.sin(angle) * (height / 2 - width * 0.05);
+                var startY = height / 2 + Math.sin(angle) * (height / 2 - height * 0.05) + height * 0.2;
                 var endX = width / 2 + Math.cos(angle) * (width / 2 - width * 0.1);
                 var endY = height / 2 + Math.sin(angle) * (height / 2 - height * 0.1) + height * 0.2;
                 ctx.beginPath();
