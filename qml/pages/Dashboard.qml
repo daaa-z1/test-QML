@@ -25,15 +25,18 @@ Page {
         Repeater {
             model: ainData.length
 
-            Item {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+            Rectangle {
+                id: container
+                Layout.fillWidth : true
+                Layout.fillHeight : true
+                color : "#3498db"
+                radius : width * 0.1
 
                 CircularGauge {
-                    id: gauge
-                    anchors.centerIn: parent
-                    width : parent.width * 0.8
-                    height : parent.height * 0.8
+                    id : gauge
+                    anchors.centerIn : parent
+                    width : container.width * 0.8
+                    height : width
 
                     value : ainData[index].value
                     minimumValue : ainData[index].minValue
@@ -41,8 +44,8 @@ Page {
 
                     Label {
                         text : ainData[index].label
-                        font.pixelSize : Math.min(width, height) * 0.1
-                        color : "#3498db"
+                        font.pixelSize : Math.min(container.width, container.height) * 0.1
+                        color : "#ffffff"
                         anchors.centerIn : parent
                     }
                 }
