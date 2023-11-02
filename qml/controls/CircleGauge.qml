@@ -21,7 +21,7 @@ Item {
             var radius = Math.min(centerX, centerY) - 10;
 
             // Menggambar lingkaran latar belakang
-            ctx.strokeStyle = "lightgray";
+            ctx.strokeStyle = "#000";
             ctx.lineWidth = 10;
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
