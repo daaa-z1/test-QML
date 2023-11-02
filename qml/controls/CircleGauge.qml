@@ -1,4 +1,3 @@
-// File: qml/controls/CircleGauge.qml
 import QtQuick 2.15
 
 Item {
@@ -25,20 +24,8 @@ Item {
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
-            // Draw the numbers around the arc.
-            ctx.font = width * 0.1 + "px Arial";
-            ctx.fillStyle = "black";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
-                var angle = i * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
-                var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
-                var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
-                ctx.fillText(i.toFixed(0), x, y);
-            }
-
             // Draw the needle.
-            var valueAngle = valueItem.value * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
+            var valueAngle = (value - minValue) / (maxValue - minValue) * Math.PI * 0.5 + Math.PI * 0.75;
             ctx.beginPath();
             ctx.moveTo(width / 2, height / 2);
             ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.1), height / 2 + Math.sin(valueAngle) * (height / 2 - height * 0.1));
@@ -55,19 +42,21 @@ Item {
     }
 
     Text {
-        id: symbolText
-        anchors.bottom: parent.bottom
+        id: labelText
+        anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         text: label
-        font.pixelSize: parent.height * 0.1
+        font.pixelSize: 20
+        color: "black"
     }
 
     Text {
         id: valueText
-        anchors.bottom: symbolText.top
-        anchors.right: symbolText.horizontalCenter
-        text: valueItem.value.toFixed(0)
-        font.pixelSize: parent.height * 0.1
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: value.toFixed(0)
+        font.pixelSize: 20
+        color: "red"
     }
 
     Item {
@@ -76,7 +65,7 @@ Item {
 
         onValueChanged: {
             canvas.requestPaint();
-            valueText.text = value.toFixed(0);
+            valueText.text = value.toFixed(1);
         }
     }
 }
