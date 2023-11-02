@@ -47,7 +47,7 @@ Page {
                         font.pixelSize : Math.min(container.width, container.height) * 0.1
                         color : "#ffffff"
                         anchors {
-                            horizontalCenter: parent.horizontalCenter
+                            horizontalCenter: container.horizontalCenter
                             top: container.top
                         }
                     }
