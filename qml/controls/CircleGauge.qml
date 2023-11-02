@@ -6,8 +6,8 @@ Item {
     property real maxValue: 100
     property string label: ""
 
-    width: parent.width
-    height: parent.height * 0.7
+    width: width
+    height: height
 
     Canvas {
         id: canvas
@@ -19,7 +19,7 @@ Item {
 
             // Draw the background arc.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.25, Math.PI * 1.75, false); // Mengubah sudut awal dan akhir
+            ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.75, Math.PI * 0.75 + Math.PI * 1.5, false); // Menggambar dari 150 derajat kiri ke kanan
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
@@ -30,14 +30,14 @@ Item {
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
-                var angle = i * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.25; // Mengubah sudut awal
+                var angle = (i - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
                 var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
                 var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
                 ctx.fillText(i.toFixed(0), x, y);
             }
 
             // Draw the needle.
-            var valueAngle = valueItem.value * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.25; // Mengubah sudut awal
+            var valueAngle = (value - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
             ctx.beginPath();
             ctx.moveTo(width / 2, height / 2);
             ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.1), height / 2 + Math.sin(valueAngle) * (height / 2 - height * 0.1));
