@@ -6,10 +6,6 @@ import QtQuick.Extras 1.4 // Ini adalah tambahan untuk mendukung Gauge
 Page {
     id: dashboardPage
 
-    header: PageHeader {
-        title: "Dashboard"
-    }
-
     contentItem: Item {
         width: parent.width
         height: parent.height
