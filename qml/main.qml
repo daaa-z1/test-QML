@@ -6,20 +6,21 @@ import QtQuick.Extras 1.4 // Ini adalah tambahan untuk mendukung Gauge
 Page {
     id: dashboardPage
 
+    property var ainData: [
+        { value: 30, minValue: 0, maxValue: 100 },
+        { value: 50, minValue: 0, maxValue: 100 },
+        { value: 70, minValue: 0, maxValue: 100 },
+        { value: 40, minValue: 0, maxValue: 100 },
+        { value: 60, minValue: 0, maxValue: 100 },
+        { value: 20, minValue: 0, maxValue: 100 },
+        { value: 80, minValue: 0, maxValue: 100 },
+        { value: 90, minValue: 0, maxValue: 100 }
+    ]
+    
     contentItem: Item {
         width: parent.width
         height: parent.height
 
-        property var ainData: [
-            { value: 30, minValue: 0, maxValue: 100 },
-            { value: 50, minValue: 0, maxValue: 100 },
-            { value: 70, minValue: 0, maxValue: 100 },
-            { value: 40, minValue: 0, maxValue: 100 },
-            { value: 60, minValue: 0, maxValue: 100 },
-            { value: 20, minValue: 0, maxValue: 100 },
-            { value: 80, minValue: 0, maxValue: 100 },
-            { value: 90, minValue: 0, maxValue: 100 }
-        ]
 
         GridLayout {
             id: gaugeGrid
