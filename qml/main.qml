@@ -1,64 +1,60 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 import QtQuick.Extras 1.4
 
 Page {
     id: dashboardPage
 
-    contentItem: Item {
+    Grid {
+        columns: 4
+        spacing: 20
         width: parent.width
         height: parent.height
 
-        // Data AIN0 - AIN7 dan nilai minimum serta maksimum
-        property var ainData: [
-            { value: 30, minValue: 0, maxValue: 100 },
-            { value: 50, minValue: 0, maxValue: 100 },
-            { value: 70, minValue: 0, maxValue: 100 },
-            { value: 40, minValue: 0, maxValue: 100 },
-            { value: 60, minValue: 0, maxValue: 100 },
-            { value: 20, minValue: 0, maxValue: 100 },
-            { value: 80, minValue: 0, maxValue: 100 },
-            { value: 90, minValue: 0, maxValue: 100 }
-        ]
+        ListModel {
+            id: gaugeModel
+            ListElement { label: "AIN0"; value: 50; min: 0; max: 100 }
+            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
+            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
+            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
+            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
+            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
+            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
+            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
+        }
 
-        GridLayout {
-            id: gaugeGrid
-            columns: 4
-            anchors.centerIn: parent
-            rowSpacing: 10
-            columnSpacing: 10
+        Repeater {
+            model: gaugeModel
 
-            Repeater {
-                model: ainData.length
+            Rectangle {
+                id: container
+                width: parent.width / parent.columns
+                height: width
+                color: "lightgray"
+                radius: width * 0.1
+
                 CircularGauge {
                     id: gauge
-                    width: gaugeGrid.cellWidth
-                    height: gaugeGrid.cellHeight
-                    value: ainData[index].value
-                    minimumValue: ainData[index].minValue
-                    maximumValue: ainData[index].maxValue
                     anchors.centerIn: parent
+                    width: container.width * 0.8
+                    height: width
 
-                    Rectangle {
-                        width: parent.width
-                        height: parent.height
-                        color: "transparent"
-                        border.color: "#3498db"
-                        border.width: 3
+                    value: model.value
+                    minimumValue: model.min
+                    maximumValue: model.max
 
-                        Rectangle {
-                            width: parent.width
-                            height: parent.height
-                            color: Qt.rgba(0, 0, 0, 0.1)
-                        }
+                    style: CircularGaugeStyle {
+                        labelStepSize: model.max / 5 // adjust as needed
+                        tickmarkStepSize: model.max / 50 // adjust as needed
+                        minorTickmarkColor: "gray"
+                        majorTickmarkColor: "black"
+                        needleColor: "red"
                     }
 
-                    Text {
-                        anchors.centerIn: parent
-                        text: gauge.value.toFixed(1)
-                        font.pixelSize: 20
-                        color: "#3498db"
+                    Label {
+                        text: model.label
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.bottom: parent.top
                     }
                 }
             }
