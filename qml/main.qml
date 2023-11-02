@@ -7,7 +7,7 @@ Page {
 
     Grid {
         columns: 4
-        spacing: 20
+        spacing: 10
         width: parent.width
         height: parent.height
 
