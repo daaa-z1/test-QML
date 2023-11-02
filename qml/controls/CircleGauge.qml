@@ -58,16 +58,20 @@ Item {
     }
 
     Text {
-        anchors.horizontalCenter: parent.horizontalCenter
-        top: canvas.bottom + 10 // Teks di atas lingkaran
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: canvas.bottom
+        } // Teks di atas lingkaran
         text: label
         font.pixelSize: 20
         color: "black"
     }
 
     Text {
-        anchors.horizontalCenter: parent.horizontalCenter
-        bottom: canvas.top - 10 // Teks di bawah lingkaran
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            bottom: canvas.top
+        } // Teks di bawah lingkaran
         text: valueItem.value.toFixed(0)
         font.pixelSize: 20
         color: "black"
