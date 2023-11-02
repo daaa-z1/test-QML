@@ -6,8 +6,8 @@ Item {
     property real maxValue: 100
     property string label: ""
 
-    width: width
-    height: height
+    width: parent.width
+    height: parent.height
 
     Canvas {
         id: canvas
@@ -24,7 +24,7 @@ Item {
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
-            // Draw the numbers around the arc.
+            // Draw tickmarks and numbers around the arc.
             ctx.font = width * 0.1 + "px Arial";
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
@@ -34,6 +34,16 @@ Item {
                 var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
                 var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
                 ctx.fillText(i.toFixed(0), x, y);
+
+                // Draw tickmarks
+                var tickX = width / 2 + Math.cos(angle) * (width / 2 - width * 0.05);
+                var tickY = height / 2 + Math.sin(angle) * (height / 2 - height * 0.05);
+                ctx.beginPath();
+                ctx.moveTo(tickX, tickY);
+                ctx.lineTo(x, y);
+                ctx.lineWidth = width * 0.01;
+                ctx.strokeStyle = "black";
+                ctx.stroke();
             }
 
             // Draw the needle.
@@ -41,13 +51,13 @@ Item {
             ctx.beginPath();
             ctx.moveTo(width / 2, height / 2);
             ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.1), height / 2 + Math.sin(valueAngle) * (height / 2 - height * 0.1));
-            ctx.lineWidth = width * 0.02;
+            ctx.lineWidth = width * 0.01;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
-            // Draw the needle base.
+            // Draw the smaller needle base.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 10, 0, Math.PI * 2, false);
+            ctx.arc(width / 2, height / 2, width * 0.03, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
