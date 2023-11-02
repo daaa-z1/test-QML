@@ -59,7 +59,7 @@ Item {
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        top: parent.top
+        anchors.bottom: parent.top
         text: label
         font.pixelSize: parent.height * 0.1
     }
