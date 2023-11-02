@@ -19,12 +19,12 @@ Item {
 
             // Draw the background arc.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.75, Math.PI * 0.75 + Math.PI * 1.5, false); // Menggambar dari 150 derajat kiri ke kanan
+            ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.75, Math.PI * 0.75 + Math.PI * 1.5, false);
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
-            // Draw tickmarks and numbers around the arc.
+            // Draw the major tickmarks and numbers around the arc.
             ctx.font = width * 0.1 + "px Arial";
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
@@ -34,16 +34,19 @@ Item {
                 var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
                 var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
                 ctx.fillText(i.toFixed(0), x, y);
-
-                // Draw tickmarks
-                var tickX = width / 2 + Math.cos(angle) * (width / 2 - width * 0.05);
-                var tickY = height / 2 + Math.sin(angle) * (height / 2 - height * 0.05);
-                ctx.beginPath();
-                ctx.moveTo(tickX, tickY);
-                ctx.lineTo(x, y);
-                ctx.lineWidth = width * 0.01;
-                ctx.strokeStyle = "black";
-                ctx.stroke();
+                if (i !== minValue && i !== maxValue) {
+                    // Draw major tickmarks
+                    var x1 = width / 2 + Math.cos(angle) * (width / 2 - width * 0.18);
+                    var y1 = height / 2 + Math.sin(angle) * (height / 2 - height * 0.18);
+                    var x2 = width / 2 + Math.cos(angle) * (width / 2 - width * 0.2);
+                    var y2 = height / 2 + Math.sin(angle) * (height / 2 - height * 0.2);
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.lineWidth = width * 0.015;
+                    ctx.strokeStyle = "black";
+                    ctx.stroke();
+                }
             }
 
             // Draw the needle.
@@ -51,13 +54,13 @@ Item {
             ctx.beginPath();
             ctx.moveTo(width / 2, height / 2);
             ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.1), height / 2 + Math.sin(valueAngle) * (height / 2 - height * 0.1));
-            ctx.lineWidth = width * 0.01;
+            ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
-            // Draw the smaller needle base.
+            // Draw the needle base.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width * 0.03, 0, Math.PI * 2, false);
+            ctx.arc(width / 2, height / 2, width / 20, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
