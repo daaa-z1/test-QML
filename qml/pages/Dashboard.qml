@@ -44,9 +44,15 @@ Page {
                     maximumValue : ainData[index].maxValue
 
                     style : GaugeStyle {
-                        tickmarkStepSize : model.max / 50 // adjust as needed
-                        tickmarkColor : "#000000"
-                        needleColor : "#3498db"
+                        foreground: Item {
+                            Rectangle {
+                                width: outerRadius * 0.2
+                                height: width
+                                radius: width / 2
+                                color: "#e5e5e5"
+                                anchors.centerIn: parent
+                            }
+                        }
                     }
 
                     Label {
