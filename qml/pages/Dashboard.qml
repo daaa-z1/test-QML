@@ -8,13 +8,13 @@ Page {
 
     property var ainData: [
         { label: "Pressure A", value: 30, minValue: 0, maxValue: 100 },
-        { label: "Actual" value: 50, minValue: 0, maxValue: 100 },
-        { label: "Actual" value: 70, minValue: 0, maxValue: 100 },
-        { label: "Actual" value: 40, minValue: 0, maxValue: 100 },
-        { label: "Actual" value: 60, minValue: 0, maxValue: 100 },
-        { label: "Actual" value: 20, minValue: 0, maxValue: 100 },
-        { label: "Actual" value: 80, minValue: 0, maxValue: 100 },
-        { label: "Actual" value: 90, minValue: 0, maxValue: 100 }
+        { label: "Actual", value: 50, minValue: 0, maxValue: 100 },
+        { label: "Actual", value: 70, minValue: 0, maxValue: 100 },
+        { label: "Actual", value: 40, minValue: 0, maxValue: 100 },
+        { label: "Actual", value: 60, minValue: 0, maxValue: 100 },
+        { label: "Actual", value: 20, minValue: 0, maxValue: 100 },
+        { label: "Actual", value: 80, minValue: 0, maxValue: 100 },
+        { label: "Actual", value: 90, minValue: 0, maxValue: 100 }
     ]
 
     contentItem: Item {
