@@ -6,8 +6,8 @@ Item {
     property real maxValue: 100
     property string label: ""
 
-    width: parent.width
-    height: parent.height
+    width: width
+    height: height
 
     Canvas {
         id: canvas
