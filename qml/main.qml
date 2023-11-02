@@ -39,7 +39,6 @@ Page {
                     minimumValue: ainData[index].minValue
                     maximumValue: ainData[index].maxValue
                     anchors.centerIn: parent
-                    radius: Math.min(width, height) / 2 - 10
 
                     Rectangle {
                         width: parent.width
