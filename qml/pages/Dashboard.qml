@@ -33,7 +33,7 @@ Page {
                 color : "#D3D3D3"
                 radius : width * 0.1
 
-                CircularGauge {
+                CircleGauge {
                     id : gauge
                     anchors.centerIn : parent
                     width : container.width * 0.8
@@ -42,34 +42,7 @@ Page {
                     value : ainData[index].value
                     minimumValue : ainData[index].minValue
                     maximumValue : ainData[index].maxValue
-
-                    style : GaugeStyle {
-                        foreground: Item {
-                            Rectangle {
-                                width: outerRadius * 0.2
-                                height: width
-                                radius: width / 2
-                                color: "#000000"
-                                anchors.centerIn: parent
-                            }
-                        }
-                    }
-
-                    Label {
-                        text : ainData[index].label
-                        font.pixelSize : Math.min(container.width, container.height) * 0.1
-                        color : "#000000"
-                        anchors.bottom : parent.verticalCenter
-                        anchors.horizontalCenter : parent.horizontalCenter
-                    }
-
-                    Label {
-                        text : ainData[index].value.toFixed(0)
-                        font.pixelSize : Math.min(container.width, container.height) * 0.1
-                        color : "#000000"
-                        anchors.top : parent.verticalCenter
-                        anchors.horizontalCenter : parent.horizontalCenter
-                    }
+                    label : ainData[index].label
                 }
             }
         }
