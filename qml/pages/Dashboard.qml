@@ -15,63 +15,30 @@ Page {
         { label: "Actual", value: 20, minValue: 0, maxValue: 100 },
         { label: "Actual", value: 80, minValue: 0, maxValue: 100 },
         { label: "Actual", value: 90, minValue: 0, maxValue: 100 }
-    ]
+    }
 
-    Item {
-        width: parent.width
-        height: parent.height
+    ColumnLayout {
+        anchors.fill: parent
 
-        GridLayout {
-            id: gaugeGrid
-            columns: 4
-            anchors.centerIn: parent
-            rowSpacing: 10
-            columnSpacing: 10
+        Repeater {
+            model: ainData.length
+            Item {
+                Layout.fillWidth: true
 
-            Repeater {
-                model: ainData.length
-                Item {
-                    width: gaugeGrid.cellWidth
-                    height: gaugeGrid.cellHeight
+                CircularGauge {
+                    id: gauge
+                    Layout.fillWidth: true
+                    value: ainData[index].value
+                    minimumValue: ainData[index].minValue
+                    maximumValue: ainData[index].maxValue
 
-                    CircularGauge {
-                        id: gauge
-                        width: parent.width
-                        height: parent.height
-                        value: ainData[index].value
-                        minimumValue: ainData[index].minValue
-                        maximumValue: ainData[index].maxValue
-
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom: parent.top
-                            text: ainData[index].label
-                            font.pixelSize: 20
-                            color: "#3498db"
-                        }
+                    Label {
+                        text: ainData[index].label
+                        font.pixelSize: 20
+                        color: "#3498db"
                     }
                 }
             }
-        }
-    }
-
-    onWidthChanged: {
-        // Menyesuaikan lebar Gauge saat tampilan berubah
-        for (var i = 0; i < gaugeGrid.count; i++) {
-            gaugeGrid.itemAt(i).width = gaugeGrid.cellWidth;
-            gaugeGrid.itemAt(i).height = gaugeGrid.cellHeight;
-            gaugeGrid.itemAt(i).children[0].width = gaugeGrid.itemAt(i).width;
-            gaugeGrid.itemAt(i).children[0].height = gaugeGrid.itemAt(i).height;
-        }
-    }
-
-    onHeightChanged: {
-        // Menyesuaikan tinggi Gauge saat tampilan berubah
-        for (var i = 0; i < gaugeGrid.count; i++) {
-            gaugeGrid.itemAt(i).width = gaugeGrid.cellWidth;
-            gaugeGrid.itemAt(i).height = gaugeGrid.cellHeight;
-            gaugeGrid.itemAt(i).children[0].width = gaugeGrid.itemAt(i).width;
-            gaugeGrid.itemAt(i).children[0].height = gaugeGrid.itemAt(i).height;
         }
     }
 }
