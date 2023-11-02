@@ -29,14 +29,14 @@ Item {
             ctx.stroke();
 
             // Draw the numbers around the arc.
-            ctx.font = width * 0.1 + "px Arial";
+            ctx.font = width * 0.08 + "px Arial";
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
                 var angle = (i - minValue) / (maxValue - minValue) * Math.PI * 1.5 - Math.PI * 0.75;
-                var x = centerX + Math.cos(angle) * (radius - width * 0.15);
-                var y = centerY + Math.sin(angle) * (radius - height * 0.15);
+                var x = centerX + Math.cos(angle) * (radius - width * 0.1);
+                var y = centerY + Math.sin(angle) * (radius - width * 0.1);
                 ctx.fillText(i.toFixed(0), x, y);
             }
 
@@ -44,14 +44,14 @@ Item {
             var valueAngle = (value - minValue) / (maxValue - minValue) * Math.PI * 1.5 - Math.PI * 0.75;
             ctx.beginPath();
             ctx.moveTo(centerX, centerY);
-            ctx.lineTo(centerX + Math.cos(valueAngle) * (radius - width * 0.1), centerY + Math.sin(valueAngle) * (radius - height * 0.1));
+            ctx.lineTo(centerX + Math.cos(valueAngle) * (radius - width * 0.1), centerY + Math.sin(valueAngle) * (radius - width * 0.1));
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
             // Draw the needle base.
             ctx.beginPath();
-            ctx.arc(centerX, centerY, radius / 5, 0, Math.PI * 2, false);
+            ctx.arc(centerX, centerY, width * 0.05, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
