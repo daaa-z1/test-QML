@@ -4,10 +4,10 @@ Item {
     property alias value: valueItem.value
     property real minValue: 0
     property real maxValue: 100
-    property string label: "Label"
+    property string label: ""
 
     width: parent.width
-    height: parent.height
+    height: parent.height * 0.7
 
     Canvas {
         id: canvas
@@ -21,7 +21,7 @@ Item {
             ctx.beginPath();
             ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.75, Math.PI * 1.25, false);
             ctx.lineWidth = width * 0.02;
-            ctx.strokeStyle = "black";
+            ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
             // Draw the numbers around the arc.
@@ -54,23 +54,17 @@ Item {
     }
 
     Text {
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            top: parent.top
-        }
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
         text: label
         font.pixelSize: parent.height * 0.1
-        color: "#3498db" // Ganti warna label menjadi biru
     }
 
     Text {
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            top: parent.bottom
-        }
-        text: valueItem.value.toFixed(1)
-        font.pixelSize: Math.min(parent.width, parent.height) * 0.1
-        color: "#3498db" // Ganti warna nilai menjadi biru
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: valueItem.value.toFixed(0)
+        font.pixelSize: parent.height * 0.1
     }
 
     Item {
@@ -79,7 +73,7 @@ Item {
 
         onValueChanged: {
             canvas.requestPaint();
-            valueText.text = value.toFixed(1);
+            valueText.text = value.toFixed(0);
         }
     }
 }
