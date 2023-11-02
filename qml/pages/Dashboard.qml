@@ -49,7 +49,7 @@ Page {
                                 width: outerRadius * 0.2
                                 height: width
                                 radius: width / 2
-                                color: "#e5e5e5"
+                                color: "#000000"
                                 anchors.centerIn: parent
                             }
                         }
