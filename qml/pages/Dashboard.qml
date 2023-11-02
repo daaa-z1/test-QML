@@ -15,7 +15,7 @@ Page {
         { value: 20, minValue: 0, maxValue: 100 },
         { value: 80, minValue: 0, maxValue: 100 },
         { value: 90, minValue: 0, maxValue: 100 }
-    }
+    ]
 
     contentItem: Item {
         width: parent.width
