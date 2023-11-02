@@ -18,7 +18,7 @@ Item {
             ctx.reset();
 
             var centerX = width / 2;
-            var centerY = height;
+            var centerY = height / 0.65;
             var radius = Math.min(centerX, centerY) - 10;
 
             // Draw the background arc.
