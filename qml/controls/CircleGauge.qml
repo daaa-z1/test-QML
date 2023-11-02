@@ -6,8 +6,8 @@ Item {
     property real maxValue: 100
     property string label: ""
 
-    width: width
-    height: height
+    width: parent.width
+    height: parent.height
 
     Canvas {
         id: canvas
@@ -17,37 +17,40 @@ Item {
             var ctx = getContext("2d");
             ctx.reset();
 
+            // Radius sekarang adalah 70% dari radius sebelumnya
+            var radius = (Math.min(width, height) / 2 - 2) * 0.7;
+
             // Draw the background arc.
             ctx.beginPath();
-            ctx.arc(width / 2, height, width / 2 - 2, 0, Math.PI, false); // Lingkaran setengah bagian bawah
-            ctx.lineWidth = width * 0.02;
+            ctx.arc(width / 2, height / 2, radius, Math.PI * 0.75, Math.PI * 1.25, false);
+            ctx.lineWidth = radius * 0.2;
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
             // Draw the numbers around the arc.
-            ctx.font = width * 0.1 + "px Arial";
+            ctx.font = radius * 0.4 + "px Arial";
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
-                var angle = i * Math.PI / (maxValue - minValue);
-                var x = width / 2 - Math.cos(angle) * (width / 2 - width * 0.15);
-                var y = height - Math.sin(angle) * (width / 2 - width * 0.15);
+                var angle = i * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
+                var x = width / 2 + Math.cos(angle) * (radius - radius * 0.15);
+                var y = height / 2 + Math.sin(angle) * (radius - radius * 0.15);
                 ctx.fillText(i.toFixed(0), x, y);
             }
 
             // Draw the needle.
-            var valueAngle = (valueItem.value - minValue) * Math.PI / (maxValue - minValue);
+            var valueAngle = valueItem.value * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
             ctx.beginPath();
-            ctx.moveTo(width / 2, height);
-            ctx.lineTo(width / 2 - Math.cos(valueAngle) * (width / 2 - width * 0.1), height - Math.sin(valueAngle) * (width / 2 - width * 0.1));
-            ctx.lineWidth = width * 0.02;
+            ctx.moveTo(width / 2, height / 2);
+            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (radius - radius * 0.1), height / 2 + Math.sin(valueAngle) * (radius - radius * 0.1));
+            ctx.lineWidth = radius * 0.2;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
             // Draw the needle base.
             ctx.beginPath();
-            ctx.arc(width / 2, height, width / 10, 0, Math.PI * 2, false);
+            ctx.arc(width / 2, height / 2, radius * 0.2, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
