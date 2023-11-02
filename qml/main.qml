@@ -49,7 +49,6 @@ Page {
                         tickmarkStepSize: model.max / 50 // adjust as needed
                         minorTickmarkColor: "gray"
                         majorTickmarkColor: "black"
-                        needleColor: "red"
                     }
 
                     Label {
