@@ -7,8 +7,8 @@ Item {
     property real maxValue: 100
     property string label: ""
 
-    width: width
-    height: height
+    width: parent.width
+    height: parent.height
 
     Canvas {
         id: canvas
@@ -58,7 +58,7 @@ Item {
         id: symbolText
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        text: symbol
+        text: label
         font.pixelSize: parent.height * 0.1
     }
 
