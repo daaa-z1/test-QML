@@ -6,8 +6,8 @@ Item {
     property real maxValue: 100
     property string label: ""
 
-    width: width
-    height: width
+    width: parent.width
+    height: parent.width * 0.7
 
     Canvas {
         id: canvas
@@ -17,37 +17,40 @@ Item {
             var ctx = getContext("2d");
             ctx.reset();
 
-            // Draw the background arc.
+            // Menggambar lingkaran latar belakang
+            var centerX = width / 2;
+            var centerY = height / 2;
+            var radius = (width / 2) * 0.7; // Menggunakan 70% dari diameter
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.75, Math.PI * 1.25, false);
+            ctx.arc(centerX, centerY, radius, Math.PI * 0.75, Math.PI * 1.25, false);
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
-            // Draw the numbers around the arc.
+            // Menggambar angka di sekitar lingkaran
             ctx.font = width * 0.1 + "px Arial";
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
                 var angle = i * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
-                var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
-                var y = height / 2 + Math.sin(angle) * (height / 2 - width * 0.15);  // Menggunakan width sebagai referensi
+                var x = centerX + Math.cos(angle) * (radius - width * 0.15);
+                var y = centerY + Math.sin(angle) * (radius - width * 0.15);
                 ctx.fillText(i.toFixed(0), x, y);
             }
 
-            // Draw the needle.
+            // Menggambar jarum
             var valueAngle = valueItem.value * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
             ctx.beginPath();
-            ctx.moveTo(width / 2, height / 2);
-            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.1), height / 2 + Math.sin(valueAngle) * (height / 2 - width * 0.1);  // Menggunakan width sebagai referensi
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + Math.cos(valueAngle) * (radius - width * 0.1), centerY + Math.sin(valueAngle) * (radius - width * 0.1));
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
-            // Draw the needle base.
+            // Menggambar dasar jarum
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 10, 0, Math.PI * 2, false);
+            ctx.arc(centerX, centerY, width * 0.1, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
@@ -57,14 +60,14 @@ Item {
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         text: label
-        font.pixelSize: width * 0.1  // Menggunakan width sebagai referensi
+        font.pixelSize: parent.height * 0.1
     }
 
     Text {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         text: valueItem.value.toFixed(0)
-        font.pixelSize: width * 0.1  // Menggunakan width sebagai referensi
+        font.pixelSize: parent.height * 0.1
     }
 
     Item {
