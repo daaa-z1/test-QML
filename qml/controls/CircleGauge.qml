@@ -17,53 +17,55 @@ Item {
             var ctx = getContext("2d");
             ctx.reset();
 
-            var centerX = width / 2;
-            var centerY = height / 2;
-            var radius = Math.min(centerX, centerY) - 10;
-
             // Draw the background arc.
             ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, Math.PI * 0.75, Math.PI * 0.75 + Math.PI * 1.5, false); // Menggambar dari 150 derajat kiri ke kanan
+            ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.75, Math.PI * 0.75 + Math.PI * 1.5, false); // Menggambar dari 150 derajat kiri ke kanan
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
-            // Draw the major tickmarks and numbers.
+            // Draw the major tickmarks, numbers, and minor tickmarks.
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
                 var angle = (i - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
-                var x1 = centerX + Math.cos(angle) * (radius - width * 0.1);
-                var y1 = centerY + Math.sin(angle) * (radius - width * 0.1);
-                var x2 = centerX + Math.cos(angle) * (radius - width * 0.15);
-                var y2 = centerY + Math.sin(angle) * (radius - width * 0.15);
+                var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
+                var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
+                
                 ctx.lineWidth = width * 0.02;
-                ctx.strokeStyle = "black";
-                ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(x2, y2);
-                ctx.stroke();
 
-                ctx.font = width * 0.1 + "px Arial";
-                ctx.fillStyle = "black";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText(i.toFixed(0), x2, y2);
+                // Draw major tickmarks and numbers.
+                if (i % 10 === 0) {
+                    ctx.strokeStyle = "black";
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x + (width * 0.05) * Math.cos(angle), y + (width * 0.05) * Math.sin(angle));
+                    ctx.stroke();
+
+                    ctx.font = width * 0.1 + "px Arial";
+                    ctx.fillStyle = "black";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText(i.toFixed(0), x + (width * 0.1) * Math.cos(angle), y + (width * 0.1) * Math.sin(angle));
+                } else { // Draw minor tickmarks.
+                    ctx.strokeStyle = "lightgray";
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x + (width * 0.03) * Math.cos(angle), y + (width * 0.03) * Math.sin(angle));
+                    ctx.stroke();
+                }
             }
 
             // Draw the needle.
             var valueAngle = (value - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
-            var needleLength = radius - width * 0.2;
-            var needleX = centerX + Math.cos(valueAngle) * needleLength;
-            var needleY = centerY + Math.sin(valueAngle) * needleLength;
             ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(needleX, needleY);
+            ctx.moveTo(width / 2, height / 2);
+            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.1), height / 2 + Math.sin(valueAngle) * (height / 2 - height * 0.1));
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
-            // Draw the needle base.
+            // Draw the smaller needle base.
             ctx.beginPath();
-            ctx.arc(centerX, centerY, width * 0.05, 0, Math.PI * 2, false);
+            ctx.arc(width / 2, height / 2, width * 0.05, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
