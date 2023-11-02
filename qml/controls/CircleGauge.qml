@@ -7,7 +7,7 @@ Item {
     property string label: ""
 
     width: parent.width
-    height: parent.height * 0.7
+    height: parent.height
 
     Canvas {
         id: canvas
@@ -17,9 +17,13 @@ Item {
             var ctx = getContext("2d");
             ctx.reset();
 
+            var centerX = width / 2;
+            var centerY = height / 2;
+            var radius = Math.min(centerX, centerY) * 0.7;
+
             // Draw the background arc.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 2 - 2, Math.PI * 0.75, Math.PI * 1.25, false);
+            ctx.arc(centerX, centerY, radius, Math.PI * 0.75, Math.PI * 1.25, false);
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
@@ -31,23 +35,23 @@ Item {
             ctx.textBaseline = "middle";
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
                 var angle = i * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
-                var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
-                var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
+                var x = centerX + Math.cos(angle) * (radius - width * 0.15);
+                var y = centerY + Math.sin(angle) * (radius - height * 0.15);
                 ctx.fillText(i.toFixed(0), x, y);
             }
 
             // Draw the needle.
             var valueAngle = valueItem.value * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
             ctx.beginPath();
-            ctx.moveTo(width / 2, height / 2);
-            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.1), height / 2 + Math.sin(valueAngle) * (height / 2 - height * 0.1));
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + Math.cos(valueAngle) * (radius - width * 0.1), centerY + Math.sin(valueAngle) * (radius - height * 0.1));
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
             // Draw the needle base.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2, width / 10, 0, Math.PI * 2, false);
+            ctx.arc(centerX, centerY, width * 0.1, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
