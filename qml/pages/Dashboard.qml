@@ -17,7 +17,7 @@ Page {
         { label: "Actual", value: 90, minValue: 0, maxValue: 100 }
     ]
 
-    contentItem: Item {
+    Item {
         width: parent.width
         height: parent.height
 
