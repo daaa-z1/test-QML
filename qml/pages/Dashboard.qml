@@ -1,51 +1,68 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Extras 1.4
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Extras 1.4 // Ini adalah tambahan untuk mendukung Gauge
 
 Page {
     id: dashboardPage
 
-    Grid {
-        columns: 4
-        spacing: 20
+    property var ainData: [
+        { value: 30, minValue: 0, maxValue: 100 },
+        { value: 50, minValue: 0, maxValue: 100 },
+        { value: 70, minValue: 0, maxValue: 100 },
+        { value: 40, minValue: 0, maxValue: 100 },
+        { value: 60, minValue: 0, maxValue: 100 },
+        { value: 20, minValue: 0, maxValue: 100 },
+        { value: 80, minValue: 0, maxValue: 100 },
+        { value: 90, minValue: 0, maxValue: 100 }
+    ]
+
+    contentItem: Item {
         width: parent.width
         height: parent.height
 
-        ListModel {
-            id: gaugeModel
-            ListElement { label: "AIN0"; value: 50; min: 0; max: 100 }
-            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
-            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
-            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
-            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
-            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
-            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
-            ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
-            // Tambahkan elemen lainnya sesuai kebutuhan
-        }
+        GridLayout {
+            id: gaugeGrid
+            rows: 2
+            columns: 4
+            anchors.centerIn: parent
+            spacing: 10
 
-        Repeater {
-            model: gaugeModel
+            Repeater {
+                model: ainData.length
+                Item {
+                    width: gaugeGrid.cellWidth
+                    height: gaugeGrid.cellHeight
 
-            Item {
-                id: container
-                width: parent.width / parent.columns
-                height: width
+                    Gauge {
+                        id: gauge
+                        width: parent.width
+                        height: parent.height
+                        value: ainData[index].value
+                        minimumValue: ainData[index].minValue
+                        maximumValue: ainData[index].maxValue
+                        anchors.fill: parent
 
-                CircularGauge {
-                    id: gauge
-                    anchors.centerIn: parent
-                    width: container.width * 0.8
-                    height: width
+                        Rectangle {
+                            width: parent.width
+                            height: parent.height
+                            color: "transparent"
+                            border.color: "#3498db"
+                            border.width: 3
 
-                    value: model.value
-                    minimumValue: model.min
-                    maximumValue: model.max
+                            Rectangle {
+                                width: parent.width
+                                height: parent.height
+                                color: Qt.rgba(0, 0, 0, 0.1)
+                            }
+                        }
 
-                    Label {
-                        text: model.label
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.bottom: parent.top
+                        Text {
+                            anchors.centerIn: parent
+                            text: gauge.value.toFixed(1)
+                            font.pixelSize: 20
+                            color: "#3498db"
+                        }
                     }
                 }
             }

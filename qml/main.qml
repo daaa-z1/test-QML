@@ -1,73 +1,101 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Extras 1.4 // Ini adalah tambahan untuk mendukung Gauge
+import "controls"
 
-Page {
-    id: dashboardPage
+ApplicationWindow {
+    visible: true
+    visibility: "FullScreen"
 
-    property var ainData: [
-        { value: 30, minValue: 0, maxValue: 100 },
-        { value: 50, minValue: 0, maxValue: 100 },
-        { value: 70, minValue: 0, maxValue: 100 },
-        { value: 40, minValue: 0, maxValue: 100 },
-        { value: 60, minValue: 0, maxValue: 100 },
-        { value: 20, minValue: 0, maxValue: 100 },
-        { value: 80, minValue: 0, maxValue: 100 },
-        { value: 90, minValue: 0, maxValue: 100 }
-    ]
-    
-    contentItem: Item {
-        width: parent.width
-        height: parent.height
+    ColumnLayout {
+        anchors.fill: parent
 
+        Header {
+            id: appHeader
+            Layout.preferredHeight: 30
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignTop
+        }
 
-        GridLayout {
-            id: gaugeGrid
-            rows: 2
-            columns: 4
-            anchors.centerIn: parent
-            rowSpacing: 10
-            columnSpacing: 10
+        Rectangle {
+            id: contentArea
+            Layout.preferredHeight: (parent.height - appHeader.height - appFooter.height) * 0.7
+            color: "transparent"
+            Layout.fillWidth: true
 
-            Repeater {
-                model: ainData.length
-                Item {
-                    width: gaugeGrid.cellWidth
-                    height: gaugeGrid.cellHeight
+            Loader {
+                id: pageLoader
+                anchors.fill: parent
+                sourceComponent: Qt.createComponent("pages/Dashboard.qml")
+            }
 
-                    Gauge {
-                        id: gauge
-                        width: parent.width
-                        height: parent.height
-                        value: ainData[index].value
-                        minimumValue: ainData[index].minValue
-                        maximumValue: ainData[index].maxValue
-                        anchors.fill: parent
+            RowLayout {
+                anchors {
+                    bottom: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
+                spacing: 10
 
-                        Rectangle {
-                            width: parent.width
-                            height: parent.height
-                            color: "transparent"
-                            border.color: "#3498db"
-                            border.width: 3
-
-                            Rectangle {
-                                width: parent.width
-                                height: parent.height
-                                color: Qt.rgba(0, 0, 0, 0.1)
-                            }
-                        }
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: gauge.value.toFixed(1)
-                            font.pixelSize: 20
-                            color: "#3498db"
-                        }
+                Button {
+                    text: "Dashboard"
+                    onClicked: {
+                        pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
+                    }
+                }
+                Button {
+                    text: "Graph"
+                    onClicked: {
+                        pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
+                    }
+                }
+                Button {
+                    text: "History"
+                    onClicked: {
+                        pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
                     }
                 }
             }
+        }
+
+        RowLayout {
+            id: controlArea
+            Layout.preferredHeight: contentArea.height - appFooter.height
+            Layout.fillWidth: true
+            spacing: 10
+
+            Rectangle {
+                id: controlAmplifier
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                color: "lightgray"
+                border.color: "black"
+                // Tambahkan komponen dari item controls di sini
+            }
+
+            Rectangle {
+                id: config
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                color: "lightgray"
+                border.color: "black"
+                // Tambahkan komponen dari item controls di sini
+            }
+
+            Rectangle {
+                id: dataSection
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                color: "lightgray"
+                border.color: "black"
+                // Tambahkan komponen dari item controls di sini
+            }
+        }
+
+        Footer {
+            id: appFooter
+            Layout.preferredHeight: 30
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignBottom
         }
     }
 }
