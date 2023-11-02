@@ -41,8 +41,8 @@ Page {
                     height : width
 
                     value : ainData[index].value
-                    minimumValue : ainData[index].minValue
-                    maximumValue : ainData[index].maxValue
+                    minValue : ainData[index].minValue
+                    maxValue : ainData[index].maxValue
                     label : ainData[index].label
                 }
             }
