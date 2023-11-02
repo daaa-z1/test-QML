@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Extras 1.4
 
 Page {
     id: dashboardPage
@@ -12,7 +13,7 @@ Page {
 
         ListModel {
             id: gaugeModel
-            ListElement { label: "Pressure In"; value: 50; min: 0; max: 100 }
+            ListElement { label: "AIN0"; value: 50; min: 0; max: 100 }
             ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
             ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
             ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
@@ -20,6 +21,7 @@ Page {
             ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
             ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
             ListElement { label: "AIN1"; value: 75; min: 0; max: 100 }
+            // Tambahkan elemen lainnya sesuai kebutuhan
         }
 
         Repeater {
@@ -30,7 +32,7 @@ Page {
                 width: parent.width / parent.columns
                 height: width
 
-                CircleGauge {
+                CircularGauge {
                     id: gauge
                     anchors.centerIn: parent
                     width: container.width * 0.8
