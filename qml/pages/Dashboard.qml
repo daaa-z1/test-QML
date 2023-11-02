@@ -42,7 +42,7 @@ Page {
                         minimumValue: ainData[index].minValue
                         maximumValue: ainData[index].maxValue
 
-                        Label {
+                        Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.bottom: parent.top
                             text: ainData[index].label
