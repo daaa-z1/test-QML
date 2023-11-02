@@ -31,7 +31,7 @@ Page {
                 id : container
                 Layout.fillWidth : true
                 Layout.fillHeight : true
-                color : "#D3D3D3"
+                color : "transparent"
                 radius : width * 0.1
 
                 CircleGauge {
