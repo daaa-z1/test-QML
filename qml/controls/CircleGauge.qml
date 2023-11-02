@@ -4,7 +4,7 @@ Item {
     property alias value: valueItem.value
     property real minValue: 0
     property real maxValue: 100
-    property string label: "Label"
+    property string label: ""
 
     width: parent.width
     height: parent.height
@@ -54,23 +54,23 @@ Item {
     }
 
     Text {
+        id: symbolText
         anchors {
+            bottom: parent.bottom
             horizontalCenter: parent.horizontalCenter
-            top: parent.top
         }
         text: label
         font.pixelSize: parent.height * 0.1
-        color: "#3498db" // Ganti warna label menjadi biru
     }
 
     Text {
+        id: valueText
         anchors {
+            bottom: symbolText.top
             horizontalCenter: parent.horizontalCenter
-            top: parent.bottom
         }
         text: valueItem.value.toFixed(0)
-        font.pixelSize: Math.min(parent.width, parent.height) * 0.1
-        color: "#3498db" // Ganti warna nilai menjadi biru
+        font.pixelSize: parent.height * 0.1
     }
 
     Item {
@@ -79,7 +79,7 @@ Item {
 
         onValueChanged: {
             canvas.requestPaint();
-            valueText.text = value.toFixed(1);
+            valueText.text = value.toFixed(1)
         }
     }
 }
