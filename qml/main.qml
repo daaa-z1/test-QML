@@ -47,8 +47,6 @@ Page {
                     style: CircularGaugeStyle {
                         labelStepSize: model.max / 5 // adjust as needed
                         tickmarkStepSize: model.max / 50 // adjust as needed
-                        minorTickmarkColor: "gray"
-                        majorTickmarkColor: "black"
                     }
 
                     Label {
