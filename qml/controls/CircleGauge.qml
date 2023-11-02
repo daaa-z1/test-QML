@@ -4,7 +4,7 @@ Item {
     property alias value: valueItem.value
     property real minValue: 0
     property real maxValue: 100
-    property string label: ""
+    property string label: "Label"
 
     width: parent.width
     height: parent.height
@@ -24,8 +24,20 @@ Item {
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
 
+            // Draw the numbers around the arc.
+            ctx.font = width * 0.1 + "px Arial";
+            ctx.fillStyle = "black";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
+                var angle = i * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
+                var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
+                var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15);
+                ctx.fillText(i.toFixed(0), x, y);
+            }
+
             // Draw the needle.
-            var valueAngle = (value - minValue) / (maxValue - minValue) * Math.PI * 0.5 + Math.PI * 0.75;
+            var valueAngle = valueItem.value * Math.PI * 0.5 / (maxValue - minValue) + Math.PI * 0.75;
             ctx.beginPath();
             ctx.moveTo(width / 2, height / 2);
             ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.1), height / 2 + Math.sin(valueAngle) * (height / 2 - height * 0.1));
@@ -42,21 +54,23 @@ Item {
     }
 
     Text {
-        id: labelText
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: parent.top
+        }
         text: label
-        font.pixelSize: 20
-        color: "black"
+        font.pixelSize: parent.height * 0.1
+        color: "#3498db" // Ganti warna label menjadi biru
     }
 
     Text {
-        id: valueText
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: value.toFixed(0)
-        font.pixelSize: 20
-        color: "red"
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: parent.bottom
+        }
+        text: valueItem.value.toFixed(0)
+        font.pixelSize: Math.min(parent.width, parent.height) * 0.1
+        color: "#3498db" // Ganti warna nilai menjadi biru
     }
 
     Item {
