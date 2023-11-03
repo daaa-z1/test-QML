@@ -1,46 +1,92 @@
 import sys
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import QObject, pyqtSlot
-from labjack import LabJackReader
 
-class PageController(QObject):
+from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+
+from koneksi import *
+
+try:
+    import u6
+except:
+    print("Driver error", '''The driver could not be imported.
+Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from www.labjack.com''')
+    sys.exit(1)
+
+class MainApp(QObject):
     def __init__(self):
         super().__init__()
+        
+        # Buat objek LabJack
+        self.d = u6.U6()
 
+        # Buat koneksi ke database
+        self.koneksi = buat_koneksi()
+
+        # Buat tabel konfigurasi jika belum ada
+        buat_tabel_konfigurasi(self.koneksi)
+        buat_tabel_pengukuran(self.koneksi)
+        buat_tabel_swtich(self.koneksi)
+
+        # Ambil data konfigurasi dari database
+        self.daftar_konfigurasi = self.ambil_daftar_konfigurasi()
+        self.daftar_pengukuran = self.ambil_daftar_pengukuran()
+        self.daftar_switch = self.ambil_daftar_switch()
+        
+        # Pastikan tabel Measurements memiliki satu ID
+        self.pastikan_tabel_memiliki_id("Measurements", config_id, data_pengukuran)
+        # Pastikan tabel Limits memiliki satu ID
+        self.pastikan_tabel_memiliki_id("Limits", config_id, data_batasan)
+        # Pastikan tabel Switch memiliki satu ID
+        self.pastikan_tabel_memiliki_id("Switch", config_id, data_switch)
+
+        # Inisialisasi parameter terpilih ke None
+        self.selectedParameter = None
+
+    # Fungsi untuk mengambil daftar konfigurasi dari database
+    def ambil_daftar_konfigurasi(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT Name FROM Configurations")
+        return [konfigurasi[1] for konfigurasi in cursor.fetchall()]
+    
+    # Fungsi untuk memastikan bahwa tabel sudah memiliki satu ID
+    def pastikan_tabel_memiliki_id(self, nama_tabel, config_id, default_data):
+        cursor = self.koneksi.cursor()
+        cursor.execute(f"SELECT COUNT(*) FROM {nama_tabel} WHERE Config_ID=?", (config_id,))
+        count = cursor.fetchone()[0]
+        if count == 0:
+            if nama_tabel == "Measurements":
+                tambah_pengukuran(self.koneksi, config_id, default_data)
+            elif nama_tabel == "Limits":
+                tambah_batasan(self.koneksi, config_id, default_data)
+            elif nama_tabel == "Switch":
+                tambah_switch(self.koneksi, config_id, default_data)
+
+    # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
+    parameterSelectedSignal = pyqtSignal(str)
+    
+    # Slot untuk menangani perubahan parameter yang dipilih dari QML
     @pyqtSlot(str)
-    def changePage(self, pageName):
-        # Dapatkan referensi ke engine
-        engine = self.parent
-        # Muat halaman baru
-        component = QQmlComponent(engine)
-        component.loadUrl(QUrl.fromLocalFile(pageName))
-        if component.status() == QQmlComponent.Ready:
-            self.parent.rootContext().setContextProperty("currentItem", component.beginCreate(engine.rootContext()))
-            component.completeCreate()
+    def parameterSelected(self, selectedParameter):
+        # Mengatur parameter yang dipilih
+        self.selectedParameter = selectedParameter
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-    # Variabel untuk mengatur nilai gauge di halaman Dashboard
-    voltageValue = 120
-    currentValue = 500
-    pressureValue = 50
+    mainApp = MainApp()
 
-    # Hubungkan variabel Python dengan variabel QML
-    engine.rootContext().setContextProperty("voltageValue", voltageValue)
-    engine.rootContext().setContextProperty("currentValue", currentValue)
-    engine.rootContext().setContextProperty("pressureValue", pressureValue)
+    # Menyediakan data model untuk ComboBox di QML
+    parameterModel = mainApp.daftar_konfigurasi
 
-    # Membuat instance dari LabJackReader dan mendaftarkannya ke QML
-    reader = LabJackReader()
-    engine.rootContext().setContextProperty("labJackReader", reader)
+    # Mengikat sinyal dan slot antara Python dan QML
+    engine.rootContext().setContextProperty("mainApp", mainApp)
+    engine.rootContext().setContextProperty("parameterModel", parameterModel)
 
-    # Muat halaman utama
     engine.load("qml/main.qml")
 
     if not engine.rootObjects():
-        sys.exit(-1) 
+        sys.exit(-1)
 
     sys.exit(app.exec_())
