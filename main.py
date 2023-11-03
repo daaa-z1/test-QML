@@ -23,13 +23,13 @@ class MainApp(QObject):
         # Buat koneksi ke database
         self.koneksi = buat_koneksi()
         
-        # Memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
-        self.periksa_tabel_default()
-        
         # Buat tabel konfigurasi jika belum ada
         buat_tabel_konfigurasi(self.koneksi)
         buat_tabel_pengukuran(self.koneksi)
         buat_tabel_swtich(self.koneksi)
+        
+         # Memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
+        self.periksa_tabel_default()
 
         # Ambil data konfigurasi dari database
         self.daftar_konfigurasi = self.ambil_daftar_konfigurasi()
