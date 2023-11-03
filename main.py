@@ -96,7 +96,7 @@ class MainApp(QObject):
     def ambil_daftar_konfigurasi(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT Name FROM Configurations")
-        return [konfigurasi[1] for konfigurasi in cursor.fetchall()]
+        return [konfigurasi[0] for konfigurasi in cursor.fetchall()]
     
     # Fungsi untuk mengambil daftar pengukuran dari database
     def ambil_daftar_pengukuran(self):
