@@ -31,10 +31,10 @@ Rectangle {
             id: configDropdown
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             model: parameterModel
-            textRole: "model.display"
+            textRole: "display"
 
             onActivated: {
-                var selectedParameter = configDropdown.model.get(activatedIndex).model.display
+                var selectedParameter = configDropdown.model.get(activatedIndex).display
                 mainApp.parameterSelected(selectedParameter)
             }
         }
