@@ -22,7 +22,10 @@ class MainApp(QObject):
 
         # Buat koneksi ke database
         self.koneksi = buat_koneksi()
-
+        
+        # Memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
+        self.periksa_tabel_default()
+        
         # Buat tabel konfigurasi jika belum ada
         buat_tabel_konfigurasi(self.koneksi)
         buat_tabel_pengukuran(self.koneksi)
@@ -32,16 +35,62 @@ class MainApp(QObject):
         self.daftar_konfigurasi = self.ambil_daftar_konfigurasi()
         self.daftar_pengukuran = self.ambil_daftar_pengukuran()
         self.daftar_switch = self.ambil_daftar_switch()
-        
-        # Pastikan tabel Measurements memiliki satu ID
-        self.pastikan_tabel_memiliki_id("Measurements", self.config_id, self.data_pengukuran)
-        # Pastikan tabel Limits memiliki satu ID
-        self.pastikan_tabel_memiliki_id("Limits", self.config_id, self.data_batasan)
-        # Pastikan tabel Switch memiliki satu ID
-        self.pastikan_tabel_memiliki_id("Switch", self.config_id, self.data_switch)
 
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
+
+    # Fungsi untuk memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
+    def periksa_tabel_default(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT ID FROM Configurations WHERE Name='Default'")
+        result = cursor.fetchone()
+        if result is None:
+            # Tambahkan konfigurasi "Default" dan mendapatkan ID-nya
+            config_id = tambah_konfigurasi(self.koneksi, "Default")
+
+            # Tambahkan data pengukuran dan data batasan sesuai dengan ID konfigurasi
+            data_pengukuran = {
+                "Pressure_In": 0,
+                "Pressure_A": 1,
+                "Pressure_B": 2,
+                "Flow": 3,
+                "Temp": 4,
+                "Curr_V": 5,
+                "Aktual": 6,
+                "Curr_MA": 7
+            }
+
+            data_batasan = {
+                "Pressure_In_Min": 0,
+                "Pressure_In_Max": 100,
+                "Pressure_A_Min": 0,
+                "Pressure_A_Max": 100,
+                "Pressure_B_Min": 0,
+                "Pressure_B_Max": 100,
+                "Flow_Min": 0,
+                "Flow_Max": 100,
+                "Temp_Min": 0,
+                "Temp_Max": 100,
+                "Curr_V_Min": -5,
+                "Curr_V_Max": 5,
+                "Aktual_Min": -5,
+                "Aktual_Max": 5,
+                "Curr_MA_Min": -5,
+                "Curr_MA_Max": 5,
+            }
+            
+            data_switch = {
+                "Btn1": 0,
+                "Btn2": 1,
+                "Btn3": 2,
+                "Btn4": 3,
+                "Btn5": 4,
+                "Btn6": 5
+            }
+
+            tambah_pengukuran(self.koneksi, config_id, data_pengukuran)
+            tambah_batasan(self.koneksi, config_id, data_batasan)
+            tambah_switch(self.koneksi, config_id, data_switch)
 
     # Fungsi untuk mengambil daftar konfigurasi dari database
     def ambil_daftar_konfigurasi(self):
@@ -60,19 +109,6 @@ class MainApp(QObject):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Switch")
         return cursor.fetchall()
-    
-    # Fungsi untuk memastikan bahwa tabel sudah memiliki satu ID
-    def pastikan_tabel_memiliki_id(self, nama_tabel, config_id, default_data):
-        cursor = self.koneksi.cursor()
-        cursor.execute(f"SELECT COUNT(*) FROM {nama_tabel} WHERE Config_ID=?", (config_id,))
-        count = cursor.fetchone()[0]
-        if count == 0:
-            if nama_tabel == "Measurements":
-                tambah_pengukuran(self.koneksi, config_id, default_data)
-            elif nama_tabel == "Limits":
-                tambah_batasan(self.koneksi, config_id, default_data)
-            elif nama_tabel == "Switch":
-                tambah_switch(self.koneksi, config_id, default_data)
 
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
