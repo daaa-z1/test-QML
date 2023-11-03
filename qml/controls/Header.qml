@@ -33,6 +33,10 @@ Rectangle {
             model: parameterModel
             textRole: "model.display"
 
+            onLoaded: {
+                console.log(parameterModel)
+            }
+
             onActivated: {
                 var selectedParameter = configDropdown.model.get(activatedIndex).model.display
                 mainApp.parameterSelected(selectedParameter)
