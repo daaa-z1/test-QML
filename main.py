@@ -49,6 +49,18 @@ class MainApp(QObject):
         cursor.execute("SELECT Name FROM Configurations")
         return [konfigurasi[1] for konfigurasi in cursor.fetchall()]
     
+    # Fungsi untuk mengambil daftar pengukuran dari database
+    def ambil_daftar_pengukuran(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT * FROM Measurements")
+        return cursor.fetchall()
+
+    # Fungsi untuk mengambil daftar switch dari database
+    def ambil_daftar_switch(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT * FROM Switch")
+        return cursor.fetchall()
+    
     # Fungsi untuk memastikan bahwa tabel sudah memiliki satu ID
     def pastikan_tabel_memiliki_id(self, nama_tabel, config_id, default_data):
         cursor = self.koneksi.cursor()
