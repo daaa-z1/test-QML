@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 Rectangle {
     id: appHeader
     color: "#3498db"
-    height: 50
+    height: 30
 
     RowLayout {
         anchors.fill: parent
