@@ -26,7 +26,7 @@ class MainApp(QObject):
         # Buat tabel konfigurasi jika belum ada
         buat_tabel_konfigurasi(self.koneksi)
         buat_tabel_pengukuran(self.koneksi)
-        buat_tabel_swtich(self.koneksi)
+        buat_tabel_switch(self.koneksi)
         
          # Memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
         self.periksa_tabel_default()

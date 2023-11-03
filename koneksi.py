@@ -72,7 +72,7 @@ def buat_tabel_batasan(koneksi):
             print(f"Kesalahan dalam membuat tabel Limits: {e}")
             
 # Fungsi untuk membuat tabel fungsi tombol
-def buat_tabel_swtich(koneksi):
+def buat_tabel_switch(koneksi):
     if koneksi:
         try:
             cursor = koneksi.cursor()
@@ -142,7 +142,7 @@ if __name__ == "__main__":
         buat_tabel_konfigurasi(koneksi)
         buat_tabel_pengukuran(koneksi)
         buat_tabel_batasan(koneksi)
-        buat_tabel_swtich(koneksi)
+        buat_tabel_switch(koneksi)
 
         # Menambahkan konfigurasi "Default" dan mendapatkan ID-nya
         config_id = tambah_konfigurasi(koneksi, "Default")
