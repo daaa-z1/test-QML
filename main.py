@@ -34,11 +34,11 @@ class MainApp(QObject):
         self.daftar_switch = self.ambil_daftar_switch()
         
         # Pastikan tabel Measurements memiliki satu ID
-        self.pastikan_tabel_memiliki_id("Measurements", config_id, data_pengukuran)
+        self.pastikan_tabel_memiliki_id("Measurements", self.config_id, self.data_pengukuran)
         # Pastikan tabel Limits memiliki satu ID
-        self.pastikan_tabel_memiliki_id("Limits", config_id, data_batasan)
+        self.pastikan_tabel_memiliki_id("Limits", self.config_id, self.data_batasan)
         # Pastikan tabel Switch memiliki satu ID
-        self.pastikan_tabel_memiliki_id("Switch", config_id, data_switch)
+        self.pastikan_tabel_memiliki_id("Switch", self.config_id, self.data_switch)
 
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
