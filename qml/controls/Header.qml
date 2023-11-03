@@ -51,7 +51,8 @@ Rectangle {
         // Tombol untuk menutup aplikasi
         MouseArea {
             id: closeButtonArea
-            anchors.fill: parent
+            width: 30
+            height: 30
             onClicked: {
                 Qt.quit();
             }
