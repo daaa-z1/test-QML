@@ -57,8 +57,8 @@ Rectangle {
             }
 
             Rectangle {
-                width: parent.width
-                height: parent.height
+                width: 30
+                height: 30
                 radius: width / 2
                 color: "#e74c3c" // Warna merah
                 border.color: "#c0392b"
