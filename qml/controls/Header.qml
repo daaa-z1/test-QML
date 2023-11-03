@@ -34,7 +34,7 @@ Rectangle {
             textRole: "display"
 
             onActivated: {
-                var selectedParameter = configDropdown.model.get(activatedIndex).display
+                var selectedParameter = configDropdown.model.get(currentIndex).display
                 mainApp.parameterSelected(selectedParameter)
             }
         }
