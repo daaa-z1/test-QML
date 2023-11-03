@@ -23,7 +23,7 @@ Rectangle {
             text: "V 1.0.1"
             font.pixelSize: 14
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            leftMargin: 10
+            leftPadding: 10
         }
 
         // Dropdown untuk memilih konfigurasi
