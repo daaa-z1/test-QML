@@ -8,7 +8,6 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property var ainReader: ainReader
     property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
 
     
