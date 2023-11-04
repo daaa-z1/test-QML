@@ -34,8 +34,9 @@ class MainApp(QObject):
 
         # Ambil data konfigurasi dari database
         self.daftar_konfigurasi = self.ambil_daftar_konfigurasi()
-        self.daftar_pengukuran = self.ambil_daftar_pengukuran()
-        self.daftar_batasan = self.ambil_daftar_batasan()
+        self.daftar_ain = self.ambil_daftar_ain()
+        self.daftar_min = self.ambil_daftar_min()
+        self.daftar_max = self.ambil_daftar_max()
         self.daftar_switch = self.ambil_daftar_switch()
 
         # Inisialisasi parameter terpilih ke None
@@ -152,22 +153,27 @@ class MainApp(QObject):
         return [konfigurasi[0] for konfigurasi in cursor.fetchall()]
     
     # Fungsi untuk mengambil daftar pengukuran dari database
-    def ambil_daftar_pengukuran(self):
+    def ambil_daftar_ain(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Measurements")
-        return cursor.fetchall()
+        return [i[2:] for i in cursor.fetchall()]
     
-    # Fungsi untuk mengambil daftar batasan dari database
-    def ambil_daftar_batasan(self):
+    # Fungsi untuk mengambil min dan max dari database
+    def ambil_daftar_min(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Limits")
-        return [i[2:-0] for i in cursor.fetchall()]
+        return [i[2::2] for i in cursor.fetchall()]
+    
+    def ambil_daftar_max(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT * FROM Limits")
+        return [i[3::2] for i in cursor.fetchall()]
 
     # Fungsi untuk mengambil daftar switch dari database
     def ambil_daftar_switch(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Switch")
-        return [konfigurasi[2:8] for konfigurasi in cursor.fetchall()]
+        return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
 
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
@@ -184,8 +190,9 @@ if __name__ == "__main__":
 
     mainApp = MainApp()
 
-    limitModel = mainApp.daftar_batasan
-    ainModel = mainApp.daftar_pengukuran
+    ainModel = mainApp.daftar_ain
+    minModel = mainApp.daftar_min
+    maxModel = mainApp.daftar_max
     btnModel = mainApp.daftar_switch
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
