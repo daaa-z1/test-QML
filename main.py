@@ -42,7 +42,6 @@ class MainApp(QObject):
         self.daftar_switch = self.ambil_daftar_switch()
         
         # Update AIN
-        self.channels = channels[0]
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
@@ -186,7 +185,7 @@ class MainApp(QObject):
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
     @pyqtSlot()
     def readValues(self):
-        for channel in self.channels:
+        for channel in self.daftar_ain:
             value = self.device.getAIN(channel)
             self.newValue.emit(channel, value)
     
@@ -205,8 +204,7 @@ if __name__ == "__main__":
 
     mainApp = MainApp()
     
-    channels = [mainApp.ambil_daftar_ain()]
-    ainReader = MainApp(channels)
+    ainReader = MainApp()
     
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
