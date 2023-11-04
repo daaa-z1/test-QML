@@ -37,7 +37,7 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value : dashboardPage.updateGauge[index]
+                    value: parseFloat(updateGauge[index])
                 }
             }
         }
