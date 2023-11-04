@@ -202,15 +202,15 @@ if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-    mainApp = MainApp()
+    # mainApp = MainApp()
     
     ainReader = MainApp()
     
     # Menyediakan data model untuk ComboBox di QML
-    parameterModel = mainApp.daftar_konfigurasi
+    parameterModel = ainReader.daftar_konfigurasi
 
     # Mengikat sinyal dan slot antara Python dan QML
-    engine.rootContext().setContextProperty("mainApp", mainApp)
+    # engine.rootContext().setContextProperty("mainApp", mainApp)
     engine.rootContext().setContextProperty("parameterModel", parameterModel)
     engine.rootContext().setContextProperty("ainReader", ainReader)
 
