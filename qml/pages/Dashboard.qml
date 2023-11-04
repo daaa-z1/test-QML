@@ -9,11 +9,11 @@ Page {
     id: dashboardPage
 
     property var ainReader: ainReader
-    property var ainData: [0, 0, 0, 0, 0, 0, 0, 0]
+    property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
 
     
-    function updateValue(ain, value) {
-        ainData[ain] = value;
+    function updateValue(channel, value) {
+        updateGauge[channel] = value;
     }
 
     GridLayout {
@@ -22,7 +22,7 @@ Page {
         columns : ainData.length > 4 ? ainData.length / 2 : ainData.length
 
         Repeater {
-            model : ainData.length
+            model : updateGauge.length
 
             Rectangle {
                 id : container
@@ -31,13 +31,13 @@ Page {
                 color : "transparent"
                 radius : width * 0.1
 
-                CircleGauge {
+                delegate: CircleGauge {
                     id : gauge
                     anchors.centerIn : parent
                     width : container.width * 0.8
                     height : width
 
-                    value : ainData[index]
+                    value : updateGauge[index]
                 }
             }
         }
