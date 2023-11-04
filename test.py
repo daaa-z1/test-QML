@@ -27,6 +27,7 @@ class AINReader(QObject):
     def readValues(self):
         for channel in self.channels:
             value = self.device.getAIN(channel)
+            print(f"Channel: {channel}, Value: {value}")
             self.newValue.emit(channel, value)
 
 if __name__ == "__main__":
