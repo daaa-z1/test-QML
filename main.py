@@ -161,13 +161,13 @@ class MainApp(QObject):
     def ambil_daftar_batasan(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Limits")
-        return cursor.fetchall()
+        return [i[2:-0] for i in cursor.fetchall()]
 
     # Fungsi untuk mengambil daftar switch dari database
     def ambil_daftar_switch(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Switch")
-        return [konfigurasi[2:7] for konfigurasi in cursor.fetchall()]
+        return [konfigurasi[2:8] for konfigurasi in cursor.fetchall()]
 
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
