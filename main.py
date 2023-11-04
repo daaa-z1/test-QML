@@ -191,7 +191,7 @@ if __name__ == "__main__":
     parameterModel = mainApp.daftar_konfigurasi
     
     print(parameterModel)
-    print(limitModel[1,-1])
+    print(limitModel[1][-1])
     print(ainModel)
     print(btnModel)
 
