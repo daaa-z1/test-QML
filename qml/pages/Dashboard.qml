@@ -19,7 +19,7 @@ Page {
     GridLayout {
         id : gridLayout
         anchors.fill : parent
-        columns : ainData.length > 4 ? ainData.length / 2 : ainData.length
+        columns : updateGauge.length > 4 ? updateGauge.length / 2 : updateGauge.length
 
         Repeater {
             model : updateGauge.length
