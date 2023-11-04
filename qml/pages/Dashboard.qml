@@ -37,7 +37,7 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: updateGauge[index]
+                    value : dashboardPage.updateGauge[index]
                 }
             }
         }
