@@ -93,9 +93,6 @@ class MainApp(QObject):
             tambah_pengukuran(self.koneksi, config_id, data_pengukuran)
             tambah_batasan(self.koneksi, config_id, data_batasan)
             tambah_switch(self.koneksi, config_id, data_switch)
-            
-            # Setelah menambahkan data konfigurasi, ambil daftar konfigurasi lagi
-            self.daftar_konfigurasi = self.ambil_daftar_konfigurasi()
 
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT ID FROM Configurations WHERE Name='Default'")
