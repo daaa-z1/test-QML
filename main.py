@@ -40,7 +40,7 @@ class MainApp(QObject):
         self.daftar_switch = self.ambil_daftar_switch()
         
         # Update AIN
-        self.ain = ain[0]
+        self.ains = ains[0]
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
@@ -185,7 +185,7 @@ class MainApp(QObject):
     newValue = pyqtSignal(int, float)
     @pyqtSlot()
     def readValues(self):
-        for ain in self.ain:
+        for ain in self.ains:
             value = self.device.getAIN(ain)
             self.newValue.emit(ain, value)
     
@@ -204,7 +204,7 @@ if __name__ == "__main__":
 
     mainApp = MainApp()
     
-    ain = mainApp.ambil_daftar_ain()
+    ains = mainApp.ambil_daftar_ain()
     
     ainReader = MainApp(ain)
     
