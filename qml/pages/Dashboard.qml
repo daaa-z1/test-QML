@@ -12,6 +12,8 @@ Page {
 
     function updateValue(channel, value) {
         updateGauge[channel] = value;
+        // Pemicu perubahan pada updateGauge
+        updateGauge = updateGauge.slice(0); // Ini akan memicu pembaruan
     }
 
     GridLayout {
@@ -36,13 +38,6 @@ Page {
                     height: width
 
                     value: updateGauge[index]
-
-                    // Bind nilai CircularGauge ke updateGauge
-                    Binding {
-                        target: gauge
-                        property: "value"
-                        value: updateGauge[index]
-                    }
                 }
             }
         }
@@ -50,8 +45,9 @@ Page {
 
     Connections {
         target: ainReader
-        onDataChanged: {
-            updateValue(channel, dataValue);
+        function onNewValue(channel, value) {
+            console.log("Channel: " + channel + ", Value: " + value);
+            updateValue(channel, value);
         }
     }
 }
