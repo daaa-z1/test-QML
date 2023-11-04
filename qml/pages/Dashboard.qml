@@ -45,7 +45,7 @@ Page {
     
     Connections {
         target: ainReader
-        onNewValue: updateValue(ain, value)
+        onNewValue: updateValue(channel, value)
     }
     
 }
