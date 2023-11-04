@@ -42,10 +42,9 @@ Page {
         }
     }
 
-    
     Connections {
-        target: ainReader
-        onNewValue: updateValue(channel, value)
+    target: ainReader
+    onNewValue: function(channel, value) { updateValue(channel, value); }
     }
-    
+
 }
