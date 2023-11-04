@@ -186,7 +186,7 @@ class MainApp(QObject):
     @pyqtSlot()
     def readValues(self):
         for channel in self.daftar_ain:
-            value = self.device.getAIN(channel)
+            value = self.d.getAIN(channel)
             self.newValue.emit(channel, value)
     
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
