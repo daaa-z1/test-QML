@@ -30,7 +30,7 @@ Page {
                 color : "transparent"
                 radius : width * 0.1
 
-                CircleGauge {
+                CircularGauge {
                     id : gauge
                     anchors.centerIn : parent
                     width : container.width * 0.8
