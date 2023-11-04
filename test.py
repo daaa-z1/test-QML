@@ -11,7 +11,7 @@ class AINReader(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.device = u6.U6()
-        self.koneksi = sqlite3.connect('nama_database_anda.db')  # Ganti dengan nama database Anda
+        self.koneksi = sqlite3.connect('data.db')  # Ganti dengan nama database Anda
         self.daftar_ain = self.ambil_daftar_ain()
         self.channels = self.daftar_ain[0]
         self.timer = QTimer()
