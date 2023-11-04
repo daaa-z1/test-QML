@@ -34,6 +34,7 @@ class MainApp(QObject):
         # Ambil data konfigurasi dari database
         self.daftar_konfigurasi = self.ambil_daftar_konfigurasi()
         self.daftar_pengukuran = self.ambil_daftar_pengukuran()
+        self.daftar_batasan = self.ambil_daftar_batasan()
         self.daftar_switch = self.ambil_daftar_switch()
 
         # Inisialisasi parameter terpilih ke None
@@ -157,6 +158,12 @@ class MainApp(QObject):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Measurements")
         return cursor.fetchall()
+    
+    # Fungsi untuk mengambil daftar batasan dari database
+    def ambil_daftar_batasan(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT * FROM Limits")
+        return cursor.fetchall()
 
     # Fungsi untuk mengambil daftar switch dari database
     def ambil_daftar_switch(self):
@@ -181,6 +188,8 @@ if __name__ == "__main__":
 
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
+    
+    print(parameterModel)
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
