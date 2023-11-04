@@ -167,7 +167,7 @@ class MainApp(QObject):
     def ambil_daftar_switch(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Switch")
-        return [konfigurasi[2:0] for konfigurasi in cursor.fetchall()]
+        return [konfigurasi[2:7] for konfigurasi in cursor.fetchall()]
 
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
