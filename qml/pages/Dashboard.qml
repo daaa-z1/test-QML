@@ -45,8 +45,10 @@ Page {
 
     Connections {
         target: ainReader
-        onDataChanged: {
-            updateValue(channel, dataValue);
+        function onNewValue(channel, value) {
+            console.log("Channel: " + channel + ", Value: " + value);
+            updateValue(channel, value);
         }
     }
+
 }
