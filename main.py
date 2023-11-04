@@ -199,7 +199,8 @@ if __name__ == "__main__":
     
     print(parameterModel)
     print(ainModel)
-    print(limitModel)
+    print(minModel)
+    print(maxModel)
     print(btnModel)
 
     # Mengikat sinyal dan slot antara Python dan QML
