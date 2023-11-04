@@ -34,7 +34,7 @@ class MainApp(QObject):
 
         # Ambil data konfigurasi dari database
         self.daftar_konfigurasi = self.ambil_daftar_konfigurasi()
-        # self.daftar_ain = self.ambil_daftar_ain()
+        self.daftar_ain = self.ambil_daftar_ain()
         self.daftar_min = self.ambil_daftar_min()
         self.daftar_max = self.ambil_daftar_max()
         self.daftar_switch = self.ambil_daftar_switch()
@@ -204,9 +204,9 @@ if __name__ == "__main__":
 
     mainApp = MainApp()
     
-    ains = mainApp.ambil_daftar_ain()
+    ains = mainApp.daftar_ain
     
-    ainReader = MainApp(ain)
+    ainReader = MainApp(ains)
     
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
