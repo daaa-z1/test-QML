@@ -31,7 +31,7 @@ Page {
                 color : "transparent"
                 radius : width * 0.1
 
-                delegate: CircleGauge {
+                CircleGauge {
                     id : gauge
                     anchors.centerIn : parent
                     width : container.width * 0.8
