@@ -190,8 +190,8 @@ if __name__ == "__main__":
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
     
-    print(parameterModel[1][-1])
-    print(limitModel)
+    print(parameterModel)
+    print(limitModel[1,-1])
     print(ainModel)
     print(btnModel)
 
