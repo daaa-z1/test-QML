@@ -29,14 +29,14 @@ def buat_tabel_pengukuran(koneksi):
             cursor.execute('''CREATE TABLE IF NOT EXISTS Measurements
                               (ID INTEGER PRIMARY KEY AUTOINCREMENT,
                                Config_ID INTEGER NOT NULL,
-                               Pressure_In REAL,
-                               Pressure_A REAL,
-                               Pressure_B REAL,
-                               Flow REAL,
-                               Temp REAL,
-                               Curr_V REAL,
-                               Aktual REAL,
-                               Curr_MA REAL,
+                               Pressure_In INTEGER,
+                               Pressure_A INTEGER,
+                               Pressure_B INTEGER,
+                               Flow INTEGER,
+                               Temp INTEGER,
+                               Curr_V INTEGER,
+                               Aktual INTEGER,
+                               Curr_MA INTEGER,
                                FOREIGN KEY (Config_ID) REFERENCES Configurations (ID))''')
             koneksi.commit()
         except sqlite3.Error as e:
@@ -126,7 +126,7 @@ def tambah_switch(koneksi, config_id, btn):
 
 # Fungsi untuk menambahkan data batasan
 def tambah_batasan(koneksi, config_id, batasan):
-    if koneksi:
+    if koneksi:INTEGER
         try:
             cursor = koneksi.cursor()
             cursor.execute("INSERT INTO Limits (Config_ID, Pressure_In_Min, Pressure_In_Max, Pressure_A_Min, Pressure_A_Max, Pressure_B_Min, Pressure_B_Max, Flow_Min, Flow_Max, Temp_Min, Temp_Max, Curr_V_Min, Curr_V_Max, Aktual_Min, Aktual_Max, Curr_MA_Min, Curr_MA_Max) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
