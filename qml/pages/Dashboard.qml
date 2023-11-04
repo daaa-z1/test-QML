@@ -8,16 +8,13 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property var ainData: [
-        { label: "Pressure A", value: 30, minValue: 0, maxValue: 100 },
-        { label: "Actual", value: 50, minValue: 0, maxValue: 100 },
-        { label: "Actual", value: 70, minValue: 0, maxValue: 100 },
-        { label: "Actual", value: 40, minValue: 0, maxValue: 100 },
-        { label: "Actual", value: 60, minValue: 0, maxValue: 100 },
-        { label: "Actual", value: 20, minValue: 0, maxValue: 100 },
-        { label: "Actual", value: 80, minValue: 0, maxValue: 100 },
-        { label: "Actual", value: 90, minValue: 0, maxValue: 100 }
-    ]
+    property var ainReader: ainReader
+    property var ainData: [0, 0, 0, 0, 0, 0, 0, 0]
+
+    
+    function updateValue(ain, value) {
+        ainData[ain] = value;
+    }
 
     GridLayout {
         id : gridLayout
@@ -40,12 +37,16 @@ Page {
                     width : container.width * 0.8
                     height : width
 
-                    value : ainData[index].value
-                    minValue : ainData[index].minValue
-                    maxValue : ainData[index].maxValue
-                    label : ainData[index].label
+                    value : ainData[index]
                 }
             }
         }
     }
+
+    
+    Connections {
+        target: ainReader
+        onNewValue: updateValue(ain, value)
+    }
+    
 }

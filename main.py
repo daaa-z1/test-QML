@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer
 
 from koneksi import *
 
@@ -34,10 +34,16 @@ class MainApp(QObject):
 
         # Ambil data konfigurasi dari database
         self.daftar_konfigurasi = self.ambil_daftar_konfigurasi()
-        self.daftar_ain = self.ambil_daftar_ain()
+        # self.daftar_ain = self.ambil_daftar_ain()
         self.daftar_min = self.ambil_daftar_min()
         self.daftar_max = self.ambil_daftar_max()
         self.daftar_switch = self.ambil_daftar_switch()
+        
+        # Update AIN
+        self.ain = daftar_ain[0]
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.readValues)
+        self.timer.start(100)
 
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -174,7 +180,15 @@ class MainApp(QObject):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Switch")
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
-
+    
+    # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
+    newValue = pyqtSignal(int, float)
+    @pyqtSlot()
+    def readValues(self):
+        for ain in self.ain:
+            value = self.device.getAIN(ain)
+            self.newValue.emit(ain, value)
+    
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
     
@@ -189,23 +203,18 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
 
     mainApp = MainApp()
-
-    ainModel = mainApp.daftar_ain
-    minModel = mainApp.daftar_min
-    maxModel = mainApp.daftar_max
-    btnModel = mainApp.daftar_switch
+    
+    ain = mainApp.ambil_daftar_ain()
+    
+    ainReader = MainApp(ain)
+    
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
-    
-    print(parameterModel)
-    print(ainModel)
-    print(minModel)
-    print(maxModel)
-    print(btnModel)
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
     engine.rootContext().setContextProperty("parameterModel", parameterModel)
+    engine.rootContext().setContextProperty("ainReader", ainReader)
 
     engine.load("qml/main.qml")
 
