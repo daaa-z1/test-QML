@@ -8,7 +8,7 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
+    property var updateGauge: [0]
 
     
     function updateValue(channel, value) {
