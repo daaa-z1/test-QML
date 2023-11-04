@@ -16,8 +16,8 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
 class MainApp(QObject):
     newValue = pyqtSignal(int, float)
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
         
         # Buat objek LabJack
         self.d = u6.U6()
