@@ -154,7 +154,7 @@ class MainApp(QObject):
     # Fungsi untuk mengambil daftar pengukuran dari database
     def ambil_daftar_pengukuran(self):
         cursor = self.koneksi.cursor()
-        cursor.execute("SELECT Pressure_In, Pressure_A ,Pressure_B, Flow, Temp, Curr_V, Aktual, Curr_MA, FROM Measurements")
+        cursor.execute("SELECT * FROM Measurements")
         return cursor.fetchall()
     
     # Fungsi untuk mengambil daftar batasan dari database
