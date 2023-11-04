@@ -40,7 +40,7 @@ class MainApp(QObject):
         self.daftar_switch = self.ambil_daftar_switch()
         
         # Update AIN
-        self.ain = daftar_ain[0]
+        self.ain = ain[0]
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
