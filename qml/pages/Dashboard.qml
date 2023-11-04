@@ -44,7 +44,6 @@ Page {
 
     Connections {
     target: ainReader
-    onNewValue: function(channel, value) { updateValue(channel, value); }
+    function onNewValue(channel, value) { updateValue(channel, value); }
     }
-
 }
