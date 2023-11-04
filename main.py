@@ -42,6 +42,7 @@ class MainApp(QObject):
         self.daftar_switch = self.ambil_daftar_switch()
         
         # Update AIN
+        self.channels = self.daftar_ain[0]
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
@@ -185,7 +186,7 @@ class MainApp(QObject):
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
     @pyqtSlot()
     def readValues(self):
-        for channel in self.daftar_ain:
+        for channel in self.channels:
             value = self.d.getAIN(channel)
             self.newValue.emit(channel, value)
     
