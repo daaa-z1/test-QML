@@ -42,7 +42,7 @@ class MainApp(QObject):
         self.daftar_switch = self.ambil_daftar_switch()
         
         # Update AIN
-        self.channels = self.daftar_ain[0]
+        self.channels = channels[0]
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
@@ -205,8 +205,7 @@ if __name__ == "__main__":
 
     mainApp = MainApp()
     
-    channels = mainApp.daftar_ain
-    
+    channels = [mainApp.daftar_ain]
     ainReader = MainApp(channels)
     
     # Menyediakan data model untuk ComboBox di QML
