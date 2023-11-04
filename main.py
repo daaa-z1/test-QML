@@ -191,8 +191,8 @@ if __name__ == "__main__":
     parameterModel = mainApp.daftar_konfigurasi
     
     print(parameterModel)
-    print(limitModel)
     print(ainModel)
+    print(limitModel)
     print(btnModel)
 
     # Mengikat sinyal dan slot antara Python dan QML
