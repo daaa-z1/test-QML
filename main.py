@@ -205,7 +205,7 @@ if __name__ == "__main__":
 
     mainApp = MainApp()
     
-    channels = [mainApp.daftar_ain]
+    channels = [mainApp.ambil_daftar_ain()]
     ainReader = MainApp(channels)
     
     # Menyediakan data model untuk ComboBox di QML
