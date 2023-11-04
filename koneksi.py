@@ -126,7 +126,7 @@ def tambah_switch(koneksi, config_id, btn):
 
 # Fungsi untuk menambahkan data batasan
 def tambah_batasan(koneksi, config_id, batasan):
-    if koneksi:INTEGER
+    if koneksi:
         try:
             cursor = koneksi.cursor()
             cursor.execute("INSERT INTO Limits (Config_ID, Pressure_In_Min, Pressure_In_Max, Pressure_A_Min, Pressure_A_Max, Pressure_B_Min, Pressure_B_Max, Flow_Min, Flow_Max, Temp_Min, Temp_Max, Curr_V_Min, Curr_V_Max, Aktual_Min, Aktual_Max, Curr_MA_Min, Curr_MA_Max) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
