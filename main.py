@@ -14,6 +14,8 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
     sys.exit(1)
 
 class MainApp(QObject):
+    newValue = pyqtSignal(int, float)
+    
     def __init__(self):
         super().__init__()
         
@@ -40,7 +42,7 @@ class MainApp(QObject):
         self.daftar_switch = self.ambil_daftar_switch()
         
         # Update AIN
-        self.ains = ains[0]
+        self.channels = channels[0]
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
@@ -182,12 +184,11 @@ class MainApp(QObject):
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
     
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
-    newValue = pyqtSignal(int, float)
     @pyqtSlot()
     def readValues(self):
-        for ain in self.ains:
-            value = self.device.getAIN(ain)
-            self.newValue.emit(ain, value)
+        for channel in self.channels:
+            value = self.device.getAIN(channel)
+            self.newValue.emit(channel, value)
     
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
@@ -204,9 +205,9 @@ if __name__ == "__main__":
 
     mainApp = MainApp()
     
-    ains = mainApp.daftar_ain
+    channels = mainApp.daftar_ain
     
-    ainReader = MainApp(ains)
+    ainReader = MainApp(channels)
     
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
