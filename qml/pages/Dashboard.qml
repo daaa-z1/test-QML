@@ -10,42 +10,48 @@ Page {
 
     property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
 
-    
     function updateValue(channel, value) {
         updateGauge[channel] = value;
     }
 
     GridLayout {
-        id : gridLayout
-        anchors.fill : parent
-        columns : updateGauge.length > 4 ? updateGauge.length / 2 : updateGauge.length
+        id: gridLayout
+        anchors.fill: parent
+        columns: updateGauge.length > 4 ? updateGauge.length / 2 : updateGauge.length
 
         Repeater {
-            model : updateGauge.length
+            model: updateGauge.length
 
             Rectangle {
-                id : container
-                Layout.fillWidth : true
-                Layout.fillHeight : true
-                color : "transparent"
-                radius : width * 0.1
+                id: container
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                color: "transparent"
+                radius: width * 0.1
 
                 CircularGauge {
-                    id : gauge
-                    anchors.centerIn : parent
-                    width : container.width * 0.8
-                    height : width
+                    id: gauge
+                    anchors.centerIn: parent
+                    width: container.width * 0.8
+                    height: width
 
-                    value : updateGauge[index]
+                    value: updateGauge[index]
+
+                    // Bind nilai CircularGauge ke updateGauge
+                    Binding {
+                        target: gauge
+                        property: "value"
+                        value: updateGauge[index]
+                    }
                 }
             }
         }
     }
 
     Connections {
-    target: ainReader
-    function onNewValue(channel, value) {
-        console.log("Channel: " + channel + ", Value: " + value);
-        updateValue(channel, value); }
+        target: ainReader
+        onDataChanged: {
+            updateValue(channel, dataValue);
+        }
     }
 }
