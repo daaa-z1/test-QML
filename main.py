@@ -187,6 +187,9 @@ if __name__ == "__main__":
 
     mainApp = MainApp()
 
+    limitModel = mainApp.daftar_batasan
+    ainModel = mainApp.daftar_pengukuran
+    btnModel = mainApp.daftar_switch
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
     
