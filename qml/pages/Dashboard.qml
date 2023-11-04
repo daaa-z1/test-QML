@@ -8,7 +8,7 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property var updateGauge: [0]
+    property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
 
     
     function updateValue(channel, value) {
@@ -44,6 +44,8 @@ Page {
 
     Connections {
     target: ainReader
-    function onNewValue(channel, value) { updateValue(channel, value); }
+    function onNewValue(channel, value) {
+        console.log("Channel: " + channel + ", Value: " + value);
+        updateValue(channel, value); }
     }
 }
