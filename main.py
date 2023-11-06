@@ -137,7 +137,7 @@ class MainApp(QObject):
         self.newValue.emit(*value)
     
     # Membaca min value dari database
-    minValues = pyqtSignal(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float)
+    minValues = pyqtSignal(float, float, float, float, float, float, float, float)
     
     @pyqtSlot()
     def readMinValues(self):
@@ -145,7 +145,7 @@ class MainApp(QObject):
         self.minValues.emit(*value)
     
     # Membaca max value dari database
-    maxValues = pyqtSignal(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float)
+    maxValues = pyqtSignal(float, float, float, float, float, float, float, float,)
     
     @pyqtSlot()
     def readMinValues(self):
