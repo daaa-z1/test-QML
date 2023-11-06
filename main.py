@@ -45,14 +45,6 @@ class MainApp(QObject):
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
 
-        self.minTimer = QTimer()
-        self.minTimer.timeout.connect(self.readMinValues)
-        self.minTimer.start(1000)
-
-        self.maxTimer = QTimer()
-        self.maxTimer.timeout.connect(self.readMaxValues)
-        self.maxTimer.start(1000)
-
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
 
@@ -148,12 +140,14 @@ class MainApp(QObject):
     @pyqtSlot()
     def readMinValues(self):
         value = [i for i in self.daftar_min[0]]
+        print(*value)
         self.minValues.emit(*value)
 
     # Metode untuk membaca max value dari database
     @pyqtSlot()
     def readMaxValues(self):
         value = [i for i in self.daftar_max[0]]
+        print(*value)
         self.maxValues.emit(*value)
 
 if __name__ == "__main__":
