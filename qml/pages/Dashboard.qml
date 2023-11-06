@@ -9,11 +9,13 @@ Page {
     id: dashboardPage
 
     ListModel {
-        id: gaugeModel
+        id: valueModel
     }
+
     ListModel {
         id: minModel
     }
+
     ListModel {
         id: maxModel
     }
@@ -21,10 +23,10 @@ Page {
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: gaugeModel.count > 4 ? Math.ceil(gaugeModel.count / 2) : gaugeModel.count
+        columns: Math.ceil(valueModel.count / 2)
 
         Repeater {
-            model: gaugeModel
+            model: valueModel
 
             Rectangle {
                 id: container
@@ -50,36 +52,39 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
-            gaugeModel.clear()
-            gaugeModel.append({"value": value1})
-            gaugeModel.append({"value": value2})
-            gaugeModel.append({"value": value3})
-            gaugeModel.append({"value": value4})
-            gaugeModel.append({"value": value5})
-            gaugeModel.append({"value": value6})
-            gaugeModel.append({"value": value7})
-            gaugeModel.append({"value": value8})
+            valueModel.clear()
+            valueModel.append({ "value": value1 })
+            valueModel.append({ "value": value2 })
+            valueModel.append({ "value": value3 })
+            valueModel.append({ "value": value4 })
+            valueModel.append({ "value": value5 })
+            valueModel.append({ "value": value6 })
+            valueModel.append({ "value": value7 })
+            valueModel.append({ "value": value8 })
         }
-        
+
         function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            minModel.get({"min": min1})
-            minModel.get({"min": min2})
-            minModel.get({"min": min3})
-            minModel.get({"min": min4})
-            minModel.get({"min": min5})
-            minModel.get({"min": min6})
-            minModel.get({"min": min7})
-            minModel.get({"min": min8})
+            minModel.clear()
+            minModel.append({ "min": min1 })
+            minModel.append({ "min": min2 })
+            minModel.append({ "min": min3 })
+            minModel.append({ "min": min4 })
+            minModel.append({ "min": min5 })
+            minModel.append({ "min": min6 })
+            minModel.append({ "min": min7 })
+            minModel.append({ "min": min8 })
         }
+
         function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            maxModel.get({"max": max1})
-            maxModel.get({"max": max2})
-            maxModel.get({"max": max3})
-            maxModel.get({"max": max4})
-            maxModel.get({"max": max5})
-            maxModel.get({"max": max6})
-            maxModel.get({"max": max7})
-            maxModel.get({"max": max8})
+            maxModel.clear()
+            maxModel.append({ "max": max1 })
+            maxModel.append({ "max": max2 })
+            maxModel.append({ "max": max3 })
+            maxModel.append({ "max": max4 })
+            maxModel.append({ "max": max5 })
+            maxModel.append({ "max": max6 })
+            maxModel.append({ "max": max7 })
+            maxModel.append({ "max": max8 })
         }
     }
 }
