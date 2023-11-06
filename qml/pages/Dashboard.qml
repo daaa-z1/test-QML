@@ -18,7 +18,7 @@ Page {
         columns: gaugeModel.count > 4 ? Math.ceil(gaugeModel.count / 2) : gaugeModel.count
 
         Repeater {
-            model: gaugeModel.count
+            model: gaugeModel
 
             Rectangle {
                 id: container
@@ -33,9 +33,9 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: gaugeModel.get(index).value
-                    minimumValue: gaugeModel.get(index).min
-                    maximumValue: gaugeModel.get(index).max
+                    value: model.value
+                    minimumValue: ainReader.daftar_min(index)
+                    maximumValue: ainReader.daftar_max(index)
                 }
             }
         }
@@ -44,15 +44,18 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
+            // Bersihkan model sebelum menambahkan nilai baru
             gaugeModel.clear()
-            gaugeModel.append({"value": value1, "min": ainReader.daftar_min(0), "max": ainReader.daftar_max(0)})
-            gaugeModel.append({"value": value2, "min": ainReader.daftar_min(1), "max": ainReader.daftar_max(1)})
-            gaugeModel.append({"value": value3, "min": ainReader.daftar_min(2), "max": ainReader.daftar_max(2)})
-            gaugeModel.append({"value": value4, "min": ainReader.daftar_min(3), "max": ainReader.daftar_max(3)})
-            gaugeModel.append({"value": value5, "min": ainReader.daftar_min(4), "max": ainReader.daftar_max(4)})
-            gaugeModel.append({"value": value6, "min": ainReader.daftar_min(5), "max": ainReader.daftar_max(5)})
-            gaugeModel.append({"value": value7, "min": ainReader.daftar_min(6), "max": ainReader.daftar_max(6)})
-            gaugeModel.append({"value": value8, "min": ainReader.daftar_min(7), "max": ainReader.daftar_max(7)})
+            
+            // Tambahkan nilai-nilai baru ke model
+            gaugeModel.append({"value": value1})
+            gaugeModel.append({"value": value2})
+            gaugeModel.append({"value": value3})
+            gaugeModel.append({"value": value4})
+            gaugeModel.append({"value": value5})
+            gaugeModel.append({"value": value6})
+            gaugeModel.append({"value": value7})
+            gaugeModel.append({"value": value8})
         }
     }
 }
