@@ -141,7 +141,7 @@ class MainApp(QObject):
     def readMinValues(self):
         minValue = [i for i in self.daftar_min[0]]
         self.minValues.emit(*minValue)
-        return self.daftar_min
+        return self.minValue
 
     # Metode untuk membaca max value dari database
     @pyqtProperty(list)
@@ -149,7 +149,7 @@ class MainApp(QObject):
         maxValue = [i for i in self.daftar_max[0]]
         print(*maxValue)
         self.maxValues.emit(*maxValue)
-        return self.daftar_max
+        return self.maxValue
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
