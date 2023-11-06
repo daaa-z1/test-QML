@@ -45,7 +45,7 @@ Page {
         target: ainReader
         onNewValue: {
             gaugeModel.clear()
-            for (var i = 0 < value.length; i++){
+            for (var i = 0; < value.length; i++){
                 gaugeModel.append({"value": value[i]})
             }
         }
