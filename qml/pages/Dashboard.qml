@@ -8,13 +8,23 @@ import "../controls"
 Page {
     id: dashboardPage
 
+    ListModel {
+        id: gaugeModel
+    }
+    ListModel {
+        id: minModel
+    }
+    ListModel {
+        id: maxModel
+    }
+
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: 4
+        columns: gaugeModel.count > 4 ? Math.ceil(gaugeModel.count / 2) : gaugeModel.count
 
         Repeater {
-            model: 8
+            model: gaugeModel
 
             Rectangle {
                 id: container
@@ -29,9 +39,9 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: valueArray[index]
-                    minimumValue: minArray[index]
-                    maximumValue: maxArray[index]
+                    value: model.value
+                    minimumValue: minModel.min
+                    maximumValue: maxModel.max
                 }
             }
         }
@@ -40,19 +50,36 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
-            valueArray = [value1, value2, value3, value4, value5, value6, value7, value8];
+            gaugeModel.clear()
+            gaugeModel.append({"value": value1})
+            gaugeModel.append({"value": value2})
+            gaugeModel.append({"value": value3})
+            gaugeModel.append({"value": value4})
+            gaugeModel.append({"value": value5})
+            gaugeModel.append({"value": value6})
+            gaugeModel.append({"value": value7})
+            gaugeModel.append({"value": value8})
         }
-
+        
         function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            minArray = [min1, min2, min3, min4, min5, min6, min7, min8];
+            minModel.append({"min": min1})
+            minModel.append({"min": min2})
+            minModel.append({"min": min3})
+            minModel.append({"min": min4})
+            minModel.append({"min": min5})
+            minModel.append({"min": min6})
+            minModel.append({"min": min7})
+            minModel.append({"min": min8})
         }
-
         function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            maxArray = [max1, max2, max3, max4, max5, max6, max7, max8];
+            maxModel.append({"max": max1})
+            maxModel.append({"max": max2})
+            maxModel.append({"max": max3})
+            maxModel.append({"max": max4})
+            maxModel.append({"max": max5})
+            maxModel.append({"max": max6})
+            maxModel.append({"max": max7})
+            maxModel.append({"max": max8})
         }
     }
-
-    property real valueArray: [0, 0, 0, 0, 0, 0, 0, 0]
-    property real minArray: [0, 0, 0, 0, 0, 0, 0, 0]
-    property real maxArray: [100, 100, 100, 100, 100, 100, 100, 100]
 }
