@@ -1,9 +1,7 @@
 import sys
-
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer
-
 from koneksi import *
 
 try:
@@ -13,23 +11,27 @@ except:
 Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from www.labjack.com''')
     sys.exit(1)
 
-class MainApp(QObject):    
+class MainApp(QObject):
+    newValue = pyqtSignal(float, float, float, float, float, float, float, float)
+    minValues = pyqtSignal(float, float, float, float, float, float, float, float)
+    maxValues = pyqtSignal(float, float, float, float, float, float, float, float)
+
     def __init__(self, parent=None):
         super().__init__(parent)
-        
+
         # Buat objek LabJack
         self.d = u6.U6()
 
         # Buat koneksi ke database
         self.koneksi = buat_koneksi()
-        
+
         # Buat tabel konfigurasi jika belum ada
         buat_tabel_konfigurasi(self.koneksi)
         buat_tabel_pengukuran(self.koneksi)
         buat_tabel_batasan(self.koneksi)
         buat_tabel_switch(self.koneksi)
-        
-         # Memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
+
+        # Memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
         self.periksa_tabel_default()
 
         # Ambil data konfigurasi dari database
@@ -38,10 +40,18 @@ class MainApp(QObject):
         self.daftar_min = self.ambil_daftar_min()
         self.daftar_max = self.ambil_daftar_max()
         self.daftar_switch = self.ambil_daftar_switch()
-        
+
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
+
+        self.minTimer = QTimer()
+        self.minTimer.timeout.connect(self.readMinValues)
+        self.minTimer.start(1000)
+
+        self.maxTimer = QTimer()
+        self.maxTimer.timeout.connect(self.readMaxValues)
+        self.maxTimer.start(1000)
 
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -85,7 +95,7 @@ class MainApp(QObject):
                 "Curr_MA_Min": -5,
                 "Curr_MA_Max": 5,
             }
-            
+
             data_switch = {
                 "Btn1": 0,
                 "Btn2": 1,
@@ -104,19 +114,19 @@ class MainApp(QObject):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT Name FROM Configurations")
         return [konfigurasi[0] for konfigurasi in cursor.fetchall()]
-    
+
     # Fungsi untuk mengambil daftar pengukuran dari database
     def ambil_daftar_ain(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Measurements")
         return [i[2:] for i in cursor.fetchall()]
-    
+
     # Fungsi untuk mengambil min dan max dari database
     def ambil_daftar_min(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Limits")
         return [i[2::2] for i in cursor.fetchall()]
-    
+
     def ambil_daftar_max(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Limits")
@@ -127,46 +137,31 @@ class MainApp(QObject):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Switch")
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
-    
+
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
-    newValue = pyqtSignal(float, float, float, float, float, float, float, float)
-    
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
         self.newValue.emit(*value)
-    
-    # Membaca min value dari database
-    minValues = pyqtSignal(float, float, float, float, float, float, float, float)
-    
+
+    # Metode untuk membaca min value dari database
     @pyqtSlot()
     def readMinValues(self):
         value = [i for i in self.daftar_min[0]]
         self.minValues.emit(*value)
-    
-    # Membaca max value dari database
-    maxValues = pyqtSignal(float, float, float, float, float, float, float, float,)
-    
+
+    # Metode untuk membaca max value dari database
     @pyqtSlot()
     def readMaxValues(self):
         value = [i for i in self.daftar_max[0]]
         self.maxValues.emit(*value)
-    
-    # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
-    parameterSelectedSignal = pyqtSignal(str)
-    
-    # Slot untuk menangani perubahan parameter yang dipilih dari QML
-    @pyqtSlot(str)
-    def parameterSelected(self, selectedParameter):
-        # Mengatur parameter yang dipilih
-        self.selectedParameter = selectedParameter
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
-    
+
     ainReader = MainApp()
-    
+
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = ainReader.daftar_konfigurasi
 
