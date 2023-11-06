@@ -8,8 +8,6 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
-
     ListModel {
         id: gaugeModel
     }
@@ -17,7 +15,7 @@ Page {
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: updateGauge.length > 4 ? updateGauge.length / 2 : updateGauge.length
+        columns: gaugeModel.count > 4 ? Math.ceil(gaugeModel.count / 2) : gaugeModel.count
 
         Repeater {
             model: gaugeModel
