@@ -14,7 +14,7 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
     sys.exit(1)
 
 class MainApp(QObject):
-    newValue = pyqtSignal(float, float, float, float, float, float, float)
+    newValue = pyqtSignal(float, float, float, float, float, float, float, float)
     
     def __init__(self, parent=None):
         super().__init__(parent)
