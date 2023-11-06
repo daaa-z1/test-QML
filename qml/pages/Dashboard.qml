@@ -51,14 +51,14 @@ Page {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
             gaugeModel.clear()
-            gaugeModel.append({"value": value1, "minValue": ainReader.minValue[0], "maxValue": ainReader.maxValue[0]})
-            gaugeModel.append({"value": value2, "minValue": ainReader.minValue[1], "maxValue": ainReader.maxValue[1]})
-            gaugeModel.append({"value": value3, "minValue": ainReader.minValue[2], "maxValue": ainReader.maxValue[2]})
-            gaugeModel.append({"value": value4, "minValue": ainReader.minValue[3], "maxValue": ainReader.maxValue[3]})
-            gaugeModel.append({"value": value5, "minValue": ainReader.minValue[4], "maxValue": ainReader.maxValue[4]})
-            gaugeModel.append({"value": value6, "minValue": ainReader.minValue[5], "maxValue": ainReader.maxValue[5]})
-            gaugeModel.append({"value": value7, "minValue": ainReader.minValue[6], "maxValue": ainReader.maxValue[6]})
-            gaugeModel.append({"value": value8, "minValue": ainReader.minValue[7], "maxValue": ainReader.maxValue[7]})
+            gaugeModel.append({"value": value1, "minValue": ainReader.minValues[0], "maxValue": ainReader.maxValues[0]})
+            gaugeModel.append({"value": value2, "minValue": ainReader.minValues[1], "maxValue": ainReader.maxValues[1]})
+            gaugeModel.append({"value": value3, "minValue": ainReader.minValues[2], "maxValue": ainReader.maxValues[2]})
+            gaugeModel.append({"value": value4, "minValue": ainReader.minValues[3], "maxValue": ainReader.maxValues[3]})
+            gaugeModel.append({"value": value5, "minValue": ainReader.minValues[4], "maxValue": ainReader.maxValues[4]})
+            gaugeModel.append({"value": value6, "minValue": ainReader.minValues[5], "maxValue": ainReader.maxValues[5]})
+            gaugeModel.append({"value": value7, "minValue": ainReader.minValues[6], "maxValue": ainReader.maxValues[6]})
+            gaugeModel.append({"value": value8, "minValue": ainReader.minValues[7], "maxValue": ainReader.maxValues[7]})
         }
     }
 
