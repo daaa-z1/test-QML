@@ -13,7 +13,7 @@ Page {
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: updateGauge.length > 4 ? updateGauge.length / 2 : updateGauge.length
+        columns: updateGauge.length > 4 ? Math.ceil(updateGauge.length / 2) : updateGauge.length
 
         Repeater {
             model: updateGauge.length
@@ -31,7 +31,6 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    // Mengambil nilai dari array updateGauge
                     value: updateGauge[index]
                 }
             }
@@ -41,9 +40,8 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value) {
-            // Memperbarui nilai dalam array updateGauge
             for (var i = 0; i < value.length; i++) {
-                updateGauge[i] = value[i];
+                updateGauge[i] = value[i]
             }
         }
     }
