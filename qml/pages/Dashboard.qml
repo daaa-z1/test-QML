@@ -8,7 +8,7 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    // property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
+    property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
 
     ListModel {
         id: gaugeModel
@@ -44,9 +44,18 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value) {
-            gaugeModel.clear()
             for (var i = 0; i < value.length; i++) {
-                gaugeModel.append({"value": value[i]})
+                if (i < gaugeModel.count) {
+                    // Update existing item
+                    gaugeModel.get(i).value = value[i];
+                } else {
+                    // Append a new item if needed
+                    gaugeModel.append({"value": value[i]});
+                }
+            }
+            // Remove extra items if the new list is shorter
+            for (var i = gaugeModel.count - 1; i >= value.length; i--) {
+                gaugeModel.remove(i);
             }
         }
     }
