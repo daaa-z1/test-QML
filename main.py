@@ -13,9 +13,7 @@ except:
 Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from www.labjack.com''')
     sys.exit(1)
 
-class MainApp(QObject):
-    newValue = pyqtSignal(float, float, float, float, float, float, float, float)
-    
+class MainApp(QObject):    
     def __init__(self, parent=None):
         super().__init__(parent)
         
@@ -131,10 +129,28 @@ class MainApp(QObject):
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
     
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
+    newValue = pyqtSignal(float, float, float, float, float, float, float, float)
+    
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
         self.newValue.emit(*value)
+    
+    # Membaca min value dari database
+    minValues = pyqtSignal(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float)
+    
+    @pyqtSlot()
+    def readMinValues(self):
+        value = [i for i in self.daftar_min[0]]
+        self.minValues.emit(*value)
+    
+    # Membaca max value dari database
+    maxValues = pyqtSignal(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float)
+    
+    @pyqtSlot()
+    def readMinValues(self):
+        value = [i for i in self.daftar_max[0]]
+        self.maxValues.emit(*value)
     
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
