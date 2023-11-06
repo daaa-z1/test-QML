@@ -154,7 +154,8 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
 
     ainReader = MainApp()
-    print(ainReader.daftar_min)
+    ainReader.readMaxValues()
+    ainReader.readMinValues()
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = ainReader.daftar_konfigurasi
 
