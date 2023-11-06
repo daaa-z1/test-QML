@@ -182,7 +182,7 @@ class MainApp(QObject):
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
     
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
-    # @pyqtSlot()
+    @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
         self.newValue.emit(*value)
