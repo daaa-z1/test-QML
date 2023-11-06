@@ -84,5 +84,5 @@ Page {
     //         maxModel.append({"max": max7})
     //         maxModel.append({"max": max8})
     //     }
-    // }
+    }
 }
