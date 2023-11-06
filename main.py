@@ -157,8 +157,8 @@ if __name__ == "__main__":
 
     ainReader = MainApp()
     
-    minValue = ainReader.minValue
-    maxValue = ainReader.maxValue
+    minValue = ainReader.daftar_min
+    maxValue = ainReader.daftar_max
     
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = ainReader.daftar_konfigurasi
