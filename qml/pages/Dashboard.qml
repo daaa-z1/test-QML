@@ -9,16 +9,22 @@ Page {
     id: dashboardPage
 
     ListModel {
-        id: valueModel
+        id: gaugeModel
+    }
+    ListModel {
+        id: minModel
+    }
+    ListModel {
+        id: maxModel
     }
 
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: Math.ceil(valueModel.count / 2)
+        columns: gaugeModel.count > 4 ? Math.ceil(gaugeModel.count / 2) : gaugeModel.count
 
         Repeater {
-            model: valueModel
+            model: gaugeModel
 
             Rectangle {
                 id: container
@@ -34,8 +40,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: minValues.get(index)
-                    maximumValue: maxValues.get(index)
+                    minimumValue: minModel.get(index).min
+                    maximumValue: maxModel.get(index).max
                 }
             }
         }
@@ -44,39 +50,51 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
-            valueModel.clear()
-            valueModel.append({ "value": value1 })
-            valueModel.append({ "value": value2 })
-            valueModel.append({ "value": value3 })
-            valueModel.append({ "value": value4 })
-            valueModel.append({ "value": value5 })
-            valueModel.append({ "value": value6 })
-            valueModel.append({ "value": value7 })
-            valueModel.append({ "value": value8 })
+            // Hapus elemen lama dari model
+            while (gaugeModel.count > 0) {
+                gaugeModel.remove(0);
+            }
+            // Tambahkan elemen baru
+            gaugeModel.append({"value": value1});
+            gaugeModel.append({"value": value2});
+            gaugeModel.append({"value": value3});
+            gaugeModel.append({"value": value4});
+            gaugeModel.append({"value": value5});
+            gaugeModel.append({"value": value6});
+            gaugeModel.append({"value": value7});
+            gaugeModel.append({"value": value8});
         }
-        
+
         function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            minValues.clear()
-            minValues.append(min1)
-            minValues.append(min2)
-            minValues.append(min3)
-            minValues.append(min4)
-            minValues.append(min5)
-            minValues.append(min6)
-            minValues.append(min7)
-            minValues.append(min8)
+            // Hapus elemen lama dari minModel
+            while (minModel.count > 0) {
+                minModel.remove(0);
+            }
+            // Tambahkan elemen baru
+            minModel.append({"min": min1});
+            minModel.append({"min": min2});
+            minModel.append({"min": min3});
+            minModel.append({"min": min4});
+            minModel.append({"min": min5});
+            minModel.append({"min": min6});
+            minModel.append({"min": min7});
+            minModel.append({"min": min8});
         }
         
         function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            maxValues.clear()
-            maxValues.append(max1)
-            maxValues.append(max2)
-            maxValues.append(max3)
-            maxValues.append(max4)
-            maxValues.append(max5)
-            maxValues.append(max6)
-            maxValues.append(max7)
-            maxValues.append(max8)
+            // Hapus elemen lama dari maxModel
+            while (maxModel.count > 0) {
+                maxModel.remove(0);
+            }
+            // Tambahkan elemen baru
+            maxModel.append({"max": max1});
+            maxModel.append({"max": max2});
+            maxModel.append({"max": max3});
+            maxModel.append({"max": max4});
+            maxModel.append({"max": max5});
+            maxModel.append({"max": max6});
+            maxModel.append({"max": max7});
+            maxModel.append({"max": max8});
         }
     }
 }
