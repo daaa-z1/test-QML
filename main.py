@@ -141,7 +141,6 @@ class MainApp(QObject):
     def readMinValues(self):
         minValue = [i for i in self.daftar_min[0]]
         self.minValues.emit(*minValue)
-        return minValue
 
     # Metode untuk membaca max value dari database
     @pyqtSlot()
@@ -149,17 +148,12 @@ class MainApp(QObject):
         maxValue = [i for i in self.daftar_max[0]]
         print(*maxValue)
         self.maxValues.emit(*maxValue)
-        return maxValue
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
     ainReader = MainApp()
-    
-    print(ainReader.minValue)
-    print(ainReader.maxValue)
-    
 
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = ainReader.daftar_konfigurasi
