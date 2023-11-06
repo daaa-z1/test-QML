@@ -157,8 +157,8 @@ if __name__ == "__main__":
 
     ainReader = MainApp()
     
-    print(minValue)
-    print(maxValue)
+    print(ainReader.minValue)
+    print(ainReader.maxValue)
     
 
     # Menyediakan data model untuk ComboBox di QML
