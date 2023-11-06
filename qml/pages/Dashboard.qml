@@ -30,7 +30,7 @@ Page {
                     height: width
 
                     // Bind the gauge value to the current array element
-                    value: modelData
+                    value: updateGauge[index]
                 }
             }
         }
@@ -39,7 +39,7 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value) {
-            for (var i = 0; i < updateGauge.length; i++) {
+            for (var i = 0; i < value.length; i++) {
                 updateGauge[i] = value[i];
             }
         }
