@@ -101,57 +101,6 @@ class MainApp(QObject):
             tambah_batasan(self.koneksi, config_id, data_batasan)
             tambah_switch(self.koneksi, config_id, data_switch)
 
-        cursor = self.koneksi.cursor()
-        cursor.execute("SELECT ID FROM Configurations WHERE Name='Default'")
-        result = cursor.fetchone()
-        if result is None:
-            # Tambahkan konfigurasi "Default" dan mendapatkan ID-nya
-            config_id = tambah_konfigurasi(self.koneksi, "Default")
-
-            # Tambahkan data pengukuran dan data batasan sesuai dengan ID konfigurasi
-            data_pengukuran = {
-                "Pressure_In": 0,
-                "Pressure_A": 1,
-                "Pressure_B": 2,
-                "Flow": 3,
-                "Temp": 4,
-                "Curr_V": 5,
-                "Aktual": 6,
-                "Curr_MA": 7
-            }
-
-            data_batasan = {
-                "Pressure_In_Min": 0,
-                "Pressure_In_Max": 100,
-                "Pressure_A_Min": 0,
-                "Pressure_A_Max": 100,
-                "Pressure_B_Min": 0,
-                "Pressure_B_Max": 100,
-                "Flow_Min": 0,
-                "Flow_Max": 100,
-                "Temp_Min": 0,
-                "Temp_Max": 100,
-                "Curr_V_Min": -5,
-                "Curr_V_Max": 5,
-                "Aktual_Min": -5,
-                "Aktual_Max": 5,
-                "Curr_MA_Min": -5,
-                "Curr_MA_Max": 5,
-            }
-            
-            data_switch = {
-                "Btn1": 0,
-                "Btn2": 1,
-                "Btn3": 2,
-                "Btn4": 3,
-                "Btn5": 4,
-                "Btn6": 5
-            }
-
-            tambah_pengukuran(self.koneksi, config_id, data_pengukuran)
-            tambah_batasan(self.koneksi, config_id, data_batasan)
-            tambah_switch(self.koneksi, config_id, data_switch)
-
     # Fungsi untuk mengambil daftar konfigurasi dari database
     def ambil_daftar_konfigurasi(self):
         cursor = self.koneksi.cursor()
@@ -185,7 +134,6 @@ class MainApp(QObject):
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
-        print(value)
         self.newValue.emit(*value)
     
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
@@ -200,8 +148,6 @@ class MainApp(QObject):
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
-
-    # mainApp = MainApp()
     
     ainReader = MainApp()
     
@@ -209,7 +155,6 @@ if __name__ == "__main__":
     parameterModel = ainReader.daftar_konfigurasi
 
     # Mengikat sinyal dan slot antara Python dan QML
-    # engine.rootContext().setContextProperty("mainApp", mainApp)
     engine.rootContext().setContextProperty("parameterModel", parameterModel)
     engine.rootContext().setContextProperty("ainReader", ainReader)
 
