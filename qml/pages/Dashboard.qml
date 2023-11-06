@@ -33,8 +33,8 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    property real minVal: ainReader.daftar_min[index]
-                    property real maxVal: ainReader.daftar_max[index]
+                    property real minVal: ainReader.daftar_min[]
+                    property real maxVal: ainReader.daftar_max[]
 
                     value: model.value
                     minimumValue: minVal
