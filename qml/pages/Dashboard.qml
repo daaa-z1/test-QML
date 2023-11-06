@@ -12,10 +12,35 @@ Page {
         id: valueModel
     }
 
+    // Fungsi untuk mengisi nilai minimum
+    function setMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
+        valueModel.clear()
+        valueModel.append({ "value": min1, "min": min1, "max": min2 })
+        valueModel.append({ "value": min2, "min": min2, "max": min3 })
+        valueModel.append({ "value": min3, "min": min3, "max": min4 })
+        valueModel.append({ "value": min4, "min": min4, "max": min5 })
+        valueModel.append({ "value": min5, "min": min5, "max": min6 })
+        valueModel.append({ "value": min6, "min": min6, "max": min7 })
+        valueModel.append({ "value": min7, "min": min7, "max": min8 })
+        valueModel.append({ "value": min8, "min": min8, "max": min1 })
+    }
+
+    // Fungsi untuk mengisi nilai maksimum
+    function setMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
+        for (var i = 0; i < valueModel.count; i++) {
+            valueModel.setProperty(i, "max", max1);
+            if (i < valueModel.count - 1) {
+                valueModel.setProperty(i, "max", max1);
+            } else {
+                valueModel.setProperty(i, "max", max2);
+            }
+        }
+    }
+
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: Math.ceil(valueModel.count / 2)
+        columns: valueModel.count > 4 ? Math.ceil(valueModel.count / 2) : valueModel.count
 
         Repeater {
             model: valueModel
@@ -34,21 +59,11 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: getMinValue(index)
-                    maximumValue: getMaxValue(index)
+                    minimumValue: model.min
+                    maximumValue: model.max
                 }
             }
         }
-    }
-
-    function getMinValue(index) {
-        var minValues = [min1, min2, min3, min4, min5, min6, min7, min8];
-        return minValues[index];
-    }
-
-    function getMaxValue(index) {
-        var maxValues = [max1, max2, max3, max4, max5, max6, max7, max8];
-        return maxValues[index];
     }
 
     Connections {
@@ -63,6 +78,14 @@ Page {
             valueModel.append({ "value": value6 })
             valueModel.append({ "value": value7 })
             valueModel.append({ "value": value8 })
+        }
+
+        function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
+            setMinValues(min1, min2, min3, min4, min5, min6, min7, min8)
+        }
+
+        function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
+            setMaxValues(max1, max2, max3, max4, max5, max6, max7, max8)
         }
     }
 }
