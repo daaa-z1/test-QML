@@ -40,8 +40,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: model.minValue
-                    maximumValue: model.minValue
+                    minimumValue: minValue[index]
+                    maximumValue: minValue[index]
                 }
             }
         }

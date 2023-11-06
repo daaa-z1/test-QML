@@ -157,11 +157,16 @@ if __name__ == "__main__":
 
     ainReader = MainApp()
     
+    minValue = ainReader.minValue
+    maxValue = ainReader.maxValue
+    
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = ainReader.daftar_konfigurasi
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("ainReader", ainReader)
+    engine.rootContext().setContextProperty("minValue", minValue)
+    engine.rootContext().setContextProperty("maxValue", maxValue)
     engine.rootContext().setContextProperty("parameterModel", parameterModel)
 
     engine.load("qml/main.qml")
