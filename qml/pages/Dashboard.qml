@@ -51,24 +51,15 @@ Page {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
             gaugeModel.clear()
-            gaugeModel.append({"value": value1})
-            gaugeModel.append({"value": value2})
-            gaugeModel.append({"value": value3})
-            gaugeModel.append({"value": value4})
-            gaugeModel.append({"value": value5})
-            gaugeModel.append({"value": value6})
-            gaugeModel.append({"value": value7})
-            gaugeModel.append({"value": value8})
-        }
-        function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            for (var i = 0; i < gaugeModel.count; i++) {
-                gaugeModel.get(i).minValue = i == 0 ? min1 : i == 1 ? min2 : i == 2 ? min3 : i == 3 ? min4 : i == 4 ? min5 : i == 5 ? min6 : i == 6 ? min7 : min8;
-            }
-        }
-        function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            for (var i = 0; i < gaugeModel.count; i++) {
-                gaugeModel.get(i).maxValue = i == 0 ? max1 : i == 1 ? max2 : i == 2 ? max3 : i == 3 ? max4 : i == 4 ? max5 : i == 5 ? max6 : i == 6 ? max7 : max8;
-            }
+            gaugeModel.append({"value": value1, "minValue": ainReader.daftar_min[0], "maxValue": ainReader.daftar_max[0]})
+            gaugeModel.append({"value": value2, "minValue": ainReader.daftar_min[1], "maxValue": ainReader.daftar_max[1]})
+            gaugeModel.append({"value": value3, "minValue": ainReader.daftar_min[2], "maxValue": ainReader.daftar_max[2]})
+            gaugeModel.append({"value": value4, "minValue": ainReader.daftar_min[3], "maxValue": ainReader.daftar_max[3]})
+            gaugeModel.append({"value": value5, "minValue": ainReader.daftar_min[4], "maxValue": ainReader.daftar_max[4]})
+            gaugeModel.append({"value": value6, "minValue": ainReader.daftar_min[5], "maxValue": ainReader.daftar_max[5]})
+            gaugeModel.append({"value": value7, "minValue": ainReader.daftar_min[6], "maxValue": ainReader.daftar_max[6]})
+            gaugeModel.append({"value": value8, "minValue": ainReader.daftar_min[7], "maxValue": ainReader.daftar_max[7]})
         }
     }
+
 }
