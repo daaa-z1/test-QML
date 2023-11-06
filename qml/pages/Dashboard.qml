@@ -11,17 +11,22 @@ Page {
     ListModel {
         id: gaugeModel
     }
-    Component.onCompleted: {
-        for (var i = 0; i < gaugeModel.count; i++) {
-            gaugeModel.get(i).min = minValue[i]
-            gaugeModel.get(i).max = maxValue[i]
-        }
-    }
     ListModel {
         id: minModel
+        Component.onCompleted: {
+            for (var i = 0; i < 8; i++) {
+                append({"value": minValue[i]})
+            }
+        }
     }
+
     ListModel {
         id: maxModel
+        Component.onCompleted: {
+            for (var i = 0; i < 8; i++) {
+                append({"value": maxValue[i]})
+            }
+        }
     }
 
     GridLayout {
@@ -46,8 +51,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: model.minValue
-                    maximumValue: model.maxValue
+                    minimumValue: minModel.get(index).value
+                    maximumValue: maxModel.get(index).value
                 }
             }
         }
