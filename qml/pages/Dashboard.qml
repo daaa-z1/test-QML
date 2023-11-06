@@ -1,16 +1,11 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Extras 1.4
-
-import "../controls"
-
 Page {
     id: dashboardPage
 
     ListModel {
         id: gaugeModel
     }
+    property var daftar_min: []
+    property var daftar_max: []
 
     GridLayout {
         id: gridLayout
@@ -18,7 +13,7 @@ Page {
         columns: gaugeModel.count > 4 ? Math.ceil(gaugeModel.count / 2) : gaugeModel.count
 
         Repeater {
-            model: gaugeModel.count
+            model: gaugeModel
 
             Rectangle {
                 id: container
@@ -33,12 +28,9 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    property real minVal: ainReader.daftar_min[]
-                    property real maxVal: ainReader.daftar_max[]
-
                     value: model.value
-                    minimumValue: minVal
-                    maximumValue: maxVal
+                    minimumValue: daftar_min[index]
+                    maximumValue: daftar_max[index]
                 }
             }
         }
@@ -47,10 +39,7 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
-            // Bersihkan model sebelum menambahkan nilai baru
             gaugeModel.clear()
-            
-            // Tambahkan nilai-nilai baru ke model
             gaugeModel.append({"value": value1})
             gaugeModel.append({"value": value2})
             gaugeModel.append({"value": value3})
@@ -59,6 +48,20 @@ Page {
             gaugeModel.append({"value": value6})
             gaugeModel.append({"value": value7})
             gaugeModel.append({"value": value8})
+        }
+    }
+
+    Connections {
+        target: ainReader
+        function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
+            daftar_min = [min1, min2, min3, min4, min5, min6, min7, min8]
+        }
+    }
+
+    Connections {
+        target: ainReader
+        function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
+            daftar_max = [max1, max2, max3, max4, max5, max6, max7, max8]
         }
     }
 }
