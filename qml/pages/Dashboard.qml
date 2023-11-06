@@ -8,17 +8,22 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property var valueData: {}
-    property var minData: {}
-    property var maxData: {}
+    // Array untuk nilai aktual
+    property var values: []
+
+    // Array untuk nilai minimum
+    property var minValues: []
+
+    // Array untuk nilai maksimum
+    property var maxValues: []
 
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: Object.keys(valueData).length
+        columns: Math.ceil(values.length / 2)
 
         Repeater {
-            model: Object.keys(valueData)
+            model: values
 
             Rectangle {
                 id: container
@@ -33,9 +38,9 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: valueData[modelData]
-                    minimumValue: minData[modelData]
-                    maximumValue: maxData[modelData]
+                    value: modelData
+                    minimumValue: minValues[index]
+                    maximumValue: maxValues[index]
                 }
             }
         }
@@ -44,42 +49,15 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
-            valueData = {
-                value1: value1,
-                value2: value2,
-                value3: value3,
-                value4: value4,
-                value5: value5,
-                value6: value6,
-                value7: value7,
-                value8: value8
-            };
+            values = [value1, value2, value3, value4, value5, value6, value7, value8]
         }
 
         function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            minData = {
-                value1: min1,
-                value2: min2,
-                value3: min3,
-                value4: min4,
-                value5: min5,
-                value6: min6,
-                value7: min7,
-                value8: min8
-            };
+            minValues = [min1, min2, min3, min4, min5, min6, min7, min8]
         }
 
         function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            maxData = {
-                value1: max1,
-                value2: max2,
-                value3: max3,
-                value4: max4,
-                value5: max5,
-                value6: max6,
-                value7: max7,
-                value8: max8
-            };
+            maxValues = [max1, max2, max3, max4, max5, max6, max7, max8]
         }
     }
 }
