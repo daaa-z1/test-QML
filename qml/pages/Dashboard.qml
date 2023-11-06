@@ -18,7 +18,7 @@ Page {
         columns: gaugeModel.count > 4 ? Math.ceil(gaugeModel.count / 2) : gaugeModel.count
 
         Repeater {
-            model: gaugeModel
+            model: gaugeModel.count
 
             Rectangle {
                 id: container
@@ -33,9 +33,12 @@ Page {
                     width: container.width * 0.8
                     height: width
 
+                    property real minVal: ainReader.daftar_min(index)
+                    property real maxVal: ainReader.daftar_max(index)
+
                     value: model.value
-                    minimumValue: ainReader.daftar_min(index).toFloat()
-                    maximumValue: ainReader.daftar_max(index).toFloat()
+                    minimumValue: minVal
+                    maximumValue: maxVal
                 }
             }
         }
