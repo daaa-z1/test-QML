@@ -3,22 +3,18 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Extras 1.4
 
-import "../controls"
-
 Page {
     id: dashboardPage
 
-    ListModel {
-        id: gaugeModel
-    }
+    property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
 
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: gaugeModel.count > 4 ? Math.ceil(gaugeModel.count / 2) : gaugeModel.count
+        columns: updateGauge.length > 4 ? updateGauge.length / 2 : updateGauge.length
 
         Repeater {
-            model: gaugeModel
+            model: updateGauge
 
             Rectangle {
                 id: container
@@ -33,7 +29,8 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: model.value
+                    // Bind the gauge value to the current array element
+                    value: modelData
                 }
             }
         }
@@ -42,10 +39,9 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value) {
-            for (var i = 0; i < value.length; i++) {
-                gaugeModel.setProperty(i, "value", value[i])
+            for (var i = 0; i < updateGauge.length; i++) {
+                updateGauge[i] = value[i];
             }
         }
     }
-
 }
