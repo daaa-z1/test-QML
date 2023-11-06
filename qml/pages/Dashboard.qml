@@ -40,8 +40,11 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: minValue[index]
-                    maximumValue: minValue[index]
+                    
+                    Component.onCompleted:{
+                        minimumValue: minValue[index]
+                        maximumValue: minValue[index]
+                    }
                 }
             }
         }
