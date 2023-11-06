@@ -40,8 +40,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: minModel.min
-                    maximumValue: maxModel.max
+                    // minimumValue: minModel.min
+                    // maximumValue: maxModel.max
                 }
             }
         }
@@ -61,25 +61,25 @@ Page {
             gaugeModel.append({"value": value8})
         }
         
-        function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            minModel.append({"min": min1})
-            minModel.append({"min": min2})
-            minModel.append({"min": min3})
-            minModel.append({"min": min4})
-            minModel.append({"min": min5})
-            minModel.append({"min": min6})
-            minModel.append({"min": min7})
-            minModel.append({"min": min8})
-        }
-        function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            maxModel.append({"max": max1})
-            maxModel.append({"max": max2})
-            maxModel.append({"max": max3})
-            maxModel.append({"max": max4})
-            maxModel.append({"max": max5})
-            maxModel.append({"max": max6})
-            maxModel.append({"max": max7})
-            maxModel.append({"max": max8})
-        }
+        // function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
+        //     minModel.append({"min": min1})
+        //     minModel.append({"min": min2})
+        //     minModel.append({"min": min3})
+        //     minModel.append({"min": min4})
+        //     minModel.append({"min": min5})
+        //     minModel.append({"min": min6})
+        //     minModel.append({"min": min7})
+        //     minModel.append({"min": min8})
+        // }
+        // function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
+        //     maxModel.append({"max": max1})
+        //     maxModel.append({"max": max2})
+        //     maxModel.append({"max": max3})
+        //     maxModel.append({"max": max4})
+        //     maxModel.append({"max": max5})
+        //     maxModel.append({"max": max6})
+        //     maxModel.append({"max": max7})
+        //     maxModel.append({"max": max8})
+        // }
     }
 }
