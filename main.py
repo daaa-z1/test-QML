@@ -139,16 +139,18 @@ class MainApp(QObject):
     # Metode untuk membaca min value dari database
     @pyqtSlot()
     def readMinValues(self):
-        value = [i for i in self.daftar_min[0]]
-        print(*value)
-        self.minValues.emit(*value)
+        minValue = [i for i in self.daftar_min[0]]
+        print(*minValue)
+        self.minValues.emit(*minValue)
+        return minValue
 
     # Metode untuk membaca max value dari database
     @pyqtSlot()
     def readMaxValues(self):
-        value = [i for i in self.daftar_max[0]]
-        print(*value)
-        self.maxValues.emit(*value)
+        maxValue = [i for i in self.daftar_max[0]]
+        print(*maxValue)
+        self.maxValues.emit(*maxValue)
+        return maxValue
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
