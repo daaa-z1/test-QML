@@ -41,7 +41,7 @@ Page {
 
                     value: model.value
                     minimumValue: ainReader.daftar_min(index)
-                    maximumValue: maxModel.daftar_max(index)
+                    maximumValue: ainReader.daftar_max(index)
                 }
             }
         }
