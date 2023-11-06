@@ -8,8 +8,6 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
-
     ListModel {
         id: gaugeModel
     }
@@ -50,5 +48,4 @@ Page {
             }
         }
     }
-
 }
