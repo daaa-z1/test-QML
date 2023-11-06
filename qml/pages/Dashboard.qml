@@ -45,17 +45,7 @@ Page {
         target: ainReader
         function onNewValue(value) {
             for (var i = 0; i < value.length; i++) {
-                if (i < gaugeModel.count) {
-                    // Update existing item
-                    gaugeModel.get(i).value = value[i];
-                } else {
-                    // Append a new item if needed
-                    gaugeModel.append({"value": value[i]});
-                }
-            }
-            // Remove extra items if the new list is shorter
-            for (var i = gaugeModel.count - 1; i >= value.length; i--) {
-                gaugeModel.remove(i);
+                gaugeModel.setProperty(i, "value", value[i])
             }
         }
     }
