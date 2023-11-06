@@ -8,88 +8,48 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property real value1: 0
-    property real value2: 0
-    property real value3: 0
-    property real value4: 0
-    property real value5: 0
-    property real value6: 0
-    property real value7: 0
-    property real value8: 0
+    ListProperty<CircularGaugeData> gaugeData: []
 
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: 4
+        columns: gaugeData.length > 4 ? Math.ceil(gaugeData.length / 2) : gaugeData.length
 
-        CircularGauge {
-            id: gauge1
-            width: gridLayout.cellWidth * 0.8
-            height: width
-            value: dashboardPage.value1
-        }
+        Repeater {
+            model: gaugeData
 
-        CircularGauge {
-            id: gauge2
-            width: gridLayout.cellWidth * 0.8
-            height: width
-            value: dashboardPage.value2
-        }
+            Rectangle {
+                id: container
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                color: "transparent"
+                radius: width * 0.1
 
-        CircularGauge {
-            id: gauge3
-            width: gridLayout.cellWidth * 0.8
-            height: width
-            value: dashboardPage.value3
-        }
+                CircularGauge {
+                    id: gauge
+                    anchors.centerIn: parent
+                    width: container.width * 0.8
+                    height: width
 
-        CircularGauge {
-            id: gauge4
-            width: gridLayout.cellWidth * 0.8
-            height: width
-            value: dashboardPage.value4
-        }
-
-        CircularGauge {
-            id: gauge5
-            width: gridLayout.cellWidth * 0.8
-            height: width
-            value: dashboardPage.value5
-        }
-
-        CircularGauge {
-            id: gauge6
-            width: gridLayout.cellWidth * 0.8
-            height: width
-            value: dashboardPage.value6
-        }
-
-        CircularGauge {
-            id: gauge7
-            width: gridLayout.cellWidth * 0.8
-            height: width
-            value: dashboardPage.value7
-        }
-
-        CircularGauge {
-            id: gauge8
-            width: gridLayout.cellWidth * 0.8
-            height: width
-            value: dashboardPage.value8
+                    value: model.value
+                }
+            }
         }
     }
 
     Connections {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
-            dashboardPage.value1 = value1
-            dashboardPage.value2 = value2
-            dashboardPage.value3 = value3
-            dashboardPage.value4 = value4
-            dashboardPage.value5 = value5
-            dashboardPage.value6 = value6
-            dashboardPage.value7 = value7
-            dashboardPage.value8 = value8
+            gaugeData = [
+                { "value": value1 },
+                { "value": value2 },
+                { "value": value3 },
+                { "value": value4 },
+                { "value": value5 },
+                { "value": value6 },
+                { "value": value7 },
+                { "value": value8 }
+            ]
         }
     }
 }
