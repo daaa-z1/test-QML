@@ -43,10 +43,16 @@ Page {
 
     Connections {
         target: ainReader
-        function onNewValue(value) {
-            for (var i = 0; i < value.length; i++) {
-                gaugeModel.setProperty(i, "value", value[i])
-            }
+        function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
+            gaugeModel.clear()
+            gaugeModel.append({"value": value1})
+            gaugeModel.append({"value": value2})
+            gaugeModel.append({"value": value3})
+            gaugeModel.append({"value": value4})
+            gaugeModel.append({"value": value5})
+            gaugeModel.append({"value": value6})
+            gaugeModel.append({"value": value7})
+            gaugeModel.append({"value": value8})
         }
     }
 }
