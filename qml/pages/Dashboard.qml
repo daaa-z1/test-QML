@@ -16,7 +16,7 @@ Page {
         columns: gaugeValues.length > 4 ? Math.ceil(gaugeValues.length / 2) : gaugeValues.length
 
         Repeater {
-            model: gaugeValues
+            model: gaugeValues.length
 
             Rectangle {
                 id: container
@@ -31,7 +31,7 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: modelData
+                    value: gaugeValues[index]
                 }
             }
         }
@@ -40,7 +40,7 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
-            dashboardPage.gaugeValues = [value1, value2, value3, value4, value5, value6, value7, value8];
+            gaugeValues = [value1, value2, value3, value4, value5, value6, value7, value8]
         }
     }
 }
