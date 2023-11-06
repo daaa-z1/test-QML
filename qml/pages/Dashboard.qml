@@ -8,15 +8,15 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
+    property var gaugeValues: [0, 0, 0, 0, 0, 0, 0, 0]
 
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: updateGauge.length > 4 ? Math.ceil(updateGauge.length / 2) : updateGauge.length
+        columns: gaugeValues.length > 4 ? Math.ceil(gaugeValues.length / 2) : gaugeValues.length
 
         Repeater {
-            model: updateGauge.length
+            model: gaugeValues
 
             Rectangle {
                 id: container
@@ -31,7 +31,7 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: updateGauge[index]
+                    value: modelData
                 }
             }
         }
@@ -39,10 +39,8 @@ Page {
 
     Connections {
         target: ainReader
-        function onNewValue(value) {
-            for (var i = 0; i < value.length; i++) {
-                updateGauge[i] = value[i]
-            }
+        function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
+            dashboardPage.gaugeValues = [value1, value2, value3, value4, value5, value6, value7, value8];
         }
     }
 }
