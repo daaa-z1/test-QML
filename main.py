@@ -130,7 +130,7 @@ class MainApp(QObject):
     
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
     newValue = pyqtSignal(float, float, float, float, float, float, float, float)
-    minMaxValues = pyqtSignal(float, float, float, float, float, float, float, float)
+    minMaxValues = pyqtSignal(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float)
     
     @pyqtSlot()
     def readValues(self):
