@@ -146,10 +146,10 @@ class MainApp(QObject):
     # # Metode untuk membaca max value dari database
     # @pyqtProperty(list)
     # def readMaxValues(self):
-        maxValue = [i for i in self.daftar_max[0]]
-        print(*maxValue)
-        self.maxValues.emit(*maxValue)
-        return self.maxValue
+    #     maxValue = [i for i in self.daftar_max[0]]
+    #     print(*maxValue)
+    #     self.maxValues.emit(*maxValue)
+    #     return self.maxValue
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
