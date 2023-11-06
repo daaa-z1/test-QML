@@ -130,15 +130,11 @@ class MainApp(QObject):
     
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
     newValue = pyqtSignal(float, float, float, float, float, float, float, float)
-    minMaxValues = pyqtSignal(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float)
     
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
-        min_values = self.daftar_min[0]
-        max_values = self.daftar_max[0]
         self.newValue.emit(*value)
-        self.minMaxValues.emit(*min_values, *max_values)
     
     # Membaca min value dari database
     minValues = pyqtSignal(float, float, float, float, float, float, float, float)
@@ -152,7 +148,7 @@ class MainApp(QObject):
     maxValues = pyqtSignal(float, float, float, float, float, float, float, float,)
     
     @pyqtSlot()
-    def readMinValues(self):
+    def readMaxValues(self):
         value = [i for i in self.daftar_max[0]]
         self.maxValues.emit(*value)
     
