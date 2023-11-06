@@ -40,8 +40,8 @@ Page {
                     height: width
 
                     value: model.value
-                    // minimumValue: minModel.min
-                    // maximumValue: maxModel.max
+                    minimumValue: mode.minVal
+                    maximumValue: model.maxVal
                 }
             }
         }
@@ -51,14 +51,14 @@ Page {
         target: ainReader
         function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
             gaugeModel.clear()
-            gaugeModel.append({"value": value1})
-            gaugeModel.append({"value": value2})
-            gaugeModel.append({"value": value3})
-            gaugeModel.append({"value": value4})
-            gaugeModel.append({"value": value5})
-            gaugeModel.append({"value": value6})
-            gaugeModel.append({"value": value7})
-            gaugeModel.append({"value": value8})
+            gaugeModel.append({"value": value1, "minVal": daftar_min[0], "maxVal": daftar_max[0]})
+            gaugeModel.append({"value": value2, "minVal": daftar_min[1], "maxVal": daftar_max[1]})
+            gaugeModel.append({"value": value3, "minVal": daftar_min[2], "maxVal": daftar_max[2]})
+            gaugeModel.append({"value": value4, "minVal": daftar_min[3], "maxVal": daftar_max[3]})
+            gaugeModel.append({"value": value5, "minVal": daftar_min[4], "maxVal": daftar_max[4]})
+            gaugeModel.append({"value": value6, "minVal": daftar_min[5], "maxVal": daftar_max[5]})
+            gaugeModel.append({"value": value7, "minVal": daftar_min[6], "maxVal": daftar_max[6]})
+            gaugeModel.append({"value": value8, "minVal": daftar_min[7], "maxVal": daftar_max[7]})
         }
         
         // function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
