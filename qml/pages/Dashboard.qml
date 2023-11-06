@@ -8,14 +8,9 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    // Array untuk nilai aktual
-    property var values: []
-
-    // Array untuk nilai minimum
-    property var minValues: []
-
-    // Array untuk nilai maksimum
-    property var maxValues: []
+    property var values: [0, 0, 0, 0, 0, 0, 0, 0]
+    property var minValues: [0, 0, 0, 0, 0, 0, 0, 0]
+    property var maxValues: [0, 0, 0, 0, 0, 0, 0, 0]
 
     GridLayout {
         id: gridLayout
