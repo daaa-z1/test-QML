@@ -11,8 +11,12 @@ Page {
     ListModel {
         id: gaugeModel
     }
-    property var daftar_min: []
-    property var daftar_max: []
+    ListModel {
+        id: minModel
+    }
+    ListModel {
+        id: maxModel
+    }
 
     GridLayout {
         id: gridLayout
@@ -36,8 +40,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: daftar_min[index]
-                    maximumValue: daftar_max[index]
+                    minimumValue: ainReader.daftar_min(index)
+                    maximumValue: ainReader.daftar_max(index)
                 }
             }
         }
@@ -55,20 +59,6 @@ Page {
             gaugeModel.append({"value": value6})
             gaugeModel.append({"value": value7})
             gaugeModel.append({"value": value8})
-        }
-    }
-
-    Connections {
-        target: ainReader
-        function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            daftar_min = [min1, min2, min3, min4, min5, min6, min7, min8]
-        }
-    }
-
-    Connections {
-        target: ainReader
-        function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            daftar_max = [max1, max2, max3, max4, max5, max6, max7, max8]
         }
     }
 }
