@@ -35,6 +35,7 @@ Page {
 
                     value: model.value
                     minimumValue: -15
+                    maximumValue: 15
                 }
             }
         }
