@@ -40,8 +40,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: ainReader.minValues[index]
-                    maximumValue: ainReader.maxValues[index]
+                    minimumValue: ainReader.minValue[index]
+                    maximumValue: ainReader.maxValue[index]
                 }
             }
         }
