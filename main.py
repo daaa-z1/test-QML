@@ -141,7 +141,6 @@ class MainApp(QObject):
     def readMinValues(self):
         minValue = [i for i in self.daftar_min[0]]
         print(*minValue)
-        self.minValues.emit(*minValue)
         return minValue
 
     # Metode untuk membaca max value dari database
@@ -149,7 +148,6 @@ class MainApp(QObject):
     def readMaxValues(self):
         maxValue = [i for i in self.daftar_max[0]]
         print(*maxValue)
-        self.maxValues.emit(*maxValue)
         return maxValue
 
 if __name__ == "__main__":
