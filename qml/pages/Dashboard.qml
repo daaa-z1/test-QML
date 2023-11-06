@@ -11,6 +11,12 @@ Page {
     ListModel {
         id: gaugeModel
     }
+    ListModel {
+        id: minModel
+    }
+    ListModel {
+        id: maxModel
+    }
 
     GridLayout {
         id: gridLayout
@@ -34,8 +40,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: model.min
-                    maximumValue: model.max
+                    minimumValue: minModel.get(index).min
+                    maximumValue: maxModel.get(index).max
                 }
             }
         }
@@ -56,15 +62,24 @@ Page {
         }
         
         function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            for (var i = 0; i < gaugeModel.count; i++) {
-                gaugeModel.get(i).min = arguments[i];
-            }
+            minModel.get({"min": min1})
+            minModel.get({"min": min2})
+            minModel.get({"min": min3})
+            minModel.get({"min": min4})
+            minModel.get({"min": min5})
+            minModel.get({"min": min6})
+            minModel.get({"min": min7})
+            minModel.get({"min": min8})
         }
-
         function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            for (var i = 0; i < gaugeModel.count; i++) {
-                gaugeModel.get(i).max = arguments[i];
-            }
+            maxModel.get({"max": max1})
+            maxModel.get({"max": max2})
+            maxModel.get({"max": max3})
+            maxModel.get({"max": max4})
+            maxModel.get({"max": max5})
+            maxModel.get({"max": max6})
+            maxModel.get({"max": max7})
+            maxModel.get({"max": max8})
         }
     }
 }
