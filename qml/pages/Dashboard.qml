@@ -8,32 +8,13 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    // Fungsi untuk nilai aktual
-    function updateValue(index, value) {
-        gaugeModel.setProperty(index, "value", value);
-    }
-
-    // Fungsi untuk nilai minimum
-    function updateMin(index, min) {
-        gaugeModel.setProperty(index, "min", min);
-    }
-
-    // Fungsi untuk nilai maksimum
-    function updateMax(index, max) {
-        gaugeModel.setProperty(index, "max", max);
-    }
-
-    ListModel {
-        id: gaugeModel
-    }
-
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: Math.ceil(gaugeModel.count / 2)
+        columns: 4  // Ganti dengan jumlah kolom yang sesuai
 
         Repeater {
-            model: gaugeModel
+            model: 8  // Ganti dengan jumlah model yang sesuai (sesuai jumlah gauge yang Anda inginkan)
 
             Rectangle {
                 id: container
@@ -48,47 +29,55 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: gaugeModel.get(index).value
-                    minimumValue: gaugeModel.get(index).min
-                    maximumValue: gaugeModel.get(index).max
+                    property real gaugeValue: 0
+                    property real gaugeMin: 0
+                    property real gaugeMax: 100
+
+                    value: gaugeValue
+                    minimumValue: gaugeMin
+                    maximumValue: gaugeMax
+                }
+
+                Component.onCompleted: {
+                    // Ketika komponen selesai dimuat, minta nilai aktual dan nilai min dan max dari Python
+                    ainReader.parameterSelectedSignal.connect(function (parameter) {
+                        // Pindahkan ini sesuai dengan nama parameter yang sesuai dengan daftar Anda
+                        if (parameter === "Pressure_In") {
+                            gaugeValue = ainReader.value1
+                            gaugeMin = ainReader.min1
+                            gaugeMax = ainReader.max1
+                        } else if (parameter === "Pressure_A") {
+                            gaugeValue = ainReader.value2
+                            gaugeMin = ainReader.min2
+                            gaugeMax = ainReader.max2
+                        } else if (parameter === "Pressure_B") {
+                            gaugeValue = ainReader.value3
+                            gaugeMin = ainReader.min3
+                            gaugeMax = ainReader.max3
+                        } else if (parameter === "Flow") {
+                            gaugeValue = ainReader.value4
+                            gaugeMin = ainReader.min4
+                            gaugeMax = ainReader.max4
+                        } else if (parameter === "Temp") {
+                            gaugeValue = ainReader.value5
+                            gaugeMin = ainReader.min5
+                            gaugeMax = ainReader.max5
+                        } else if (parameter === "Curr_V") {
+                            gaugeValue = ainReader.value6
+                            gaugeMin = ainReader.min6
+                            gaugeMax = ainReader.max6
+                        } else if (parameter === "Aktual") {
+                            gaugeValue = ainReader.value7
+                            gaugeMin = ainReader.min7
+                            gaugeMax = ainReader.max7
+                        } else if (parameter === "Curr_MA") {
+                            gaugeValue = ainReader.value8
+                            gaugeMin = ainReader.min8
+                            gaugeMax = ainReader.max8
+                        }
+                    })
                 }
             }
-        }
-    }
-
-    Connections {
-        target: ainReader
-        function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
-            updateValue(0, value1);
-            updateValue(1, value2);
-            updateValue(2, value3);
-            updateValue(3, value4);
-            updateValue(4, value5);
-            updateValue(5, value6);
-            updateValue(6, value7);
-            updateValue(7, value8);
-        }
-
-        function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-            updateMin(0, min1);
-            updateMin(1, min2);
-            updateMin(2, min3);
-            updateMin(3, min4);
-            updateMin(4, min5);
-            updateMin(5, min6);
-            updateMin(6, min7);
-            updateMin(7, min8);
-        }
-
-        function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-            updateMax(0, max1);
-            updateMax(1, max2);
-            updateMax(2, max3);
-            updateMax(3, max4);
-            updateMax(4, max5);
-            updateMax(5, max6);
-            updateMax(6, max7);
-            updateMax(7, max8);
         }
     }
 }
