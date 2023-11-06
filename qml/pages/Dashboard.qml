@@ -34,6 +34,7 @@ Page {
                     height: width
 
                     value: model.value
+                    minimumValue: -15
                 }
             }
         }
