@@ -138,19 +138,21 @@ class MainApp(QObject):
     
     # Membaca min value dari database
     minValues = pyqtSignal(float, float, float, float, float, float, float, float)
+    minValues.emit(*daftar_min)
     
-    @pyqtSlot()
-    def readMinValues(self):
-        value = [i for i in self.daftar_min[0]]
-        self.minValues.emit(*value)
+    # @pyqtSlot()
+    # def readMinValues(self):
+    #     value = [i for i in self.daftar_min[0]]
+    #     self.minValues.emit(*value)
     
     # Membaca max value dari database
     maxValues = pyqtSignal(float, float, float, float, float, float, float, float,)
+    maxValues.emit(*daftar_max)
     
-    @pyqtSlot()
-    def readMaxValues(self):
-        value = [i for i in self.daftar_max[0]]
-        self.maxValues.emit(*value)
+    # @pyqtSlot()
+    # def readMaxValues(self):
+    #     value = [i for i in self.daftar_max[0]]
+    #     self.maxValues.emit(*value)
     
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
