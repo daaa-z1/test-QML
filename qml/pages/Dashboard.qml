@@ -10,10 +10,8 @@ Page {
 
     property var updateGauge: [0, 0, 0, 0, 0, 0, 0, 0]
 
-    function updateValue(channel, value) {
-        updateGauge[channel] = value;
-        // Perbarui nilai CircularGauge saat nilai berubah
-        gridLayout.itemAt(channel).container.gauge.value = value;
+    ListModel {
+        id: gaugeModel
     }
 
     GridLayout {
@@ -22,7 +20,7 @@ Page {
         columns: updateGauge.length > 4 ? updateGauge.length / 2 : updateGauge.length
 
         Repeater {
-            model: updateGauge.length
+            model: gaugeModel
 
             Rectangle {
                 id: container
@@ -37,7 +35,7 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: parseFloat(updateGauge[index])
+                    value: model.value
                 }
             }
         }
@@ -45,9 +43,11 @@ Page {
 
     Connections {
         target: ainReader
-        function onNewValue(channel, value) {
-            console.log("Channel: " + channel + ", Value: " + value);
-            updateValue(channel, value);
+        onNewValue: {
+            gaugeModel.clear()
+            for (var i = 0 < value.length; i++){
+                gaugeModel.append({"value": value[i]})
+            }
         }
     }
 

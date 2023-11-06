@@ -14,7 +14,7 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
     sys.exit(1)
 
 class MainApp(QObject):
-    newValue = pyqtSignal(int, float)
+    newValue = pyqtSignal(float, float, float, float, float, float, float)
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -41,8 +41,6 @@ class MainApp(QObject):
         self.daftar_max = self.ambil_daftar_max()
         self.daftar_switch = self.ambil_daftar_switch()
         
-        # Update AIN
-        self.channels = self.daftar_ain[0]
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
@@ -186,9 +184,8 @@ class MainApp(QObject):
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
     @pyqtSlot()
     def readValues(self):
-        for channel in self.channels:
-            value = self.d.getAIN(channel)
-            self.newValue.emit(channel, value)
+        value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
+        self.newValue.emit(*value)
     
     # Sinyal untuk mengirim parameter yang dipilih dari QML ke Python
     parameterSelectedSignal = pyqtSignal(str)
