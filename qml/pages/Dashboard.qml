@@ -8,13 +8,17 @@ import "../controls"
 Page {
     id: dashboardPage
 
+    ListModel {
+        id: valueModel
+    }
+
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: 4  // Ganti dengan jumlah kolom yang sesuai
+        columns: Math.ceil(valueModel.count / 2)
 
         Repeater {
-            model: 8  // Ganti dengan jumlah model yang sesuai (sesuai jumlah gauge yang Anda inginkan)
+            model: valueModel
 
             Rectangle {
                 id: container
@@ -29,55 +33,70 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    property real gaugeValue: 0
-                    property real gaugeMin: 0
-                    property real gaugeMax: 100
-
-                    value: gaugeValue
-                    minimumValue: gaugeMin
-                    maximumValue: gaugeMax
-                }
-
-                Component.onCompleted: {
-                    // Ketika komponen selesai dimuat, minta nilai aktual dan nilai min dan max dari Python
-                    ainReader.parameterSelectedSignal.connect(function (parameter) {
-                        // Pindahkan ini sesuai dengan nama parameter yang sesuai dengan daftar Anda
-                        if (parameter === "Pressure_In") {
-                            gaugeValue = ainReader.value1
-                            gaugeMin = ainReader.min1
-                            gaugeMax = ainReader.max1
-                        } else if (parameter === "Pressure_A") {
-                            gaugeValue = ainReader.value2
-                            gaugeMin = ainReader.min2
-                            gaugeMax = ainReader.max2
-                        } else if (parameter === "Pressure_B") {
-                            gaugeValue = ainReader.value3
-                            gaugeMin = ainReader.min3
-                            gaugeMax = ainReader.max3
-                        } else if (parameter === "Flow") {
-                            gaugeValue = ainReader.value4
-                            gaugeMin = ainReader.min4
-                            gaugeMax = ainReader.max4
-                        } else if (parameter === "Temp") {
-                            gaugeValue = ainReader.value5
-                            gaugeMin = ainReader.min5
-                            gaugeMax = ainReader.max5
-                        } else if (parameter === "Curr_V") {
-                            gaugeValue = ainReader.value6
-                            gaugeMin = ainReader.min6
-                            gaugeMax = ainReader.max6
-                        } else if (parameter === "Aktual") {
-                            gaugeValue = ainReader.value7
-                            gaugeMin = ainReader.min7
-                            gaugeMax = ainReader.max7
-                        } else if (parameter === "Curr_MA") {
-                            gaugeValue = ainReader.value8
-                            gaugeMin = ainReader.min8
-                            gaugeMax = ainReader.max8
-                        }
-                    })
+                    value: model.value
+                    minimumValue: getMinValue(index)
+                    maximumValue: getMaxValue(index)
                 }
             }
         }
     }
+
+    function getMinValue(index) {
+        switch (index) {
+            case 0: return min1;
+            case 1: return min2;
+            case 2: return min3;
+            case 3: return min4;
+            case 4: return min5;
+            case 5: return min6;
+            case 6: return min7;
+            case 7: return min8;
+        }
+    }
+
+    function getMaxValue(index) {
+        switch (index) {
+            case 0: return max1;
+            case 1: return max2;
+            case 2: return max3;
+            case 3: return max4;
+            case 4: return max5;
+            case 5: return max6;
+            case 6: return max7;
+            case 7: return max8;
+        }
+    }
+
+    Connections {
+        target: ainReader
+        function onNewValue(value1, value2, value3, value4, value5, value6, value7, value8) {
+            valueModel.clear()
+            valueModel.append({ "value": value1 })
+            valueModel.append({ "value": value2 })
+            valueModel.append({ "value": value3 })
+            valueModel.append({ "value": value4 })
+            valueModel.append({ "value": value5 })
+            valueModel.append({ "value": value6 })
+            valueModel.append({ "value": value7 })
+            valueModel.append({ "value": value8 })
+        }
+    }
+
+    property real min1: 0
+    property real min2: 0
+    property real min3: 0
+    property real min4: 0
+    property real min5: 0
+    property real min6: 0
+    property real min7: 0
+    property real min8: 0
+
+    property real max1: 100
+    property real max2: 100
+    property real max3: 100
+    property real max4: 100
+    property real max5: 100
+    property real max6: 100
+    property real max7: 100
+    property real max8: 100
 }
