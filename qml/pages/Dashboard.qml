@@ -61,37 +61,25 @@ Page {
             gaugeModel.append({"value": value8})
         }
         
-        // function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
-        //     minModel.append({"min": min1})
-        //     minModel.append({"min": min2})
-        //     minModel.append({"min": min3})
-        //     minModel.append({"min": min4})
-        //     minModel.append({"min": min5})
-        //     minModel.append({"min": min6})
-        //     minModel.append({"min": min7})
-        //     minModel.append({"min": min8})
-        // }
-        // function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
-        //     maxModel.append({"max": max1})
-        //     maxModel.append({"max": max2})
-        //     maxModel.append({"max": max3})
-        //     maxModel.append({"max": max4})
-        //     maxModel.append({"max": max5})
-        //     maxModel.append({"max": max6})
-        //     maxModel.append({"max": max7})
-        //     maxModel.append({"max": max8})
-        // }
-
-        function onMinValues(min) {
-            for (var i = 0; i < min.length; i++) {
-                gaugeModel.get(i).min = min[i]
-            }
+        function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
+            gaugeModel.get({"min": min1})
+            gaugeModel.get({"min": min2})
+            gaugeModel.get({"min": min3})
+            gaugeModel.get({"min": min4})
+            gaugeModel.get({"min": min5})
+            gaugeModel.get({"min": min6})
+            gaugeModel.get({"min": min7})
+            gaugeModel.get({"min": min8})
         }
-        
-        function onMaxValues(max) {
-            for (var i = 0; i < max.length; i++) {
-                gaugeModel.get(i).max = max[i]
-            }
+        function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
+            gaugeModel.get({"max": max1})
+            gaugeModel.get({"max": max2})
+            gaugeModel.get({"max": max3})
+            gaugeModel.get({"max": max4})
+            gaugeModel.get({"max": max5})
+            gaugeModel.get({"max": max6})
+            gaugeModel.get({"max": max7})
+            gaugeModel.get({"max": max8})
         }
     }
 }
