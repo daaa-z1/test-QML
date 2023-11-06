@@ -14,7 +14,7 @@ Page {
         columns: updateGauge.length > 4 ? updateGauge.length / 2 : updateGauge.length
 
         Repeater {
-            model: updateGauge
+            model: updateGauge.length
 
             Rectangle {
                 id: container
