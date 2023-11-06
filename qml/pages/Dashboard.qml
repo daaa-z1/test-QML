@@ -60,12 +60,12 @@ Page {
             gaugeModel.append({"value": value7})
             gaugeModel.append({"value": value8})
         }
-        function onUpdateMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
+        function onMinValues(min1, min2, min3, min4, min5, min6, min7, min8) {
             for (var i = 0; i < gaugeModel.count; i++) {
                 gaugeModel.get(i).minValue = i == 0 ? min1 : i == 1 ? min2 : i == 2 ? min3 : i == 3 ? min4 : i == 4 ? min5 : i == 5 ? min6 : i == 6 ? min7 : min8;
             }
         }
-        function onUpdateMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
+        function onMaxValues(max1, max2, max3, max4, max5, max6, max7, max8) {
             for (var i = 0; i < gaugeModel.count; i++) {
                 gaugeModel.get(i).maxValue = i == 0 ? max1 : i == 1 ? max2 : i == 2 ? max3 : i == 3 ? max4 : i == 4 ? max5 : i == 5 ? max6 : i == 6 ? max7 : max8;
             }
