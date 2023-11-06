@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Extras 1.4
 
+import "../controls"
+
 Page {
     id: dashboardPage
 
@@ -29,7 +31,7 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    // Bind the gauge value to the current array element
+                    // Mengambil nilai dari array updateGauge
                     value: updateGauge[index]
                 }
             }
@@ -39,6 +41,7 @@ Page {
     Connections {
         target: ainReader
         function onNewValue(value) {
+            // Memperbarui nilai dalam array updateGauge
             for (var i = 0; i < value.length; i++) {
                 updateGauge[i] = value[i];
             }
