@@ -144,6 +144,18 @@ class MainApp(QObject):
     @pyqtProperty('QVariantList', notify=maxValues)
     def readMaxValues(self):
         return list(self.daftar_max[0])
+    
+    # Metode untuk menghitung stepSize berdasarkan minimumValue dan maximumValue
+    stepSize = pyqtSignal('QVariantList')
+    @pyqtProperty('QVariantList', notify=stepSize)
+    def calculateStepSize(self):
+        step_size = []
+        for i in range(len(self.daftar_min[0])):
+            if self.daftar_min[0][i] < -5 and self.daftar_max[0][i] > 5:
+                step_size.append((self.daftar_max[0][i] - self.daftar_min[0][i]) / 20)
+            else:
+                step_size.append((self.daftar_max[0][i] - self.daftar_min[0][i]) / 10)
+        return step_size
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
