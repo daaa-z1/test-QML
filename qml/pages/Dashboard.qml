@@ -40,4 +40,11 @@ Page {
             }
         }
     }
+    Component.onCompleted: {
+        dataModel.newValue.connect(function(values) {
+            for (var i = 0; i < values.length; i++) {
+                gauge.value = values[i];
+            }
+        });
+    }
 }
