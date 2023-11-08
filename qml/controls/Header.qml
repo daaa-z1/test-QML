@@ -29,6 +29,7 @@ Rectangle {
         // Dropdown untuk memilih konfigurasi
         ComboBox {
             id: configDropdown
+            height: 30
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             model: parameterModel
             textRole: "display"
@@ -40,6 +41,7 @@ Rectangle {
         }
 
         Button {
+            height: 30
             text: "Apply"
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             onClicked: {
