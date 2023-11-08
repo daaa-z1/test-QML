@@ -14,7 +14,6 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
 class MainApp(QObject):
     newValue = pyqtSignal(float, float, float, float, float, float, float, float)
     minValues = pyqtSignal(int, int, int, int, int, int, int, int)
-    maxValues = pyqtSignal(int, int, int, int, int, int, int, int)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -137,34 +136,28 @@ class MainApp(QObject):
         self.newValue.emit(*value)
 
     # Metode untuk membaca min value dari database
-    @pyqtProperty(list)
+    minValues = pyqtSignal('QVariantList')
+    @pyqtProperty('QVariantList', notify=minValues)
     def readMinValues(self):
-        minValue = [i for i in self.daftar_min[0]]
-        if None in minValue:
-            minValue = [0] * len(minValue)  # Atur nilai default ke 0 jika nilai yang diterima adalah None
-        self.minValues.emit(*minValue)
-        return self.minValue
+        return list(self.daftar_min)
 
     # Metode untuk membaca max value dari database
-    @pyqtProperty(list)
+    maxValues = pyqtSignal('QVariantList')
+    @pyqtProperty('QVariantList', notify=maxValues)
     def readMaxValues(self):
-        maxValue = [i for i in self.daftar_max[0]]
-        if None in maxValue:
-            maxValue = [0] * len(maxValue)  # Atur nilai default ke 0 jika nilai yang diterima adalah None
-        self.maxValues.emit(*maxValue)
-        return self.maxValue
+        return list(self.daftar_max[0])
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-    ainReader = MainApp()
+    mainApp = MainApp()
     
     # Menyediakan data model untuk ComboBox di QML
-    parameterModel = ainReader.daftar_konfigurasi
+    parameterModel = mainApp.daftar_konfigurasi
 
     # Mengikat sinyal dan slot antara Python dan QML
-    engine.rootContext().setContextProperty("ainReader", ainReader)
+    engine.rootContext().setContextProperty("mainApp", mainApp)
     engine.rootContext().setContextProperty("parameterModel", parameterModel)
 
     engine.load("qml/main.qml")
