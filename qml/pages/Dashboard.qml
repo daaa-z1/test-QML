@@ -25,8 +25,12 @@ Page {
                 id: container
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                color: "black"
+                color: "black"  // Mengubah warna latar belakang menjadi hitam
                 radius: width * 0.1
+
+                // Definisikan parameter dan satuan sebagai properti QML
+                property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA"]
+                property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
 
                 Column {
                     anchors.centerIn: parent
@@ -34,7 +38,7 @@ Page {
                     // Tambahkan Text untuk parameter di atas CircularGauge
                     Text {
                         id: parameterText
-                        text: mainApp.ReadParameters[index]
+                        text: container.parameters[index]
                         color: "white"
                     }
 
@@ -60,7 +64,7 @@ Page {
                     // Tambahkan Text untuk satuan di sebelah kanan nilai
                     Text {
                         id: unitText
-                        text: mainApp.readUnits[index]
+                        text: container.units[index]
                         color: "white"
                         anchors.left: valueText.right
                         anchors.verticalCenter: valueText.verticalCenter
