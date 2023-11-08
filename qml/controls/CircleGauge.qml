@@ -33,14 +33,14 @@ Item {
             for (var i = minValue; i <= maxValue; i += (maxValue - minValue) / 10) {
                 var angle = (i - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
                 var x = width / 2 + Math.cos(angle) * (width / 2 - width * 0.15);
-                var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15) + height * 0.2;
+                var y = height / 2 + Math.sin(angle) * (height / 2 - height * 0.15) + height * 0.1;
                 ctx.fillText(i.toFixed(0), x, y);
 
                 // Draw major tickmark
                 var startX = width / 2 + Math.cos(angle) * (width / 2 - width * 0.05);
-                var startY = height / 2 + Math.sin(angle) * (height / 2 - height * 0.05) + height * 0.2;
+                var startY = height / 2 + Math.sin(angle) * (height / 2 - height * 0.05) + height * 0.1;
                 var endX = width / 2 + Math.cos(angle) * (width / 2 - width * 0.1);
-                var endY = height / 2 + Math.sin(angle) * (height / 2 - height * 0.1) + height * 0.2;
+                var endY = height / 2 + Math.sin(angle) * (height / 2 - height * 0.1) + height * 0.1;
                 ctx.beginPath();
                 ctx.moveTo(startX, startY);
                 ctx.lineTo(endX, endY);
@@ -53,9 +53,9 @@ Item {
             for (var j = minValue; j <= maxValue; j += (maxValue - minValue) / 50) {
                 var minorAngle = (j - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
                 var minorStartX = width / 2 + Math.cos(minorAngle) * (width / 2 - width * 0.05);
-                var minorStartY = height / 2 + Math.sin(minorAngle) * (height / 2 - height * 0.05) + height * 0.2;
+                var minorStartY = height / 2 + Math.sin(minorAngle) * (height / 2 - height * 0.05) + height * 0.1;
                 var minorEndX = width / 2 + Math.cos(minorAngle) * (width / 2 - width * 0.075);
-                var minorEndY = height / 2 + Math.sin(minorAngle) * (height / 2 - height * 0.075) + height * 0.2;
+                var minorEndY = height / 2 + Math.sin(minorAngle) * (height / 2 - height * 0.075) + height * 0.1;
                 ctx.beginPath();
                 ctx.moveTo(minorStartX, minorStartY);
                 ctx.lineTo(minorEndX, minorEndY);
@@ -68,14 +68,14 @@ Item {
             var valueAngle = (value - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
             ctx.beginPath();
             ctx.moveTo(width / 2, height / 2 + height * 0.2);
-            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.05), height / 2 + Math.sin(valueAngle) * (height / 2 - width * 0.05) + height * 0.2);
+            ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.05), height / 2 + Math.sin(valueAngle) * (height / 2 - width * 0.05) + height * 0.1);
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "red";
             ctx.stroke();
 
             // Draw the smaller needle base.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2 + height * 0.2, width * 0.02, 0, Math.PI * 2, false);
+            ctx.arc(width / 2, height / 2 + height * 0.1, width * 0.02, 0, Math.PI * 2, false);
             ctx.fillStyle = "red";
             ctx.fill();
         }
