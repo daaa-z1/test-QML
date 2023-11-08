@@ -171,7 +171,7 @@ class MainApp(QObject):
             if self.daftar_min[0][i] < -5 and self.daftar_max[0][i] > 5:
                 step_size.append(1)
             else:
-                step_size.append((self.daftar_max[0][i] - self.daftar_min[0][i]) / 10)
+                step_size.append(10)
         return step_size
 
 if __name__ == "__main__":
