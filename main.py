@@ -42,7 +42,7 @@ class MainApp(QObject):
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
-        self.timer.start(100)
+        self.timer.start(1000)
 
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
