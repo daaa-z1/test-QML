@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Extras 1.4
+import PythonModule 1.0
 
 import "../controls"
 
@@ -10,23 +11,6 @@ Page {
 
     ListModel {
         id: gaugeModel
-    }
-    ListModel {
-        id: minModel
-        Component.onCompleted: {
-            for (var i = 0; i < 8; i++) {
-                append({"value": minValue[i]})
-            }
-        }
-    }
-
-    ListModel {
-        id: maxModel
-        Component.onCompleted: {
-            for (var i = 0; i < 8; i++) {
-                append({"value": maxValue[i]})
-            }
-        }
     }
 
     GridLayout {
@@ -50,9 +34,9 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: model.value
-                    minimumValue: minModel.get(index).value
-                    maximumValue: maxModel.get(index).value
+                    value: ainReader.newValue[index] // Menggunakan sinyal dari Python
+                    minimumValue: ainReader.minValues[index]
+                    maximumValue: ainReader.maxValues[index]
                 }
             }
         }

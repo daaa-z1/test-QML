@@ -13,8 +13,8 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
 
 class MainApp(QObject):
     newValue = pyqtSignal(float, float, float, float, float, float, float, float)
-    # minValues = pyqtSignal(float, float, float, float, float, float, float, float)
-    # maxValues = pyqtSignal(float, float, float, float, float, float, float, float)
+    minValues = pyqtSignal(float, float, float, float, float, float, float, float)
+    maxValues = pyqtSignal(float, float, float, float, float, float, float, float)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -136,20 +136,18 @@ class MainApp(QObject):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
         self.newValue.emit(*value)
 
-    # # Metode untuk membaca min value dari database
-    # @pyqtProperty(list)
-    # def readMinValues(self):
-    #     minValue = [i for i in self.daftar_min[0]]
-    #     self.minValues.emit(*minValue)
-    #     return self.minValue
+    # Metode untuk membaca min value dari database
+    @pyqtProperty(list)
+    def readMinValues(self):
+        value = [i for i in self.daftar_min[0]]
+        self.minValues.emit(*value)
 
-    # # Metode untuk membaca max value dari database
-    # @pyqtProperty(list)
-    # def readMaxValues(self):
-    #     maxValue = [i for i in self.daftar_max[0]]
-    #     print(*maxValue)
-    #     self.maxValues.emit(*maxValue)
-    #     return self.maxValue
+    # Metode untuk membaca max value dari database
+    @pyqtProperty(list)
+    def readMaxValues(self):
+        value = [i for i in self.daftar_max[0]]
+        print(value)
+        self.maxValues.emit(*value)
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
@@ -157,18 +155,11 @@ if __name__ == "__main__":
 
     ainReader = MainApp()
     
-    minValue = ainReader.daftar_min
-    maxValue = ainReader.daftar_max
-    
-    print(minValue)
-    print(maxValue)
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = ainReader.daftar_konfigurasi
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("ainReader", ainReader)
-    engine.rootContext().setContextProperty("minValue", minValue)
-    engine.rootContext().setContextProperty("maxValue", maxValue)
     engine.rootContext().setContextProperty("parameterModel", parameterModel)
 
     engine.load("qml/main.qml")
