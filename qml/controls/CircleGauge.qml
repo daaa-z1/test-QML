@@ -91,7 +91,7 @@ Item {
     }
 
     Text {
-        id: valueText + " " + unit
+        id: valueText + "" + unit
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         text: valueItem.value.toFixed(0)
