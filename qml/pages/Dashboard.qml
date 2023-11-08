@@ -34,8 +34,8 @@ Page {
                     height: width
 
                     value: model.value
-                    // minimumValue: ainReader.daftar_min[index]
-                    // maximumValue: ainReader.daftar_max[index]
+                    minimumValue: ainReader.minValues[index]
+                    maximumValue: ainReader.maxValues[index]
                 }
             }
         }
