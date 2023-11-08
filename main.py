@@ -42,7 +42,7 @@ class MainApp(QObject):
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
-        self.timer.start(2000)
+        self.timer.start(1000)
 
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -147,7 +147,7 @@ class MainApp(QObject):
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
-        print(f'\n {value}')
+        print(f"{value}\n")
         self.newValue.emit(value)
 
     # Metode untuk membaca min value dari database
@@ -171,7 +171,7 @@ class MainApp(QObject):
             if self.daftar_min[0][i] < -5 and self.daftar_max[0][i] > 5:
                 step_size.append(1)
             else:
-                step_size.append(10)
+                step_size.append((self.daftar_max[0][i] - self.daftar_min[0][i]) / 10)
         return step_size
 
 if __name__ == "__main__":

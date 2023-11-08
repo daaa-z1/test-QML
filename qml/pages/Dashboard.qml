@@ -38,7 +38,7 @@ Page {
                     value: mainApp ? mainApp.newValue[index] : 0
                     minimumValue: mainApp ? mainApp.readMinValues[index] : 0
                     maximumValue: mainApp ? mainApp.readMaxValues[index] : 0
-                    stepSize: 10
+                    stepSize: mainApp.calculateStepSize[index]
                 }
             }
         }
