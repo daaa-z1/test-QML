@@ -137,7 +137,7 @@ class MainApp(QObject):
     minValues = pyqtSignal('QVariantList')
     @pyqtProperty('QVariantList', notify=minValues)
     def readMinValues(self):
-        return list(self.daftar_min)
+        return list(self.daftar_min[0])
 
     # Metode untuk membaca max value dari database
     maxValues = pyqtSignal('QVariantList')
