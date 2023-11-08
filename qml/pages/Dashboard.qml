@@ -34,7 +34,7 @@ Page {
                     // Tambahkan Text untuk parameter di atas CircularGauge
                     Text {
                         id: parameterText
-                        text: mainApp.parameters[index]
+                        text: mainApp.ReadParameters[index]
                         color: "white"
                     }
 
@@ -60,7 +60,7 @@ Page {
                     // Tambahkan Text untuk satuan di sebelah kanan nilai
                     Text {
                         id: unitText
-                        text: mainApp.units[index]
+                        text: mainApp.readUnits[index]
                         color: "white"
                         anchors.left: valueText.right
                         anchors.verticalCenter: valueText.verticalCenter
