@@ -28,7 +28,7 @@ Page {
                 color: "black"
                 radius: width * 0.1
 
-                CircularGauge {
+                CircleGauge {
                     id: gauge
                     objectName: "gauge" + index
                     anchors.centerIn: parent
@@ -36,8 +36,8 @@ Page {
                     height: width
 
                     value: mainApp ? mainApp.newValue[index] : 0
-                    minimumValue: mainApp ? mainApp.readMinValues[index] : 0
-                    maximumValue: mainApp ? mainApp.readMaxValues[index] : 0
+                    minValue: mainApp ? mainApp.readMinValues[index] : 0
+                    maxValue: mainApp ? mainApp.readMaxValues[index] : 0
                 }
             }
         }
