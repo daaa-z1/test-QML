@@ -152,7 +152,7 @@ class MainApp(QObject):
         step_size = []
         for i in range(len(self.daftar_min[0])):
             if self.daftar_min[0][i] < -5 and self.daftar_max[0][i] > 5:
-                step_size.append((self.daftar_max[0][i] - self.daftar_min[0][i]) / 1)
+                step_size.append(1)
             else:
                 step_size.append((self.daftar_max[0][i] - self.daftar_min[0][i]) / 10)
         return step_size
