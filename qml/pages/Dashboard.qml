@@ -43,7 +43,7 @@ Page {
         }
     }
     Component.onCompleted: {
-        dataModel.newValue.connect(function(values) {
+        mainApp.newValue.connect(function(values) {
             var gauges = gridLayout.children;
             for (var i = 0; i < gauges.length; i++) {
                 gauges[i].value = values[i];
