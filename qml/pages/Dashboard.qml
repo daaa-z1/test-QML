@@ -18,6 +18,7 @@ Page {
         columns: 4
 
         Repeater {
+            id: repeater
             model: mainApp.readMinValues.lenght
 
             Rectangle {
