@@ -140,13 +140,16 @@ class MainApp(QObject):
     @pyqtProperty(list)
     def readMinValues(self):
         value = [i for i in self.daftar_min[0]]
+        if None in value:
+            value = [0] * len(value) 
         self.minValues.emit(*value)
 
     # Metode untuk membaca max value dari database
     @pyqtProperty(list)
     def readMaxValues(self):
         value = [i for i in self.daftar_max[0]]
-        print(value)
+        if None in value:
+            value = [0] * len(value)  # Atur nilai default ke 0 jika nilai yang diterima adalah None
         self.maxValues.emit(*value)
 
 if __name__ == "__main__":
