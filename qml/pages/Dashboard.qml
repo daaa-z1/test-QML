@@ -28,13 +28,17 @@ Page {
                 color: "transparent"
                 radius: width * 0.1
 
+                property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA"]
+                property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
+
                 CircleGauge {
                     id: gauge
                     objectName: "gauge" + index
                     anchors.centerIn: parent
                     width: container.width * 0.8
                     height: width
-                    label: mainApp ? mainApp.parameter[index] : 0
+                    label: container.parameters[index]
+                    unit: container.units[index]
 
                     value: mainApp ? mainApp.newValue[index] : 0
                     minValue: mainApp ? mainApp.readMinValues[index] : 0

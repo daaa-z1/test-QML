@@ -5,6 +5,7 @@ Item {
     property real minValue: 0
     property real maxValue: 100
     property string label: ""
+    property string unit: ""
 
     width: width
     height: height
@@ -82,6 +83,7 @@ Item {
     }
 
     Text {
+        id: labelText
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         text: label
@@ -89,9 +91,18 @@ Item {
     }
 
     Text {
+        id: valueText
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         text: valueItem.value.toFixed(0)
+        font.pixelSize: parent.height * 0.1
+    }
+
+    Text {
+        id: unitsText
+        anchors.bottom: valueText.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: units
         font.pixelSize: parent.height * 0.1
     }
 
