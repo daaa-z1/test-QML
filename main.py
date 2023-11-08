@@ -147,6 +147,7 @@ class MainApp(QObject):
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
+        print(value)
         self.newValue.emit(value)
 
     # Metode untuk membaca min value dari database
@@ -178,6 +179,7 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
 
     mainApp = MainApp()
+    ain = mainApp.readValues()
     
     # Menyediakan data model untuk ComboBox di QML
     parameterModel = mainApp.daftar_konfigurasi
