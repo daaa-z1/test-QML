@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Extras 1.4
+import PythonModule 1.0
 
 import "../controls"
 
@@ -33,9 +34,9 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: ainReader.newValue[index] // Menggunakan sinyal dari Python
-                    minimumValue: ainReader.minValues[index]
-                    maximumValue: ainReader.maxValues[index]
+                    value: model.value
+                    // minimumValue: ainReader.daftar_min[index]
+                    // maximumValue: ainReader.daftar_max[index]
                 }
             }
         }
