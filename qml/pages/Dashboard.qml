@@ -11,12 +11,6 @@ Page {
     ListModel {
         id: gaugeModel
     }
-    ListModel{
-        id: minModel
-    }
-    ListModel{
-        id: maxModel
-    }
 
     GridLayout {
         id: gridLayout
@@ -40,8 +34,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: minModel.get(index).min
-                    maximumValue: maxModel.get(index).max
+                    minimumValue: minMaxModel.get(index).min
+                    maximumValue: minMaxModel.get(index).max
                 }
             }
         }
@@ -59,28 +53,35 @@ Page {
             gaugeModel.append({"value": value6})
             gaugeModel.append({"value": value7})
             gaugeModel.append({"value": value8})
+
+            minMaxModel.setProperty(0, "min", ainReader.minValues[0])
+            minMaxModel.setProperty(0, "max", ainReader.maxValues[0])
+            minMaxModel.setProperty(1, "min", ainReader.minValues[1])
+            minMaxModel.setProperty(1, "max", ainReader.maxValues[1])
+            minMaxModel.setProperty(2, "min", ainReader.minValues[2])
+            minMaxModel.setProperty(2, "max", ainReader.maxValues[2])
+            minMaxModel.setProperty(3, "min", ainReader.minValues[3])
+            minMaxModel.setProperty(3, "max", ainReader.maxValues[3])
+            minMaxModel.setProperty(4, "min", ainReader.minValues[4])
+            minMaxModel.setProperty(4, "max", ainReader.maxValues[4])
+            minMaxModel.setProperty(5, "min", ainReader.minValues[5])
+            minMaxModel.setProperty(5, "max", ainReader.maxValues[5])
+            minMaxModel.setProperty(6, "min", ainReader.minValues[6])
+            minMaxModel.setProperty(6, "max", ainReader.maxValues[6])
+            minMaxModel.setProperty(7, "min", ainReader.minValues[7])
+            minMaxModel.setProperty(7, "max", ainReader.maxValues[7])
         }
-        function onMinValues(value1, value2, value3, value4, value5, value6, value7, value8) {
-            minModel.clear()
-            minModel.append({"min": value1})
-            minModel.append({"min": value2})
-            minModel.append({"min": value3})
-            minModel.append({"min": value4})
-            minModel.append({"min": value5})
-            minModel.append({"min": value6})
-            minModel.append({"min": value7})
-            minModel.append({"min": value8})
-        }
-        function onMaxValues(value1, value2, value3, value4, value5, value6, value7, value8) {
-            maxModel.clear()
-            maxModel.append({"max": value1})
-            maxModel.append({"max": value2})
-            maxModel.append({"max": value3})
-            maxModel.append({"max": value4})
-            maxModel.append({"max": value5})
-            maxModel.append({"max": value6})
-            maxModel.append({"max": value7})
-            maxModel.append({"max": value8})
-        }
+    }
+
+    ListModel {
+        id: minMaxModel
+        ListElement { min: 0; max: 100 }
+        ListElement { min: 0; max: 100 }
+        ListElement { min: 0; max: 100 }
+        ListElement { min: 0; max: 100 }
+        ListElement { min: 0; max: 100 }
+        ListElement { min: -5; max: 5 }
+        ListElement { min: -5; max: 5 }
+        ListElement { min: -5; max: 5 }
     }
 }
