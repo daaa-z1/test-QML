@@ -94,7 +94,7 @@ Item {
         id: valueText
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        text: valueItem.value.toFixed(0) + " " + unit
+        text: valueItem.value.toFixed(0) + unit
         font.pixelSize: parent.height * 0.1
     }
     
