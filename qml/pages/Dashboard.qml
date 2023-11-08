@@ -43,10 +43,10 @@ Page {
         }
     }
     Component.onCompleted: {
-        mainApp.newValue.connect(function(values) {
-            for (var i = 0; i < values.length; i++) {
-                var gauge = repeater.itemAt(i);
-                gauge.value = values[i];
+        dataModel.newValue.connect(function(values) {
+            var gauges = gridLayout.children;
+            for (var i = 0; i < gauges.length; i++) {
+                gauges[i].value = values[i];
             }
         });
     }
