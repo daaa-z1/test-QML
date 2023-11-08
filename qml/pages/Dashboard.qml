@@ -11,6 +11,12 @@ Page {
     ListModel {
         id: gaugeModel
     }
+    ListModel{
+        id: minModel
+    }
+    ListModel{
+        id: maxModel
+    }
 
     GridLayout {
         id: gridLayout
@@ -34,8 +40,8 @@ Page {
                     height: width
 
                     value: model.value
-                    minimumValue: ainReader.minValues[index]
-                    maximumValue: ainReader.maxValues[index]
+                    minimumValue: minModel.get(index).min
+                    maximumValue: maxModel.get(index).max
                 }
             }
         }
@@ -53,6 +59,28 @@ Page {
             gaugeModel.append({"value": value6})
             gaugeModel.append({"value": value7})
             gaugeModel.append({"value": value8})
+        }
+        function onMinValues(value1, value2, value3, value4, value5, value6, value7, value8) {
+            minModel.clear()
+            minModel.append({"min": value1})
+            minModel.append({"min": value2})
+            minModel.append({"min": value3})
+            minModel.append({"min": value4})
+            minModel.append({"min": value5})
+            minModel.append({"min": value6})
+            minModel.append({"min": value7})
+            minModel.append({"min": value8})
+        }
+        function onMaxValues(value1, value2, value3, value4, value5, value6, value7, value8) {
+            maxModel.clear()
+            maxModel.append({"max": value1})
+            maxModel.append({"max": value2})
+            maxModel.append({"max": value3})
+            maxModel.append({"max": value4})
+            maxModel.append({"max": value5})
+            maxModel.append({"max": value6})
+            maxModel.append({"max": value7})
+            maxModel.append({"max": value8})
         }
     }
 }
