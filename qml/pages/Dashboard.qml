@@ -34,7 +34,7 @@ Page {
                     anchors.centerIn: parent
                     width: container.width * 0.8
                     height: width
-                    label: mainApp.parameter[index]
+                    label: mainApp ? mainApp.parameter[index] : 0
 
                     value: mainApp ? mainApp.newValue[index] : 0
                     minValue: mainApp ? mainApp.readMinValues[index] : 0
