@@ -13,8 +13,8 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
 
 class MainApp(QObject):
     newValue = pyqtSignal(float, float, float, float, float, float, float, float)
-    minValues = pyqtSignal(float, float, float, float, float, float, float, float)
-    maxValues = pyqtSignal(float, float, float, float, float, float, float, float)
+    minValues = pyqtSignal(int, int, int, int, int, int, int, int)
+    maxValues = pyqtSignal(int, int, int, int, int, int, int, int)
 
     def __init__(self, parent=None):
         super().__init__(parent)
