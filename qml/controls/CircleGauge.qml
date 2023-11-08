@@ -102,7 +102,7 @@ Item {
         id: unitText
         anchors.bottom: parent.bottom
         anchors.rleft: valueText.right
-        text: " "unit
+        text: " " + unit
         font.pixelSize: parent.height * 0.1
     }
 
