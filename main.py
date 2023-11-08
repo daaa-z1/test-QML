@@ -36,6 +36,9 @@ class MainApp(QObject):
         self.daftar_min = self.ambil_daftar_min()
         self.daftar_max = self.ambil_daftar_max()
         self.daftar_switch = self.ambil_daftar_switch()
+        
+        self.parameter = ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperatur", "Curr V", "Aktual", "Curr MA"]
+        self.satuan = ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)

@@ -28,17 +28,43 @@ Page {
                 color: "black"
                 radius: width * 0.1
 
-                CircularGauge {
-                    id: gauge
-                    objectName: "gauge" + index
+                Column {
                     anchors.centerIn: parent
-                    width: container.width * 0.8
-                    height: width
 
-                    value: mainApp ? mainApp.newValue[index] : 0
-                    minimumValue: mainApp ? mainApp.readMinValues[index] : 0
-                    maximumValue: mainApp ? mainApp.readMaxValues[index] : 0
-                    stepSize: dataModel.calculateStepSize[index]
+                    // Tambahkan Text untuk parameter di atas CircularGauge
+                    Text {
+                        id: parameterText
+                        text: dataModel.parameters[index]
+                        color: "white"
+                    }
+
+                    CircularGauge {
+                        id: gauge
+                        objectName: "gauge" + index
+                        width: container.width * 0.8
+                        height: width
+
+                        value: dataModel.newValue[index]
+                        minimumValue: dataModel.readMinValues[index]
+                        maximumValue: dataModel.readMaxValues[index]
+                        stepSize: dataModel.calculateStepSize[index]  // Menggunakan stepSize dari dataModel
+                    }
+
+                    // Tambahkan Text untuk nilai di bawah CircularGauge
+                    Text {
+                        id: valueText
+                        text: dataModel.newValue[index]
+                        color: "white"
+                    }
+
+                    // Tambahkan Text untuk satuan di sebelah kanan nilai
+                    Text {
+                        id: unitText
+                        text: dataModel.units[index]
+                        color: "white"
+                        anchors.left: valueText.right
+                        anchors.verticalCenter: valueText.verticalCenter
+                    }
                 }
             }
         }
