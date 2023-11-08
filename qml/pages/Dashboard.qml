@@ -40,16 +40,16 @@ Page {
                     maximumValue: mainApp.readMaxValues[index]
                 }
             }
-        }
-    }
-    Component.onCompleted: {
-        mainApp.newValue.connect(function(values) {
-            for (var i = 0; i < repeater.count; i++) {
-                var gauge = repeater.itemAt(i);
-                if (gauge && "value" in gauge) {
-                    gauge.value = values[i];
-                }
+            Component.onCompleted: {
+                mainApp.newValue.connect(function(values) {
+                    for (var i = 0; i < repeater.count; i++) {
+                        var gauge = repeater.itemAt(i);
+                        if (gauge && "value" in gauge) {
+                            gauge.value = values[i];
+                        }
+                    }
+                });
             }
-        });
+        }
     }
 }
