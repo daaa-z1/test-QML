@@ -147,7 +147,7 @@ class MainApp(QObject):
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
-        print(value)
+        print("/n{value}")
         self.newValue.emit(value)
 
     # Metode untuk membaca min value dari database
