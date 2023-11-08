@@ -102,7 +102,7 @@ Item {
         id: unitsText
         anchors.bottom: valueText.top
         anchors.horizontalCenter: parent.horizontalCenter
-        text: units
+        text: unit
         font.pixelSize: parent.height * 0.1
     }
 
