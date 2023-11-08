@@ -34,7 +34,7 @@ Page {
                     // Tambahkan Text untuk parameter di atas CircularGauge
                     Text {
                         id: parameterText
-                        text: mainApp.parameters[index]
+                        text: dataModel.parameters[index]
                         color: "white"
                     }
 
@@ -44,23 +44,23 @@ Page {
                         width: container.width * 0.8
                         height: width
 
-                        value: mainApp.newValue[index]
-                        minimumValue: mainApp.readMinValues[index]
-                        maximumValue: mainApp.readMaxValues[index]
-                        stepSize: mainApp.calculateStepSize[index]  // Menggunakan stepSize dari mainApp
+                        value: dataModel.newValue[index]
+                        minimumValue: dataModel.readMinValues[index]
+                        maximumValue: dataModel.readMaxValues[index]
+                        stepSize: dataModel.calculateStepSize[index]  // Menggunakan stepSize dari dataModel
                     }
 
                     // Tambahkan Text untuk nilai di bawah CircularGauge
                     Text {
                         id: valueText
-                        text: mainApp.newValue[index]
+                        text: dataModel.newValue[index]
                         color: "white"
                     }
 
                     // Tambahkan Text untuk satuan di sebelah kanan nilai
                     Text {
                         id: unitText
-                        text: mainApp.units[index]
+                        text: dataModel.units[index]
                         color: "white"
                         anchors.left: valueText.right
                         anchors.verticalCenter: valueText.verticalCenter

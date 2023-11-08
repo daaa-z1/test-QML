@@ -38,7 +38,7 @@ class MainApp(QObject):
         self.daftar_switch = self.ambil_daftar_switch()
         
         self.parameter = ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperatur", "Curr V", "Aktual", "Curr MA"]
-        self.satuan = ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
+        self.units = ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
@@ -128,6 +128,19 @@ class MainApp(QObject):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Switch")
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
+    
+    # Sinyal untuk mengirim parameter dan satuan ke QML
+    parametersChanged = pyqtSignal('QVariantList')
+    unitsChanged = pyqtSignal('QVariantList')
+
+    # Metode untuk membaca parameter dan satuan
+    @pyqtProperty('QVariantList', notify=parametersChanged)
+    def readParameters(self):
+        return self.parameters
+
+    @pyqtProperty('QVariantList', notify=unitsChanged)
+    def readUnits(self):
+        return self.units
 
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
     newValue = pyqtSignal('QVariantList')
