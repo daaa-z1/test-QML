@@ -25,7 +25,7 @@ Page {
                 id: container
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                color: "black"
+                color: "transparent"
                 radius: width * 0.1
 
                 CircleGauge {
@@ -34,6 +34,7 @@ Page {
                     anchors.centerIn: parent
                     width: container.width * 0.8
                     height: width
+                    label: mainApp.parameter[index]
 
                     value: mainApp ? mainApp.newValue[index] : 0
                     minValue: mainApp ? mainApp.readMinValues[index] : 0
