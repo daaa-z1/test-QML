@@ -12,9 +12,6 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
     sys.exit(1)
 
 class MainApp(QObject):
-    newValue = pyqtSignal(float, float, float, float, float, float, float, float)
-    minValues = pyqtSignal(int, int, int, int, int, int, int, int)
-
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -130,6 +127,7 @@ class MainApp(QObject):
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
 
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
+    newValue = pyqtSignal('QVariantList')
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
