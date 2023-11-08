@@ -25,50 +25,20 @@ Page {
                 id: container
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                color: "black"  // Mengubah warna latar belakang menjadi hitam
+                color: "black"
                 radius: width * 0.1
 
-                // Definisikan parameter dan satuan sebagai properti QML
-                property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA"]
-                property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
-
-                Column {
+                CircularGauge {
+                    id: gauge
+                    objectName: "gauge" + index
                     anchors.centerIn: parent
+                    width: container.width * 0.8
+                    height: width
 
-                    // Tambahkan Text untuk parameter di atas CircularGauge
-                    Text {
-                        id: parameterText
-                        text: container.parameters[index]
-                        color: "white"
-                    }
-
-                    CircularGauge {
-                        id: gauge
-                        objectName: "gauge" + index
-                        width: container.width * 0.8
-                        height: width
-
-                        value: mainApp.newValue[index]
-                        minimumValue: mainApp.readMinValues[index]
-                        maximumValue: mainApp.readMaxValues[index]
-                        stepSize: mainApp.calculateStepSize[index]  // Menggunakan stepSize dari mainApp
-                    }
-
-                    // Tambahkan Text untuk nilai di bawah CircularGauge
-                    Text {
-                        id: valueText
-                        text: mainApp.newValue[index]
-                        color: "white"
-                    }
-
-                    // Tambahkan Text untuk satuan di sebelah kanan nilai
-                    Text {
-                        id: unitText
-                        text: container.units[index]
-                        color: "white"
-                        anchors.left: valueText.right
-                        anchors.verticalCenter: valueText.verticalCenter
-                    }
+                    value: mainApp ? mainApp.newValue[index] : 0
+                    minimumValue: mainApp ? mainApp.readMinValues[index] : 0
+                    maximumValue: mainApp ? mainApp.readMaxValues[index] : 0
+                    stepSize: mainApp.calculateStepSize[index]
                 }
             }
         }
