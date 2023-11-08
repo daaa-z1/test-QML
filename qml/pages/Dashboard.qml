@@ -19,7 +19,7 @@ Page {
 
         Repeater {
             id: repeater
-            model: mainApp.readMinValues.length
+            model: mainApp ? mainApp.readMinValues.length : 0
 
             Rectangle {
                 id: container
@@ -35,22 +35,27 @@ Page {
                     width: container.width * 0.8
                     height: width
 
-                    value: mainApp.newValue[index]
-                    minimumValue: mainApp.readMinValues[index]
-                    maximumValue: mainApp.readMaxValues[index]
+                    value: mainApp ? mainApp.newValue[index] : 0
+                    minimumValue: mainApp ? mainApp.readMinValues[index] : 0
+                    maximumValue: mainApp ? mainApp.readMaxValues[index] : 0
                 }
             }
         }
     }
 
     Component.onCompleted: {
-        mainApp.newValue.connect(function(values) {
-            for (var i = 0; i < repeater.count; i++) {
-                var gauge = repeater.itemAt(i).children[0];
-                if (gauge && "value" in gauge) {
-                    gauge.value = values[i];
+        if (mainApp) {
+            mainApp.newValue.connect(function(values) {
+                for (var i = 0; i < repeater.count; i++) {
+                    var container = repeater.itemAt(i);
+                    if (container && container.children.length > 0) {
+                        var gauge = container.children[0];
+                        if (gauge && "value" in gauge) {
+                            gauge.value = values[i];
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
