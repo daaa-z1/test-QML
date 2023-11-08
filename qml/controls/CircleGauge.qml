@@ -20,7 +20,7 @@ Item {
 
             // Draw the background arc.
             ctx.beginPath();
-            ctx.arc(width / 2, height / 2 + height * 0.2, width / 2 - 2, Math.PI * 0.75, Math.PI * 0.75 + Math.PI * 1.5, false); // Menggambar dari 150 derajat kiri ke kanan
+            ctx.arc(width / 2, height / 2 + height * 0.1, width / 2 - 2, Math.PI * 0.75, Math.PI * 0.75 + Math.PI * 1.5, false); // Menggambar dari 150 derajat kiri ke kanan
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "lightgray";
             ctx.stroke();
@@ -67,7 +67,7 @@ Item {
             // Draw the needle.
             var valueAngle = (value - minValue) * Math.PI * 1.5 / (maxValue - minValue) + Math.PI * 0.75;
             ctx.beginPath();
-            ctx.moveTo(width / 2, height / 2 + height * 0.2);
+            ctx.moveTo(width / 2, height / 2 + height * 0.1);
             ctx.lineTo(width / 2 + Math.cos(valueAngle) * (width / 2 - width * 0.05), height / 2 + Math.sin(valueAngle) * (height / 2 - width * 0.05) + height * 0.1);
             ctx.lineWidth = width * 0.02;
             ctx.strokeStyle = "red";
