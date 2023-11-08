@@ -43,7 +43,7 @@ Page {
         }
     }
     Component.onCompleted: {
-        dataModel.newValue.connect(function(values) {
+        mainApp.newValue.connect(function(values) {
             for (var i = 0; i < repeater.count; i++) {
                 var gauge = repeater.itemAt(i);
                 if (gauge && "value" in gauge) {
