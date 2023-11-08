@@ -91,18 +91,10 @@ Item {
     }
 
     Text {
-        id: valueText
+        id: valueText + " " + unit
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         text: valueItem.value.toFixed(0)
-        font.pixelSize: parent.height * 0.1
-    }
-
-    Text {
-        id: unitsText
-        anchors.bottom: valueText.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: unit
         font.pixelSize: parent.height * 0.1
     }
 
