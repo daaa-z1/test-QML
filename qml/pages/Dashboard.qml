@@ -29,6 +29,7 @@ Page {
 
                 CircularGauge {
                     id: gauge
+                    objectName: "gauge" + index
                     anchors.centerIn: parent
                     width: container.width * 0.8
                     height: width
@@ -43,6 +44,7 @@ Page {
     Component.onCompleted: {
         mainApp.newValue.connect(function(values) {
             for (var i = 0; i < values.length; i++) {
+                var gauge = repeater.itemAt(i);
                 gauge.value = values[i];
             }
         });
