@@ -4,9 +4,7 @@ import QtCharts 2.3
 import QtQuick.Layouts 1.15
 
 Page {
-    id: page
-    width: 640
-    height: 480
+    id: graphPage
 
     ChartView {
         id: chartView
