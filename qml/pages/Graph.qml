@@ -61,7 +61,7 @@ Page {
     }
 
     Connections {
-        target: backend  // Replace with the id of your backend object
+        target: mainApp  // Replace with the id of your backend object
         onNewValue: updatePlot(values)
     }
 
