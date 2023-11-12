@@ -36,13 +36,12 @@ class MainApp(QObject):
         self.daftar_min = self.ambil_daftar_min()
         self.daftar_max = self.ambil_daftar_max()
         self.daftar_switch = self.ambil_daftar_switch()
-        
-        self.parameter = ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperatur", "Curr V", "Aktual", "Curr MA"]
-        self.units = ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
+        
+        self.getAin = None
 
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -161,18 +160,6 @@ class MainApp(QObject):
     @pyqtProperty('QVariantList', notify=maxValues)
     def readMaxValues(self):
         return list(self.daftar_max[0])
-    
-    # Metode untuk menghitung stepSize berdasarkan minimumValue dan maximumValue
-    stepSize = pyqtSignal('QVariantList')
-    @pyqtProperty('QVariantList', notify=stepSize)
-    def calculateStepSize(self):
-        step_size = []
-        for i in range(len(self.daftar_min[0])):
-            if self.daftar_min[0][i] < -5 and self.daftar_max[0][i] > 5:
-                step_size.append(1)
-            else:
-                step_size.append((self.daftar_max[0][i] - self.daftar_min[0][i]) / 10)
-        return step_size
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
