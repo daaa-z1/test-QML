@@ -3,13 +3,16 @@ import QtQuick.Controls 2.15
 import QtCharts 2.3
 
 Page {
-    visible: true
-    width: parent.width
-    height: parent.height
+    id: page
+    width: 640
+    height: 480
 
     ChartView {
         id: chartView
-        anchors.fill: parent
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: parent.height * 0.8
         legend.visible: false
         antialiasing: true
 
@@ -26,9 +29,14 @@ Page {
         }
     }
 
-    Column {
+    ColumnLayout {
         id: radioButtons
         spacing: 10
+        anchors.top: chartView.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: parent.height * 0.2
+
         RadioButton {
             id: flowTestButton
             text: "Flow Test"
