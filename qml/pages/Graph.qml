@@ -14,19 +14,20 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         height: parent.height * 0.8
-        legend.visible: false
         antialiasing: true
 
+        // Create a line series for the plot
         LineSeries {
-            id: lineSeries1
-            name: "Current Voltage"
-            XYPoint { x: 0; y: 0 }
-        }
-
-        LineSeries {
-            id: lineSeries2
-            name: "Actual"
-            XYPoint { x: 0; y: 0 }
+            id: lineSeries
+            name: "Test Data"
+            axisX: ValueAxis {
+                min: 0
+                max: 60
+            }
+            axisY: ValueAxis {
+                min: -10
+                max: 10
+            }
         }
     }
 
@@ -60,26 +61,27 @@ Page {
     }
 
     Connections {
-        target: mainApp
-        onNewValue: {
-            var values = newValue;
-            if (flowTestButton.checked) {
-                lineSeries1.clear();
-                lineSeries1.append(values[5], values[3]);
-            } else if (positionTestButton.checked) {
-                lineSeries1.clear();
-                lineSeries2.clear();
-                lineSeries1.append(values[5], values[6]);
-                lineSeries2.append(values[5], values[7]);
-            } else if (pressureTestButton.checked) {
-                lineSeries1.clear();
-                lineSeries2.clear();
-                lineSeries1.append(values[5], values[0]);
-                lineSeries2.append(values[5], values[1]);
-            } else if (leakageTestButton.checked) {
-                lineSeries1.clear();
-                lineSeries1.append(values[5], values[3]);
-            }
+        target: backend  // Replace with the id of your backend object
+        onNewValue: updatePlot(values)
+    }
+
+    function updatePlot(values) {
+        // Clear the line series
+        lineSeries.clear();
+
+        // Check which test is selected and plot the corresponding values
+        if (flowTestButton.checked) {
+            // Replace with the indices for the Flow Test
+            lineSeries.append(values[0], values[1]);
+        } else if (positionTestButton.checked) {
+            // Indices for the Position Test
+            lineSeries.append(values[5], values[6]);
+        } else if (pressureTestButton.checked) {
+            // Replace with the indices for the Pressure Test
+            lineSeries.append(values[2], values[3]);
+        } else if (leakageTestButton.checked) {
+            // Replace with the indices for the Leakage Test
+            lineSeries.append(values[4], values[7]);
         }
     }
 }
