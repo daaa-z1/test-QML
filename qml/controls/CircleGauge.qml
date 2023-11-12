@@ -27,7 +27,7 @@ Item {
             ctx.stroke();
 
             // Draw the major tickmarks and numbers around the arc.
-            ctx.font = width * 0.1 + "px Arial";
+            ctx.font = width * 0.1 + "px";
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
