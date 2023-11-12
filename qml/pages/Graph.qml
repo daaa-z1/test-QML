@@ -52,7 +52,7 @@ ApplicationWindow {
     }
 
     Connections {
-        target: backend
+        target: mainApp
         onNewValue: {
             var values = newValue;
             if (flowTestButton.checked) {
