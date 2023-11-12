@@ -4,9 +4,8 @@ import QtCharts 2.3
 
 Page {
     visible: true
-    width: 640
-    height: 480
-    title: "Servo Valve Test App"
+    width: parent.width
+    height: parent.height
 
     ChartView {
         id: chartView
