@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtCharts 2.0
 
 Page {
+    id: graphPage
     ChartView {
         title: "Grafik Real-Time"
         width: 400
