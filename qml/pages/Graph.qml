@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtCharts 2.0
+import QtQuick 2.15
+import QtCharts 2.15
 
 Page {
     id: graphPage
@@ -15,7 +15,7 @@ Page {
 
         Component.onCompleted: {
             var i = 0;
-            var timer = new Qtimer();
+            var timer = new Timer();
             timer.interval = 100; // Update setiap 100 ms
             timer.repeat = true;
             timer.triggered.connect(function() {
