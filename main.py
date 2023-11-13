@@ -36,6 +36,8 @@ class MainApp(QObject):
         self.daftar_ain = self.ambil_daftar_ain()
         self.daftar_min = self.ambil_daftar_min()
         self.daftar_max = self.ambil_daftar_max()
+        self.daftar_min_scaling = self.ambil_daftar_min_scaling()
+        self.daftar_max_scaling = self.ambil_daftar_max_scaling()
         self.daftar_switch = self.ambil_daftar_switch()
 
         self.timer = QTimer()
@@ -86,6 +88,25 @@ class MainApp(QObject):
                 "Curr_MA_Min": -5,
                 "Curr_MA_Max": 5,
             }
+            
+            data_scaling = {
+                "Pressure_In_Min": 0,
+                "Pressure_In_Max": 5,
+                "Pressure_A_Min": 0,
+                "Pressure_A_Max": 5,
+                "Pressure_B_Min": 0,
+                "Pressure_B_Max": 5,
+                "Flow_Min": 0,
+                "Flow_Max": 5,
+                "Temp_Min": 0,
+                "Temp_Max": 100,
+                "Curr_V_Min": -5,
+                "Curr_V_Max": 5,
+                "Aktual_Min": -5,
+                "Aktual_Max": 5,
+                "Curr_MA_Min": -5,
+                "Curr_MA_Max": 5,
+            }
 
             data_switch = {
                 "Btn1": 0,
@@ -99,6 +120,7 @@ class MainApp(QObject):
             tambah_pengukuran(self.koneksi, config_id, data_pengukuran)
             tambah_batasan(self.koneksi, config_id, data_batasan)
             tambah_switch(self.koneksi, config_id, data_switch)
+            tambah_scaling(self.koneksi, config_id, data_scaling)
 
     # Fungsi untuk mengambil daftar konfigurasi dari database
     def ambil_daftar_konfigurasi(self):
@@ -121,6 +143,17 @@ class MainApp(QObject):
     def ambil_daftar_max(self):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Limits")
+        return [i[3::2] for i in cursor.fetchall()]
+    
+    # Fungsi untuk mengambil min dan max scaling dari database
+    def ambil_daftar_min_scaling(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT * FROM Scaling")
+        return [i[2::2] for i in cursor.fetchall()]
+
+    def ambil_daftar_max_scaling(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT * FROM Scaling")
         return [i[3::2] for i in cursor.fetchall()]
 
     # Fungsi untuk mengambil daftar switch dari database
@@ -160,6 +193,18 @@ class MainApp(QObject):
     @pyqtProperty('QVariantList', notify=maxValues)
     def readMaxValues(self):
         return list(self.daftar_max[0])
+    
+    # Metode untuk membaca min scaling dari database
+    minScale = pyqtSignal('QVariantList')
+    @pyqtProperty('QVariantList', notify=minScale)
+    def readMinValues(self):
+        return list(self.daftar_min_scaling[0])
+
+    # Metode untuk membaca max scaling dari database
+    maxScale = pyqtSignal('QVariantList')
+    @pyqtProperty('QVariantList', notify=maxScale)
+    def readMaxValues(self):
+        return list(self.daftar_max_scaling[0])
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)

@@ -2,8 +2,11 @@ import QtQuick 2.15
 
 Item {
     property alias value: valueItem.value
+    property real input: 0
     property real minValue: 0
     property real maxValue: 100
+    property real minScale: 0
+    property real maxScale: 5
     property string label: ""
     property string unit: ""
 
