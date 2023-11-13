@@ -45,6 +45,7 @@ Page {
                     minValue: mainApp ? mainApp.readMinValues[index] : 0
                     maxValue: mainApp ? mainApp.readMaxValues[index] : 0
                     input: mainApp ? mainApp.newValue[index] : 0
+                    value: maxValue - (((maxScale - maxScale)/(maxValue - minValue))*(input - minScale))
                 }
             }
         }
