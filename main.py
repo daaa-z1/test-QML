@@ -37,8 +37,8 @@ class MainApp(QObject):
         self.daftar_ain = self.ambil_daftar_ain()
         self.daftar_min = self.ambil_daftar_min()
         self.daftar_max = self.ambil_daftar_max()
-        self.daftar_min_scaling = self.ambil_daftar_min_scaling()
-        self.daftar_max_scaling = self.ambil_daftar_max_scaling()
+        self.daftar_min_scale = self.ambil_daftar_min_scaling()
+        self.daftar_max_scale = self.ambil_daftar_max_scaling()
         self.daftar_switch = self.ambil_daftar_switch()
 
         self.timer = QTimer()
@@ -199,18 +199,6 @@ class MainApp(QObject):
     @pyqtProperty('QVariantList', notify=maxValues)
     def readMaxValues(self):
         return list(self.daftar_max[0])
-    
-    # Metode untuk membaca min scaling dari database
-    minScale = pyqtSignal('QVariantList')
-    @pyqtProperty('QVariantList', notify=minScale)
-    def readMinScale(self):
-        return list(self.daftar_min_scaling[0])
-
-    # Metode untuk membaca max scaling dari database
-    maxScale = pyqtSignal('QVariantList')
-    @pyqtProperty('QVariantList', notify=maxScale)
-    def readMaxScale(self):
-        return list(self.daftar_max_scaling[0])
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
