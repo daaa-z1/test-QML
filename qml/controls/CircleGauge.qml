@@ -2,15 +2,10 @@ import QtQuick 2.15
 
 Item {
     property alias value: valueItem.value
-    property real valueIn: 0
     property real minValue: 0
     property real maxValue: 100
-    property real minScale: 0
-    property real maxScale: 5
     property string label: ""
     property string unit: ""
-    property real m: (maxValue - minValue)/(maxScale - minScale)
-    property real c: m * (valueIn - minScale)
 
     width: width
     height: height
@@ -113,7 +108,7 @@ Item {
 
     Item {
         id: valueItem
-        property real value: c
+        property real value: 0
 
         onValueChanged: {
             canvas.requestPaint();

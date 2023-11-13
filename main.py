@@ -181,7 +181,12 @@ class MainApp(QObject):
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
-        self.newValue.emit(value)
+        min_scale = self.daftar_min_scale[0]
+        max_scale = self.daftar_max_scale[0]
+        min_values = self.daftar_min[0]
+        max_values = self.daftar_max[0]
+        calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
+        self.newValue.emit(calculated_values)
 
     # Metode untuk membaca min value dari database
     minValues = pyqtSignal('QVariantList')

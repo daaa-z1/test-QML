@@ -40,11 +40,9 @@ Page {
                     label: container.parameters[index]
                     unit: container.units[index]
 
-                    minScale: mainApp ? mainApp.readMinScale[index] : 0
-                    maxScale: mainApp ? mainApp.readMaxScale[index] : 0
                     minValue: mainApp ? mainApp.readMinValues[index] : 0
                     maxValue: mainApp ? mainApp.readMaxValues[index] : 0
-                    valueIn: mainApp ? mainApp.newValue[index] : 0
+                    value: mainApp ? mainApp.newValue[index] : 0
                 }
             }
         }
