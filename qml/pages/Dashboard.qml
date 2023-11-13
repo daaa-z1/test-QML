@@ -45,8 +45,6 @@ Page {
                     minValue: mainApp ? mainApp.readMinValues[index] : 0
                     maxValue: mainApp ? mainApp.readMaxValues[index] : 0
                     valueIn: mainApp ? mainApp.newValue[index] : 0
-
-                    value: 
                 }
             }
         }
