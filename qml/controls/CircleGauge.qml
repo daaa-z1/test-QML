@@ -2,7 +2,7 @@ import QtQuick 2.15
 
 Item {
     property alias value: valueItem.value
-    property real inputValue: 0
+    property real in: 0
     property real minValue: 0
     property real maxValue: 100
     property real minScale: 0
