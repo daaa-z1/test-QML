@@ -1,85 +1,153 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtCharts 2.3
-import QtQuick.Layouts 1.15
+import QtQuick 2.0
+import QtCharts 2.0
 
 Page {
-    id: graphPage
+    id: page
 
-    ChartView {
-        id: chartView
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: parent.height * 0.8
-        antialiasing: true
+    Rectangle {
+        id: inputArea
+        width: parent.width / 4
+        height: parent.height
+        color: "lightgrey"
 
-        // Create a line series for the plot
-        LineSeries {
-            id: lineSeries
-            name: "Test Data"
-            axisX: ValueAxis {
-                min: 0
-                max: 60
+        Column {
+            spacing: 10
+            anchors.fill: parent
+            anchors.margins: 10
+
+            DatePicker {
+                id: datePicker
+                width: parent.width
             }
-            axisY: ValueAxis {
-                min: -10
-                max: 10
+
+            TimePicker {
+                id: timePicker
+                width: parent.width
+            }
+
+            TextField {
+                id: testName
+                width: parent.width
+                placeholderText: "Test Name"
+            }
+
+            TextArea {
+                id: description
+                width: parent.width
+                placeholderText: "Description"
+                height: 100
+            }
+
+            TextField {
+                id: customerName
+                width: parent.width
+                placeholderText: "Customer Name"
+            }
+
+            TextField {
+                id: operator
+                width: parent.width
+                placeholderText: "Operator"
+            }
+
+            CheckBox {
+                id: positionTest
+                text: "Position Test"
+            }
+
+            CheckBox {
+                id: leakageTest
+                text: "Leakage Test"
+            }
+
+            CheckBox {
+                id: flowTest
+                text: "Flow Test"
+            }
+
+            Button {
+                id: startButton
+                text: "Start"
+                width: parent.width
+                onClicked: {
+                    // Anda perlu mengganti 'mainApp' dengan objek Python Anda
+                    if (positionTest.checked) {
+                        mainApp.startTest('position test');
+                    }
+                    if (leakageTest.checked) {
+                        mainApp.startTest('leakage test');
+                    }
+                    if (flowTest.checked) {
+                        mainApp.startTest('flow test');
+                    }
+                }
             }
         }
     }
 
-    ColumnLayout {
-        id: radioButtons
-        spacing: 10
-        anchors.top: chartView.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: parent.height * 0.2
+    Rectangle {
+        id: chartArea
+        x: inputArea.width
+        width: parent.width * 3 / 4
+        height: parent.height
+        color: "white"
 
-        RadioButton {
-            id: flowTestButton
-            text: "Flow Test"
-        }
+        ChartView {
+            id: chartView
+            title: "Pengujian"
+            anchors.fill: parent
+            antialiasing: true
 
-        RadioButton {
-            id: positionTestButton
-            text: "Position Test"
-        }
+            LineSeries {
+                id: lineSeries1
+                name: "Pengujian 1"
+                axisX: ValueAxis {
+                    min: 0
+                    max: 100
+                }
+                axisY: ValueAxis {
+                    min: -5
+                    max: 5
+                }
+            }
 
-        RadioButton {
-            id: pressureTestButton
-            text: "Pressure Test"
-        }
+            LineSeries {
+                id: lineSeries2
+                name: "Pengujian 2"
+                axisX: ValueAxis {
+                    min: 0
+                    max: 100
+                }
+                axisY: ValueAxis {
+                    min: -5
+                    max: 5
+                }
+            }
 
-        RadioButton {
-            id: leakageTestButton
-            text: "Leakage Test"
-        }
-    }
+            Component.onCompleted: {
+                // Anda perlu mengganti 'mainApp' dengan objek Python Anda
+                mainApp.positionTest.connect(updateChart1);
+                mainApp.flowTest.connect(updateChart2);
+                mainApp.pressureTest.connect(updateChart2);
+            }
 
-    Connections {
-        target: mainApp  // Replace with the id of your backend object
-        onNewValue: updatePlot(values)
-    }
+            function updateChart1(values) {
+                // Hapus data lama
+                lineSeries1.clear();
 
-    function updatePlot(values) {
-        // Clear the line series
-        lineSeries.clear();
+                // Tambahkan data baru
+                lineSeries1.append(0, values[0]);
+                lineSeries1.append(1, values[1]);
+            }
 
-        // Check which test is selected and plot the corresponding values
-        if (flowTestButton.checked) {
-            // Replace with the indices for the Flow Test
-            lineSeries.append(values[0], values[1]);
-        } else if (positionTestButton.checked) {
-            // Indices for the Position Test
-            lineSeries.append(values[5], values[6]);
-        } else if (pressureTestButton.checked) {
-            // Replace with the indices for the Pressure Test
-            lineSeries.append(values[2], values[3]);
-        } else if (leakageTestButton.checked) {
-            // Replace with the indices for the Leakage Test
-            lineSeries.append(values[4], values[7]);
+            function updateChart2(values) {
+                // Hapus data lama
+                lineSeries2.clear();
+
+                // Tambahkan data baru
+                lineSeries2.append(0, values[0]);
+                lineSeries2.append(1, values[1]);
+            }
         }
     }
 }

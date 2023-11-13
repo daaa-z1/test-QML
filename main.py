@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QQueue
 import pyqtgraph as pg
 from koneksi import *
 
@@ -44,6 +44,7 @@ class MainApp(QObject):
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
+        self.tests = QQueue()
         
         self.getAin = None
 
@@ -176,7 +177,16 @@ class MainApp(QObject):
     def readUnits(self):
         return self.units
 
+    @pyqtSlot(str)
+    def startTest(self, testType):
+        self.tests.enqueue(testType)
+        if not self.timer.isActive():
+            self.timer.start(10000)
+        
     # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
+    positionTest = pyqtSignal('QVariantList')
+    flowTest = pyqtSignal('QVariantList')
+    pressureTest = pyqtSignal('QVariantList')
     newValue = pyqtSignal('QVariantList')
     @pyqtSlot()
     def readValues(self):
@@ -186,8 +196,17 @@ class MainApp(QObject):
         min_values = self.daftar_min[0]
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
-        print(f'{value}\n {calculated_values} \n')
         self.newValue.emit(calculated_values)
+        if not self.tests.isEmpty():
+            testType = self.tests.dequeue()
+            if testType == 'position test':
+                self.positionTest.emit([calculated_values[5], calculated_values[6]])
+            elif testType == 'flow test':
+                self.flowTest.emit([calculated_values[0], calculated_values[4]])
+            elif testType == 'pressure test':
+                self.pressureTest.emit([calculated_values[0], calculated_values[2]])
+        else:
+            self.timer.stop()
 
     # Metode untuk membaca min value dari database
     minValues = pyqtSignal('QVariantList')
