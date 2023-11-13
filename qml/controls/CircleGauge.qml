@@ -111,7 +111,7 @@ Item {
 
     Item {
         id: valueItem
-        property real value: maxScale - (((maxScale - minScale)/(maxValue - minValue))*(input - minValue))
+        property real value: maxValue - (((maxValue - minValue)/(maxScale - minScale))*(input - minScale))
 
         onValueChanged: {
             canvas.requestPaint();
