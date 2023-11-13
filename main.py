@@ -90,22 +90,22 @@ class MainApp(QObject):
             }
             
             data_scaling = {
-                "Pressure_In_Min": 0,
-                "Pressure_In_Max": 5,
-                "Pressure_A_Min": 0,
-                "Pressure_A_Max": 5,
-                "Pressure_B_Min": 0,
-                "Pressure_B_Max": 5,
-                "Flow_Min": 0,
-                "Flow_Max": 5,
-                "Temp_Min": 0,
-                "Temp_Max": 100,
-                "Curr_V_Min": -5,
-                "Curr_V_Max": 5,
-                "Aktual_Min": -5,
-                "Aktual_Max": 5,
-                "Curr_MA_Min": -5,
-                "Curr_MA_Max": 5,
+                "Pressure_In_Scale_Min": 0,
+                "Pressure_In_Scale_Max": 5,
+                "Pressure_A_Scale_Min": 0,
+                "Pressure_A_Scale_Max": 5,
+                "Pressure_B_Scale_Min": 0,
+                "Pressure_B_Scale_Max": 5,
+                "Flow_Scale_Min": 0,
+                "Flow_Scale_Max": 5,
+                "Temp_Scale_Min": 0,
+                "Temp_Scale_Max": 100,
+                "Curr_V_Scale_Min": -5,
+                "Curr_V_Scale_Max": 5,
+                "Aktual_Scale_Min": -5,
+                "Aktual_Scale_Max": 5,
+                "Curr_MA_Scale_Min": -5,
+                "Curr_MA_Scale_Max": 5,
             }
 
             data_switch = {

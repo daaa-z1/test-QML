@@ -79,22 +79,22 @@ def buat_tabel_scaling(koneksi):
             cursor.execute('''CREATE TABLE IF NOT EXISTS Scaling
                               (ID INTEGER PRIMARY KEY AUTOINCREMENT,
                                Config_ID INTEGER NOT NULL,
-                               Pressure_In_Min INTEGER,
-                               Pressure_In_Max INTEGER,
-                               Pressure_A_Min INTEGER,
-                               Pressure_A_Max INTEGER,
-                               Pressure_B_Min INTEGER,
-                               Pressure_B_Max INTEGER,
-                               Flow_Min INTEGER,
-                               Flow_Max INTEGER,
-                               Temp_Min INTEGER,
-                               Temp_Max INTEGER,
-                               Curr_V_Min INTEGER,
-                               Curr_V_Max INTEGER,
-                               Aktual_Min INTEGER,
-                               Aktual_Max INTEGER,
-                               Curr_MA_Min INTEGER,
-                               Curr_MA_Max INTEGER,
+                               Pressure_In_Scale_Min INTEGER,
+                               Pressure_In_Scale_Max INTEGER,
+                               Pressure_A_Scale_Min INTEGER,
+                               Pressure_A_Scale_Max INTEGER,
+                               Pressure_B_Scale_Min INTEGER,
+                               Pressure_B_Scale_Max INTEGER,
+                               Flow_Scale_Min INTEGER,
+                               Flow_Scale_Max INTEGER,
+                               Temp_Scale_Min INTEGER,
+                               Temp_Scale_Max INTEGER,
+                               Curr_V_Scale_Min INTEGER,
+                               Curr_V_Scale_Max INTEGER,
+                               Aktual_Scale_Min INTEGER,
+                               Aktual_Scale_Max INTEGER,
+                               Curr_MA_Scale_Min INTEGER,
+                               Curr_MA_Scale_Max INTEGER,
                                FOREIGN KEY (Config_ID) REFERENCES Configurations (ID))''')
             koneksi.commit()
         except sqlite3.Error as e:
@@ -169,8 +169,8 @@ def tambah_scaling(koneksi, config_id, batasan):
     if koneksi:
         try:
             cursor = koneksi.cursor()
-            cursor.execute("INSERT INTO Scaling (Config_ID, Pressure_In_Min, Pressure_In_Max, Pressure_A_Min, Pressure_A_Max, Pressure_B_Min, Pressure_B_Max, Flow_Min, Flow_Max, Temp_Min, Temp_Max, Curr_V_Min, Curr_V_Max, Aktual_Min, Aktual_Max, Curr_MA_Min, Curr_MA_Max) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (config_id, batasan["Pressure_In_Min"], batasan["Pressure_In_Max"], batasan["Pressure_A_Min"], batasan["Pressure_A_Max"], batasan["Pressure_B_Min"], batasan["Pressure_B_Max"], batasan["Flow_Min"], batasan["Flow_Max"], batasan["Temp_Min"], batasan["Temp_Max"], batasan["Curr_V_Min"], batasan["Curr_V_Max"], batasan["Aktual_Min"], batasan["Aktual_Max"], batasan["Curr_MA_Min"], batasan["Curr_MA_Max"]))
+            cursor.execute("INSERT INTO Scaling (Config_ID, Pressure_In_Scale_Min, Pressure_In_Scale_Max, Pressure_A_Scale_Min, Pressure_A_Scale_Max, Pressure_B_Scale_Min, Pressure_B_Scale_Max, Flow_Scale_Min, Flow_Scale_Max, Temp_Scale_Min, Temp_Scale_Max, Curr_V_Scale_Min, Curr_V_Scale_Max, Aktual_Scale_Min, Aktual_Scale_Max, Curr_MA_Scale_Min, Curr_MA_Scale_Max) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                           (config_id, batasan["Pressure_In_Scale_Min"], batasan["Pressure_In_Scale_Max"], batasan["Pressure_A_Scale_Min"], batasan["Pressure_A_Scale_Max"], batasan["Pressure_B_Scale_Min"], batasan["Pressure_B_Scale_Max"], batasan["Flow_Scale_Min"], batasan["Flow_Scale_Max"], batasan["Temp_Scale_Min"], batasan["Temp_Scale_Max"], batasan["Curr_V_Scale_Min"], batasan["Curr_V_Scale_Max"], batasan["Aktual_Scale_Min"], batasan["Aktual_Scale_Max"], batasan["Curr_MA_Scale_Min"], batasan["Curr_MA_Scale_Max"]))
             koneksi.commit()
         except sqlite3.Error as e:
             print(f"Kesalahan dalam menambahkan scaling: {e}")
