@@ -1,9 +1,8 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 2.0
 import QtCharts 2.0
 
 Page {
-    id: page
+    id: graphPage
 
     Rectangle {
         id: inputArea
@@ -16,14 +15,16 @@ Page {
             anchors.fill: parent
             anchors.margins: 10
 
-            DatePicker {
-                id: datePicker
+            Label {
+                id: dateLabel
                 width: parent.width
+                text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
             }
 
-            TimePicker {
-                id: timePicker
+            Label {
+                id: timeLabel
                 width: parent.width
+                text: Qt.formatDateTime(new Date(), "hh:mm:ss")
             }
 
             TextField {
