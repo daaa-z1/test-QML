@@ -165,12 +165,12 @@ def tambah_batasan(koneksi, config_id, batasan):
             print(f"Kesalahan dalam menambahkan batasan: {e}")
 
 # Fungsi untuk menambahkan data batasan
-def tambah_scaling(koneksi, config_id, batasan):
+def tambah_scaling(koneksi, config_id, scale):
     if koneksi:
         try:
             cursor = koneksi.cursor()
             cursor.execute("INSERT INTO Scaling (Config_ID, Pressure_In_Scale_Min, Pressure_In_Scale_Max, Pressure_A_Scale_Min, Pressure_A_Scale_Max, Pressure_B_Scale_Min, Pressure_B_Scale_Max, Flow_Scale_Min, Flow_Scale_Max, Temp_Scale_Min, Temp_Scale_Max, Curr_V_Scale_Min, Curr_V_Scale_Max, Aktual_Scale_Min, Aktual_Scale_Max, Curr_MA_Scale_Min, Curr_MA_Scale_Max) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (config_id, batasan["Pressure_In_Scale_Min"], batasan["Pressure_In_Scale_Max"], batasan["Pressure_A_Scale_Min"], batasan["Pressure_A_Scale_Max"], batasan["Pressure_B_Scale_Min"], batasan["Pressure_B_Scale_Max"], batasan["Flow_Scale_Min"], batasan["Flow_Scale_Max"], batasan["Temp_Scale_Min"], batasan["Temp_Scale_Max"], batasan["Curr_V_Scale_Min"], batasan["Curr_V_Scale_Max"], batasan["Aktual_Scale_Min"], batasan["Aktual_Scale_Max"], batasan["Curr_MA_Scale_Min"], batasan["Curr_MA_Scale_Max"]))
+                           (config_id, scale["Pressure_In_Scale_Min"], scale["Pressure_In_Scale_Max"], scale["Pressure_A_Scale_Min"], scale["Pressure_A_Scale_Max"], scale["Pressure_B_Scale_Min"], scale["Pressure_B_Scale_Max"], scale["Flow_Scale_Min"], scale["Flow_Scale_Max"], scale["Temp_Scale_Min"], scale["Temp_Scale_Max"], scale["Curr_V_Scale_Min"], scale["Curr_V_Scale_Max"], scale["Aktual_Scale_Min"], scale["Aktual_Scale_Max"], scale["Curr_MA_Scale_Min"], scale["Curr_MA_Scale_Max"]))
             koneksi.commit()
         except sqlite3.Error as e:
             print(f"Kesalahan dalam menambahkan scaling: {e}")
