@@ -198,7 +198,7 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.newValue.emit(calculated_values)
-        if not self.tests.isEmpty():
+        if not self.tests.empty():
             testType = self.tests.get()
             if testType == 'position test':
                 self.positionTest.emit([calculated_values[5], calculated_values[6]])
