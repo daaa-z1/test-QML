@@ -5,8 +5,9 @@ Page {
     id: graphPage
     ChartView {
         title: "Grafik Real-Time"
-        width: 400
-        height: 300
+        
+        anchors.fill: parent
+        
 
         LineSeries {
             id: lineSeries
