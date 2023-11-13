@@ -9,8 +9,8 @@ Item {
     property real maxScale: 5
     property string label: ""
     property string unit: ""
-    property m: (maxValue - minValue)/(maxScale - minScale)
-    property c: m * (valueIn - minScale)
+    property real m: (maxValue - minValue)/(maxScale - minScale)
+    property real c: m * (valueIn - minScale)
 
     width: width
     height: height
