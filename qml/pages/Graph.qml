@@ -1,13 +1,13 @@
 import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtCharts 2.15
 
 Page {
     id: graphPage
     ChartView {
         title: "Grafik Real-Time"
-        
-        anchors.fill: parent
-        
+        width: 400
+        height: 300
 
         LineSeries {
             id: lineSeries
