@@ -45,7 +45,7 @@ Page {
                     minValue: mainApp ? mainApp.readMinValues[index] : 0
                     maxValue: mainApp ? mainApp.readMaxValues[index] : 0
                     inputValue: mainApp ? mainApp.newValue[index] : 0
-                    value: ((gauge.maxValue - gauge.maxValue)/(gauge.maxScale - gauge.minScale))*(gauge.input - gauge.minScale)
+                    value: ((gauge.maxValue - gauge.maxValue)/(gauge.maxScale - gauge.minScale))*(gauge.inputValue - gauge.minScale)
                 }
             }
         }
