@@ -1,7 +1,8 @@
 import sys
+import queue
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QQueue
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty
 import pyqtgraph as pg
 from koneksi import *
 
@@ -44,7 +45,7 @@ class MainApp(QObject):
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
-        self.tests = QQueue()
+        self.tests = queue.Queue()
         
         self.getAin = None
 
@@ -179,7 +180,7 @@ class MainApp(QObject):
 
     @pyqtSlot(str)
     def startTest(self, testType):
-        self.tests.enqueue(testType)
+        self.tests.put(testType)
         if not self.timer.isActive():
             self.timer.start(10000)
         
@@ -198,7 +199,7 @@ class MainApp(QObject):
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.newValue.emit(calculated_values)
         if not self.tests.isEmpty():
-            testType = self.tests.dequeue()
+            testType = self.tests.get()
             if testType == 'position test':
                 self.positionTest.emit([calculated_values[5], calculated_values[6]])
             elif testType == 'flow test':
