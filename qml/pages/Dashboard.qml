@@ -40,10 +40,10 @@ Page {
                     label: container.parameters[index]
                     unit: container.units[index]
 
-                    minScale: mainApp ? mainApp.minScale[index] : 0
-                    maxScale: mainApp ? mainApp.maxScale[index] : 0
-                    minValue: mainApp ? mainApp.minValue[index] : 0
-                    maxValue: mainApp ? mainApp.maxValue[index] : 0
+                    minScale: mainApp ? mainApp.readMinScale[index] : 0
+                    maxScale: mainApp ? mainApp.readMaxScale[index] : 0
+                    minValue: mainApp ? mainApp.readMinValues[index] : 0
+                    maxValue: mainApp ? mainApp.readMaxValues[index] : 0
                     input: mainApp ? mainApp.newValue[index] : 0
                     value: maxScale - (((maxScale - minScale)/(maxValue - minValue))*(input - minScale))
                 }

@@ -198,13 +198,13 @@ class MainApp(QObject):
     # Metode untuk membaca min scaling dari database
     minScale = pyqtSignal('QVariantList')
     @pyqtProperty('QVariantList', notify=minScale)
-    def readMinValues(self):
+    def readMinScale(self):
         return list(self.daftar_min_scaling[0])
 
     # Metode untuk membaca max scaling dari database
     maxScale = pyqtSignal('QVariantList')
     @pyqtProperty('QVariantList', notify=maxScale)
-    def readMaxValues(self):
+    def readMaxScale(self):
         return list(self.daftar_max_scaling[0])
 
 if __name__ == "__main__":
