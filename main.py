@@ -43,7 +43,7 @@ class MainApp(QObject):
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
-        self.timer.start(2000)
+        self.timer.start(100)
         
         self.getAin = None
 
