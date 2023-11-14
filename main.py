@@ -183,7 +183,7 @@ class MainApp(QObject):
         if not self.tests.empty():
             test = self.tests.get()
             test()
-            print(test)
+            print("Graph data:", self.ainData)
     
     @pyqtSlot()
     def startReading(self):
