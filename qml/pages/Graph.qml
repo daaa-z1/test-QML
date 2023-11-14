@@ -122,10 +122,7 @@ Page {
 
     Connections {
         target: mainApp
-        function onGraphValue(data) { 
-            console.log("Received graph value:", data);
-            updateGraph(data); 
-        }
+        function onGraphValue(data) { updateGraph(data); }
         function onAddTest(test) {
             if (test === "Position Test") {
                 lineSeries1.name = "Reff";
@@ -138,7 +135,7 @@ Page {
             } else if (test === "Pressure Test") {
                 lineSeries1.name = "Press In";
                 lineSeries2.name = "Reff";
-                chartView.title = "Pressure Test"
+                chartView.title = "Position Test"
             }
         }
     }
