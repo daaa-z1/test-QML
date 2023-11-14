@@ -5,8 +5,7 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.15
 
 Page {
-    width: 640
-    height: 480
+    id: graphPage
 
     GridLayout {
         columns: 2
@@ -128,12 +127,15 @@ Page {
             if (test === "Position Test") {
                 lineSeries1.name = "Reff";
                 lineSeries2.name = "Spool Position";
+                chartView.title = "Position Test"
             } else if (test === "Flow Test") {
                 lineSeries1.name = "Press In";
                 lineSeries2.name = "Flow";
+                chartView.title = "Flow Test"
             } else if (test === "Pressure Test") {
                 lineSeries1.name = "Press In";
                 lineSeries2.name = "Reff";
+                chartView.title = "Pressure Test"
             }
         }
     }

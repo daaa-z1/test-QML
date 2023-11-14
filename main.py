@@ -187,7 +187,7 @@ class MainApp(QObject):
     
     @pyqtSlot()
     def startReading(self):
-        self.timer.start(100)
+        self.timer.start(1000)
     
     @pyqtSlot()
     def stopReading(self):
