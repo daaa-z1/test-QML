@@ -8,7 +8,7 @@ Window {
     width: 600
     height: 400
 
-    LineChartView {
+    ChartView {
         id: lineChart
         anchors.fill: parent
 
