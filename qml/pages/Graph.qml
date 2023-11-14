@@ -36,6 +36,16 @@ Page {
             LineSeries {
                 id: lineSeries2
                 name: "Data 2"
+                axisX: DateTimeAxis {
+                    format: "hh:mm:ss"
+                    tickCount: 10
+                    visible: false
+                }
+                axisY: ValueAxis {
+                    min: 0
+                    max: 5
+                    visible: false
+                }
             }
         }
 
