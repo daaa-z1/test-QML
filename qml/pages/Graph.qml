@@ -79,8 +79,10 @@ Page {
                 Button {
                     id: startStopButton
                     text: "Start"
-                    color: "green"
                     Layout.fillWidth: true
+                    background: Rectangle {
+                        color: startStopButton.text === "Start" ? "green" : "red"
+                    }
                     onClicked: {
                         if (text === "Start") {
                             if (positionTestCheckBox.checked) {
@@ -94,11 +96,9 @@ Page {
                             }
                             mainApp.startReading()
                             text = "Stop"
-                            color = "red"
                         } else {
                             mainApp.stopReading()
                             text = "Start"
-                            color = "green"
                         }
                     }
                 }
