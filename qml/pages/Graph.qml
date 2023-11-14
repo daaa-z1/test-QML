@@ -48,7 +48,7 @@ Page {
 
         Rectangle {
             id: inputSection
-            Layout.fillWidth: true
+            width: parent.width * 1/4
             Layout.fillHeight: true
             Layout.columnSpan: 1
             color: "#f0f0f0"
@@ -80,6 +80,7 @@ Page {
                     id: startStopButton
                     text: "Start"
                     Layout.fillWidth: true
+                    enabled: positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked
                     background: Rectangle {
                         color: startStopButton.text === "Start" ? "green" : "red"
                     }
@@ -102,6 +103,7 @@ Page {
                         }
                     }
                 }
+
             }
         }
     }
