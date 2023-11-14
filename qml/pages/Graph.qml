@@ -1,87 +1,106 @@
 import QtQuick 2.15
 import QtCharts 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
 Page {
     width: 640
     height: 480
 
-    ChartView {
-        id: chartView
-        title: "Live Data"
-        width: parent.width * 3 / 4
-        height: parent.height
-        antialiasing: true
+    GridLayout {
+        columns: 2
+        anchors.fill: parent
 
-        LineSeries {
-            id: lineSeries1
-            name: "Data 1"
-            axisX: DateTimeAxis {
-                format: "hh:mm:ss"
-                tickCount: 10
-            }
-            axisY: ValueAxis {
-                min: 0
-                max: 5
-            }
-        }
+        ChartView {
+            id: chartView
+            title: "Live Data"
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.columnSpan: 1
+            antialiasing: true
 
-        LineSeries {
-            id: lineSeries2
-            name: "Data 2"
-            axisX: DateTimeAxis {
-                format: "hh:mm:ss"
-                tickCount: 10
-            }
-            axisY: ValueAxis {
-                min: 0
-                max: 5
-            }
-        }
-    }
-
-    Rectangle {
-        id: inputSection
-        width: parent.width / 4
-        height: parent.height
-        anchors.right: parent.right
-
-        CheckBox {
-            id: positionTestCheckBox
-            text: "Position Test"
-        }
-
-        CheckBox {
-            id: flowTestCheckBox
-            text: "Flow Test"
-        }
-
-        CheckBox {
-            id: leakageTestCheckBox
-            text: "Leakage Test"
-        }
-
-        Button {
-            id: startButton
-            text: "Start"
-            onClicked: {
-                if (positionTestCheckBox.checked) {
-                    mainApp.addTest(positionTestCheckBox.text)
+            LineSeries {
+                id: lineSeries1
+                name: "Data 1"
+                axisX: DateTimeAxis {
+                    format: "hh:mm:ss"
+                    tickCount: 10
                 }
-                if (flowTestCheckBox.checked) {
-                    mainApp.addTest(flowTestCheckBox.text)
+                axisY: ValueAxis {
+                    min: 0
+                    max: 5
                 }
-                if (leakageTestCheckBox.checked) {
-                    mainApp.addTest(leakageTestCheckBox.text)
+            }
+
+            LineSeries {
+                id: lineSeries2
+                name: "Data 2"
+                axisX: DateTimeAxis {
+                    format: "hh:mm:ss"
+                    tickCount: 10
                 }
-                mainApp.startReading()
+                axisY: ValueAxis {
+                    min: 0
+                    max: 5
+                }
             }
         }
 
-        Button {
-            id: stopButton
-            text: "Stop"
-            onClicked: mainApp.stopReading()
+        Rectangle {
+            id: inputSection
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.columnSpan: 1
+            color: "#f0f0f0"
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 20
+                spacing: 20
+
+                CheckBox {
+                    id: positionTestCheckBox
+                    text: "Position Test"
+                    Layout.fillWidth: true
+                }
+
+                CheckBox {
+                    id: flowTestCheckBox
+                    text: "Flow Test"
+                    Layout.fillWidth: true
+                }
+
+                CheckBox {
+                    id: leakageTestCheckBox
+                    text: "Leakage Test"
+                    Layout.fillWidth: true
+                }
+
+                Button {
+                    id: startButton
+                    text: "Start"
+                    Layout.fillWidth: true
+                    onClicked: {
+                        if (positionTestCheckBox.checked) {
+                            mainApp.addTest(positionTestCheckBox.text)
+                        }
+                        if (flowTestCheckBox.checked) {
+                            mainApp.addTest(flowTestCheckBox.text)
+                        }
+                        if (leakageTestCheckBox.checked) {
+                            mainApp.addTest(leakageTestCheckBox.text)
+                        }
+                        mainApp.startReading()
+                    }
+                }
+
+                Button {
+                    id: stopButton
+                    text: "Stop"
+                    Layout.fillWidth: true
+                    onClicked: mainApp.stopReading()
+                }
+            }
         }
     }
 
