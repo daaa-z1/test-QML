@@ -56,7 +56,7 @@ Page {
             color: "#f0f0f0"
             
             DropShadow {
-                anchors.fill: rightRectangle
+                anchors.fill: inputSection
                 cached: true
                 horizontalOffset: 3
                 verticalOffset: 3
