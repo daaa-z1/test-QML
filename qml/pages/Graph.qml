@@ -14,7 +14,7 @@ Page {
         ChartView {
             id: chartView
             title: "Live Data"
-            Layout.fillWidth: true
+            Layout.preferredWidth: parent.width * 0.25
             Layout.fillHeight: true
             Layout.columnSpan: 1
             antialiasing: true
@@ -48,7 +48,7 @@ Page {
 
         Rectangle {
             id: inputSection
-            width: parent.width * 1/4
+            Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.columnSpan: 1
             color: "#f0f0f0"
@@ -103,7 +103,6 @@ Page {
                         }
                     }
                 }
-
             }
         }
     }
