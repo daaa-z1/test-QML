@@ -1,5 +1,6 @@
 import sys
 import queue
+import time
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty
@@ -165,12 +166,6 @@ class MainApp(QObject):
         cursor.execute("SELECT * FROM Switch")
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
 
-    @pyqtSlot(str)
-    def startTest(self, testType):
-        self.tests.put(testType)
-        if not self.timer.isActive():
-            self.timer.start(10000)
-
     newValue = pyqtSignal('QVariantList')
     @pyqtSlot()
     def readValues(self):
@@ -182,6 +177,68 @@ class MainApp(QObject):
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.newValue.emit(calculated_values)
 
+    graphValue = pyqtSignal('QVariantList')
+    @pyqtSlot()
+    def readGraph(self):
+        if not self.tests.empty():
+            test = self.tests.get()
+            test()
+    
+    @pyqtSlot()
+    def startReading(self):
+        self.timer.start(100)
+    
+    @pyqtSlot()
+    def stopReading(self):
+        self.timer.stop()
+        while not self.tests.empty():
+            self.tests.get()
+    
+    def positionTest(self):
+        start_time = time.time()
+        while time.time() - start_time < 10:
+            value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
+            min_scale = self.daftar_min_scale[0]
+            max_scale = self.daftar_max_scale[0]
+            min_values = self.daftar_min[0]
+            max_values = self.daftar_max[0]
+            calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
+            self.graphValue.emit([calculated_values[6], calculated_values[7]])
+            time.sleep(0.1)
+
+    def flowTest(self):
+        start_time = time.time()
+        while time.time() - start_time < 10:
+            value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
+            min_scale = self.daftar_min_scale[0]
+            max_scale = self.daftar_max_scale[0]
+            min_values = self.daftar_min[0]
+            max_values = self.daftar_max[0]
+            calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
+            self.graphValue.emit([calculated_values[0], calculated_values[4]])
+            time.sleep(0.1)
+
+    def leakageTest(self):
+        start_time = time.time()
+        while time.time() - start_time < 10:
+            value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
+            min_scale = self.daftar_min_scale[0]
+            max_scale = self.daftar_max_scale[0]
+            min_values = self.daftar_min[0]
+            max_values = self.daftar_max[0]
+            calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
+            self.graphValue.emit([calculated_values[0], calculated_values[3]])
+            time.sleep(0.1)
+            
+    @pyqtSlot(str)
+    def addTest(self, test):
+        if test == "Position Test":
+            self.tests.put(self.positionTest)
+        elif test == "Flow Test":
+            self.tests.put(self.flowTest)
+        elif test == "Leakage Test":
+            self.tests.put(self.leakageTest)
+    
     # Metode untuk membaca min value dari database
     minValues = pyqtSignal('QVariantList')
     @pyqtProperty('QVariantList', notify=minValues)
