@@ -123,7 +123,6 @@ Page {
     Connections {
         target: mainApp
         function onGraphValue(data) { 
-            console.log("Received graph value:", data);
             updateGraph(data); 
         }
         function onAddTest(test) {
@@ -144,9 +143,12 @@ Page {
     }
 
     function updateGraph(data) {
+        console.log("Received data:", data);
+
         var now = new Date();
         lineSeries1.append(now, data[0]);
         lineSeries2.append(now, data[1]);
+
         if (lineSeries1.count() > 100) {
             lineSeries1.remove(0);
         }
