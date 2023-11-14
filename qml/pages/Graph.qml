@@ -2,7 +2,6 @@ import QtQuick 2.15
 import QtCharts 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-
 import QtGraphicalEffects 1.15
 
 Page {
@@ -54,7 +53,7 @@ Page {
             Layout.fillHeight: true
             Layout.columnSpan: 1
             color: "#f0f0f0"
-            
+
             DropShadow {
                 anchors.fill: inputSection
                 cached: true
@@ -66,55 +65,53 @@ Page {
                 source: inputSection
             }
 
-            Rectangle{
-                ColumnLayout {
-                    anchors.fill: parent
-                    anchors.margins: 20
-                    spacing: 20
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 20
+                spacing: 20
 
-                    CheckBox {
-                        id: positionTestCheckBox
-                        text: "Position Test"
-                        Layout.fillWidth: true
+                CheckBox {
+                    id: positionTestCheckBox
+                    text: "Position Test"
+                    Layout.fillWidth: true
+                }
+
+                CheckBox {
+                    id: flowTestCheckBox
+                    text: "Flow Test"
+                    Layout.fillWidth: true
+                }
+
+                CheckBox {
+                    id: leakageTestCheckBox
+                    text: "Leakage Test"
+                    Layout.fillWidth: true
+                }
+
+                Button {
+                    id: startStopButton
+                    text: "Start"
+                    Layout.fillWidth: true
+                    enabled: positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked
+                    background: Rectangle {
+                        color: startStopButton.text === "Start" ? "green" : "red"
                     }
-
-                    CheckBox {
-                        id: flowTestCheckBox
-                        text: "Flow Test"
-                        Layout.fillWidth: true
-                    }
-
-                    CheckBox {
-                        id: leakageTestCheckBox
-                        text: "Leakage Test"
-                        Layout.fillWidth: true
-                    }
-
-                    Button {
-                        id: startStopButton
-                        text: "Start"
-                        Layout.fillWidth: true
-                        enabled: positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked
-                        background: Rectangle {
-                            color: startStopButton.text === "Start" ? "green" : "red"
-                        }
-                        onClicked: {
-                            if (text === "Start") {
-                                if (positionTestCheckBox.checked) {
-                                    mainApp.addTest(positionTestCheckBox.text)
-                                }
-                                if (flowTestCheckBox.checked) {
-                                    mainApp.addTest(flowTestCheckBox.text)
-                                }
-                                if (leakageTestCheckBox.checked) {
-                                    mainApp.addTest(leakageTestCheckBox.text)
-                                }
-                                mainApp.startReading()
-                                text = "Stop"
-                            } else {
-                                mainApp.stopReading()
-                                text = "Start"
+                    onClicked: {
+                        if (text === "Start") {
+                            if (positionTestCheckBox.checked) {
+                                mainApp.addTest(positionTestCheckBox.text)
                             }
+                            if (flowTestCheckBox.checked) {
+                                mainApp.addTest(flowTestCheckBox.text)
+                            }
+                            if (leakageTestCheckBox.checked) {
+                                mainApp.addTest(leakageTestCheckBox.text)
+                            }
+                            mainApp.startReading()
+                            text = "Stop"
+                        } else {
+                            mainApp.stopReading()
+                            text = "Start"
                         }
                     }
                 }
