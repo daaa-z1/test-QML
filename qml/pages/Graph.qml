@@ -1,160 +1,75 @@
+// main.qml
+
 import QtQuick 2.15
-import QtCharts 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtGraphicalEffects 1.15
 
 Page {
-    id: graphPage
+    id: mainPage
 
-    GridLayout {
-        columns: 2
+    RowLayout {
         anchors.fill: parent
 
-        ChartView {
-            id: chartView
-            title: "Live Data"
-            Layout.fillWidth: true
+        // Grafik
+        Graph {
             Layout.fillHeight: true
-            Layout.columnSpan: 1
-            antialiasing: true
-
-            LineSeries {
-                id: lineSeries1
-                name: "Data 1"
-                axisX: DateTimeAxis {
-                    format: "hh:mm:ss"
-                    tickCount: 10
-                }
-                axisY: ValueAxis {
-                    min: 0
-                    max: 5
-                }
-            }
-
-            LineSeries {
-                id: lineSeries2
-                name: "Data 2"
-                axisX: DateTimeAxis {
-                    format: "hh:mm:ss"
-                    tickCount: 10
-                    visible: false
-                }
-                axisY: ValueAxis {
-                    min: 0
-                    max: 5
-                    visible: false
-                }
-            }
+            Layout.fillWidth: true
+            visible: !inputSection.positionTestChecked && !inputSection.flowTestChecked && !inputSection.leakageTestChecked
         }
 
+        // Input Section
         Rectangle {
             id: inputSection
-            Layout.preferredWidth: parent.width * 0.3
+            Layout.prefWidth: parent.width * 0.3
             Layout.fillHeight: true
-            Layout.columnSpan: 1
-            color: "#f0f0f0"
-
-            DropShadow {
-                anchors.fill: inputSection
-                cached: true
-                horizontalOffset: 3
-                verticalOffset: 3
-                radius: 8
-                samples: 16
-                color: "#80000000"
-                source: inputSection
-            }
+            
+            color: "lightgray"
 
             ColumnLayout {
                 anchors.fill: parent
-                anchors.margins: 20
-                spacing: 20
 
+                // Checkboxes
                 CheckBox {
-                    id: positionTestCheckBox
                     text: "Position Test"
-                    Layout.fillWidth: true
+                    id: positionTestCheckbox
                 }
 
                 CheckBox {
-                    id: flowTestCheckBox
                     text: "Flow Test"
-                    Layout.fillWidth: true
+                    id: flowTestCheckbox
                 }
 
                 CheckBox {
-                    id: leakageTestCheckBox
                     text: "Leakage Test"
-                    Layout.fillWidth: true
+                    id: leakageTestCheckbox
                 }
 
+                // Start Button
                 Button {
-                    id: startStopButton
                     text: "Start"
-                    Layout.fillWidth: true
-                    enabled: positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked
-                    background: Rectangle {
-                        color: startStopButton.text === "Start" ? "green" : "red"
-                    }
-                    onClicked: {
-                        if (text === "Start") {
-                            if (positionTestCheckBox.checked) {
-                                mainApp.addTest(positionTestCheckBox.text)
-                            }
-                            if (flowTestCheckBox.checked) {
-                                mainApp.addTest(flowTestCheckBox.text)
-                            }
-                            if (leakageTestCheckBox.checked) {
-                                mainApp.addTest(leakageTestCheckBox.text)
-                            }
-                            mainApp.startReading()
-                            text = "Stop"
-                        } else {
-                            mainApp.stopReading()
-                            text = "Start"
-                        }
-                    }
+                    onClicked: startTests()
                 }
             }
-        }
-    }
 
-    Connections {
-        target: mainApp
-        function onGraphValue(data) { updateGraph(data); }
-        function onAddTest(test) {
-            if (test === "Position Test") {
-                lineSeries1.name = "Reff";
-                lineSeries2.name = "Spool Position";
-                chartView.title = "Position Test"
-            } else if (test === "Flow Test") {
-                lineSeries1.name = "Press In";
-                lineSeries2.name = "Flow";
-                chartView.title = "Flow Test"
-            } else if (test === "Pressure Test") {
-                lineSeries1.name = "Press In";
-                lineSeries2.name = "Reff";
-                chartView.title = "Pressure Test"
+            property bool positionTestChecked: positionTestCheckbox.checked
+            property bool flowTestChecked: flowTestCheckbox.checked
+            property bool leakageTestChecked: leakageTestCheckbox.checked
+
+            function startTests() {
+                if (positionTestChecked) {
+                    mainApp.addTest("Position Test");
+                }
+
+                if (flowTestChecked) {
+                    mainApp.addTest("Flow Test");
+                }
+
+                if (leakageTestChecked) {
+                    mainApp.addTest("Leakage Test");
+                }
+
+                mainApp.startReading();
             }
-        }
-    }
-
-    function updateGraph(data) {
-        console.log("Received data:", data);
-
-        var now = new Date();
-        var point1 = Qt.point(now.getTime(), data[0]);
-        var point2 = Qt.point(now.getTime(), data[1]);
-        
-        lineSeries1.append(point1);
-        lineSeries2.append(point2);
-
-        if (lineSeries1.count() > 100) {
-            lineSeries1.remove(0);
-        }
-        if (lineSeries2.count() > 100) {
-            lineSeries2.remove(0);
         }
     }
 }
