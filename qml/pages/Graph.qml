@@ -142,6 +142,12 @@ Page {
         }
     }
 
+    Component.onCompleted: {
+        if (mainApp) {
+            mainApp.graphValue.connect(updateGraph);
+        }
+    }
+
     function updateGraph(data) {
         console.log("Received data:", data);
 
