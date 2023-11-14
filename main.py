@@ -45,6 +45,9 @@ class MainApp(QObject):
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
+        
+        self.timerGraph = QTimer()
+        self.timerGraph.timeout.connect(self.leakageTest, self.flowTest, self.positionTest)
         self.tests = queue.Queue()
         
         self.ainData = []
@@ -186,7 +189,7 @@ class MainApp(QObject):
     
     @pyqtSlot()
     def startReading(self):
-        self.timer.start(100)
+        self.timerGraph.start(1000)
     
     @pyqtSlot()
     def stopReading(self):
