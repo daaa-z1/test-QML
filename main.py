@@ -252,7 +252,7 @@ class MainApp(QObject):
         return list(self.daftar_max[0])
 
 if __name__ == "__main__":
-    app = QGuiApplication(sys.argv)
+    app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
     mainApp = MainApp()
