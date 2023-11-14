@@ -241,6 +241,7 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
 
     mainApp = MainApp()
+    print(mainApp.ainData)
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
