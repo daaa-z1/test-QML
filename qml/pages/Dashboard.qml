@@ -22,6 +22,17 @@ Page {
             id: repeater
             model: mainApp ? mainApp.readMinValues.length : 0
 
+            DropShadow {
+                    anchors.fill: container
+                    cached: true
+                    horizontalOffset: 3
+                    verticalOffset: 3
+                    radius: 8
+                    samples: 16
+                    color: "#80000000"
+                    source: container
+            }
+
             Rectangle {
                 id: container
                 Layout.fillWidth: true
@@ -31,17 +42,6 @@ Page {
 
                 property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA"]
                 property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
-
-                DropShadow {
-                    anchors.fill: container
-                    cached: true
-                    horizontalOffset: 3
-                    verticalOffset: 3
-                    radius: 8
-                    samples: 16
-                    color: "#80000000"
-                    source: container
-                }
 
                 CircleGauge {
                     id: gauge
