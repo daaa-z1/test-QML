@@ -98,4 +98,7 @@ ApplicationWindow {
             Layout.alignment: Qt.AlignBottom
         }
     }
+    Connections{
+        target: mainApp
+    }
 }

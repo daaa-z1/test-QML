@@ -77,28 +77,29 @@ Page {
                 }
 
                 Button {
-                    id: startButton
+                    id: startStopButton
                     text: "Start"
                     Layout.fillWidth: true
                     onClicked: {
-                        if (positionTestCheckBox.checked) {
-                            mainApp.addTest(positionTestCheckBox.text)
+                        if (text === "Start") {
+                            if (positionTestCheckBox.checked) {
+                                mainApp.addTest(positionTestCheckBox.text)
+                            }
+                            if (flowTestCheckBox.checked) {
+                                mainApp.addTest(flowTestCheckBox.text)
+                            }
+                            if (leakageTestCheckBox.checked) {
+                                mainApp.addTest(leakageTestCheckBox.text)
+                            }
+                            mainApp.startReading()
+                            text = "Stop"
+                            color = "red"
+                        } else {
+                            mainApp.stopReading()
+                            text = "Start"
+                            color = "green"
                         }
-                        if (flowTestCheckBox.checked) {
-                            mainApp.addTest(flowTestCheckBox.text)
-                        }
-                        if (leakageTestCheckBox.checked) {
-                            mainApp.addTest(leakageTestCheckBox.text)
-                        }
-                        mainApp.startReading()
                     }
-                }
-
-                Button {
-                    id: stopButton
-                    text: "Stop"
-                    Layout.fillWidth: true
-                    onClicked: mainApp.stopReading()
                 }
             }
         }
