@@ -198,16 +198,6 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.newValue.emit(calculated_values)
-        if not self.tests.empty():
-            testType = self.tests.get()
-            if testType == 'position test':
-                self.positionTest.emit([calculated_values[5], calculated_values[6]])
-            elif testType == 'flow test':
-                self.flowTest.emit([calculated_values[0], calculated_values[4]])
-            elif testType == 'pressure test':
-                self.pressureTest.emit([calculated_values[0], calculated_values[2]])
-        else:
-            self.timer.stop()
 
     # Metode untuk membaca min value dari database
     minValues = pyqtSignal('QVariantList')
