@@ -144,8 +144,11 @@ Page {
         console.log("Received data:", data);
 
         var now = new Date();
-        lineSeries1.append(now, data[0]);
-        lineSeries2.append(now, data[1]);
+        var point1 = Qt.point(now.getTime(), data[0]);
+        var point2 = Qt.point(now.getTime(), data[1]);
+        
+        lineSeries1.append(point1);
+        lineSeries2.append(point2);
 
         if (lineSeries1.count() > 100) {
             lineSeries1.remove(0);
