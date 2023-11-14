@@ -87,7 +87,7 @@ Page {
 
     Connections {
         target: mainApp
-        onGraphValue: updateGraph(graphValue)
+        function onGraphValue(data) { updateGraph(data); }
     }
 
     function updateGraph(data) {
