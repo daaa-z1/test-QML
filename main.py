@@ -164,30 +164,13 @@ class MainApp(QObject):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM Switch")
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
-    
-    # Sinyal untuk mengirim parameter dan satuan ke QML
-    parametersChanged = pyqtSignal('QVariantList')
-    unitsChanged = pyqtSignal('QVariantList')
-
-    # Metode untuk membaca parameter dan satuan
-    @pyqtProperty('QVariantList', notify=parametersChanged)
-    def readParameters(self):
-        return self.parameters
-
-    @pyqtProperty('QVariantList', notify=unitsChanged)
-    def readUnits(self):
-        return self.units
 
     @pyqtSlot(str)
     def startTest(self, testType):
         self.tests.put(testType)
         if not self.timer.isActive():
             self.timer.start(10000)
-        
-    # Metode untuk membaca data dari LabJack U6 dan mengirimkannya ke QML
-    positionTest = pyqtSignal('QVariantList')
-    flowTest = pyqtSignal('QVariantList')
-    pressureTest = pyqtSignal('QVariantList')
+
     newValue = pyqtSignal('QVariantList')
     @pyqtSlot()
     def readValues(self):
@@ -216,15 +199,9 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
 
     mainApp = MainApp()
-    ain = mainApp.readValues()
-    
-    # Menyediakan data model untuk ComboBox di QML
-    parameterModel = mainApp.daftar_konfigurasi
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
-    engine.rootContext().setContextProperty("parameterModel", parameterModel)
-
     engine.load("qml/main.qml")
 
     if not engine.rootObjects():

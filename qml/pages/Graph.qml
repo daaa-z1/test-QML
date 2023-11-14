@@ -1,40 +1,87 @@
 import QtQuick 2.15
-import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
 import QtCharts 2.15
+import QtQuick.Controls 2.15
 
-Window {
-    visible: true
-    width: 600
-    height: 400
+Rectangle {
+    width: 640
+    height: 480
 
     ChartView {
-        id: lineChart
-        anchors.fill: parent
+        id: chartView
+        title: "Live Data"
+        width: parent.width * 3 / 4
+        height: parent.height
+        antialiasing: true
 
-        // Set the chart title
-        title: "Realtime Line Chart"
-
-        // Add a series to the chart
         LineSeries {
-            name: "LineSeries"
-            XYPoint { x: 0; y: 0 }
-            XYPoint { x: 1.1; y: 2.1 }
-            XYPoint { x: 1.9; y: 3.3 }
-            XYPoint { x: 2.1; y: 2.1 }
-            XYPoint { x: 2.9; y: 4.9 }
-            XYPoint { x: 3.4; y: 3.0 }
-            XYPoint { x: 4.1; y: 3.3 }
+            id: lineSeries
+            name: "Data"
+            axisX: DateTimeAxis {
+                format: "hh:mm:ss"
+                tickCount: 10
+            }
+            axisY: ValueAxis {
+                min: 0
+                max: 5
+            }
+        }
+    }
+
+    Rectangle {
+        id: inputSection
+        width: parent.width / 4
+        height: parent.height
+        anchors.right: parent.right
+
+        CheckBox {
+            id: positionTestCheckBox
+            text: "Position Test"
         }
 
-        // Update the chart data every second
-        // Timer {
-        //     running: true
-        //     repeat: true
-        //     interval: 1000
-        //     onTriggered: {
-        //         lineChart.series.data.append(Math.random())
-        //     }
-        // }
+        CheckBox {
+            id: flowTestCheckBox
+            text: "Flow Test"
+        }
+
+        CheckBox {
+            id: leakageTestCheckBox
+            text: "Leakage Test"
+        }
+
+        Button {
+            id: startButton
+            text: "Start"
+            onClicked: mainApp.startReading()
+        }
+    }
+
+    Connections {
+        target: mainApp
+        onNewValue: updateGraph(newValue)
+        onMinValues: updateMin(minValues)
+        onMaxValues: updateMax(maxValues)
+    }
+
+    function updateGraph(data) {
+        var now = new Date();
+        if (positionTestCheckBox.checked) {
+            lineSeries.append(now, data[6]);
+            lineSeries.append(now, data[7]);
+        }
+        if (flowTestCheckBox.checked) {
+            lineSeries.append(now, data[0]);
+            lineSeries.append(now, data[4]);
+        }
+        if (lineSeries.count() > 100) {
+            lineSeries.remove(0);
+        }
+    }
+
+    function updateMin(minValues) {
+        // Update min values here
+    }
+
+    function updateMax(maxValues) {
+        // Update max values here
     }
 }
