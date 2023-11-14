@@ -79,6 +79,7 @@ Page {
                 Button {
                     id: startStopButton
                     text: "Start"
+                    color: "green"
                     Layout.fillWidth: true
                     onClicked: {
                         if (text === "Start") {
