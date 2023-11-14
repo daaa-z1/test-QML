@@ -14,7 +14,7 @@ Page {
         ChartView {
             id: chartView
             title: "Live Data"
-            Layout.preferredWidth: parent.width * 0.25
+            Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.columnSpan: 1
             antialiasing: true
@@ -48,11 +48,22 @@ Page {
 
         Rectangle {
             id: inputSection
-            Layout.fillWidth: true
+            Layout.preferredWidth: parent.width * 0.3
             Layout.fillHeight: true
             Layout.columnSpan: 1
             color: "#f0f0f0"
-
+            
+            DropShadow {
+                anchors.fill: rightRectangle
+                cached: true
+                horizontalOffset: 3
+                verticalOffset: 3
+                radius: 8
+                samples: 16
+                color: "#80000000"
+                source: rightRectangle
+            }
+            
             ColumnLayout {
                 anchors.fill: parent
                 anchors.margins: 20
