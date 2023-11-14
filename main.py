@@ -48,7 +48,6 @@ class MainApp(QObject):
         
         self.timerGraph = QTimer()
         self.timerGraph.timeout.connect(self.leakageTest)
-        self.timerGraph.start(100)
         self.tests = queue.Queue()
         
         self.ainData = []
