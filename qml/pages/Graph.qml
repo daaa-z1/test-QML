@@ -135,15 +135,18 @@ Page {
             } else if (test === "Pressure Test") {
                 lineSeries1.name = "Press In";
                 lineSeries2.name = "Reff";
-                chartView.title = "Position Test"
+                chartView.title = "Pressure Test"
             }
         }
     }
 
     function updateGraph(data) {
+        console.log("Received data:", data);
+
         var now = new Date();
         lineSeries1.append(now, data[0]);
         lineSeries2.append(now, data[1]);
+
         if (lineSeries1.count() > 100) {
             lineSeries1.remove(0);
         }

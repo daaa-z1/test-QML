@@ -22,17 +22,6 @@ Page {
             id: repeater
             model: mainApp ? mainApp.readMinValues.length : 0
 
-            DropShadow {
-                    anchors.fill: container
-                    cached: true
-                    horizontalOffset: 3
-                    verticalOffset: 3
-                    radius: 8
-                    samples: 16
-                    color: "#80000000"
-                    source: container
-            }
-
             Rectangle {
                 id: container
                 Layout.fillWidth: true
