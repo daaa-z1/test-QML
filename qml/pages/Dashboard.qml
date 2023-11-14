@@ -33,15 +33,16 @@ Page {
                 property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
 
                 DropShadow {
-                    anchors.fill: parent
+                    anchors.fill: container
                     cached: true
                     horizontalOffset: 3
                     verticalOffset: 3
                     radius: 8
                     samples: 16
                     color: "#80000000"
-                    source: parent
+                    source: container
                 }
+
                 CircleGauge {
                     id: gauge
                     objectName: "gauge" + index
