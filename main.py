@@ -204,7 +204,7 @@ class MainApp(QObject):
             max_values = self.daftar_max[0]
             calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
             self.graphValue.emit([calculated_values[6], calculated_values[7]])
-            time.sleep(0.1)
+            time.sleep(1)
 
     def flowTest(self):
         start_time = time.time()
@@ -216,7 +216,7 @@ class MainApp(QObject):
             max_values = self.daftar_max[0]
             calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
             self.graphValue.emit([calculated_values[0], calculated_values[4]])
-            time.sleep(0.1)
+            time.sleep(1)
 
     def leakageTest(self):
         start_time = time.time()
@@ -228,7 +228,7 @@ class MainApp(QObject):
             max_values = self.daftar_max[0]
             calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
             self.graphValue.emit([calculated_values[0], calculated_values[3]])
-            time.sleep(0.1)
+            time.sleep(1)
             
     @pyqtSlot(str)
     def addTest(self, test):
