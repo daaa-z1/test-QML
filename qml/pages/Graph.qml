@@ -122,7 +122,10 @@ Page {
 
     Connections {
         target: mainApp
-        function onGraphValue(data) { updateGraph(data); }
+        function onGraphValue(data) { 
+            console.log("Received graph value:", data);
+            updateGraph(data); 
+        }
         function onAddTest(test) {
             if (test === "Position Test") {
                 lineSeries1.name = "Reff";
