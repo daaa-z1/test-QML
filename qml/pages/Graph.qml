@@ -122,9 +122,7 @@ Page {
 
     Connections {
         target: mainApp
-        function onGraphValue(data) { 
-            updateGraph(data); 
-        }
+        function onGraphValue(data) { updateGraph(data); }
         function onAddTest(test) {
             if (test === "Position Test") {
                 lineSeries1.name = "Reff";
@@ -142,19 +140,10 @@ Page {
         }
     }
 
-    Component.onCompleted: {
-        if (mainApp) {
-            mainApp.graphValue.connect(updateGraph);
-        }
-    }
-
     function updateGraph(data) {
-        console.log("Received data:", data);
-
         var now = new Date();
         lineSeries1.append(now, data[0]);
         lineSeries2.append(now, data[1]);
-
         if (lineSeries1.count() > 100) {
             lineSeries1.remove(0);
         }
