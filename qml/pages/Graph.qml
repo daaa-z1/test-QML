@@ -36,7 +36,6 @@ Page {
             LineSeries {
                 id: lineSeries2
                 name: "Data 2"
-                
             }
         }
 
