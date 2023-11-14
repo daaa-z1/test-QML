@@ -3,6 +3,8 @@ import QtCharts 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import QtGraphicalEffects 1.15
+
 Page {
     width: 640
     height: 480
@@ -63,7 +65,7 @@ Page {
                 color: "#80000000"
                 source: rightRectangle
             }
-            
+
             ColumnLayout {
                 anchors.fill: parent
                 anchors.margins: 20
