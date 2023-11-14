@@ -1,30 +1,35 @@
 import QtQuick 2.15
+import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import QtCharts 2.15
 
-Page {
-    id: graphPage
-    ChartView {
-        title: "Grafik Real-Time"
-        width: 400
-        height: 300
+Window {
+    visible: true
+    width: 600
+    height: 400
 
-        LineSeries {
-            id: lineSeries
+    LineChartView {
+        id: lineChart
+        anchors.fill: parent
+
+        // Set the chart title
+        title: "Realtime Line Chart"
+
+        // Add a series to the chart
+        series: LineSeries {
             name: "Data"
+            data: [
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+            ]
         }
 
-        Component.onCompleted: {
-            var i = 0;
-            var timer = new Timer();
-            timer.interval = 100; // Update setiap 100 ms
-            timer.repeat = true;
-            timer.triggered.connect(function() {
-                var y = Math.sin(i);
-                lineSeries.append(i, y);
-                i += 0.1;
-            });
-            timer.start();
+        // Update the chart data every second
+        Timer {
+            running: true
+            repeat: true
+            interval: 1000
+            onTriggered: {
+                lineChart.series.data.append(Math.random())
+            }
         }
     }
 }
