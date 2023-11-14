@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Extras 1.4
+import QtGraphicalEffects 1.15
 
 import "../controls"
 
@@ -31,6 +32,16 @@ Page {
                 property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA"]
                 property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
 
+                DropShadow {
+                    anchors.fill: parent
+                    cached: true
+                    horizontalOffset: 3
+                    verticalOffset: 3
+                    radius: 8
+                    samples: 16
+                    color: "#80000000"
+                    source: inputSection
+                }
                 CircleGauge {
                     id: gauge
                     objectName: "gauge" + index
