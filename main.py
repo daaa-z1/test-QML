@@ -175,7 +175,6 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.ainData = calculated_values
-        print(self.ainData)
         self.newValue.emit(calculated_values)
 
     graphValue = pyqtSignal('QVariantList')
@@ -210,6 +209,7 @@ class MainApp(QObject):
     def leakageTest(self):
         start_time = time.time()
         while time.time() - start_time < 10:
+            print(self.ainData[0], self.ainData[3])
             self.graphValue.emit([self.ainData[0], self.ainData[3]])
             time.sleep(1)
       
