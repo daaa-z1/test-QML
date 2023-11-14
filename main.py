@@ -241,7 +241,7 @@ class MainApp(QObject):
             self.tests.put(self.flowTest)
         elif test == "Leakage Test":
             self.tests.put(self.leakageTest)
-        self.addTestSignal.emit(test
+        self.addTestSignal.emit(test)
     
     # Metode untuk membaca min value dari database
     minValues = pyqtSignal('QVariantList')
