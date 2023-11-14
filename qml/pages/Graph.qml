@@ -139,15 +139,6 @@ Page {
             }
         }
     }
-    
-    Component.onCompleted: {
-        if (mainApp) {
-            mainApp.graphValue.connect(function(data) {
-                console.log("Received graph value in Dashboard.qml:", data);
-                updateGraph(data);
-            });
-        }
-    }
 
     function updateGraph(data) {
         console.log("Received data:", data);

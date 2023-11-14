@@ -183,7 +183,7 @@ class MainApp(QObject):
         if not self.tests.empty():
             test = self.tests.get()
             test()
-            self.graphValue.emit(self.ainData)
+            print(test)
     
     @pyqtSlot()
     def startReading(self):
