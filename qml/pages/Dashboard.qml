@@ -40,7 +40,7 @@ Page {
                     radius: 8
                     samples: 16
                     color: "#80000000"
-                    source: inputSection
+                    source: parent
                 }
                 CircleGauge {
                     id: gauge
