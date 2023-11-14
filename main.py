@@ -186,11 +186,12 @@ class MainApp(QObject):
     
     @pyqtSlot()
     def startReading(self):
-        self.timerGraph.start(1000)
+        self.timer.start(1000)
     
     @pyqtSlot()
     def stopReading(self):
         self.timer.stop()
+        self.timer.start(100)
         while not self.tests.empty():
             self.tests.get()
     
