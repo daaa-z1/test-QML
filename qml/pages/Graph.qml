@@ -21,7 +21,7 @@ Page {
             antialiasing: true
 
             LineSeries {
-                id: lineSeries
+                id: lineSeries1
                 name: "Data 1"
                 axisX: DateTimeAxis {
                     format: "hh:mm:ss"
@@ -31,6 +31,12 @@ Page {
                     min: 0
                     max: 5
                 }
+            }
+
+            LineSeries {
+                id: lineSeries2
+                name: "Data 2"
+                
             }
         }
 
@@ -113,10 +119,13 @@ Page {
 
     function updateGraph(data) {
         var now = new Date();
-        lineSeries.append(now, data[0]);
-        lineSeries.append(now, data[1]);
-        if (lineSeries.count() > 200) { // Karena sekarang ada dua set data
-            lineSeries.remove(0);
+        lineSeries1.append(now, data[0]);
+        lineSeries2.append(now, data[1]);
+        if (lineSeries1.count() > 100) {
+            lineSeries1.remove(0);
+        }
+        if (lineSeries2.count() > 100) {
+            lineSeries2.remove(0);
         }
     }
 }
