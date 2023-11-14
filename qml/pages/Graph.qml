@@ -114,6 +114,18 @@ Page {
     Connections {
         target: mainApp
         function onGraphValue(data) { updateGraph(data); }
+        function onAddTest(test) {
+            if (test === "Position Test") {
+                lineSeries1.name = "Reff";
+                lineSeries2.name = "Spool Position";
+            } else if (test === "Flow Test") {
+                lineSeries1.name = "Press In";
+                lineSeries2.name = "Flow";
+            } else if (test === "Pressure Test") {
+                lineSeries1.name = "Press In";
+                lineSeries2.name = "Reff";
+            }
+        }
     }
 
     function updateGraph(data) {

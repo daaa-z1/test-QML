@@ -232,6 +232,7 @@ class MainApp(QObject):
             self.graphValue.emit([calculated_values[0], calculated_values[3]])
             time.sleep(1)
             
+    addTestSignal = pyqtSignal(str)
     @pyqtSlot(str)
     def addTest(self, test):
         if test == "Position Test":
@@ -240,6 +241,7 @@ class MainApp(QObject):
             self.tests.put(self.flowTest)
         elif test == "Leakage Test":
             self.tests.put(self.leakageTest)
+        self.addTestSignal.emit(test
     
     # Metode untuk membaca min value dari database
     minValues = pyqtSignal('QVariantList')
