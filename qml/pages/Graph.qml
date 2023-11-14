@@ -16,7 +16,7 @@ Window {
         title: "Realtime Line Chart"
 
         // Add a series to the chart
-        series: LineSeries {
+        LineSeries {
             name: "Data"
             data: [
                 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
