@@ -52,6 +52,9 @@ class MainApp(QObject):
         self.timer.start(100)
         self.tests = queue.Queue()
         
+        self.testTimer = QTimer()
+        self.testTimer.timeout.connect(self.runTest)
+        
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
 
@@ -232,6 +235,44 @@ class MainApp(QObject):
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
 
+    # Fungsi untuk melakukan pengujian
+    @pyqtSlot(str)
+    def addTest(self, test):
+        if test == "Position Test":
+            self.tests.put(self.positionTest)
+        elif test == "Flow Test":
+            self.tests.put(self.flowTest)
+        elif test == "Leakage Test":
+            self.tests.put(self.leakageTest)
+        self.addTestSignal.emit(test)
+
+    @pyqtSlot(str)
+    def removeTest(self, test):
+        if test == "Position Test":
+            self.tests.queue.clear()
+        elif test == "Flow Test":
+            self.tests.queue.clear()
+        elif test == "Leakage Test":
+            self.tests.queue.clear()
+        self.removeTestSignal.emit(test)
+
+    @pyqtSlot()
+    def startReading(self):
+        self.timer.start(1000)
+        self.testTimer.start()
+
+    @pyqtSlot()
+    def stopReading(self):
+        self.timer.stop()
+        self.testTimer.stop()
+        while not self.tests.empty():
+            self.tests.get()
+
+    def runTest(self):
+        if not self.tests.empty():
+            test = self.tests.get()
+            test()
+    
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()

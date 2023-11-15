@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtGraphicalEffects 1.15
 import "controls"
 
 ApplicationWindow {
@@ -38,20 +39,59 @@ ApplicationWindow {
 
                 Button {
                     text: "Dashboard"
+                    background: Rectangle {
+                        radius: 8
+                        color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                    }
+                    border.color: "black"
+                    border.width: 1
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
+                    }
+                    DropShadow {
+                        anchors.fill: parent
+                        radius: 8
+                        samples: 16
+                        color: "#80000000"
+                        source: parent
                     }
                 }
                 Button {
                     text: "Graph"
+                    background: Rectangle {
+                        radius: 8
+                        color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                    }
+                    border.color: "black"
+                    border.width: 1
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
                     }
+                    DropShadow {
+                        anchors.fill: parent
+                        radius: 8
+                        samples: 16
+                        color: "#80000000"
+                        source: parent
+                    }
                 }
                 Button {
-                    text: "History"
+                    text: "Setting"
+                    background: Rectangle {
+                        radius: 8
+                        color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                    }
+                    border.color: "black"
+                    border.width: 1
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
+                    }
+                    DropShadow {
+                        anchors.fill: parent
+                        radius: 8
+                        samples: 16
+                        color: "#80000000"
+                        source: parent
                     }
                 }
             }
@@ -69,6 +109,14 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
+
+                DropShadow {
+                    anchors.fill: controlAmplifier
+                    radius: 8
+                    samples: 16
+                    color: "#80000000"
+                    source: controlAmplifier
+                }
                 // Tambahkan komponen dari item controls di sini
             }
 
@@ -78,6 +126,14 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
+
+                DropShadow {
+                    anchors.fill: config
+                    radius: 8
+                    samples: 16
+                    color: "#80000000"
+                    source: config
+                }
                 // Tambahkan komponen dari item controls di sini
             }
 
@@ -87,6 +143,14 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
+
+                DropShadow {
+                    anchors.fill: dataSection
+                    radius: 8
+                    samples: 16
+                    color: "#80000000"
+                    source: dataSection
+                }
                 // Tambahkan komponen dari item controls di sini
             }
         }

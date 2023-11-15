@@ -1,75 +1,105 @@
-// main.qml
-
 import QtQuick 2.15
+import QtCharts 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
 
 Page {
-    id: mainPage
+    id: graphPage
 
-    RowLayout {
+    Rectangle {
+        id: inputSection
+        width: parent.width / 4
+        height: parent.height
+
+        Column {
+            anchors.fill: parent
+            spacing: 10
+
+            CheckBox {
+                id: positionTestCheckBox
+                text: "Position Test"
+                onClicked: {
+                    if (checked) {
+                        mainApp.addTest("Position Test");
+                    } else {
+                        mainApp.removeTest("Position Test");
+                    }
+                }
+            }
+
+            CheckBox {
+                id: flowTestCheckBox
+                text: "Flow Test"
+                onClicked: {
+                    if (checked) {
+                        mainApp.addTest("Flow Test");
+                    } else {
+                        mainApp.removeTest("Flow Test");
+                    }
+                }
+            }
+
+            CheckBox {
+                id: leakageTestCheckBox
+                text: "Leakage Test"
+                onClicked: {
+                    if (checked) {
+                        mainApp.addTest("Leakage Test");
+                    } else {
+                        mainApp.removeTest("Leakage Test");
+                    }
+                }
+            }
+
+            Button {
+                text: "Start Test"
+                onClicked: {
+                    mainApp.startReading();
+                }
+            }
+        }
+    }
+
+    ChartView {
+        id: chartView
         anchors.fill: parent
 
-        // Grafik
-        Graph {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            visible: !inputSection.positionTestChecked && !inputSection.flowTestChecked && !inputSection.leakageTestChecked
+        LineSeries {
+            name: "Graph Data"
+            XYPoint { x: 0; y: 0 }
         }
 
-        // Input Section
-        Rectangle {
-            id: inputSection
-            Layout.prefWidth: parent.width * 0.3
-            Layout.fillHeight: true
-            
-            color: "lightgray"
-
-            ColumnLayout {
-                anchors.fill: parent
-
-                // Checkboxes
-                CheckBox {
-                    text: "Position Test"
-                    id: positionTestCheckbox
-                }
-
-                CheckBox {
-                    text: "Flow Test"
-                    id: flowTestCheckbox
-                }
-
-                CheckBox {
-                    text: "Leakage Test"
-                    id: leakageTestCheckbox
-                }
-
-                // Start Button
-                Button {
-                    text: "Start"
-                    onClicked: startTests()
-                }
+        Component.onCompleted: {
+            // Connect the series to the data
+            for (var i = 0; i < mainApp.keys.length; ++i) {
+                var series = chartView.series[i];
+                series.name = mainApp.keys[i];
+                series.clear();
             }
 
-            property bool positionTestChecked: positionTestCheckbox.checked
-            property bool flowTestChecked: flowTestCheckbox.checked
-            property bool leakageTestChecked: leakageTestCheckbox.checked
-
-            function startTests() {
-                if (positionTestChecked) {
-                    mainApp.addTest("Position Test");
+            mainApp.graphValue.connect(function (values) {
+                for (var i = 0; i < values.length; ++i) {
+                    chartView.series[i].append(i, values[i]);
                 }
+            });
+        }
+    }
 
-                if (flowTestChecked) {
-                    mainApp.addTest("Flow Test");
-                }
+    Timer {
+        id: testTimer
+        interval: 10000 // 10 seconds
 
-                if (leakageTestChecked) {
-                    mainApp.addTest("Leakage Test");
-                }
-
-                mainApp.startReading();
+        onTriggered: {
+            if (positionTestCheckBox.checked) {
+                mainApp.positionTest();
+            } else if (flowTestCheckBox.checked) {
+                mainApp.flowTest();
+            } else if (leakageTestCheckBox.checked) {
+                mainApp.leakageTest();
             }
         }
+    }
+
+    Component.onCompleted: {
+        testTimer.start();
     }
 }
