@@ -250,25 +250,24 @@ class MainApp(QObject):
 
     @pyqtSlot()
     def updateGraph(self):
-        # Fungsi untuk membuat atau mengupdate grafik
         if self.testRunning:
             if self.isPositionTestChecked:
-                # Logika untuk Position Test
-                self.currentLineSeries.clear()
-                self.currentLineSeries.append(new Date().getTime(), self.value['curr_v'])
-                self.currentLineSeries.append(new Date().getTime(), self.value['aktual'])
+                # Logika membuat grafik untuk Position Test
+                self.value['curr_v']
+                self.value['aktual']
             elif self.isFlowTestChecked:
-                # Logika untuk Flow Test
-                self.currentLineSeries.clear()
-                self.currentLineSeries.append(new Date().getTime(), self.value['pressure_in'])
-                self.currentLineSeries.append(new Date().getTime(), self.value['flow'])
+                # Logika membuat grafik untuk Flow Test
+                self.value['pressure_in']
+                self.value['flow']
             elif self.isLeakageTestChecked:
-                # Logika untuk Leakage Test
-                self.currentLineSeries.clear()
-                self.currentLineSeries.append(new Date().getTime(), self.value['pressure_in'])
-                self.currentLineSeries.append(new Date().getTime(), self.value['pressure_a'])
-                self.currentLineSeries.append(new Date().getTime(), self.value['pressure_b'])
-                self.currentLineSeries.append(new Date().getTime(), self.value['flow'])
+                # Logika membuat grafik untuk Leakage Test
+                self.value['pressure_in']
+                self.value['pressure_a']
+                self.value['pressure_b']
+                self.value['flow']
+
+            # Emit signal bahwa nilai telah berubah
+            self.valueChanged.emit()
 
     @pyqtSlot()
     def startTests(self):
