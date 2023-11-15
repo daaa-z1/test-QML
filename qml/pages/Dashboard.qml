@@ -33,6 +33,11 @@ Page {
                 property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA", "Pressure Com", "Pressure Aktual"]
                 property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma", "Bar", "Bar"]
 
+                Button {
+                    text: gauge.enabled ? "Off" : "On"
+                    onClicked: gauge.enabled = !gauge.enabled
+                }
+
                 CircleGauge {
                     id: gauge
                     objectName: "gauge" + index
@@ -44,7 +49,7 @@ Page {
 
                     minValue: mainApp.parameter[keys[index]].minValue
                     maxValue: mainApp.parameter[keys[index]].maxValue
-                    value: mainApp.value[keys[index]]
+                    value: !enabled ? mainApp.value[keys[index]] : 0
                 }
             }
         }
