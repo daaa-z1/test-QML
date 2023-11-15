@@ -22,7 +22,7 @@ Page {
                 id: container
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                color: "transparent"
+                color: "dark grey"
                 radius: width * 0.1
 
                 gradient: Gradient {
