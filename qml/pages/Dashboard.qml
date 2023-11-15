@@ -16,7 +16,7 @@ Page {
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        columns: 4
+        columns: 5
 
         Repeater {
             id: repeater
