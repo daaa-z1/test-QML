@@ -71,41 +71,37 @@ Page {
                     text: "Start"
                     onClicked: {
                         var startTime = new Date();
-                        var timer = Timer {
-                            interval: 1000
-                            repeat: true
-                            running: true
-                            onTriggered:  {
-                                var currentTime = new Date();
-                                var elapsedTime = (currentTime - startTime) / 1000; // Time in seconds
+                        var timer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 1000; repeat: true; running: true; }', graphPage, "dynamicTimer");
+                        timer.triggered.connect(function() {
+                            var currentTime = new Date();
+                            var elapsedTime = (currentTime - startTime) / 1000; // Time in seconds
 
-                                if (positionTest.checked) {
-                                    var value1 = mainApp.value['curr_v'];
-                                    var value2 = mainApp.value['aktual'];
-                                    series1.append(elapsedTime, value1);
-                                    series2.append(elapsedTime, value2);
-                                }
-
-                                if (flowTest.checked) {
-                                    var value1 = mainApp.value['pressure_in'];
-                                    var value2 = mainApp.value['flow'];
-                                    series1.append(elapsedTime, value1);
-                                    series2.append(elapsedTime, value2);
-                                }
-
-                                if (leakageTest.checked) {
-                                    var value1 = mainApp.value['pressure_in'];
-                                    var value2 = mainApp.value['flow'];
-                                    series1.append(elapsedTime, value1);
-                                    series2.append(elapsedTime, value2);
-                                }
-
-                                // Stop the test after 10 seconds
-                                if (elapsedTime >= 10) {
-                                    timer.stop();
-                                }
+                            if (positionTest.checked) {
+                                var value1 = mainApp.value['curr_v'];
+                                var value2 = mainApp.value['aktual'];
+                                series1.append(elapsedTime, value1);
+                                series2.append(elapsedTime, value2);
                             }
-                        };
+
+                            if (flowTest.checked) {
+                                var value1 = mainApp.value['pressure_in'];
+                                var value2 = mainApp.value['flow'];
+                                series1.append(elapsedTime, value1);
+                                series2.append(elapsedTime, value2);
+                            }
+
+                            if (leakageTest.checked) {
+                                var value1 = mainApp.value['pressure_in'];
+                                var value2 = mainApp.value['flow'];
+                                series1.append(elapsedTime, value1);
+                                series2.append(elapsedTime, value2);
+                            }
+
+                            // Stop the test after 10 seconds
+                            if (elapsedTime >= 10) {
+                                timer.running = false;
+                            }
+                        });
                     }
                 }
             }
