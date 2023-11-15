@@ -47,8 +47,6 @@ class MainApp(QObject):
 
         self.parameter = {key: {'minValue': self.daftar_min[0][i], 'maxValue': self.daftar_max[0][i], 'minScale': self.daftar_min_scale[0][i], 'maxScale': self.daftar_max_scale[0][i]} for i, key in enumerate(self.keys)}
         
-        self.value = {key: self.readValues(self)[i] for i, key in enumerate(self.keys)}
-
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
