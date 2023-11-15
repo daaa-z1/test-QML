@@ -47,6 +47,10 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
+                        for (var i = 0; i < repeater.count; i++) {
+                            var gauge = repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) gauge.enabled = true;
+                        }
                     }
                 }
                 Button {
@@ -59,6 +63,10 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
+                        for (var i = 0; i < repeater.count; i++) {
+                            var gauge = repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) gauge.enabled = false;
+                        }
                     }
                 }
                 Button {
@@ -71,11 +79,15 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
+                        for (var i = 0; i < repeater.count; i++) {
+                            var gauge = repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) gauge.enabled = false;
+                        }
                     }
                 }
             }
         }
-        
+
         RowLayout {
             id: controlArea
             Layout.preferredHeight: contentArea.height - appFooter.height
