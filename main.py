@@ -2,7 +2,7 @@ import sys
 import queue
 import time
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtQml import QQmlApplicationEngine, QQmlPropertyMap
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty
 from koneksi import *
 
@@ -45,9 +45,9 @@ class MainApp(QObject):
         
         # Setup Parameter dan Value
         self.keys = ['press_in', 'press_a', 'press_b', 'flow', 'temp', 'curr_v', 'aktual', 'curr_ma', 'press_comm', 'press_actual']
-
-        self.parameter = {key: {'minValue': self.daftar_min[0][i], 'maxValue': self.daftar_max[0][i], 'minScale': self.daftar_min_scale[0][i], 'maxScale': self.daftar_max_scale[0][i]} for i, key in enumerate(self.keys)}
-        self.value = {}
+        self.parameter = QQmlPropertyMap(self, 
+            initialProperties={key: {'minValue': self.daftar_min[0][i], 'maxValue': self.daftar_max[0][i], 'minScale': self.daftar_min_scale[0][i], 'maxScale': self.daftar_max_scale[0][i]} for i, key in enumerate(self.keys)})
+        self.value = QQmlPropertyMap(self)
         
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
@@ -219,7 +219,8 @@ class MainApp(QObject):
         min_values = self.daftar_min[0]
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
-        self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
+        for i, key in enumerate(self.keys):
+            self.value.insert(key, calculated_values[i])
         print(f'{self.value}\n {self.parameter}\n')
 
     graphValue = pyqtSignal('QVariantList')
