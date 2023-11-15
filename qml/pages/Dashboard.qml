@@ -9,10 +9,6 @@ import "../controls"
 Page {
     id: dashboardPage
 
-    ListModel {
-        id: gaugeModel
-    }
-
     GridLayout {
         id: gridLayout
         anchors.fill: parent
@@ -34,6 +30,7 @@ Page {
 
                 CircleGauge {
                     id: gauge
+                    objectName: "gauge" + index
                     anchors.centerIn: parent
                     width: container.width * 0.8
                     height: width
