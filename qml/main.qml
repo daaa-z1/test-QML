@@ -38,7 +38,7 @@ ApplicationWindow {
                     }
                 }
             }
-            
+
             RowLayout {
                 anchors {
                     bottom: parent.bottom
@@ -50,7 +50,7 @@ ApplicationWindow {
                     text: "Dashboard"
                     background: Rectangle {
                         radius: 8
-                        color: parent.pressed ? "#d3d3d3" : "#f0f0f0"
+                        color: parent.pressed ? "#C0C0C0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
                         border.color: "black"
                         border.width: 1
                     }
@@ -66,7 +66,7 @@ ApplicationWindow {
                     text: "Graph"
                     background: Rectangle {
                         radius: 8
-                        color: parent.pressed ? "#d3d3d3" : "#f0f0f0"
+                        color: parent.pressed ? "#c0c0c0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
                         border.color: "black"
                         border.width: 1
                     }
@@ -82,7 +82,7 @@ ApplicationWindow {
                     text: "Setting"
                     background: Rectangle {
                         radius: 8
-                        color: parent.pressed ? "#d3d3d3" : "#f0f0f0"
+                        color: parent.pressed ? "#c0c0c0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
                         border.color: "black"
                         border.width: 1
                     }

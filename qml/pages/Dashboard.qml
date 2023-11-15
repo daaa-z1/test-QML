@@ -36,10 +36,9 @@ Page {
                 property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma", "Bar", "Bar"]
 
                 Button {
-                    text: gauge.enabled ? "Off" : "On"
                     background: Rectangle {
                         radius: width / 2
-                        color: gauge.enabled ? "red" : "green"
+                        color: gauge.enabled ? "#FF6961" : "#77DD77"
                     }
                     onClicked: gauge.enabled = !gauge.enabled
                 }
