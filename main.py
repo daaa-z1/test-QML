@@ -223,7 +223,6 @@ class MainApp(QObject):
     def parameter(self):
         return self._parameter
     
-    newValue = pyqtSignal('QVariantList')
     @pyqtSlot()
     def readValues(self):
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
@@ -233,66 +232,6 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
-
-    graphValue = pyqtSignal('QVariantList')
-    @pyqtSlot()
-    def readGraph(self):
-        if not self.tests.empty():
-            test = self.tests.get()
-            test()
-    
-    @pyqtSlot()
-    def startReading(self):
-        self.timer.start(1000)
-    
-    @pyqtSlot()
-    def stopReading(self):
-        self.timer.stop()
-        self.timer.start(100)
-        while not self.tests.empty():
-            self.tests.get()
-    
-    def positionTest(self):
-        start_time = time.time()
-        while time.time() - start_time < 10:
-            self.graphValue.emit([self.value['curr_v'], self.value['aktual']])
-            time.sleep(1)
-
-    def flowTest(self):
-        start_time = time.time()
-        while time.time() - start_time < 10:
-            self.graphValue.emit([self.value['press_in'], self.value['flow']])
-            time.sleep(1)
-
-    def leakageTest(self):
-        start_time = time.time()
-        while time.time() - start_time < 10:
-            print(self.value[self.keys[0]], self.value[self.keys[3]])
-            self.graphValue.emit([self.value['press_in'], self.value['press_a'], self.value['press_b']], self.value['flow'])
-            time.sleep(1)
-      
-    addTestSignal = pyqtSignal(str)
-    @pyqtSlot(str)
-    def addTest(self, test):
-        if test == "Position Test":
-            self.tests.put(self.positionTest)
-        elif test == "Flow Test":
-            self.tests.put(self.flowTest)
-        elif test == "Leakage Test":
-            self.tests.put(self.leakageTest)
-        self.addTestSignal.emit(test)
-    
-    # Metode untuk membaca min value dari database
-    minValues = pyqtSignal('QVariantList')
-    @pyqtProperty('QVariantList', notify=minValues)
-    def readMinValues(self):
-        return list(self.daftar_min[0])
-
-    # Metode untuk membaca max value dari database
-    maxValues = pyqtSignal('QVariantList')
-    @pyqtProperty('QVariantList', notify=maxValues)
-    def readMaxValues(self):
-        return list(self.daftar_max[0])
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
