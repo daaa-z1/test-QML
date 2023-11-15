@@ -48,7 +48,7 @@ ApplicationWindow {
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
                         for (var i = 0; i < repeater.count; i++) {
-                            var gauge = repeater.itemAt(i).findChild("gauge" + i);
+                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
                             if (gauge) gauge.enabled = true;
                         }
                     }
@@ -62,9 +62,9 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
+                        pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
                         for (var i = 0; i < repeater.count; i++) {
-                            var gauge = repeater.itemAt(i).findChild("gauge" + i);
+                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
                             if (gauge) gauge.enabled = false;
                         }
                     }
@@ -78,10 +78,10 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
+                        pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
                         for (var i = 0; i < repeater.count; i++) {
-                            var gauge = repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) gauge.enabled = false;
+                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) gauge.enabled = falsea;
                         }
                     }
                 }

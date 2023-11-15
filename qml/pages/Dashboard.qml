@@ -8,6 +8,8 @@ import "../controls"
 
 Page {
     id: dashboardPage
+    property alias repeater: repeater
+    
 
     GridLayout {
         id: gridLayout
