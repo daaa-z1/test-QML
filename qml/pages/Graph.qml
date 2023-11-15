@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtCharts 2.3
+import QtQml 2.15
 
 Page {
     id: graphPage
@@ -71,9 +72,8 @@ Page {
                     text: "Start"
                     onClicked: {
                         var startTime = new Date();
-                        var timer = new QTimer();
-                        timer.interval = 1000; // Update every second
-                        timer.timeout.connect(function() {
+                        var timer = Qt.createQmlObject('import QtQml 2.15; Timer { interval: 1000; repeat: true }', graphPage);
+                        timer.triggered.connect(function() {
                             var currentTime = new Date();
                             var elapsedTime = (currentTime - startTime) / 1000; // Time in seconds
 
