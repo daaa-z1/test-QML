@@ -188,7 +188,7 @@ def tambah_state(koneksi, config_id, state):
         try:
             cursor = koneksi.cursor()
             cursor.execute("INSERT INTO Switch (Config_ID, Btn1_state, Btn2_state, Btn3_state, Btn4_state, Btn5_state, Btn6_state, Btn7_state, Btn8_state, Btn9_state, Btn10_state, Btn11_state, Btn12_state, Btn13_state, Btn14_state, Btn15_state, Btn16_state, Btn17_state, Btn18_state, Btn19_state, Btn20_state, Btn21_state, Btn22_state, Btn23_state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (config_id, state["Btn1"], state["Btn2"], state["Btn3"], state["Btn4"], state["Btn5"], state["Btn6"], state["Btn7"], state["Btn8"], state["Btn9"], state["Btn10"], state["Btn11"], state["Btn12"], state["Btn13"], state["Btn14"], state["Btn15"], state["Btn16"], state["Btn17"], state["Btn18"], state["Btn19"], state["Btn20"], state["Btn21"], state["Btn22"], state["Btn23"]))
+                           (config_id, state["Btn1_State"], state["Btn2_State"], state["Btn3_State"], state["Btn4_State"], state["Btn5_State"], state["Btn6_State"], state["Btn7_State"], state["Btn8_State"], state["Btn9_State"], state["Btn10_State"], state["Btn11_State"], state["Btn12_State"], state["Btn13_State"], state["Btn14_State"], state["Btn15_State"], state["Btn16_State"], state["Btn17_State"], state["Btn18_State"], state["Btn19_State"], state["Btn20_State"], state["Btn21_State"], state["Btn22_State"], state["Btn23_State"]))
             koneksi.commit()
         except sqlite3.Error as e:
             print(f"Kesalahan dalam menambahkan switch: {e}")
