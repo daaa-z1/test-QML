@@ -41,13 +41,13 @@ ApplicationWindow {
                     text: "Dashboard"
                     background: Rectangle {
                         radius: 8
-                        color: parent.pressed ? "#C0C0C0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
+                        color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "#EDEDED")
                         border.color: "black"
                         border.width: 1
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
-                        for (var i = 0; i < repeater.count; i++) {
+                        for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
                             if (gauge) {
                                 gauge.enabled = true;
@@ -60,13 +60,13 @@ ApplicationWindow {
                     text: "Graph"
                     background: Rectangle {
                         radius: 8
-                        color: parent.pressed ? "#C0C0C0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
+                        color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "#EDEDED")
                         border.color: "black"
                         border.width: 1
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
-                        for (var i = 0; i < repeater.count; i++) {
+                        for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
                             if (gauge) {
                                 gauge.enabled = false;
@@ -79,13 +79,13 @@ ApplicationWindow {
                     text: "Setting"
                     background: Rectangle {
                         radius: 8
-                        color: parent.pressed ? "#C0C0C0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
+                        color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "#EDEDED")
                         border.color: "black"
                         border.width: 1
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
-                        for (var i = 0; i < repeater.count; i++) {
+                        for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
                             if (gauge) {
                                 gauge.enabled = false;
@@ -93,8 +93,6 @@ ApplicationWindow {
                         }
                     }
                 }
-
-                // ... (kode lainnya)
 
             }
         }
