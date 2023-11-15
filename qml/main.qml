@@ -41,7 +41,7 @@ ApplicationWindow {
                     text: "Dashboard"
                     background: Rectangle {
                         radius: 8
-                        color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                        color: parent.pressed ? "#d3d3d3" : "#f0f0f0"
                         border.color: "black"
                         border.width: 1
                     }
@@ -60,7 +60,7 @@ ApplicationWindow {
                     text: "Graph"
                     background: Rectangle {
                         radius: 8
-                        color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                        color: parent.pressed ? "#d3d3d3" : "#f0f0f0"
                         border.color: "black"
                         border.width: 1
                     }
@@ -79,7 +79,7 @@ ApplicationWindow {
                     text: "Setting"
                     background: Rectangle {
                         radius: 8
-                        color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                        color: parent.pressed ? "#d3d3d3" : "#f0f0f0"
                         border.color: "black"
                         border.width: 1
                     }
