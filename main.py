@@ -50,10 +50,13 @@ class MainApp(QObject):
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
-        self.tests = queue.Queue()
         
+        # Setup Grafik untuk pengujian
+        self.tests = ['press_in', 'aktual', 'flow']
+        self.currentTestIndex = 0 
         self.testTimer = QTimer()
-        self.testTimer.timeout.connect(self.runTest)
+        self.testTimer.timeout.connect(self.switchTest)
+        self.testTimer.start(10000)
         
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -210,6 +213,24 @@ class MainApp(QObject):
         cursor = self.koneksi.cursor()
         cursor.execute("SELECT * FROM State")
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
+    
+    @pyqtSlot()
+    def switchTest(self):
+        self.currentTestIndex = (self.currentTestIndex + 1) % len(self.tests)
+
+    @pyqtSlot(str)
+    def startTest(self, testName):
+        if testName == 'Position Test':
+            self.currentTestIndex = 0
+        elif testName == 'Flow Test':
+            self.currentTestIndex = 1
+        elif testName == 'Leakage Test':
+            self.currentTestIndex = 2
+        self.testTimer.start()
+
+    @pyqtSlot()
+    def stopTest(self):
+        self.testTimer.stop()
 
     valueChanged = pyqtSignal()
     @pyqtProperty('QVariantMap', notify=valueChanged)
