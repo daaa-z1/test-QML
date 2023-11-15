@@ -27,6 +27,7 @@ class MainApp(QObject):
         buat_tabel_konfigurasi(self.koneksi)
         buat_tabel_batasan(self.koneksi)
         buat_tabel_switch(self.koneksi)
+        buat_tabel_state(self.koneksi)
         buat_tabel_scaling(self.koneksi)
 
         # Memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default

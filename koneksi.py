@@ -124,7 +124,7 @@ def buat_tabel_switch(koneksi):
             print(f"Kesalahan dalam membuat tabel Switch: {e}")
 
 # Fungsi untuk membuat tabel fungsi tombol
-def buat_tabel_switch(koneksi):
+def buat_tabel_state(koneksi):
     if koneksi:
         try:
             cursor = koneksi.cursor()
