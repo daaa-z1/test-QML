@@ -1,8 +1,7 @@
 import sys
 import queue
-import time
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtQml import QQmlApplicationEngine, QQmlPropertyMap
+from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QVariant
 from koneksi import *
 
