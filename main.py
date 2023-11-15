@@ -241,20 +241,20 @@ class MainApp(QObject):
     def positionTest(self):
         start_time = time.time()
         while time.time() - start_time < 10:
-            self.graphValue.emit([self.ainData[6], self.ainData[7]])
+            self.graphValue.emit([self.value[self.keys[6]], self.value[self.keys[7]]])
             time.sleep(1)
 
     def flowTest(self):
         start_time = time.time()
         while time.time() - start_time < 10:
-            self.graphValue.emit([self.ainData[0], self.ainData[4]])
+            self.graphValue.emit([self.value[self.keys[0]], self.value[self.keys[1]]])
             time.sleep(1)
 
     def leakageTest(self):
         start_time = time.time()
         while time.time() - start_time < 10:
-            print(self.ainData[0], self.ainData[3])
-            self.graphValue.emit([self.ainData[0], self.ainData[3]])
+            print(self.value[self.keys[0]], self.value[self.keys[3]])
+            self.graphValue.emit([self.value[self.keys[0]], self.value[self.keys[3]]])
             time.sleep(1)
       
     addTestSignal = pyqtSignal(str)
@@ -285,7 +285,6 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
 
     mainApp = MainApp()
-    print(mainApp.ainData)
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
