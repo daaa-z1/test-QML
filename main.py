@@ -84,8 +84,8 @@ class MainApp(QObject):
                 "Curr_MA_Max": 5,
                 "Press_Com_Min": 0,
                 "Press_Com_Max": 5,
-                "Curr_Aktual_Min": 0,
-                "Curr_Aktual_Max": 5,
+                "Press_Aktual_Min": 0,
+                "Press_Aktual_Max": 5,
             }
             
             data_scaling = {
@@ -107,8 +107,8 @@ class MainApp(QObject):
                 "Curr_MA_Scale_Max": 5,
                 "Press_Com_Scale_Min": 0,
                 "Press_Com_Scale_Max": 5,
-                "Curr_Aktual_Scale_Min": 0,
-                "Curr_Aktual_Scale_Max": 5,
+                "Press_Aktual_Scale_Min": 0,
+                "Press_Aktual_Scale_Max": 5,
             }
 
             data_switch = {
