@@ -86,7 +86,7 @@ class MainApp(QObject):
                 "Press_Com_Min": 0,
                 "Press_Com_Max": 5,
                 "Press_Aktual_Min": 0,
-                "Press_Aktual_Max": 5,
+                "Press_Aktual_Max": 5
             }
             
             data_scaling = {
@@ -109,7 +109,7 @@ class MainApp(QObject):
                 "Press_Com_Scale_Min": 0,
                 "Press_Com_Scale_Max": 5,
                 "Press_Aktual_Scale_Min": 0,
-                "Press_Aktual_Scale_Max": 5,
+                "Press_Aktual_Scale_Max": 5
             }
 
             data_switch = {
@@ -135,7 +135,7 @@ class MainApp(QObject):
                 "Btn20": 19,
                 "Btn21": 20,
                 "Btn22": 21,
-                "Btn23": 21
+                "Btn23": 22
             }
 
             data_state = {
