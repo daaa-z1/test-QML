@@ -35,6 +35,10 @@ Page {
 
                 Button {
                     text: gauge.enabled ? "Off" : "On"
+                    background: Rectangle {
+                        radius: width / 2
+                        color: gauge.enabled ? "red" : "green"
+                    }
                     onClicked: gauge.enabled = !gauge.enabled
                 }
 
