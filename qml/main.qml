@@ -49,7 +49,7 @@ ApplicationWindow {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
                         for (var i = 0; i < repeater.count; i++) {
                             var gauge = repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) gauge.enabled = false;
+                            if (gauge) gauge.enabled = true;
                         }
                     }
                 }
