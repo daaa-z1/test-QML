@@ -50,7 +50,7 @@ class MainApp(QObject):
         
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
-        self.timer.start(100)
+        self.timer.start(1000)
         self.tests = queue.Queue()
         
         # Inisialisasi parameter terpilih ke None
