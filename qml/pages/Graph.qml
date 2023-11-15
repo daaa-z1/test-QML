@@ -113,4 +113,7 @@ Page {
             }
         }
     }
+    Connections{
+        target: mainApp
+    }
 }
