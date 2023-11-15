@@ -41,14 +41,19 @@ class MainApp(QObject):
         self.daftar_min_scale = self.ambil_daftar_min_scaling()
         self.daftar_max_scale = self.ambil_daftar_max_scaling()
         self.daftar_switch = self.ambil_daftar_switch()
+        
+        # Setup Parameter dan Value
+        self.keys = ['press_in', 'press_a', 'press_b', 'flow', 'temp', 'curr_v', 'aktual', 'curr_ma', 'press_comm', 'press_actual']
+
+        self.parameter = {key: {'minValue': self.daftar_min[0][i], 'maxValue': self.daftar_max[0][i], 'minScale': self.daftar_min_scale[0][i], 'maxScale': self.daftar_max_scale[0][i]} for i, key in enumerate(self.keys)}
+        
+        self.value = {key: self.readValues(self)[i] for i, key in enumerate(self.keys)}
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
         self.tests = queue.Queue()
         
-        self.ainData = []
-
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
 
@@ -174,8 +179,7 @@ class MainApp(QObject):
         min_values = self.daftar_min[0]
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
-        self.ainData = calculated_values
-        self.newValue.emit(calculated_values)
+        self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
 
     graphValue = pyqtSignal('QVariantList')
     @pyqtSlot()

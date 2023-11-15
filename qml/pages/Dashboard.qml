@@ -20,7 +20,7 @@ Page {
 
         Repeater {
             id: repeater
-            model: mainApp ? mainApp.readMinValues.length : 0
+            model: keys.length
 
             Rectangle {
                 id: container
@@ -29,8 +29,8 @@ Page {
                 color: "transparent"
                 radius: width * 0.1
 
-                property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA"]
-                property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma"]
+                property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA", "Pressure Com", "Pressure Aktual"]
+                property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma", "Bar", "Bar"]
 
                 CircleGauge {
                     id: gauge
@@ -41,27 +41,13 @@ Page {
                     label: container.parameters[index]
                     unit: container.units[index]
 
-                    minValue: mainApp ? mainApp.readMinValues[index] : 0
-                    maxValue: mainApp ? mainApp.readMaxValues[index] : 0
-                    value: mainApp ? mainApp.newValue[index] : 0
+                    minValue: mainApp.parameter[keys[index]].minValue
+                    maxValue: mainApp.parameter[keys[index]].maxValue
+                    value: mainApp.value[keys[index]]
                 }
             }
         }
     }
 
-    Component.onCompleted: {
-        if (mainApp) {
-            mainApp.newValue.connect(function(values) {
-                for (var i = 0; i < repeater.count; i++) {
-                    var container = repeater.itemAt(i);
-                    if (container && container.children.length > 0) {
-                        var gauge = container.children[0];
-                        if (gauge && "value" in gauge) {
-                            gauge.value = values[i];
-                        }
-                    }
-                }
-            });
-        }
-    }
+    property var keys: ['press_in', 'press_a', 'press_b', 'flow', 'temp', 'curr_v', 'aktual', 'curr_ma', 'press_comm', 'press_actual']
 }
