@@ -42,9 +42,9 @@ ApplicationWindow {
                     background: Rectangle {
                         radius: 8
                         color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                        border.color: "black"
+                        border.width: 1
                     }
-                    border.color: "black"
-                    border.width: 1
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
                     }
@@ -61,9 +61,9 @@ ApplicationWindow {
                     background: Rectangle {
                         radius: 8
                         color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                        border.color: "black"
+                        border.width: 1
                     }
-                    border.color: "black"
-                    border.width: 1
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
                     }
@@ -80,9 +80,9 @@ ApplicationWindow {
                     background: Rectangle {
                         radius: 8
                         color: button.pressed ? "#d3d3d3" : "#f0f0f0"
+                        border.color: "black"
+                        border.width: 1
                     }
-                    border.color: "black"
-                    border.width: 1
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
                     }
