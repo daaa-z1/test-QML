@@ -28,8 +28,17 @@ ApplicationWindow {
                 id: pageLoader
                 anchors.fill: parent
                 sourceComponent: Qt.createComponent("pages/Dashboard.qml")
-            }
 
+                onStatusChanged: {
+                    if (status == Loader.Ready) {
+                        for (var i = 0; i < item.repeater.count; i++) {
+                            var gauge = item.repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) gauge.enabled = true;
+                        }
+                    }
+                }
+            }
+            
             RowLayout {
                 anchors {
                     bottom: parent.bottom
