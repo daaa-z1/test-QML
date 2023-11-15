@@ -219,7 +219,7 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
-        print(f'{self.value}\n {self.parameter}')
+        print(f'{self.value}\n {self.parameter}\n')
 
     graphValue = pyqtSignal('QVariantList')
     @pyqtSlot()
