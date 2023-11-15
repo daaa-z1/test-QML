@@ -48,13 +48,6 @@ ApplicationWindow {
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
                     }
-                    DropShadow {
-                        anchors.fill: parent
-                        radius: 8
-                        samples: 16
-                        color: "#80000000"
-                        source: parent
-                    }
                 }
                 Button {
                     text: "Graph"
@@ -66,13 +59,6 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
-                    }
-                    DropShadow {
-                        anchors.fill: parent
-                        radius: 8
-                        samples: 16
-                        color: "#80000000"
-                        source: parent
                     }
                 }
                 Button {
@@ -86,17 +72,10 @@ ApplicationWindow {
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
                     }
-                    DropShadow {
-                        anchors.fill: parent
-                        radius: 8
-                        samples: 16
-                        color: "#80000000"
-                        source: parent
-                    }
                 }
             }
         }
-
+        
         RowLayout {
             id: controlArea
             Layout.preferredHeight: contentArea.height - appFooter.height
@@ -109,14 +88,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
-
-                DropShadow {
-                    anchors.fill: controlAmplifier
-                    radius: 8
-                    samples: 16
-                    color: "#80000000"
-                    source: controlAmplifier
-                }
+                border.width: 1
                 // Tambahkan komponen dari item controls di sini
             }
 
@@ -126,14 +98,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
-
-                DropShadow {
-                    anchors.fill: config
-                    radius: 8
-                    samples: 16
-                    color: "#80000000"
-                    source: config
-                }
+                border.width: 1
                 // Tambahkan komponen dari item controls di sini
             }
 
@@ -143,18 +108,10 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
-
-                DropShadow {
-                    anchors.fill: dataSection
-                    radius: 8
-                    samples: 16
-                    color: "#80000000"
-                    source: dataSection
-                }
+                border.width: 1
                 // Tambahkan komponen dari item controls di sini
             }
         }
-
         Footer {
             id: appFooter
             Layout.preferredHeight: 30
