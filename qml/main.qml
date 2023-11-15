@@ -28,15 +28,6 @@ ApplicationWindow {
                 id: pageLoader
                 anchors.fill: parent
                 sourceComponent: Qt.createComponent("pages/Dashboard.qml")
-
-                onStatusChanged: {
-                    if (status == Loader.Ready) {
-                        for (var i = 0; i < item.repeater.count; i++) {
-                            var gauge = item.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) gauge.enabled = true;
-                        }
-                    }
-                }
             }
 
             RowLayout {
@@ -56,35 +47,55 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
-                        gaugeEnabled = true
+                        for (var i = 0; i < repeater.count; i++) {
+                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) {
+                                gauge.enabled = true;
+                            }
+                        }
                     }
                 }
+
                 Button {
                     text: "Graph"
                     background: Rectangle {
                         radius: 8
-                        color: parent.pressed ? "#c0c0c0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
+                        color: parent.pressed ? "#C0C0C0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
                         border.color: "black"
                         border.width: 1
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
-                        gaugeEnabled = false
+                        for (var i = 0; i < repeater.count; i++) {
+                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) {
+                                gauge.enabled = false;
+                            }
+                        }
                     }
                 }
+
                 Button {
                     text: "Setting"
                     background: Rectangle {
                         radius: 8
-                        color: parent.pressed ? "#c0c0c0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
+                        color: parent.pressed ? "#C0C0C0" : (parent.hovered ? "#D3D3D3" : "#EDEDED")
                         border.color: "black"
                         border.width: 1
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
-                        gaugeEnabled = false
+                        for (var i = 0; i < repeater.count; i++) {
+                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) {
+                                gauge.enabled = false;
+                            }
+                        }
                     }
                 }
+
+                // ... (kode lainnya)
+
             }
         }
 
