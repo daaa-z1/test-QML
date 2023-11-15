@@ -79,22 +79,28 @@ Page {
                             if (positionTest.checked) {
                                 var value1 = mainApp.value['curr_v'];
                                 var value2 = mainApp.value['aktual'];
-                                series1.append(elapsedTime, value1);
-                                series2.append(elapsedTime, value2);
+                                if (!isNaN(value1) && isFinite(value1) && !isNaN(value2) && isFinite(value2)) {
+                                    series1.append(elapsedTime, value1);
+                                    series2.append(elapsedTime, value2);
+                                }
                             }
 
                             if (flowTest.checked) {
                                 var value1 = mainApp.value['pressure_in'];
                                 var value2 = mainApp.value['flow'];
-                                series1.append(elapsedTime, value1);
-                                series2.append(elapsedTime, value2);
+                                if (!isNaN(value1) && isFinite(value1) && !isNaN(value2) && isFinite(value2)) {
+                                    series1.append(elapsedTime, value1);
+                                    series2.append(elapsedTime, value2);
+                                }
                             }
 
                             if (leakageTest.checked) {
                                 var value1 = mainApp.value['pressure_in'];
                                 var value2 = mainApp.value['flow'];
-                                series1.append(elapsedTime, value1);
-                                series2.append(elapsedTime, value2);
+                                if (!isNaN(value1) && isFinite(value1) && !isNaN(value2) && isFinite(value2)) {
+                                    series1.append(elapsedTime, value1);
+                                    series2.append(elapsedTime, value2);
+                                }
                             }
 
                             // Stop the test after 10 seconds
