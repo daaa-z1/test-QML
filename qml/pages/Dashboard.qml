@@ -25,6 +25,11 @@ Page {
                 color: "transparent"
                 radius: width * 0.1
 
+                gradient: Gradient {
+                    GradientStop { position: 0.0; color: "#f0f0f0" }
+                    GradientStop { position: 1.0; color: "#d3d3d3" }
+                }
+
                 property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA", "Pressure Com", "Pressure Aktual"]
                 property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma", "Bar", "Bar"]
 
