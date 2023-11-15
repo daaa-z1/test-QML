@@ -81,7 +81,7 @@ ApplicationWindow {
                         pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
                         for (var i = 0; i < repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) gauge.enabled = falsea;
+                            if (gauge) gauge.enabled = false;
                         }
                     }
                 }
