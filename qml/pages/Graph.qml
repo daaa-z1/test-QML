@@ -1,119 +1,101 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtCharts 2.3
+import QtCharts 2.15
 
 Page {
     id: graphPage
 
-    RowLayout {
-        anchors.fill: parent
+    Rectangle {
+        id: inputBox
+        width: parent.width / 4
+        height: parent.height
+        anchors.right: parent.right
 
-        ChartView {
-            id: chartView
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.maximumWidth: parent.width * 0.75
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 10
 
-            ValueAxis {
-                id: axisX
-                min: 0
-                max: 10
+            CheckBox {
+                id: positionTestCheckBox
+                text: "Position Test"
             }
 
-            ValueAxis {
-                id: axisY
-                min: 0
-                max: 100
+            CheckBox {
+                id: flowTestCheckBox
+                text: "Flow Test"
             }
 
-            LineSeries {
-                id: series1
-                axisX: axisX
-                axisY: axisY
+            CheckBox {
+                id: leakageTestCheckBox
+                text: "Leakage Test"
             }
 
-            LineSeries {
-                id: series2
-                axisX: axisX
-                axisY: axisY
-            }
-        }
-
-        Rectangle {
-            id: inputSection
-            Layout.fillHeight: true
-            Layout.preferredWidth: parent.width * 0.25
-            color: "lightgray"
-            border.color: "black"
-            border.width: 1
-
-            ColumnLayout {
-                anchors.fill: parent
-                spacing: 10
-
-                CheckBox {
-                    id: positionTest
-                    text: "Position Test"
-                }
-
-                CheckBox {
-                    id: flowTest
-                    text: "Flow Test"
-                }
-
-                CheckBox {
-                    id: leakageTest
-                    text: "Leakage Test"
-                }
-
-                Button {
-                    text: "Start"
-                    onClicked: {
-                        var startTime = new Date();
-                        var timer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 1000; repeat: true; running: true; }', graphPage, "dynamicTimer");
-                        timer.triggered.connect(function() {
-                            var currentTime = new Date();
-                            var elapsedTime = (currentTime - startTime) / 1000; // Time in seconds
-
-                            if (positionTest.checked) {
-                                var value1 = mainApp.value['curr_v'];
-                                var value2 = mainApp.value['aktual'];
-                                if (!isNaN(value1) && isFinite(value1) && !isNaN(value2) && isFinite(value2)) {
-                                    series1.append(elapsedTime, value1);
-                                    series2.append(elapsedTime, value2);
-                                }
-                            }
-
-                            if (flowTest.checked) {
-                                var value1 = mainApp.value['pressure_in'];
-                                var value2 = mainApp.value['flow'];
-                                if (!isNaN(value1) && isFinite(value1) && !isNaN(value2) && isFinite(value2)) {
-                                    series1.append(elapsedTime, value1);
-                                    series2.append(elapsedTime, value2);
-                                }
-                            }
-
-                            if (leakageTest.checked) {
-                                var value1 = mainApp.value['pressure_in'];
-                                var value2 = mainApp.value['flow'];
-                                if (!isNaN(value1) && isFinite(value1) && !isNaN(value2) && isFinite(value2)) {
-                                    series1.append(elapsedTime, value1);
-                                    series2.append(elapsedTime, value2);
-                                }
-                            }
-
-                            // Stop the test after 10 seconds
-                            if (elapsedTime >= 10) {
-                                timer.running = false;
-                            }
-                        });
+            Button {
+                text: "Start"
+                onClicked: {
+                    if (positionTestCheckBox.checked) {
+                        mainApp.startTest("Position Test");
+                    } else if (flowTestCheckBox.checked) {
+                        mainApp.startTest("Flow Test");
+                    } else if (leakageTestCheckBox.checked) {
+                        mainApp.startTest("Leakage Test");
                     }
                 }
             }
         }
     }
-    Connections{
-        target: mainApp
+
+    ChartView {
+        id: chartView
+        anchors {
+            left: parent.left
+            right: inputBox.left
+            top: parent.top
+            bottom: parent.bottom
+        }
+
+        LineSeries {
+            id: positionTestSeries
+            name: "Position Test"
+            visible: false
+        }
+
+        LineSeries {
+            id: flowTestSeries
+            name: "Flow Test"
+            visible: false 
+        }
+
+        LineSeries {
+            id: leakageTestSeries
+            name: "Leakage Test"
+            visible: false 
+        }
+    }
+
+    Timer {
+        id: testTimer
+        interval: 10000 // 10 seconds
+        onTriggered: {
+            positionTestSeries.visible = false;
+            flowTestSeries.visible = false;
+            leakageTestSeries.visible = false;
+
+            // Show the current series
+            if (positionTestCheckBox.checked && mainApp.currentTestIndex == 0) {
+                positionTestSeries.visible = true;
+            } else if (flowTestCheckBox.checked && mainApp.currentTestIndex == 1) {
+                flowTestSeries.visible = true;
+            } else if (leakageTestCheckBox.checked && mainApp.currentTestIndex == 2) {
+                leakageTestSeries.visible = true;
+            }
+
+            // Update the current series
+            mainApp.updateSeries();
+
+            // Switch to the next test
+            mainApp.switchTest();
+        }
     }
 }

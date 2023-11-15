@@ -232,6 +232,15 @@ class MainApp(QObject):
     def stopTest(self):
         self.testTimer.stop()
 
+    @pyqtSlot()
+    def updateSeries(self):
+        if self.currentTestIndex == 0: 
+            positionTestSeries.appendData(mainApp.value['curr_v'], mainApp.value['aktual'])
+        elif self.currentTestIndex == 1:
+            flowTestSeries.appendData(mainApp.value['press_in'], mainApp.value['flow'])
+        elif self.currentTestIndex == 2: 
+            leakageTestSeries.appendData(mainApp.value['press_in'], mainApp.value['flow']) 
+            
     valueChanged = pyqtSignal()
     @pyqtProperty('QVariantMap', notify=valueChanged)
     def value(self):
