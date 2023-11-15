@@ -233,7 +233,6 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
-        print(f'{self.value}\n {self._parameter}\n')
 
     graphValue = pyqtSignal('QVariantList')
     @pyqtSlot()
@@ -256,20 +255,20 @@ class MainApp(QObject):
     def positionTest(self):
         start_time = time.time()
         while time.time() - start_time < 10:
-            self.graphValue.emit([self.value[self.keys[6]], self.value[self.keys[7]]])
+            self.graphValue.emit([self.value['curr_v'], self.value['aktual']])
             time.sleep(1)
 
     def flowTest(self):
         start_time = time.time()
         while time.time() - start_time < 10:
-            self.graphValue.emit([self.value[self.keys[0]], self.value[self.keys[1]]])
+            self.graphValue.emit([self.value['press_in'], self.value['flow']])
             time.sleep(1)
 
     def leakageTest(self):
         start_time = time.time()
         while time.time() - start_time < 10:
             print(self.value[self.keys[0]], self.value[self.keys[3]])
-            self.graphValue.emit([self.value[self.keys[0]], self.value[self.keys[3]]])
+            self.graphValue.emit([self.value['press_in'], self.value['press_a'], self.value['press_b']], self.value['flow'])
             time.sleep(1)
       
     addTestSignal = pyqtSignal(str)
