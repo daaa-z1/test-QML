@@ -52,11 +52,18 @@ class MainApp(QObject):
         self.timer.start(100)
         
         # Setup Grafik untuk pengujian
-        self.tests = ['press_in', 'aktual', 'flow']
-        self.currentTestIndex = 0 
-        self.testTimer = QTimer()
-        self.testTimer.timeout.connect(self.switchTest)
-        self.testTimer.start(10000)
+        # Variabel untuk menyimpan state checkbox pengujian
+        self.isPositionTestChecked = False
+        self.isFlowTestChecked = False
+        self.isLeakageTestChecked = False
+
+        # Menambahkan sinyal untuk menandakan perubahan state checkbox
+        self.positionTestCheckedChanged = pyqtSignal(bool)
+        self.flowTestCheckedChanged = pyqtSignal(bool)
+        self.leakageTestCheckedChanged = pyqtSignal(bool)
+
+        # Variabel untuk menyimpan status pengujian
+        self.testRunning = False
         
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -214,33 +221,7 @@ class MainApp(QObject):
         cursor.execute("SELECT * FROM State")
         return [konfigurasi[2:] for konfigurasi in cursor.fetchall()]
     
-    @pyqtSlot()
-    def switchTest(self):
-        self.currentTestIndex = (self.currentTestIndex + 1) % len(self.tests)
-
-    @pyqtSlot(str)
-    def startTest(self, testName):
-        if testName == 'Position Test':
-            self.currentTestIndex = 0
-        elif testName == 'Flow Test':
-            self.currentTestIndex = 1
-        elif testName == 'Leakage Test':
-            self.currentTestIndex = 2
-        self.testTimer.start()
-
-    @pyqtSlot()
-    def stopTest(self):
-        self.testTimer.stop()
-
-    @pyqtSlot()
-    def updateSeries(self):
-        if self.currentTestIndex == 0: 
-            positionTestSeries.appendData(mainApp.value['curr_v'], mainApp.value['aktual'])
-        elif self.currentTestIndex == 1:
-            flowTestSeries.appendData(mainApp.value['press_in'], mainApp.value['flow'])
-        elif self.currentTestIndex == 2: 
-            leakageTestSeries.appendData(mainApp.value['press_in'], mainApp.value['flow']) 
-            
+    
     valueChanged = pyqtSignal()
     @pyqtProperty('QVariantMap', notify=valueChanged)
     def value(self):
@@ -264,44 +245,38 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
+        self.valueChanged.emit()
 
-    # Fungsi untuk melakukan pengujian
-    @pyqtSlot(str)
-    def addTest(self, test):
-        if test == "Position Test":
-            self.tests.put(self.positionTest)
-        elif test == "Flow Test":
-            self.tests.put(self.flowTest)
-        elif test == "Leakage Test":
-            self.tests.put(self.leakageTest)
-        self.addTestSignal.emit(test)
-
-    @pyqtSlot(str)
-    def removeTest(self, test):
-        if test == "Position Test":
-            self.tests.queue.clear()
-        elif test == "Flow Test":
-            self.tests.queue.clear()
-        elif test == "Leakage Test":
-            self.tests.queue.clear()
-        self.removeTestSignal.emit(test)
 
     @pyqtSlot()
-    def startReading(self):
-        self.timer.start(1000)
-        self.testTimer.start()
+    def updateGraph(self):
+        # Fungsi untuk membuat atau mengupdate grafik
+        if self.testRunning:
+            if self.isPositionTestChecked:
+                # Logika untuk Position Test
+                self.currentLineSeries.clear()
+                self.currentLineSeries.append(new Date().getTime(), self.value['curr_v'])
+                self.currentLineSeries.append(new Date().getTime(), self.value['aktual'])
+            elif self.isFlowTestChecked:
+                # Logika untuk Flow Test
+                self.currentLineSeries.clear()
+                self.currentLineSeries.append(new Date().getTime(), self.value['pressure_in'])
+                self.currentLineSeries.append(new Date().getTime(), self.value['flow'])
+            elif self.isLeakageTestChecked:
+                # Logika untuk Leakage Test
+                self.currentLineSeries.clear()
+                self.currentLineSeries.append(new Date().getTime(), self.value['pressure_in'])
+                self.currentLineSeries.append(new Date().getTime(), self.value['pressure_a'])
+                self.currentLineSeries.append(new Date().getTime(), self.value['pressure_b'])
+                self.currentLineSeries.append(new Date().getTime(), self.value['flow'])
 
     @pyqtSlot()
-    def stopReading(self):
-        self.timer.stop()
-        self.testTimer.stop()
-        while not self.tests.empty():
-            self.tests.get()
+    def startTests(self):
+        self.testRunning = True
 
-    def runTest(self):
-        if not self.tests.empty():
-            test = self.tests.get()
-            test()
+    @pyqtSlot()
+    def stopTests(self):
+        self.testRunning = False
     
 if __name__ == "__main__":
     app = QApplication(sys.argv)
