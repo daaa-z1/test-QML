@@ -56,10 +56,7 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
-                        for (var i = 0; i < repeater.count; i++) {
-                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) gauge.enabled = true;
-                        }
+                        gaugeEnabled = true
                     }
                 }
                 Button {
@@ -72,10 +69,7 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
-                        for (var i = 0; i < repeater.count; i++) {
-                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) gauge.enabled = false;
-                        }
+                        gaugeEnabled = false
                     }
                 }
                 Button {
@@ -88,10 +82,7 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
-                        for (var i = 0; i < repeater.count; i++) {
-                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) gauge.enabled = false;
-                        }
+                        gaugeEnabled = false
                     }
                 }
             }

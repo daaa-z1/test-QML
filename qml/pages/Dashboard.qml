@@ -55,10 +55,12 @@ Page {
                     minValue: mainApp.parameter[keys[index]].minValue
                     maxValue: mainApp.parameter[keys[index]].maxValue
                     value: !enabled ? mainApp.value[keys[index]] : 0
+                    enabled: gaugeEnabled
                 }
             }
         }
     }
 
     property var keys: ['press_in', 'press_a', 'press_b', 'flow', 'temp', 'curr_v', 'aktual', 'curr_ma', 'press_comm', 'press_actual']
+    property bool gaugeEnabled: false
 }
