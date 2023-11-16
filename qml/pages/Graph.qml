@@ -40,7 +40,8 @@ Page {
             max: 100
         }
 
-        onStatusChanged: {
+        
+        Component.onCompleted: {
             if (status === Component.Ready) {
                 chartView = chartViewId;
                 chartViewId.chart.addAxis(xAxis, Qt.AlignBottom);
