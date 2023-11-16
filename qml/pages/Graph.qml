@@ -13,6 +13,22 @@ Page {
     property var flow_keys: ['pressure_in', 'flow']
     property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
 
+    function createChart(testType) {
+        var keys = [];
+        if (testType === "Position Test") keys = position_keys;
+        else if (testType === "Flow Test") keys = flow_keys;
+        else if (testType === "Leakage Test") keys = leakage_keys;
+
+        var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            if (key) {
+                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
+                series.name = key;  // Set nama series sesuai dengan key
+            }
+        }
+    }
+
     function startNextTest() {
         if (testQueue.length > 0) {
             currentTest = testQueue.shift();
@@ -21,15 +37,21 @@ Page {
             if (currentTest === "Position Test") keys = position_keys;
             else if (currentTest === "Flow Test") keys = flow_keys;
             else if (currentTest === "Leakage Test") keys = leakage_keys;
+
+            if (testData[currentTest].length === 0) {
+                createChart(currentTest);  // Membuat grafik hanya sekali
+            }
+
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
                 testData[currentTest].push(mainApp.value[key]);
                 console.log(mainApp.value[key]);  // Replace this with code to save testData
             }
+
             Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
         } else {
             currentTest = "";
-            mainApp.saveTestResults();
+            mainApp.saveTestResults(testData);  // Menyimpan seluruh data pengujian
             positionTestCheckBox.enabled = true;
             flowTestCheckBox.enabled = true;
             leakageTestCheckBox.enabled = true;
@@ -95,12 +117,16 @@ Page {
                 Button {
                     text: "Submit"
                     onClicked: {
-                        testData = {
-                            "Date": dateField.text,
-                            "Time": timeField.text,
-                            "Customer": customerField.text,
-                            "Project": projectField.text
-                        };
+                        if (customerField.text.trim() !== "" && projectField.text.trim() !== "") {
+                            testData = {
+                                "Date": dateField.text,
+                                "Time": timeField.text,
+                                "Customer": customerField.text,
+                                "Project": projectField.text
+                            };
+                        } else {
+                            // Tambahkan pesan kesalahan jika input tidak valid
+                        }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
                 }
@@ -124,14 +150,24 @@ Page {
                     id: startButton
                     text: "Start Tests"
                     onClicked: {
-                        if (positionTestCheckBox.checked) testQueue.push("Position Test");
-                        if (flowTestCheckBox.checked) testQueue.push("Flow Test");
-                        if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
-                        startButton.enabled = false;
-                        positionTestCheckBox.enabled = false;
-                        flowTestCheckBox.enabled = false;
-                        leakageTestCheckBox.enabled = false;
-                        startNextTest();
+                        if (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) {
+                            if (positionTestCheckBox.checked) testQueue.push("Position Test");
+                            if (flowTestCheckBox.checked) testQueue.push("Flow Test");
+                            if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
+                            startButton.enabled = false;
+                            positionTestCheckBox.enabled = false;
+                            flowTestCheckBox.enabled = false;
+                            leakageTestCheckBox.enabled = false;
+
+                            // Membuat grafik hanya sekali untuk setiap jenis tes
+                            if (testData[currentTest] === undefined) {
+                                createChart(currentTest);
+                            }
+
+                            startNextTest();
+                        } else {
+                                 // Tambahkan pesan kesalahan jika tidak ada jenis tes yang dipilih
+                        }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
                 }
@@ -151,8 +187,10 @@ Page {
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
                 if (key) {
-                    var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                    series.append(currentTime, mainApp.value[key]);
+                    var series = chartView.series(key);
+                    if (series) {
+                        series.append(currentTime, mainApp.value[key]);
+                    }
                 }
             }
         }
