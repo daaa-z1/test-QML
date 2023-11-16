@@ -30,7 +30,7 @@ Page {
             currentTest = "";
             console.log(testData);  // Replace this with code to save testData
             mainApp.saveTestResults();
-            ositionTestCheckBox.enabled = false
+            positionTestCheckBox.enabled = false
             flowTestCheckBox.enabled = false
             leakageTestCheckBox.enabled = false
             startButton.enabled = true;
