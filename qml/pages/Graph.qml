@@ -30,9 +30,9 @@ Page {
             currentTest = "";
             console.log(testData);  // Replace this with code to save testData
             mainApp.saveTestResults();
-            positionTestCheckBox.enabled = false
-            flowTestCheckBox.enabled = false
-            leakageTestCheckBox.enabled = false
+            positionTestCheckBox.enabled = true;
+            flowTestCheckBox.enabled = true;
+            leakageTestCheckBox.enabled = true;
             startButton.enabled = true;
         }
     }
