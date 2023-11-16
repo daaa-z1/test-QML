@@ -9,18 +9,31 @@ Page {
     property var testData: ({})
     property string currentTest: ""
     property var testQueue: []
+    property var position_keys: ['curr_v', 'aktual']
+    property var flow_keys: ['pressure_in', 'flow']
+    property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
 
     function startNextTest() {
         if (testQueue.length > 0) {
             currentTest = testQueue.shift();
-            if (currentTest === "Position Test") mainApp.positionTest();
-            else if (currentTest === "Flow Test") mainApp.flowTest();
-            else if (currentTest === "Leakage Test") mainApp.leakageTest();
             testData[currentTest] = [];
+            var keys = [];
+            if (currentTest === "Position Test") keys = position_keys;
+            else if (currentTest === "Flow Test") keys = flow_keys;
+            else if (currentTest === "Leakage Test") keys = leakage_keys;
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                testData[currentTest].push(mainApp.value[key]);
+            }
             Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
         } else {
             currentTest = "";
             console.log(testData);  // Replace this with code to save testData
+            mainApp.saveTestResults();
+            ositionTestCheckBox.enabled = false
+            flowTestCheckBox.enabled = false
+            leakageTestCheckBox.enabled = false
+            startButton.enabled = true;
         }
     }
 
@@ -113,6 +126,10 @@ Page {
                         if (positionTestCheckBox.checked) testQueue.push("Position Test");
                         if (flowTestCheckBox.checked) testQueue.push("Flow Test");
                         if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
+                        startButton.enabled = false
+                        positionTestCheckBox.enabled = false
+                        flowTestCheckBox.enabled = false
+                        leakageTestCheckBox.enabled = false
                         startNextTest();
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
@@ -126,8 +143,16 @@ Page {
         function onValueChanged() {
             // Update the chart with the new values
             var currentTime = new Date().getTime();
-            if (!isNaN(mainApp.value['curr_v'])) {
-                lineSeries.append(currentTime, mainApp.value['curr_v']);
+            var keys = [];
+            if (currentTest === "Position Test") keys = position_keys;
+            else if (currentTest === "Flow Test") keys = flow_keys;
+            else if (currentTest === "Leakage Test") keys = leakage_keys;
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                if (!isNaN(mainApp.value[key])) {
+                    var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
+                    series.append(currentTime, mainApp.value[key]);
+                }
             }
         }
     }
