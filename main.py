@@ -1,5 +1,6 @@
 import sys
-import time
+import pyqtgraph as pg
+from datetime import datetime
 import csv
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
@@ -53,8 +54,16 @@ class MainApp(QObject):
         self.timer.start(100)
         
         # Setup Grafik untuk pengujian
-        self.test_type = 0
-        self.test_start_time = time.time()
+        self.graphWidget = pg.PlotWidget()
+        self.graphWidget.showGrid(x=True, y=True)
+        self.graphWidget.setWindowTitle('Servo Valve Monitoring')
+
+        # Menambahkan fitur pengujian
+        self.test_types = ['Position Test', 'Flow Test', 'Leakage Test']
+        self.current_test_index = 0
+        self.test_timer = QTimer()
+        self.test_timer.timeout.connect(self.runTest)
+        self.save_results = []
         
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -228,18 +237,47 @@ class MainApp(QObject):
         return self._parameter
     
     
-    def saveTestResults(self, name, test_type, test_time, test_data):
-        with open(f'{name}_{test_type}_{test_time}.csv', 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(self.keys)
-            writer.writerow(test_data)
+    @pyqtSlot()
+    def runTest(self):
+        if self.current_test_index < len(self.test_types):
+            test_type = self.test_types[self.current_test_index]
+
+            if test_type == 'Position Test':
+                values = [self.value['curr_v'], self.value['aktual']]
+            elif test_type == 'Flow Test':
+                values = [self.value['press_in'], self._alue['flow']]
+            elif test_type == 'Leakage Test':
+                values = [self.value['press_in'], self.value['press_a'], self.value['press_b'], self.value['flow']]
+
+            # Menambahkan nilai ke dalam grafik
+            self.graphWidget.plot(values, pen=(self.current_test_index, len(self.test_types)), name=test_type)
+
+            # Menyimpan hasil pengujian
+            result = {
+                'Test Type': test_type,
+                'Timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'Values': values
+            }
+            self.save_results.append(result)
+
+            self.current_test_index += 1
+        else:
+            # Pengujian selesai, stop timer dan simpan hasil pengujian ke file CSV
+            self.test_timer.stop()
+            self.saveResultsToCSV()
+    
+    def saveResultsToCSV(self):
+        filename = f"test_results_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
+        with open(filename, 'w', newline='') as csvfile:
+            fieldnames = ['Test Type', 'Timestamp', 'Values']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+            writer.writeheader()
+            for result in self.save_results:
+                writer.writerow(result)
     
     @pyqtSlot()
     def readValues(self):
-        if time.time() - self.test_start_time > 10:
-            self.test_type = (self.test_type + 1) % 3
-            self.test_start_time = time.time()
-        
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
         min_scale = self.daftar_min_scale[0]
         max_scale = self.daftar_max_scale[0]
@@ -258,9 +296,11 @@ if __name__ == "__main__":
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
+    engine.rootContext().setContextProperty("graphWidget", mainApp.graphWidget)
     engine.load("qml/main.qml")
 
     if not engine.rootObjects():
         sys.exit(-1)
 
+    mainApp.test_timer.start(10000) 
     sys.exit(app.exec_())

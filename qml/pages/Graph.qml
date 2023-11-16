@@ -1,64 +1,72 @@
+// Graph.qml
+
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
 Page {
-    id: graphPage
+    title: "Test Graph"
 
-    property var seriesList: []
-    property var chartView: null
-
-    function addSeries(key) {
-        var series = Qt.createQmlObject('import QtCharts 2.15; LineSeries {}', graphPage);
-        series.name = key;
-        seriesList.push(series);
-        chartView.chart.addSeries(series);
-    }
-
-    function updateSeries(key, value) {
-        for (var i = 0; i < seriesList.length; i++) {
-            if (seriesList[i].name === key) {
-                seriesList[i].append(new Date().getTime(), value);
-                break;
-            }
-        }
-    }
-
+    // Widget grafik
     ChartView {
-        id: chartViewId
+        id: chartView
         anchors.fill: parent
-        antialiasing: true
+        legend.visible: true
+    }
 
-        ValueAxis {
-            id: xAxis
-            min: new Date().getTime()
-            max: new Date().getTime() + 60000  // 1 minute
-        }
-        ValueAxis {
-            id: yAxis
-            min: 0
-            max: 100
-        }
-
-        Component.onCompleted: {
-            chartView = chartViewId;
-            chartViewId.chart.addAxis(xAxis, Qt.AlignBottom);
-            chartViewId.chart.addAxis(yAxis, Qt.AlignLeft);
-            for (var i = 0; i < seriesList.length; i++) {
-                seriesList[i].attachAxis(xAxis);
-                seriesList[i].attachAxis(yAxis);
-            }
+    // Tombol untuk memulai pengujian
+    Button {
+        text: "Start Test"
+        onClicked: {
+            mainApp.test_timer.start(10000) // Mulai pengujian setiap 10 detik
+            mainApp.save_results = [] // Bersihkan hasil pengujian sebelumnya
+            chartView.removeAllSeries() // Bersihkan grafik sebelumnya
         }
     }
 
-    Component.onCompleted: {
-        for (var i = 0; i < mainApp.keys.length; i++) {
-            addSeries(mainApp.keys[i]);
+    // Tombol untuk menyimpan hasil pengujian
+    Button {
+        text: "Save Results"
+        onClicked: {
+            mainApp.saveResultsToCSV()
         }
-        mainApp.valueChanged.connect(function() {
-            for (var key in mainApp.value) {
-                updateSeries(key, mainApp.value[key]);
+    }
+
+    // Tombol untuk menghentikan pengujian
+    Button {
+        text: "Stop Test"
+        onClicked: {
+            mainApp.test_timer.stop()
+        }
+    }
+
+    // Tombol untuk kembali ke halaman utama
+    Button {
+        text: "Back to Main Page"
+        onClicked: {
+            mainApp.test_timer.stop()
+            stackView.pop()
+        }
+    }
+
+    // Mengatur properti dari grafik
+    Component.onCompleted: {
+        var seriesList = []
+        for (var i = 0; i < mainApp.test_types.length; ++i) {
+            var series = chartView.createSeries(ChartView.SeriesTypeLine, mainApp.test_types[i], chartView.axisX, chartView.axisY)
+            seriesList.push(series)
+        }
+        chartView.series = seriesList
+    }
+
+    // Menambahkan nilai ke dalam grafik saat ada perubahan pada nilai di Python
+    Connections {
+        target: mainApp
+        onGraphUpdated: {
+            for (var i = 0; i < mainApp.test_types.length; ++i) {
+                var values = mainApp._value[mainApp.keys[i]]
+                chartView.series[i].append(i, values)
             }
-        });
+        }
     }
 }
