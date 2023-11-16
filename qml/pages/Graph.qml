@@ -127,10 +127,10 @@ Page {
                         if (positionTestCheckBox.checked) testQueue.push("Position Test");
                         if (flowTestCheckBox.checked) testQueue.push("Flow Test");
                         if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
-                        startButton.enabled = false
-                        positionTestCheckBox.enabled = false
-                        flowTestCheckBox.enabled = false
-                        leakageTestCheckBox.enabled = false
+                        startButton.enabled = false;
+                        positionTestCheckBox.enabled = false;
+                        flowTestCheckBox.enabled = false;
+                        leakageTestCheckBox.enabled = false;
                         startNextTest();
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
