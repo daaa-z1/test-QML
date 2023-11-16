@@ -24,7 +24,7 @@ Page {
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
                 testData[currentTest].push(mainApp.value[key]);
-                console.log(testData);  // Replace this with code to save testData
+                console.log(mainApp.value[key]);  // Replace this with code to save testData
             }
             Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
         } else {
