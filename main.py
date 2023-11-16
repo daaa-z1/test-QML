@@ -1,5 +1,6 @@
 import sys
-import queue
+import time
+import csv
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QVariant
@@ -52,18 +53,8 @@ class MainApp(QObject):
         self.timer.start(100)
         
         # Setup Grafik untuk pengujian
-        # Variabel untuk menyimpan state checkbox pengujian
-        self.isPositionTestChecked = False
-        self.isFlowTestChecked = False
-        self.isLeakageTestChecked = False
-
-        # Menambahkan sinyal untuk menandakan perubahan state checkbox
-        self.positionTestCheckedChanged = pyqtSignal(bool)
-        self.flowTestCheckedChanged = pyqtSignal(bool)
-        self.leakageTestCheckedChanged = pyqtSignal(bool)
-
-        # Variabel untuk menyimpan status pengujian
-        self.testRunning = False
+        self.test_type = 0
+        self.test_start_time = time.time()
         
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -236,8 +227,19 @@ class MainApp(QObject):
     def parameter(self):
         return self._parameter
     
+    
+    def saveTestResults(self, name, test_type, test_time, test_data):
+        with open(f'{name}_{test_type}_{test_time}.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(self.keys)
+            writer.writerow(test_data)
+    
     @pyqtSlot()
     def readValues(self):
+        if time.time() - self.test_start_time > 10:
+            self.test_type = (self.test_type + 1) % 3
+            self.test_start_time = time.time()
+        
         value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
         min_scale = self.daftar_min_scale[0]
         max_scale = self.daftar_max_scale[0]
@@ -245,38 +247,9 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
+        
         self.valueChanged.emit()
-
-
-    @pyqtSlot()
-    def updateGraph(self):
-        if self.testRunning:
-            if self.isPositionTestChecked:
-                # Logika membuat grafik untuk Position Test
-                self.value['curr_v']
-                self.value['aktual']
-            elif self.isFlowTestChecked:
-                # Logika membuat grafik untuk Flow Test
-                self.value['pressure_in']
-                self.value['flow']
-            elif self.isLeakageTestChecked:
-                # Logika membuat grafik untuk Leakage Test
-                self.value['pressure_in']
-                self.value['pressure_a']
-                self.value['pressure_b']
-                self.value['flow']
-
-            # Emit signal bahwa nilai telah berubah
-            self.valueChanged.emit()
-
-    @pyqtSlot()
-    def startTests(self):
-        self.testRunning = True
-
-    @pyqtSlot()
-    def stopTests(self):
-        self.testRunning = False
-    
+ 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()

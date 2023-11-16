@@ -1,101 +1,64 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
 import QtCharts 2.15
 
 Page {
     id: graphPage
 
-    Rectangle {
-        id: inputBox
-        width: parent.width / 4
-        height: parent.height
-        anchors.right: parent.right
+    property var seriesList: []
+    property var chartView: null
 
-        ColumnLayout {
-            anchors.fill: parent
-            spacing: 10
+    function addSeries(key) {
+        var series = Qt.createQmlObject('import QtCharts 2.15; LineSeries {}', graphPage);
+        series.name = key;
+        seriesList.push(series);
+        chartView.chart.addSeries(series);
+    }
 
-            CheckBox {
-                id: positionTestCheckBox
-                text: "Position Test"
-            }
-
-            CheckBox {
-                id: flowTestCheckBox
-                text: "Flow Test"
-            }
-
-            CheckBox {
-                id: leakageTestCheckBox
-                text: "Leakage Test"
-            }
-
-            Button {
-                text: "Start"
-                onClicked: {
-                    if (positionTestCheckBox.checked) {
-                        mainApp.startTest("Position Test");
-                    } else if (flowTestCheckBox.checked) {
-                        mainApp.startTest("Flow Test");
-                    } else if (leakageTestCheckBox.checked) {
-                        mainApp.startTest("Leakage Test");
-                    }
-                }
+    function updateSeries(key, value) {
+        for (var i = 0; i < seriesList.length; i++) {
+            if (seriesList[i].name === key) {
+                seriesList[i].append(new Date().getTime(), value);
+                break;
             }
         }
+    }
+
+    Component.onCompleted: {
+        for (var i = 0; i < mainApp.keys.length; i++) {
+            addSeries(mainApp.keys[i]);
+        }
+        mainApp.valueChanged.connect(function() {
+            for (var key in mainApp.value) {
+                updateSeries(key, mainApp.value[key]);
+            }
+        });
     }
 
     ChartView {
-        id: chartView
-        anchors {
-            left: parent.left
-            right: inputBox.left
-            top: parent.top
-            bottom: parent.bottom
+        id: chartViewId
+        anchors.fill: parent
+        antialiasing: true
+
+        ValueAxis {
+            id: xAxis
+            min: new Date().getTime()
+            max: new Date().getTime() + 60000  // 1 minute
+        }
+        ValueAxis {
+            id: yAxis
+            min: 0
+            max: 100
         }
 
-        LineSeries {
-            id: positionTestSeries
-            name: "Position Test"
-            visible: false
-        }
-
-        LineSeries {
-            id: flowTestSeries
-            name: "Flow Test"
-            visible: false 
-        }
-
-        LineSeries {
-            id: leakageTestSeries
-            name: "Leakage Test"
-            visible: false 
-        }
-    }
-
-    Timer {
-        id: testTimer
-        interval: 10000 // 10 seconds
-        onTriggered: {
-            positionTestSeries.visible = false;
-            flowTestSeries.visible = false;
-            leakageTestSeries.visible = false;
-
-            // Show the current series
-            if (positionTestCheckBox.checked && mainApp.currentTestIndex == 0) {
-                positionTestSeries.visible = true;
-            } else if (flowTestCheckBox.checked && mainApp.currentTestIndex == 1) {
-                flowTestSeries.visible = true;
-            } else if (leakageTestCheckBox.checked && mainApp.currentTestIndex == 2) {
-                leakageTestSeries.visible = true;
+        Component.onCompleted: {
+            chartView = chartViewId;
+            chart.addAxis(xAxis, Qt.AlignBottom);
+            chart.addAxis(yAxis, Qt.AlignLeft);
+            for (var i = 0; i < seriesList.length; i++) {
+                seriesList[i].attachAxis(xAxis);
+                seriesList[i].attachAxis(yAxis);
             }
-
-            // Update the current series
-            mainApp.updateSeries();
-
-            // Switch to the next test
-            mainApp.switchTest();
         }
     }
 }
