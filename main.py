@@ -231,78 +231,36 @@ class MainApp(QObject):
         max_values = self.daftar_max[0]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
-        
-    # Fungsi untuk memulai pengujian
-    def startTesting(self, tests):
-        self.tests = tests
-        self.testIndex = 0
-        self.startTest()
-
-    # Fungsi untuk memulai pengujian sesuai jenis yang dipilih
-    def startTest(self):
-        if self.testIndex < len(self.tests):
-            test_type = self.tests[self.testIndex]
-
-            if test_type == "Position Test":
-                self.currentTest = self.positionTest
-            elif test_type == "Flow Test":
-                self.currentTest = self.flowTest
-            elif test_type == "Leakage Test":
-                self.currentTest = self.leakageTest
-
-            self.timer.timeout.disconnect()  # Memastikan timer terputus dari fungsi sebelumnya
-            self.timer.timeout.connect(self.currentTest)
-            self.timer.start(10000)  # Pengujian berlangsung selama 10 detik
-        else:
-            # Semua pengujian selesai
-            self.timer.stop()
-
-    # Fungsi pengujian posisi
+    
+    @pyqtSlot()
     def positionTest(self):
-        # Baca nilai dari curr_v dan aktual
-        curr_v_value = self.value['curr_v']
-        aktual_value = self.value['aktual']
+        # Read the values for the position test
+        curr_v = self.value['curr_v']
+        aktual = self.value['aktual']
+        # Perform the position test calculations
+        # Update the value property
+        self.value = {'curr_v': curr_v, 'aktual': aktual}
 
-        # Tambahkan nilai ke grafik
-        self.plotData['curr_v'].append(curr_v_value)
-        self.plotData['aktual'].append(aktual_value)
-
-        self.updatePlot()
-
-    # Fungsi pengujian aliran
+    @pyqtSlot()
     def flowTest(self):
-        # Baca nilai dari pressure_in dan flow
-        pressure_in_value = self.value['pressure_in']
-        flow_value = self.value['flow']
+        # Read the values for the flow test
+        pressure_in = self.value['press_in']
+        flow = self.value['flow']
+        # Perform the flow test calculations
+        # Update the value property
+        self.value = {'pressure_in': pressure_in, 'flow': flow}
 
-        # Tambahkan nilai ke grafik
-        self.plotData['pressure_in'].append(pressure_in_value)
-        self.plotData['flow'].append(flow_value)
-
-        self.updatePlot()
-
-    # Fungsi pengujian kebocoran
+    @pyqtSlot()
     def leakageTest(self):
-        # Baca nilai dari pressure_in, pressure_a, pressure_b, dan flow
-        pressure_in_value = self.value['pressure_in']
-        pressure_a_value = self.value['pressure_a']
-        pressure_b_value = self.value['pressure_b']
-        flow_value = self.value['flow']
-
-        # Tambahkan nilai ke grafik
-        self.plotData['pressure_in'].append(pressure_in_value)
-        self.plotData['pressure_a'].append(pressure_a_value)
-        self.plotData['pressure_b'].append(pressure_b_value)
-        self.plotData['flow'].append(flow_value)
-
-        self.updatePlot()
-
-    # Fungsi untuk memperbarui grafik
-    def updatePlot(self):
-        self.graphWidget.clear()  # Hapus plot sebelumnya
-        for key, values in self.plotData.items():
-            self.graphWidget.plot(values, name=key)  # Plot data
-
+        # Read the values for the leakage test
+        pressure_in = self.value['press_in']
+        pressure_a = self.value['press_a']
+        pressure_b = self.value['press_b']
+        flow = self.value['flow']
+        # Perform the leakage test calculations
+        # Update the value property
+        self.value = {'pressure_in': pressure_in, 'pressure_a': pressure_a, 'pressure_b': pressure_b, 'flow': flow}
+    
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
