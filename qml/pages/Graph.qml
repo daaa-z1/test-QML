@@ -53,8 +53,8 @@ Page {
 
         Component.onCompleted: {
             chartView = chartViewId;
-            chart.addAxis(xAxis, Qt.AlignBottom);
-            chart.addAxis(yAxis, Qt.AlignLeft);
+            chartViewId.chart.addAxis(xAxis, Qt.AlignBottom);
+            chartViewId.chart.addAxis(yAxis, Qt.AlignLeft);
             for (var i = 0; i < seriesList.length; i++) {
                 seriesList[i].attachAxis(xAxis);
                 seriesList[i].attachAxis(yAxis);
