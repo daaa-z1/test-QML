@@ -1,5 +1,5 @@
 import sys
-import pyqtgraph as pg
+import json
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QVariant
@@ -260,6 +260,11 @@ class MainApp(QObject):
         # Perform the leakage test calculations
         # Update the value property
         self.value = {'pressure_in': pressure_in, 'pressure_a': pressure_a, 'pressure_b': pressure_b, 'flow': flow}
+    
+    @pyqtSlot()
+    def saveTestResults(self):
+        with open('test_results.json', 'w') as f:
+            json.dump(self._value, f)
     
 if __name__ == "__main__":
     app = QApplication(sys.argv)
