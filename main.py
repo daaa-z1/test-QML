@@ -1,7 +1,5 @@
 import sys
 import pyqtgraph as pg
-from datetime import datetime
-import csv
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QVariant
@@ -52,18 +50,6 @@ class MainApp(QObject):
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
-        
-        # Setup Grafik untuk pengujian
-        self.graphWidget = pg.PlotWidget()
-        self.graphWidget.showGrid(x=True, y=True)
-        self.graphWidget.setWindowTitle('Servo Valve Monitoring')
-
-        # Menambahkan fitur pengujian
-        self.test_types = ['Position Test', 'Flow Test', 'Leakage Test']
-        self.current_test_index = 0
-        self.test_timer = QTimer()
-        self.test_timer.timeout.connect(self.runTest)
-        self.save_results = []
         
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
@@ -246,57 +232,85 @@ class MainApp(QObject):
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
         
-        self.valueChanged.emit()
-       
-    @pyqtSlot()
-    def runTest(self):
-        if self.current_test_index < len(self.test_types):
-            test_type = self.test_types[self.current_test_index]
+    # Fungsi untuk memulai pengujian
+    def startTesting(self, tests):
+        self.tests = tests
+        self.testIndex = 0
+        self.startTest()
 
-            if test_type == 'Position Test':
-                values = [self.value['curr_v'], self.value['aktual']]
-            elif test_type == 'Flow Test':
-                values = [self.value['press_in'], self._alue['flow']]
-            elif test_type == 'Leakage Test':
-                values = [self.value['press_in'], self.value['press_a'], self.value['press_b'], self.value['flow']]
+    # Fungsi untuk memulai pengujian sesuai jenis yang dipilih
+    def startTest(self):
+        if self.testIndex < len(self.tests):
+            test_type = self.tests[self.testIndex]
 
-            # Menambahkan nilai ke dalam grafik
-            self.graphWidget.plot(values, pen=(self.current_test_index, len(self.test_types)), name=test_type)
+            if test_type == "Position Test":
+                self.currentTest = self.positionTest
+            elif test_type == "Flow Test":
+                self.currentTest = self.flowTest
+            elif test_type == "Leakage Test":
+                self.currentTest = self.leakageTest
 
-            # Menyimpan hasil pengujian
-            result = {
-                'Test Type': test_type,
-                'Timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                'Values': values
-            }
-            self.save_results.append(result)
-
-            self.current_test_index += 1
+            self.timer.timeout.disconnect()  # Memastikan timer terputus dari fungsi sebelumnya
+            self.timer.timeout.connect(self.currentTest)
+            self.timer.start(10000)  # Pengujian berlangsung selama 10 detik
         else:
-            # Pengujian selesai, stop timer dan simpan hasil pengujian ke file CSV
-            self.test_timer.stop()
-            self.saveResultsToCSV()
-    
-    def saveResultsToCSV(self):
-        filename = f"test_results_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
-        with open(filename, 'w', newline='') as csvfile:
-            fieldnames = ['Test Type', 'Timestamp', 'Values']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            # Semua pengujian selesai
+            self.timer.stop()
 
-            writer.writeheader()
-            for result in self.save_results:
-                writer.writerow(result)
-    
+    # Fungsi pengujian posisi
+    def positionTest(self):
+        # Baca nilai dari curr_v dan aktual
+        curr_v_value = self.value['curr_v']
+        aktual_value = self.value['aktual']
+
+        # Tambahkan nilai ke grafik
+        self.plotData['curr_v'].append(curr_v_value)
+        self.plotData['aktual'].append(aktual_value)
+
+        self.updatePlot()
+
+    # Fungsi pengujian aliran
+    def flowTest(self):
+        # Baca nilai dari pressure_in dan flow
+        pressure_in_value = self.value['pressure_in']
+        flow_value = self.value['flow']
+
+        # Tambahkan nilai ke grafik
+        self.plotData['pressure_in'].append(pressure_in_value)
+        self.plotData['flow'].append(flow_value)
+
+        self.updatePlot()
+
+    # Fungsi pengujian kebocoran
+    def leakageTest(self):
+        # Baca nilai dari pressure_in, pressure_a, pressure_b, dan flow
+        pressure_in_value = self.value['pressure_in']
+        pressure_a_value = self.value['pressure_a']
+        pressure_b_value = self.value['pressure_b']
+        flow_value = self.value['flow']
+
+        # Tambahkan nilai ke grafik
+        self.plotData['pressure_in'].append(pressure_in_value)
+        self.plotData['pressure_a'].append(pressure_a_value)
+        self.plotData['pressure_b'].append(pressure_b_value)
+        self.plotData['flow'].append(flow_value)
+
+        self.updatePlot()
+
+    # Fungsi untuk memperbarui grafik
+    def updatePlot(self):
+        self.graphWidget.clear()  # Hapus plot sebelumnya
+        for key, values in self.plotData.items():
+            self.graphWidget.plot(values, name=key)  # Plot data
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
-
     mainApp = MainApp()
-    graph = mainApp.graphWidget
-
+    mainApp.graphWidget = pg.PlotWidget()
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
-    engine.rootContext().setContextProperty("graphWidget", graph)
+    engine.rootContext().setContextProperty("graphWidget", mainApp.graphWidget)
     engine.load("qml/main.qml")
 
     if not engine.rootObjects():

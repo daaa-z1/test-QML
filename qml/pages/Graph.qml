@@ -1,72 +1,114 @@
-// Graph.qml
-
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
 Page {
-    title: "Test Graph"
+    title: "Graph Page"
 
-    // Widget grafik
-    ChartView {
-        id: chartView
-        anchors.fill: parent
-        legend.visible: true
-    }
+    Column {
+        spacing: 10
 
-    // Tombol untuk memulai pengujian
-    Button {
-        text: "Start Test"
-        onClicked: {
-            mainApp.test_timer.start(10000) // Mulai pengujian setiap 10 detik
-            mainApp.save_results = [] // Bersihkan hasil pengujian sebelumnya
-            chartView.removeAllSeries() // Bersihkan grafik sebelumnya
-        }
-    }
+        // Grafik
+        ChartView {
+            id: chartView
+            width: parent.width
+            height: parent.height * 0.7
 
-    // Tombol untuk menyimpan hasil pengujian
-    Button {
-        text: "Save Results"
-        onClicked: {
-            mainApp.saveResultsToCSV()
-        }
-    }
-
-    // Tombol untuk menghentikan pengujian
-    Button {
-        text: "Stop Test"
-        onClicked: {
-            mainApp.test_timer.stop()
-        }
-    }
-
-    // Tombol untuk kembali ke halaman utama
-    Button {
-        text: "Back to Main Page"
-        onClicked: {
-            mainApp.test_timer.stop()
-            stackView.pop()
-        }
-    }
-
-    // Mengatur properti dari grafik
-    Component.onCompleted: {
-        var seriesList = []
-        for (var i = 0; i < mainApp.test_types.length; ++i) {
-            var series = chartView.createSeries(ChartView.SeriesTypeLine, mainApp.test_types[i], chartView.axisX, chartView.axisY)
-            seriesList.push(series)
-        }
-        chartView.series = seriesList
-    }
-
-    // Menambahkan nilai ke dalam grafik saat ada perubahan pada nilai di Python
-    Connections {
-        target: mainApp
-        onGraphUpdated: {
-            for (var i = 0; i < mainApp.test_types.length; ++i) {
-                var values = mainApp._value[mainApp.keys[i]]
-                chartView.series[i].append(i, values)
+            LineSeries {
+                name: "curr_v"
+                axisX: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+                axisY: ValueAxis {
+                    labelFormat: "%.1f"
+                }
             }
+
+            LineSeries {
+                name: "aktual"
+                axisX: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+                axisY: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+            }
+
+            LineSeries {
+                name: "pressure_in"
+                axisX: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+                axisY: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+            }
+
+            LineSeries {
+                name: "pressure_a"
+                axisX: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+                axisY: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+            }
+
+            LineSeries {
+                name: "pressure_b"
+                axisX: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+                axisY: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+            }
+
+            LineSeries {
+                name: "flow"
+                axisX: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+                axisY: ValueAxis {
+                    labelFormat: "%.1f"
+                }
+            }
+        }
+
+        // Checkboxes untuk memilih jenis pengujian
+        Row {
+            CheckBox {
+                text: "Position Test"
+                checked: true
+                onCheckedChanged: {
+                    if (checked) mainApp.tests.push("Position Test")
+                    else mainApp.tests.splice(mainApp.tests.indexOf("Position Test"), 1)
+                }
+            }
+
+            CheckBox {
+                text: "Flow Test"
+                checked: true
+                onCheckedChanged: {
+                    if (checked) mainApp.tests.push("Flow Test")
+                    else mainApp.tests.splice(mainApp.tests.indexOf("Flow Test"), 1)
+                }
+            }
+
+            CheckBox {
+                text: "Leakage Test"
+                checked: true
+                onCheckedChanged: {
+                    if (checked) mainApp.tests.push("Leakage Test")
+                    else mainApp.tests.splice(mainApp.tests.indexOf("Leakage Test"), 1)
+                }
+            }
+        }
+
+        // Tombol untuk memulai pengujian
+        Button {
+            text: "Start Testing"
+            onClicked: mainApp.startTesting(mainApp.tests)
         }
     }
 }
