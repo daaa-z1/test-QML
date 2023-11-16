@@ -24,17 +24,6 @@ Page {
         }
     }
 
-    Component.onCompleted: {
-        for (var i = 0; i < mainApp.keys.length; i++) {
-            addSeries(mainApp.keys[i]);
-        }
-        mainApp.valueChanged.connect(function() {
-            for (var key in mainApp.value) {
-                updateSeries(key, mainApp.value[key]);
-            }
-        });
-    }
-
     ChartView {
         id: chartViewId
         anchors.fill: parent
@@ -51,14 +40,27 @@ Page {
             max: 100
         }
 
-        Component.onCompleted: {
-            chartView = chartViewId;
-            chartViewId.chart.addAxis(xAxis, Qt.AlignBottom);
-            chartViewId.chart.addAxis(yAxis, Qt.AlignLeft);
-            for (var i = 0; i < seriesList.length; i++) {
-                seriesList[i].attachAxis(xAxis);
-                seriesList[i].attachAxis(yAxis);
+        onStatusChanged: {
+            if (status === Component.Ready) {
+                chartView = chartViewId;
+                chartViewId.chart.addAxis(xAxis, Qt.AlignBottom);
+                chartViewId.chart.addAxis(yAxis, Qt.AlignLeft);
+                for (var i = 0; i < seriesList.length; i++) {
+                    seriesList[i].attachAxis(xAxis);
+                    seriesList[i].attachAxis(yAxis);
+                }
             }
         }
+    }
+
+    Component.onCompleted: {
+        for (var i = 0; i < mainApp.keys.length; i++) {
+            addSeries(mainApp.keys[i]);
+        }
+        mainApp.valueChanged.connect(function() {
+            for (var key in mainApp.value) {
+                updateSeries(key, mainApp.value[key]);
+            }
+        });
     }
 }
