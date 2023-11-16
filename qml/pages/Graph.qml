@@ -125,7 +125,10 @@ Page {
         target: mainApp
         function onValueChanged() {
             // Update the chart with the new values
-            lineSeries.append(new Date().getTime(), mainApp.value['curr_v']);
+            var currentTime = new Date().getTime();
+            if (!isNaN(mainApp.value['curr_v'])) {
+                lineSeries.append(currentTime, mainApp.value['curr_v']);
+            }
         }
     }
 }
