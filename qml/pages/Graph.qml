@@ -40,16 +40,13 @@ Page {
             max: 100
         }
 
-        
         Component.onCompleted: {
-            if (status === Component.Ready) {
-                chartView = chartViewId;
-                chartViewId.chart.addAxis(xAxis, Qt.AlignBottom);
-                chartViewId.chart.addAxis(yAxis, Qt.AlignLeft);
-                for (var i = 0; i < seriesList.length; i++) {
-                    seriesList[i].attachAxis(xAxis);
-                    seriesList[i].attachAxis(yAxis);
-                }
+            chartView = chartViewId;
+            chartViewId.chart.addAxis(xAxis, Qt.AlignBottom);
+            chartViewId.chart.addAxis(yAxis, Qt.AlignLeft);
+            for (var i = 0; i < seriesList.length; i++) {
+                seriesList[i].attachAxis(xAxis);
+                seriesList[i].attachAxis(yAxis);
             }
         }
     }
