@@ -121,6 +121,7 @@ Page {
                 }
 
                 Button {
+                    id: startButton
                     text: "Start Tests"
                     onClicked: {
                         if (positionTestCheckBox.checked) testQueue.push("Position Test");
