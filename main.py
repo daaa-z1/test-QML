@@ -270,10 +270,8 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
     mainApp = MainApp()
-    mainApp.graphWidget = pg.PlotWidget()
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
-    engine.rootContext().setContextProperty("graphWidget", mainApp.graphWidget)
     engine.load("qml/main.qml")
 
     if not engine.rootObjects():
