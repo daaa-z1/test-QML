@@ -236,7 +236,18 @@ class MainApp(QObject):
     def parameter(self):
         return self._parameter
     
-    
+    @pyqtSlot()
+    def readValues(self):
+        value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
+        min_scale = self.daftar_min_scale[0]
+        max_scale = self.daftar_max_scale[0]
+        min_values = self.daftar_min[0]
+        max_values = self.daftar_max[0]
+        calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
+        self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
+        
+        self.valueChanged.emit()
+       
     @pyqtSlot()
     def runTest(self):
         if self.current_test_index < len(self.test_types):
@@ -276,27 +287,16 @@ class MainApp(QObject):
             for result in self.save_results:
                 writer.writerow(result)
     
-    @pyqtSlot()
-    def readValues(self):
-        value = [self.d.getAIN(ain) for ain in self.daftar_ain[0]]
-        min_scale = self.daftar_min_scale[0]
-        max_scale = self.daftar_max_scale[0]
-        min_values = self.daftar_min[0]
-        max_values = self.daftar_max[0]
-        calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i]) for i in range(len(value))]
-        self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
-        
-        self.valueChanged.emit()
- 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
     mainApp = MainApp()
+    graph = mainApp.graphWidget
 
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
-    engine.rootContext().setContextProperty("graphWidget", mainApp.graphWidget)
+    engine.rootContext().setContextProperty("graphWidget", graph)
     engine.load("qml/main.qml")
 
     if not engine.rootObjects():
