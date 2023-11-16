@@ -123,11 +123,9 @@ Page {
 
     Connections {
         target: mainApp
-        onValueChanged: {
-            if (currentTest !== "") {
-                testData[currentTest].push(mainApp.value);
-                lineSeries.append(new Date().getTime(), mainApp.value['curr_v']);
-            }
+        function onValueChanged() {
+            // Update the chart with the new values
+            lineSeries.append(new Date().getTime(), mainApp.value['curr_v']);
         }
     }
 }
