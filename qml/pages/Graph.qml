@@ -150,7 +150,7 @@ Page {
             else if (currentTest === "Leakage Test") keys = leakage_keys;
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
-                if (!isNaN(mainApp.value[key])) {
+                if (key) {
                     var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
                     series.append(currentTime, mainApp.value[key]);
                 }
