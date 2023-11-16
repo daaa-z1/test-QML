@@ -24,11 +24,11 @@ Page {
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
                 testData[currentTest].push(mainApp.value[key]);
+                console.log(testData);  // Replace this with code to save testData
             }
             Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
         } else {
             currentTest = "";
-            console.log(testData);  // Replace this with code to save testData
             mainApp.saveTestResults();
             positionTestCheckBox.enabled = true;
             flowTestCheckBox.enabled = true;
