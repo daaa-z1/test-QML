@@ -28,41 +28,14 @@ Page {
         else if (testType === "Leakage Test") keys = leakage_keys;
         chartView.title = testType;
 
-        // Buat objek ChartView
-        var chartView = QtCharts.ChartView();
-
-        var chart = chartView.chart;
-
-        // Hapus semua series yang ada
-        while (chart.series.length > 0) {
-            chart.removeSeries(chart.series[0]);
-        }
-
-        // Tambahkan series baru
-        var chartSeries = QtCharts.LineSeries();
-        chartSeries.name = testType;
-
+        var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                // Tambahkan data aktual sebagai XYPoint ke chartSeries
-                chartSeries.append(i, mainApp.value[key]);
+                series = chartView.series(key)
+                series.append(new Date().getTime(), mainApp.value(key));
+                console.log(mainApp.value[key]);
             }
-        }
-
-        chart.addSeries(chartSeries);
-
-        // Buat axis secara manual jika belum ada
-        if (!chartView.axisX()) {
-            var xAxis = QtCharts.QValueAxis();
-            xAxis.titleText = "X Axis Title";
-            chartView.axisX = xAxis;
-        }
-
-        if (!chartView.axisY()) {
-            var yAxis = QtCharts.QValueAxis();
-            yAxis.titleText = "Y Axis Title";
-            chartView.axisY = yAxis;
         }
     }
 
@@ -206,25 +179,26 @@ Page {
     }
 
     Connections {
-        target: mainApp
-        function onValueChanged() {
-            if (currentTest !== "") {
-                // Update the chart with the new values
-                var currentTime = new Date().getTime();
-                var keys = [];
-                if (currentTest === "Position Test") keys = position_keys;
-                else if (currentTest === "Flow Test") keys = flow_keys;
-                else if (currentTest === "Leakage Test") keys = leakage_keys;
-                for (var i = 0; i < keys.length; i++) {
-                    var key = keys[i];
-                    if (key) {
-                        var series = chartView.series(key);
-                        if (series) {
-                            series.append(currentTime, mainApp.value[key]);
-                        }
+    target: mainApp
+    function onValueChanged() {
+        if (currentTest !== "") {
+            // Update the chart with the new values
+            var currentTime = new Date().getTime();
+            var keys = [];
+            if (currentTest === "Position Test") keys = position_keys;
+            else if (currentTest === "Flow Test") keys = flow_keys;
+            else if (currentTest === "Leakage Test") keys = leakage_keys;
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                if (key) {
+                    var series = chartView.series(key);
+                    if (series) {
+                        series.append(currentTime, mainApp.value[key]);
                     }
                 }
             }
         }
     }
+}
+
 }
