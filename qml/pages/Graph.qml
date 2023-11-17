@@ -29,12 +29,11 @@ Page {
         chartView.title = testType;
 
         var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
+        chartView.addSeries(chartSeries);
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                chartView.addSeries(series);
-                series.append(new Date().getTime(), mainApp.value(key));
+                chartSeries.append(new Date().getTime(), mainApp.value(key));
                 console.log(mainApp.value[key]);
             }
         }
@@ -182,18 +181,20 @@ Page {
     Connections {
         target: mainApp
         function onValueChanged() {
-            // Update the chart with the new values
-            var currentTime = new Date().getTime();
-            var keys = [];
-            if (currentTest === "Position Test") keys = position_keys;
-            else if (currentTest === "Flow Test") keys = flow_keys;
-            else if (currentTest === "Leakage Test") keys = leakage_keys;
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-                if (key) {
-                    var series = chartView.series(key);
-                    if (series) {
-                        series.append(currentTime, mainApp.value[key]);
+            if (currentTest !== "") {
+                // Update the chart with the new values
+                var currentTime = new Date().getTime();
+                var keys = [];
+                if (currentTest === "Position Test") keys = position_keys;
+                else if (currentTest === "Flow Test") keys = flow_keys;
+                else if (currentTest === "Leakage Test") keys = leakage_keys;
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
+                    if (key) {
+                        var series = chartView.series(key);
+                        if (series) {
+                            series.append(currentTime, mainApp.value[key]);
+                        }
                     }
                 }
             }
