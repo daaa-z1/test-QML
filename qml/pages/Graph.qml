@@ -17,7 +17,7 @@ Page {
         onTriggered: {
             dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
             timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
-            startNextTest()
+            startNextTest();
         }
     }
 
