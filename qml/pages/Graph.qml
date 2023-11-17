@@ -32,7 +32,9 @@ Page {
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                chartSeries.append(i, mainApp.value[key]);
+                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
+                chartView.addSeries(series);
+                series.append(new Date().getTime(), mainApp.value(key));
                 console.log(mainApp.value[key]);
             }
         }
