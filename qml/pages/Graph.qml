@@ -32,7 +32,7 @@ Page {
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                series = chartView.series(key)
+                var series = chartView.series(key);
                 series.append(new Date().getTime(), mainApp.value(key));
                 console.log(mainApp.value[key]);
             }
