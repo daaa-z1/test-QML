@@ -18,13 +18,13 @@ Page {
         if (testType === "Position Test") keys = position_keys;
         else if (testType === "Flow Test") keys = flow_keys;
         else if (testType === "Leakage Test") keys = leakage_keys;
+        chartView.title = testType;
 
         var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                chartView.title = testType;
                 series.chart = key;
                 series(key).clear();
             }
