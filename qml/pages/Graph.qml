@@ -8,8 +8,8 @@ Page {
     property string currentTest: ""
     property var testQueue: []
     property var position_keys: ['curr_v', 'aktual']
-    property var flow_keys: ['press_in', 'flow']  // Ganti 'pressure_in' dengan 'press_in' sesuai dengan key yang digunakan di MainApp
-    property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']  // Sesuaikan dengan key yang digunakan di MainApp
+    property var flow_keys: ['pressure_in', 'flow']
+    property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
 
     function createChart(testType) {
         var keys = [];
@@ -19,12 +19,11 @@ Page {
         chartView.title = testType;
 
         var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
-        chartView.addSeries(chartSeries); // Tambahkan chartSeries ke chartView
+        chartView.addSeries(chartSeries);
 
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                // Tambahkan data aktual sebagai XYPoint ke chartSeries
                 chartSeries.append(i, mainApp.value[key]);
             }
         }
@@ -68,6 +67,10 @@ Page {
             antialiasing: true
             backgroundColor: "#f0f0f0"
             title: "Test Results"
+            LineSeries {
+                id: lineSeries
+                XYPoint { x: 0; y: 0 }
+            }
         }
 
         Rectangle {
@@ -120,7 +123,6 @@ Page {
                                 "Project": projectField.text
                             };
                         } else {
-                            // Handle error or show message
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
@@ -158,7 +160,6 @@ Page {
                             }
                             startNextTest();
                         } else {
-                            // Handle error or show message
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
