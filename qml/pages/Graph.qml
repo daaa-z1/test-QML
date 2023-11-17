@@ -4,7 +4,6 @@ import QtCharts 2.15
 
 Page {
     id: graphPage
-
     property var testData: ({})
     property string currentTest: ""
     property var testQueue: []
@@ -32,8 +31,8 @@ Page {
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                var series = chartView.series(key);
-                series.append(i, mainApp.value[key]);
+                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
+                series.chart = key;
                 console.log(mainApp.value[key]);
             }
         }
@@ -179,9 +178,8 @@ Page {
     }
 
     Connections {
-    target: mainApp
-    function onValueChanged() {
-        if (currentTest !== "") {
+        target: mainApp
+        function onValueChanged() {
             // Update the chart with the new values
             var currentTime = new Date().getTime();
             var keys = [];
@@ -199,6 +197,4 @@ Page {
             }
         }
     }
-}
-
 }
