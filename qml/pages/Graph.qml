@@ -29,7 +29,6 @@ Page {
         chartView.title = testType;
 
         var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
-        chartView.addSeries(chartSeries);
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
@@ -37,6 +36,7 @@ Page {
                 console.log(mainApp.value[key]);
             }
         }
+        chartView.addSeries(chartSeries);
     }
 
     function startNextTest() {
