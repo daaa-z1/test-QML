@@ -12,6 +12,17 @@ Page {
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['pressure_in', 'flow']
     property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
+    property var updateTimer: Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: {
+            dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
+            timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
+            createChart();
+        }
+    }
+
 
     function createChart(testType) {
         var keys = [];
