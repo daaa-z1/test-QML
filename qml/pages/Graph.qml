@@ -4,24 +4,12 @@ import QtCharts 2.15
 
 Page {
     id: graphPage
-    title: "Hydraulic Servo Valve Testing Application"
-
     property var testData: ({})
     property string currentTest: ""
     property var testQueue: []
     property var position_keys: ['curr_v', 'aktual']
-    property var flow_keys: ['pressure_in', 'flow']
-    property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
-    property var updateTimer: Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: {
-            dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
-            timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
-        }
-    }
-
+    property var flow_keys: ['press_in', 'flow']  // Ganti 'pressure_in' dengan 'press_in' sesuai dengan key yang digunakan di MainApp
+    property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']  // Sesuaikan dengan key yang digunakan di MainApp
 
     function createChart(testType) {
         var keys = [];
@@ -31,12 +19,13 @@ Page {
         chartView.title = testType;
 
         var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
+        chartView.addSeries(chartSeries); // Tambahkan chartSeries ke chartView
+
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.chart = key;
-                console.log(mainApp.value[key]);
+                // Tambahkan data aktual sebagai XYPoint ke chartSeries
+                chartSeries.append(i, mainApp.value[key]);
             }
         }
     }
@@ -79,10 +68,6 @@ Page {
             antialiasing: true
             backgroundColor: "#f0f0f0"
             title: "Test Results"
-            LineSeries {
-                id: lineSeries
-                XYPoint { x: 0; y: 0 }
-            }
         }
 
         Rectangle {
@@ -135,6 +120,7 @@ Page {
                                 "Project": projectField.text
                             };
                         } else {
+                            // Handle error or show message
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
@@ -172,6 +158,7 @@ Page {
                             }
                             startNextTest();
                         } else {
+                            // Handle error or show message
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
