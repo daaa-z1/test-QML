@@ -26,10 +26,6 @@ Page {
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
                 series.chart = key;
-                var s = chartView.series(key);
-                if (s) {
-                    s.clear();
-                }
             }
         }
     }
@@ -51,6 +47,10 @@ Page {
                 var key = keys[i];
                 testData[currentTest].push(mainApp.value[key]);
                 console.log(mainApp.value[key]);
+                var s = chartView.series(key);
+                if (s) {
+                    s.clear();
+                }
             }
 
 
