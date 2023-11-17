@@ -33,6 +33,7 @@ Page {
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
                 series.chart = key;
+                chartSeries.appendSeries(series);
                 console.log(mainApp.value[key]);
             }
         }
@@ -191,7 +192,7 @@ Page {
                 if (key) {
                     var series = chartView.series(key);
                     if (series) {
-                        series.append(currentTime, mainApp.value[key]);
+                        series.append[i](currentTime, mainApp.value[key]);
                     }
                 }
             }
