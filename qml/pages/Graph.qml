@@ -26,7 +26,10 @@ Page {
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
                 series.chart = key;
-                series(key).clear();
+                var s = chartView.series(key);
+                if (s) {
+                    s.clear();
+                }
             }
         }
     }
@@ -49,6 +52,7 @@ Page {
                 testData[currentTest].push(mainApp.value[key]);
                 console.log(mainApp.value[key]);
             }
+
 
             Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
         } else {
