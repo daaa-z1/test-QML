@@ -47,13 +47,7 @@ Page {
                 var key = keys[i];
                 testData[currentTest].push(mainApp.value[key]);
                 console.log(mainApp.value[key]);
-                var s = chartView.series(key);
-                if (s) {
-                    s.clear();
-                    s.destroy();
-                }
             }
-
 
             Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
         } else {
