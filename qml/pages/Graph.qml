@@ -4,12 +4,22 @@ import QtCharts 2.15
 
 Page {
     id: graphPage
+
     property var testData: ({})
     property string currentTest: ""
     property var testQueue: []
     property var position_keys: ['curr_v', 'aktual']
-    property var flow_keys: ['press_in', 'flow']  // Perubahan kunci sesuai dengan contoh MainApp.value
-    property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']  // Perubahan kunci sesuai dengan contoh MainApp.value
+    property var flow_keys: ['pressure_in', 'flow']
+    property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
+    property var updateTimer: Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: {
+            dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
+            timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
+        }
+    }
 
     function createChart(testType) {
         var keys = [];
@@ -19,13 +29,11 @@ Page {
         chartView.title = testType;
 
         var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
-        chartView.addSeries(chartSeries); // Tambahkan chartSeries ke chartView
-
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                // Tambahkan data aktual sebagai XYPoint ke chartSeries
                 chartSeries.append(i, mainApp.value[key]);
+                console.log(mainApp.value[key]);
             }
         }
     }
@@ -183,7 +191,7 @@ Page {
                 if (key) {
                     var series = chartView.series(key);
                     if (series) {
-                        series.append(i, mainApp.value[key]);
+                        series.append(currentTime, mainApp.value[key]);
                     }
                 }
             }
