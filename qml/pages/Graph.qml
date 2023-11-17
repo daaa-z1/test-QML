@@ -19,7 +19,6 @@ Page {
         onTriggered: {
             dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
             timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
-            createChart();
         }
     }
 
@@ -37,6 +36,7 @@ Page {
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
                 series.chart = key;
+                console.log(mainApp.value[key]);
             }
         }
     }
@@ -57,7 +57,6 @@ Page {
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
                 testData[currentTest].push(mainApp.value[key]);
-                console.log(mainApp.value[key]);
             }
 
             Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
