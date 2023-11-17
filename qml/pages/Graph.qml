@@ -50,6 +50,7 @@ Page {
                 var s = chartView.series(key);
                 if (s) {
                     s.clear();
+                    s.destroy();
                 }
             }
 
