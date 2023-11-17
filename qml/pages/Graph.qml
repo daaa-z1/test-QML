@@ -28,14 +28,28 @@ Page {
         else if (testType === "Leakage Test") keys = leakage_keys;
         chartView.title = testType;
 
+        var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                chartView.series.push(series);
-                series.append(new Date().getTime(), mainApp.value(key));
+                chartSeries.append(i, mainApp.value(key));
                 console.log(mainApp.value[key]);
             }
+        }
+        chartView.removeAllSeries(); // Hapus semua series yang ada
+        chartView.addSeries(chartSeries);
+
+        // Buat axis secara manual jika belum ada
+        if (!chartView.axisX()) {
+            var xAxis = QtCharts.QValueAxis();
+            xAxis.titleText = "X Axis Title";
+            chartView.axisX = xAxis;
+        }
+
+        if (!chartView.axisY()) {
+            var yAxis = QtCharts.QValueAxis();
+            yAxis.titleText = "Y Axis Title";
+            chartView.axisY = yAxis;
         }
     }
 
