@@ -33,9 +33,9 @@ Page {
             var key = keys[i];
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.chart = key;
-                console.log(mainApp.value[key]);
+                chartSeries.append[i](series);
             }
+            console.log(mainApp.value[key]);
         }
     }
 
