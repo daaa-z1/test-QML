@@ -28,16 +28,29 @@ Page {
         else if (testType === "Leakage Test") keys = leakage_keys;
         chartView.title = testType;
 
-        var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
+        // Buat objek ChartView
+        var chartView = QtCharts.ChartView();
+
+        var chart = chartView.chart;
+
+        // Hapus semua series yang ada
+        while (chart.series.length > 0) {
+            chart.removeSeries(chart.series[0]);
+        }
+
+        // Tambahkan series baru
+        var chartSeries = QtCharts.LineSeries();
+        chartSeries.name = testType;
+
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                chartSeries.append(i, mainApp.value(key));
-                console.log(mainApp.value[key]);
+                // Tambahkan data aktual sebagai XYPoint ke chartSeries
+                chartSeries.append(i, mainApp.value[key]);
             }
         }
-        chartView.removeAllSeries(); // Hapus semua series yang ada
-        chartView.series(chartSeries);
+
+        chart.addSeries(chartSeries);
 
         // Buat axis secara manual jika belum ada
         if (!chartView.axisX()) {
