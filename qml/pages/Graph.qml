@@ -24,7 +24,9 @@ Page {
             var key = keys[i];
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.name = key;  // Set nama series sesuai dengan key
+                chartView.title = key;
+                series.chart = key;
+                chartView.series(key).clear();
             }
         }
     }
@@ -39,19 +41,18 @@ Page {
             else if (currentTest === "Leakage Test") keys = leakage_keys;
 
             if (testData[currentTest].length === 0) {
-                createChart(currentTest);  // Membuat grafik hanya sekali
+                createChart(currentTest);
             }
 
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
                 testData[currentTest].push(mainApp.value[key]);
-                console.log(mainApp.value[key]);  // Replace this with code to save testData
+                console.log(mainApp.value[key]);
             }
 
             Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
         } else {
             currentTest = "";
-            mainApp.saveTestResults(testData);  // Menyimpan seluruh data pengujian
             positionTestCheckBox.enabled = true;
             flowTestCheckBox.enabled = true;
             leakageTestCheckBox.enabled = true;
@@ -125,7 +126,6 @@ Page {
                                 "Project": projectField.text
                             };
                         } else {
-                            // Tambahkan pesan kesalahan jika input tidak valid
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
@@ -158,15 +158,11 @@ Page {
                             positionTestCheckBox.enabled = false;
                             flowTestCheckBox.enabled = false;
                             leakageTestCheckBox.enabled = false;
-
-                            // Membuat grafik hanya sekali untuk setiap jenis tes
                             if (testData[currentTest] === undefined) {
                                 createChart(currentTest);
                             }
-
                             startNextTest();
                         } else {
-                                 // Tambahkan pesan kesalahan jika tidak ada jenis tes yang dipilih
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
