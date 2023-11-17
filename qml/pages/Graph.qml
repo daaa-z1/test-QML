@@ -24,9 +24,9 @@ Page {
             var key = keys[i];
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                chartView.title = key;
+                chartView.title = testType;
                 series.chart = key;
-                chartView.series(key).clear();
+                series(key).clear();
             }
         }
     }
