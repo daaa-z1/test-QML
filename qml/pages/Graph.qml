@@ -17,6 +17,7 @@ Page {
         onTriggered: {
             dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
             timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
+            startNextTest()
         }
     }
 
@@ -32,8 +33,7 @@ Page {
             var key = keys[i];
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.chart = key;
-                lineSeries.append(series);
+                series.name = key;
                 console.log(mainApp.value[key]);
             }
         }
@@ -192,7 +192,7 @@ Page {
                 if (key) {
                     var series = chartView.series(key);
                     if (series) {
-                        series.append[i](currentTime, mainApp.value[key]);
+                        series.append(currentTime, mainApp.value[key]);
                     }
                 }
             }

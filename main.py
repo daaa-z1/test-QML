@@ -233,41 +233,7 @@ class MainApp(QObject):
         calculated_values = [max(min(value, max_val), min_val) for value, max_val, min_val in zip(calculated_values, max_values, min_values)]
         calculated_values = [int(value) for value in calculated_values]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
-    
-    @pyqtSlot()
-    def positionTest(self):
-        # Read the values for the position test
-        curr_v = self.value['curr_v']
-        aktual = self.value['aktual']
-        # Perform the position test calculations
-        # Update the value property
-        self.value = {'curr_v': curr_v, 'aktual': aktual}
-
-    @pyqtSlot()
-    def flowTest(self):
-        # Read the values for the flow test
-        pressure_in = self.value['press_in']
-        flow = self.value['flow']
-        # Perform the flow test calculations
-        # Update the value property
-        self.value = {'pressure_in': pressure_in, 'flow': flow}
-
-    @pyqtSlot()
-    def leakageTest(self):
-        # Read the values for the leakage test
-        pressure_in = self.value['press_in']
-        pressure_a = self.value['press_a']
-        pressure_b = self.value['press_b']
-        flow = self.value['flow']
-        # Perform the leakage test calculations
-        # Update the value property
-        self.value = {'pressure_in': pressure_in, 'pressure_a': pressure_a, 'pressure_b': pressure_b, 'flow': flow}
-    
-    @pyqtSlot()
-    def saveTestResults(self):
-        with open('test_results.json', 'w') as f:
-            json.dump(self._value, f)
-    
+   
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
