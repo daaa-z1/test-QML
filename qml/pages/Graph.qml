@@ -37,7 +37,7 @@ Page {
             }
         }
         chartView.removeAllSeries(); // Hapus semua series yang ada
-        chartView.addSeries(chartSeries);
+        chartView.series(chartSeries);
 
         // Buat axis secara manual jika belum ada
         if (!chartView.axisX()) {
