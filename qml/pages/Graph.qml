@@ -36,7 +36,7 @@ Page {
                 console.log(mainApp.value[key]);
             }
         }
-        chartView.addSeries(chartSeries);
+        chartView.series.append(chartSeries);
     }
 
     function startNextTest() {
