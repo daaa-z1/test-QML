@@ -44,7 +44,7 @@ Page {
             Component {
                 id: lineSeriesComponent
                 LineSeries {
-                    name: "Series " + index
+                    name: "Series"
                     visible: false
                 }
             }
@@ -54,18 +54,27 @@ Page {
                 model: position_keys.length
                 delegate: Loader {
                     sourceComponent: lineSeriesComponent
+                    onLoaded: {
+                        item.name += " " + index;
+                    }
                 }
             }
             Repeater {
                 model: flow_keys.length
                 delegate: Loader {
                     sourceComponent: lineSeriesComponent
+                    onLoaded: {
+                        item.name += " " + index;
+                    }
                 }
             }
             Repeater {
                 model: leakage_keys.length
                 delegate: Loader {
                     sourceComponent: lineSeriesComponent
+                    onLoaded: {
+                        item.name += " " + index;
+                    }
                 }
             }
         }
