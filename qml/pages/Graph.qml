@@ -43,7 +43,7 @@ Page {
             // Add series based on your data
             Repeater {
                 model: position_keys.length
-                LineSeries {
+                delegate: LineSeries {
                     id: "positionSeries" + index
                     name: "Position " + index
                     visible: false
@@ -51,7 +51,7 @@ Page {
             }
             Repeater {
                 model: flow_keys.length
-                LineSeries {
+                delegate: LineSeries {
                     id: "flowSeries" + index
                     name: "Flow " + index
                     visible: false
@@ -59,7 +59,7 @@ Page {
             }
             Repeater {
                 model: leakage_keys.length
-                LineSeries {
+                delegate: LineSeries {
                     id: "leakageSeries" + index
                     name: "Leakage " + index
                     visible: false
@@ -109,24 +109,27 @@ Page {
                     onClicked: {
                         // Handle start
                         for (var i = 0; i < position_keys.length; i++) {
-                            chart.getSeries(i).visible = checkBox1.checked;
+                            var series = chart.series[i];
+                            series.visible = checkBox1.checked;
                             if (checkBox1.checked) {
-                                chart.getSeries(i).clear();
-                                chart.getSeries(i).append(new Date().getTime(), mainApp.value[position_keys[i]]);
+                                series.clear();
+                                series.append(new Date().getTime(), mainApp.value[position_keys[i]]);
                             }
                         }
                         for (var i = 0; i < flow_keys.length; i++) {
-                            chart.getSeries(position_keys.length + i).visible = checkBox2.checked;
+                            var series = chart.series[position_keys.length + i];
+                            series.visible = checkBox2.checked;
                             if (checkBox2.checked) {
-                                chart.getSeries(position_keys.length + i).clear();
-                                chart.getSeries(position_keys.length + i).append(new Date().getTime(), mainApp.value[flow_keys[i]]);
+                                series.clear();
+                                series.append(new Date().getTime(), mainApp.value[flow_keys[i]]);
                             }
                         }
                         for (var i = 0; i < leakage_keys.length; i++) {
-                            chart.getSeries(position_keys.length + flow_keys.length + i).visible = checkBox3.checked;
+                            var series = chart.series[position_keys.length + flow_keys.length + i];
+                            series.visible = checkBox3.checked;
                             if (checkBox3.checked) {
-                                chart.getSeries(position_keys.length + flow_keys.length + i).clear();
-                                chart.getSeries(position_keys.length + flow_keys.length + i).append(new Date().getTime(), mainApp.value[leakage_keys[i]]);
+                                series.clear();
+                                series.append(new Date().getTime(), mainApp.value[leakage_keys[i]]);
                             }
                         }
 
