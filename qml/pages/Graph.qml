@@ -17,28 +17,25 @@ Page {
         onTriggered: {
             dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
             timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
-            createChart();
         }
     }
 
     function createChart(testType) {
         var keys = [];
-        lineSeries.clear();
         var currentTime = new Date().getTime();
-        if (testType === "Position Test") {
-            lineSeries.append(currentTime, mainApp._value['curr_v']);
-            lineSeries.append(currentTime, mainApp._value['aktual']);
-        } else if (testType === "Flow Test") {
-            lineSeries.append(currentTime, mainApp._value['pressure_in']);
-            lineSeries.append(currentTime, mainApp._value['flow']);
-        }
-        else if (testType === "Leakage Test") {
-            lineSeries.append(currentTime, mainApp._value['pressure_in']);
-            lineSeries.append(currentTime, mainApp._value['pressure_a']);
-            lineSeries.append(currentTime, mainApp._value['pressure_b']);
-            lineSeries.append(currentTime, mainApp._value['flow']);
-        }
+        if (testType === "Position Test") keys = position_keys;
+        else if (testType === "Flow Test") keys = flow_keys;
+        else if (testType === "Leakage Test") keys = leakage_keys;
         chartView.title = testType;
+
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            if (key) {
+                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
+                series.append(currentTime, mainApp.value[key]);
+            }
+            console.log(mainApp.value[key]);
+        }
     }
 
     function startNextTest() {
@@ -50,6 +47,7 @@ Page {
             else if (currentTest === "Flow Test") keys = flow_keys;
             else if (currentTest === "Leakage Test") keys = leakage_keys;
 
+            lineSeries.clear();
             if (testData[currentTest].length === 0) {
                 createChart(currentTest);
             }
