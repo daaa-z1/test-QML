@@ -27,6 +27,7 @@ Page {
         else if (testType === "Flow Test") keys = flow_keys;
         else if (testType === "Leakage Test") keys = leakage_keys;
         chartView.title = testType;
+        lineSeries.clear();
 
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
@@ -46,8 +47,6 @@ Page {
             if (currentTest === "Position Test") keys = position_keys;
             else if (currentTest === "Flow Test") keys = flow_keys;
             else if (currentTest === "Leakage Test") keys = leakage_keys;
-
-            lineSeries.clear();
 
             if (testData[currentTest].length === 0) {
                 createChart(currentTest);
