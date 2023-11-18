@@ -6,9 +6,25 @@ import QtQuick.Layouts 1.15
 Page {
     visible: true
 
-    property var position_keys: ['curr_v', 'aktual']
-    property var flow_keys: ['pressure_in', 'flow']
-    property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
+    ListModel {
+        id: positionModel
+        ListElement { key: 'curr_v' }
+        ListElement { key: 'aktual' }
+    }
+
+    ListModel {
+        id: flowModel
+        ListElement { key: 'pressure_in' }
+        ListElement { key: 'flow' }
+    }
+
+    ListModel {
+        id: leakageModel
+        ListElement { key: 'pressure_in' }
+        ListElement { key: 'pressure_a' }
+        ListElement { key: 'pressure_b' }
+        ListElement { key: 'flow' }
+    }
 
     // Timer for tests
     Timer {
@@ -42,26 +58,26 @@ Page {
 
             // Add series based on your data
             Repeater {
-                model: position_keys.length
-                LineSeries {
+                model: positionModel
+                delegate: LineSeries {
                     id: positionSeries
-                    name: position_keys[index]
+                    name: "Position " + index
                     visible: false
                 }
             }
             Repeater {
-                model: flow_keys.length
-                LineSeries {
+                model: flowModel
+                delegate: LineSeries {
                     id: flowSeries
-                    name: flow_keys[index]
+                    name: "Flow " + index
                     visible: false
                 }
             }
             Repeater {
-                model: leakage_keys.length
-                LineSeries {
+                model: leakageModel
+                delegate: LineSeries {
                     id: leakageSeries
-                    name: leakage_keys[index]
+                    name: "Leakage " + index
                     visible: false
                 }
             }
@@ -108,25 +124,28 @@ Page {
                     text: "Start"
                     onClicked: {
                         // Handle start
-                        for (var i = 0; i < position_keys.length; i++) {
-                            chart.getSeries(i).visible = checkBox1.checked;
+                        for (var i = 0; i < positionModel.count; i++) {
+                            var series = chart.series[i];
+                            series.visible = checkBox1.checked;
                             if (checkBox1.checked) {
-                                chart.getSeries(i).clear();
-                                chart.getSeries(i).append(new Date().getTime(), mainApp.value[position_keys[i]]);
+                                series.clear();
+                                series.append(new Date().getTime(), mainApp.value[positionModel.get(i).key]);
                             }
                         }
-                        for (var i = 0; i < flow_keys.length; i++) {
-                            chart.getSeries(position_keys.length + i).visible = checkBox2.checked;
+                        for (var i = 0; i < flowModel.count; i++) {
+                            var series = chart.series[positionModel.count + i];
+                            series.visible = checkBox2.checked;
                             if (checkBox2.checked) {
-                                chart.getSeries(position_keys.length + i).clear();
-                                chart.getSeries(position_keys.length + i).append(new Date().getTime(), mainApp.value[flow_keys[i]]);
+                                series.clear();
+                                series.append(new Date().getTime(), mainApp.value[flowModel.get(i).key]);
                             }
                         }
-                        for (var i = 0; i < leakage_keys.length; i++) {
-                            chart.getSeries(position_keys.length + flow_keys.length + i).visible = checkBox3.checked;
+                        for (var i = 0; i < leakageModel.count; i++) {
+                            var series = chart.series[positionModel.count + flowModel.count + i];
+                            series.visible = checkBox3.checked;
                             if (checkBox3.checked) {
-                                chart.getSeries(position_keys.length + flow_keys.length + i).clear();
-                                chart.getSeries(position_keys.length + flow_keys.length + i).append(new Date().getTime(), mainApp.value[leakage_keys[i]]);
+                                series.clear();
+                                series.append(new Date().getTime(), mainApp.value[leakageModel.get(i).key]);
                             }
                         }
 
