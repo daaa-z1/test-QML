@@ -29,30 +29,6 @@ Page {
         }
     }
 
-    // Timer for updating the chart
-    Timer {
-        id: updateTimer
-        interval: 1000  // 1 second
-        repeat: true
-        onTriggered: {
-            if (positionSeries.visible) {
-                for (var key in position_keys) {
-                    positionSeries.append(new Date().getTime(), mainApp.value[position_keys[key]]);
-                }
-            }
-            if (flowSeries.visible) {
-                for (var key in flow_keys) {
-                    flowSeries.append(new Date().getTime(), mainApp.value[flow_keys[key]]);
-                }
-            }
-            if (leakageSeries.visible) {
-                for (var key in leakage_keys) {
-                    leakageSeries.append(new Date().getTime(), mainApp.value[leakage_keys[key]]);
-                }
-            }
-        }
-    }
-
     // Layout
     RowLayout {
         anchors.fill: parent
@@ -131,7 +107,24 @@ Page {
                         testTimer.start();
 
                         // Start updating the chart
-                        updateTimer.start();
+                        if (checkBox1.checked) {
+                            positionSeries.clear();
+                            for (var key in position_keys) {
+                                positionSeries.append(new Date().getTime(), mainApp.value[position_keys[key]]);
+                            }
+                        }
+                        if (checkBox2.checked) {
+                            flowSeries.clear();
+                            for (var key in flow_keys) {
+                                flowSeries.append(new Date().getTime(), mainApp.value[flow_keys[key]]);
+                            }
+                        }
+                        if (checkBox3.checked) {
+                            leakageSeries.clear();
+                            for (var key in leakage_keys) {
+                                leakageSeries.append(new Date().getTime(), mainApp.value[leakage_keys[key]]);
+                            }
+                        }
                     }
                 }
             }
