@@ -22,21 +22,22 @@ Page {
 
     function createChart(testType) {
         var keys = [];
-        var currentTime = new Date().getTime();
-        if (testType === "Position Test") keys = position_keys;
-        else if (testType === "Flow Test") keys = flow_keys;
-        else if (testType === "Leakage Test") keys = leakage_keys;
-        chartView.title = testType;
         lineSeries.clear();
-
-        for (var i = 0; i < keys.length; i++) {
-            var key = keys[i];
-            if (key) {
-                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.append(currentTime, mainApp.value[key[index]]);
-            }
-            console.log(mainApp.value[key]);
+        var currentTime = new Date().getTime();
+        if (testType === "Position Test") {
+            lineSeries.append(currentTime, mainApp.value['curr_v']);
+            lineSeries.append(currentTime, mainApp.value['aktual']);
+        } else if (testType === "Flow Test") {
+            lineSeries.append(currentTime, mainApp.value['pressure_in']);
+            lineSeries.append(currentTime, mainApp.value['flow']);
         }
+        else if (testType === "Leakage Test") {
+            lineSeries.append(currentTime, mainApp.value['pressure_in']);
+            lineSeries.append(currentTime, mainApp.value['pressure_a']);
+            lineSeries.append(currentTime, mainApp.value['pressure_b']);
+            lineSeries.append(currentTime, mainApp.value['flow']);
+        }
+        chartView.title = testType;
     }
 
     function startNextTest() {
