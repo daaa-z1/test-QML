@@ -44,7 +44,7 @@ Page {
                 }
 
                 CircleGauge {
-                    id: gauge
+                    id: gauge + index
                     objectName: "gauge" + index
                     anchors.centerIn: parent
                     width: container.width * 0.8
