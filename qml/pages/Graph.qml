@@ -53,28 +53,22 @@ Page {
             Layout.maximumWidth: parent.width * 0.75
 
             // Add series based on your data
-            Repeater {
-                model: position_keys.length
-                delegate: LineSeries {
-                    id: "positionSeries" + index
-                    name: "Position " + index
-                    visible: false
+            property var positionSeries: []
+            property var flowSeries: []
+            property var leakageSeries: []
+
+            Component.onCompleted: {
+                for (var i = 0; i < position_keys.length; i++) {
+                    var series = Qt.createQmlObject('import QtCharts 2.15; LineSeries { name: "Position ' + i + '"; visible: false }', chart);
+                    positionSeries.push(series);
                 }
-            }
-            Repeater {
-                model: flow_keys.length
-                delegate: LineSeries {
-                    id: "flowSeries" + index
-                    name: "Flow " + index
-                    visible: false
+                for (var i = 0; i < flow_keys.length; i++) {
+                    var series = Qt.createQmlObject('import QtCharts 2.15; LineSeries { name: "Flow ' + i + '"; visible: false }', chart);
+                    flowSeries.push(series);
                 }
-            }
-            Repeater {
-                model: leakage_keys.length
-                delegate: LineSeries {
-                    id: "leakageSeries" + index
-                    name: "Leakage " + index
-                    visible: false
+                for (var i = 0; i < leakage_keys.length; i++) {
+                    var series = Qt.createQmlObject('import QtCharts 2.15; LineSeries { name: "Leakage ' + i + '"; visible: false }', chart);
+                    leakageSeries.push(series);
                 }
             }
         }
@@ -121,7 +115,7 @@ Page {
                     onClicked: {
                         // Handle start
                         for (var i = 0; i < position_keys.length; i++) {
-                            var series = chart.findChild("positionSeries" + i);
+                            var series = chart.positionSeries[i];
                             series.visible = checkBox1.checked;
                             if (checkBox1.checked && mainApp.value && mainApp.value[position_keys[i]]) {
                                 series.clear();
@@ -129,7 +123,7 @@ Page {
                             }
                         }
                         for (var i = 0; i < flow_keys.length; i++) {
-                            var series = chart.findChild("flowSeries" + i);
+                            var series = chart.flowSeries[i];
                             series.visible = checkBox2.checked;
                             if (checkBox2.checked && mainApp.value && mainApp.value[flow_keys[i]]) {
                                 series.clear();
@@ -137,7 +131,7 @@ Page {
                             }
                         }
                         for (var i = 0; i < leakage_keys.length; i++) {
-                            var series = chart.findChild("leakageSeries" + i);
+                            var series = chart.leakageSeries[i];
                             series.visible = checkBox3.checked;
                             if (checkBox3.checked && mainApp.value && mainApp.value[leakage_keys[i]]) {
                                 series.clear();
