@@ -25,17 +25,17 @@ Page {
         lineSeries.clear();
         var currentTime = new Date().getTime();
         if (testType === "Position Test") {
-            lineSeries.append(currentTime, mainApp.value['curr_v']);
-            lineSeries.append(currentTime, mainApp.value['aktual']);
+            lineSeries.append(currentTime, mainApp._value['curr_v']);
+            lineSeries.append(currentTime, mainApp._value['aktual']);
         } else if (testType === "Flow Test") {
-            lineSeries.append(currentTime, mainApp.value['pressure_in']);
-            lineSeries.append(currentTime, mainApp.value['flow']);
+            lineSeries.append(currentTime, mainApp._value['pressure_in']);
+            lineSeries.append(currentTime, mainApp._value['flow']);
         }
         else if (testType === "Leakage Test") {
-            lineSeries.append(currentTime, mainApp.value['pressure_in']);
-            lineSeries.append(currentTime, mainApp.value['pressure_a']);
-            lineSeries.append(currentTime, mainApp.value['pressure_b']);
-            lineSeries.append(currentTime, mainApp.value['flow']);
+            lineSeries.append(currentTime, mainApp._value['pressure_in']);
+            lineSeries.append(currentTime, mainApp._value['pressure_a']);
+            lineSeries.append(currentTime, mainApp._value['pressure_b']);
+            lineSeries.append(currentTime, mainApp._value['flow']);
         }
         chartView.title = testType;
     }
