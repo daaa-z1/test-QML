@@ -28,12 +28,10 @@ Page {
         else if (testType === "Leakage Test") keys = leakage_keys;
         chartView.title = testType;
 
-        var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.name = key;
                 series.append(i, mainApp.value[key]);
             }
             console.log(mainApp.value[key]);
