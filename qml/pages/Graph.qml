@@ -124,7 +124,7 @@ Page {
                 Button {
                     text: "Submit"
                     onClicked: {
-                        chartView.removeAllSeries();
+                        lineSeries.clear();
                         if (customerField.text.trim() !== "" && projectField.text.trim() !== "") {
                             testData = {
                                 "Date": dateField.text,
