@@ -2,198 +2,131 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
-Page {
-    id: graphPage
-    property var testData: ({})
-    property string currentTest: ""
-    property var testQueue: []
+ApplicationWindow {
+    visible: true
+    width: 640
+    height: 480
+    title: "Hydraulic Servo Valve Test"
+
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['pressure_in', 'flow']
     property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
-    property var updateTimer: Timer {
-        interval: 1000
-        running: true
+
+    // Timer for tests
+    Timer {
+        id: testTimer
+        interval: 10000  // 10 seconds
         repeat: true
         onTriggered: {
-            dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
-            timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
-            // createChart();
+            if (positionSeries.visible) {
+                positionSeries.visible = false;
+                flowSeries.visible = checkBox2.checked;
+            } else if (flowSeries.visible) {
+                flowSeries.visible = false;
+                leakageSeries.visible = checkBox3.checked;
+            } else if (leakageSeries.visible) {
+                leakageSeries.visible = false;
+                positionSeries.visible = checkBox1.checked;
+            }
         }
     }
 
-    function createChart(testType) {
-        var keys = [];
-        if (testType === "Position Test") keys = position_keys;
-        else if (testType === "Flow Test") keys = flow_keys;
-        else if (testType === "Leakage Test") keys = leakage_keys;
-        chartView.title = testType;
-
-        var chartSeries = chartView.createSeries(ChartView.SeriesTypeLine, testType, chartView.axisX(), chartView.axisY());
-        for (var i = 0; i < keys.length; i++) {
-            var key = keys[i];
-            if (key) {
-                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.name = key;
-                chartSeries.append(series);
-            }
-            console.log(mainApp.value[key]);
-        }
-    }
-
-    function startNextTest() {
-        if (testQueue.length > 0) {
-            currentTest = testQueue.shift();
-            testData[currentTest] = [];
-            var keys = [];
-            if (currentTest === "Position Test") keys = position_keys;
-            else if (currentTest === "Flow Test") keys = flow_keys;
-            else if (currentTest === "Leakage Test") keys = leakage_keys;
-
-            if (testData[currentTest].length === 0) {
-                createChart(currentTest);
-            }
-
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-                testData[currentTest].push(mainApp.value[key]);
-            }
-
-            Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
-        } else {
-            currentTest = "";
-            positionTestCheckBox.enabled = true;
-            flowTestCheckBox.enabled = true;
-            leakageTestCheckBox.enabled = true;
-            startButton.enabled = true;
-        }
-    }
-
-    Row {
+    // Layout
+    RowLayout {
         anchors.fill: parent
 
+        // Chart
         ChartView {
-            id: chartView
-            width: parent.width * 3 / 4
-            height: parent.height
-            antialiasing: true
-            backgroundColor: "#f0f0f0"
-            title: "Test Results"
+            id: chart
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.maximumWidth: parent.width * 0.75
+
+            // Add series based on your data
             LineSeries {
-                id: lineSeries
-                XYPoint { x: 0; y: 0 }
+                id: positionSeries
+                name: "Position"
+                visible: false  // Initially hidden, will be shown when checkbox is checked
+            }
+            LineSeries {
+                id: flowSeries
+                name: "Flow"
+                visible: false
+            }
+            LineSeries {
+                id: leakageSeries
+                name: "Leakage"
+                visible: false
             }
         }
 
+        // Input box
         Rectangle {
             id: inputBox
-            width: parent.width / 4
-            height: parent.height
-            color: "#e0e0e0"
-            radius: 10
-            border.color: "gray"
-            border.width: 2
-            Column {
+            Layout.fillHeight: true
+            Layout.preferredWidth: parent.width * 0.25
+            color: "#f0f0f0"
+
+            ColumnLayout {
                 anchors.fill: parent
                 spacing: 10
                 padding: 10
 
-                TextField {
-                    id: dateField
-                    text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
-                    readOnly: true
-                    background: Rectangle { color: "lightgray"; radius: 5 }
-                }
+                // Text fields
+                TextField { id: tanggal; placeholderText: "Tanggal" }
+                TextField { id: waktu; placeholderText: "Waktu" }
+                TextField { id: customer; placeholderText: "Nama Customer" }
+                TextField { id: deskripsi; placeholderText: "Deskripsi Proyek" }
 
-                TextField {
-                    id: timeField
-                    text: Qt.formatDateTime(new Date(), "HH:mm:ss")
-                    readOnly: true
-                    background: Rectangle { color: "lightgray"; radius: 5 }
-                }
-
-                TextField {
-                    id: customerField
-                    placeholderText: "Customer Name"
-                    background: Rectangle { color: "lightgray"; radius: 5 }
-                }
-
-                TextField {
-                    id: projectField
-                    placeholderText: "Project Description"
-                    background: Rectangle { color: "lightgray"; radius: 5 }
-                }
-
+                // Submit button
                 Button {
                     text: "Submit"
                     onClicked: {
-                        if (customerField.text.trim() !== "" && projectField.text.trim() !== "") {
-                            testData = {
-                                "Date": dateField.text,
-                                "Time": timeField.text,
-                                "Customer": customerField.text,
-                                "Project": projectField.text
-                            };
-                        } else {
-                        }
+                        // Handle submit
+                        console.log("Tanggal: " + tanggal.text);
+                        console.log("Waktu: " + waktu.text);
+                        console.log("Nama Customer: " + customer.text);
+                        console.log("Deskripsi Proyek: " + deskripsi.text);
+                        // TODO: Save these values for later use
                     }
-                    background: Rectangle { color: "lightblue"; radius: 5 }
                 }
 
-                CheckBox {
-                    id: positionTestCheckBox
-                    text: "Position Test"
-                }
+                // Check boxes
+                CheckBox { id: checkBox1; text: "Position Test" }
+                CheckBox { id: checkBox2; text: "Flow Test" }
+                CheckBox { id: checkBox3; text: "Leakage Test" }
 
-                CheckBox {
-                    id: flowTestCheckBox
-                    text: "Flow Test"
-                }
-
-                CheckBox {
-                    id: leakageTestCheckBox
-                    text: "Leakage Test"
-                }
-
+                // Start button
                 Button {
-                    id: startButton
-                    text: "Start Tests"
+                    text: "Start"
                     onClicked: {
-                        if (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) {
-                            if (positionTestCheckBox.checked) testQueue.push("Position Test");
-                            if (flowTestCheckBox.checked) testQueue.push("Flow Test");
-                            if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
-                            startButton.enabled = false;
-                            positionTestCheckBox.enabled = false;
-                            flowTestCheckBox.enabled = false;
-                            leakageTestCheckBox.enabled = false;
-                            if (testData[currentTest] === undefined) {
-                                createChart(currentTest);
-                            }
-                            startNextTest();
-                        } else {
-                        }
-                    }
-                    background: Rectangle { color: "lightblue"; radius: 5 }
-                }
-            }
-        }
-    }
+                        // Handle start
+                        positionSeries.visible = checkBox1.checked;
+                        flowSeries.visible = checkBox2.checked;
+                        leakageSeries.visible = checkBox3.checked;
 
-    Connections {
-        target: mainApp
-        function onValueChanged() {
-            // Update the chart with the new values
-            var currentTime = new Date().getTime();
-            var keys = [];
-            if (currentTest === "Position Test") keys = position_keys;
-            else if (currentTest === "Flow Test") keys = flow_keys;
-            else if (currentTest === "Leakage Test") keys = leakage_keys;
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-                if (key) {
-                    var series = chartView.series(key);
-                    if (series) {
-                        series.append(currentTime, mainApp.value[key]);
+                        // Start the tests
+                        if (checkBox1.checked) {
+                            positionSeries.clear();
+                            for (var key in position_keys) {
+                                positionSeries.append(new Date().getTime(), mainApp.value[position_keys[key]]);
+                            }
+                        }
+                        if (checkBox2.checked) {
+                            flowSeries.clear();
+                            for (var key in flow_keys) {
+                                flowSeries.append(new Date().getTime(), mainApp.value[flow_keys[key]]);
+                            }
+                        }
+                        if (checkBox3.checked) {
+                            leakageSeries.clear();
+                            for (var key in leakage_keys) {
+                                leakageSeries.append(new Date().getTime(), mainApp.value[leakage_keys[key]]);
+                            }
+                        }
+
+                        // Start the timer
+                        testTimer.start();
                     }
                 }
             }
