@@ -1,12 +1,10 @@
 import QtQuick 2.15
+import QtQuick.Layouts 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
-ApplicationWindow {
-    visible: true
-    width: 640
-    height: 480
-    title: "Hydraulic Servo Valve Test"
+Page {
+    id: graphPage
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['pressure_in', 'flow']
