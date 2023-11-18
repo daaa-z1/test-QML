@@ -23,6 +23,7 @@ Page {
 
     function createChart(testType) {
         var keys = [];
+        var currentTime = new Date().getTime();
         if (testType === "Position Test") keys = position_keys;
         else if (testType === "Flow Test") keys = flow_keys;
         else if (testType === "Leakage Test") keys = leakage_keys;
@@ -32,7 +33,7 @@ Page {
             var key = keys[i];
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.append(i, mainApp.value[key]);
+                series.append(currentTime, mainApp.value[key]);
             }
             console.log(mainApp.value[key]);
         }
