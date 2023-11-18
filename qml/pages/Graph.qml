@@ -181,20 +181,7 @@ Page {
         target: mainApp
         function onValueChanged() {
             // Update the chart with the new values
-            var currentTime = new Date().getTime();
-            var keys = [];
-            if (currentTest === "Position Test") keys = position_keys;
-            else if (currentTest === "Flow Test") keys = flow_keys;
-            else if (currentTest === "Leakage Test") keys = leakage_keys;
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-                if (key) {
-                    var series = chartView.series(key);
-                    if (series) {
-                        series.append(currentTime, mainApp.value[key]);
-                    }
-                }
-            }
+            startNextTest();
         }
     }
 }
