@@ -4,13 +4,16 @@ import QtCharts 2.15
 
 Page {
     id: graphPage
+
     property var testData: ({})
     property string currentTest: ""
     property var testQueue: []
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['pressure_in', 'flow']
     property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
-    property var updateTimer: Timer {
+
+    Timer {
+        id: updateTimer
         interval: 1000
         running: true
         repeat: true
@@ -21,11 +24,9 @@ Page {
     }
 
     function createChart(testType) {
-        var keys = [];
+        var keys = getKeys(testType);
         var currentTime = new Date().getTime();
-        if (testType === "Position Test") keys = position_keys;
-        else if (testType === "Flow Test") keys = flow_keys;
-        else if (testType === "Leakage Test") keys = leakage_keys;
+
         chartView.title = testType;
 
         for (var i = 0; i < keys.length; i++) {
@@ -34,18 +35,22 @@ Page {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
                 series.append(currentTime, mainApp.value[key]);
             }
-            console.log(mainApp.value[key]);
         }
+    }
+
+    function getKeys(testType) {
+        if (testType === "Position Test") return position_keys;
+        else if (testType === "Flow Test") return flow_keys;
+        else if (testType === "Leakage Test") return leakage_keys;
+        else return [];
     }
 
     function startNextTest() {
         if (testQueue.length > 0) {
             currentTest = testQueue.shift();
             testData[currentTest] = [];
-            var keys = [];
-            if (currentTest === "Position Test") keys = position_keys;
-            else if (currentTest === "Flow Test") keys = flow_keys;
-            else if (currentTest === "Leakage Test") keys = leakage_keys;
+
+            var keys = getKeys(currentTest);
 
             if (testData[currentTest].length === 0) {
                 createChart(currentTest);
@@ -90,6 +95,7 @@ Page {
             radius: 10
             border.color: "gray"
             border.width: 2
+
             Column {
                 anchors.fill: parent
                 spacing: 10
@@ -123,17 +129,7 @@ Page {
 
                 Button {
                     text: "Submit"
-                    onClicked: {
-                        if (customerField.text.trim() !== "" && projectField.text.trim() !== "") {
-                            testData = {
-                                "Date": dateField.text,
-                                "Time": timeField.text,
-                                "Customer": customerField.text,
-                                "Project": projectField.text
-                            };
-                        } else {
-                        }
-                    }
+                    onClicked: submitForm()
                     background: Rectangle { color: "lightblue"; radius: 5 }
                 }
 
@@ -155,30 +151,48 @@ Page {
                 Button {
                     id: startButton
                     text: "Start Tests"
-                    onClicked: {
-                        if (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) {
-                            if (positionTestCheckBox.checked) testQueue.push("Position Test");
-                            if (flowTestCheckBox.checked) testQueue.push("Flow Test");
-                            if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
-                            startButton.enabled = false;
-                            positionTestCheckBox.enabled = false;
-                            flowTestCheckBox.enabled = false;
-                            leakageTestCheckBox.enabled = false;
-                            if (testData[currentTest] === undefined) {
-                                createChart(currentTest);
-                            }
-                            startNextTest();
-                        } else {
-                        }
-                    }
+                    onClicked: startTests()
                     background: Rectangle { color: "lightblue"; radius: 5 }
                 }
             }
         }
     }
 
+    function submitForm() {
+        if (customerField.text.trim() !== "" && projectField.text.trim() !== "") {
+            testData = {
+                "Date": dateField.text,
+                "Time": timeField.text,
+                "Customer": customerField.text,
+                "Project": projectField.text
+            };
+        } else {
+            console.log("Customer Name and Project Description are required.");
+        }
+    }
+
+    function startTests() {
+        if (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) {
+            if (positionTestCheckBox.checked) testQueue.push("Position Test");
+            if (flowTestCheckBox.checked) testQueue.push("Flow Test");
+            if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
+
+            startButton.enabled = false;
+            positionTestCheckBox.enabled = false;
+            flowTestCheckBox.enabled = false;
+            leakageTestCheckBox.enabled = false;
+
+            if (testData[currentTest] === undefined) {
+                createChart(currentTest);
+            }
+
+            startNextTest();
+        } else {
+            console.log("Select at least one test type.");
+        }
+    }
+
     Connections {
         target: mainApp
-        
     }
 }
