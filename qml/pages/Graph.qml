@@ -41,20 +41,29 @@ Page {
             Layout.maximumWidth: parent.width * 0.75
 
             // Add series based on your data
-            LineSeries {
-                id: positionSeries
-                name: "Position"
-                visible: false  // Initially hidden, will be shown when checkbox is checked
+            Repeater {
+                model: position_keys.length
+                LineSeries {
+                    id: "positionSeries" + index
+                    name: position_keys[index]
+                    visible: false
+                }
             }
-            LineSeries {
-                id: flowSeries
-                name: "Flow"
-                visible: false
+            Repeater {
+                model: flow_keys.length
+                LineSeries {
+                    id: "flowSeries" + index
+                    name: flow_keys[index]
+                    visible: false
+                }
             }
-            LineSeries {
-                id: leakageSeries
-                name: "Leakage"
-                visible: false
+            Repeater {
+                model: leakage_keys.length
+                LineSeries {
+                    id: "leakageSeries" + index
+                    name: leakage_keys[index]
+                    visible: false
+                }
             }
         }
 
@@ -99,32 +108,30 @@ Page {
                     text: "Start"
                     onClicked: {
                         // Handle start
-                        positionSeries.visible = checkBox1.checked;
-                        flowSeries.visible = checkBox2.checked;
-                        leakageSeries.visible = checkBox3.checked;
+                        for (var i = 0; i < position_keys.length; i++) {
+                            chart.getSeries(i).visible = checkBox1.checked;
+                            if (checkBox1.checked) {
+                                chart.getSeries(i).clear();
+                                chart.getSeries(i).append(new Date().getTime(), mainApp.value[position_keys[i]]);
+                            }
+                        }
+                        for (var i = 0; i < flow_keys.length; i++) {
+                            chart.getSeries(position_keys.length + i).visible = checkBox2.checked;
+                            if (checkBox2.checked) {
+                                chart.getSeries(position_keys.length + i).clear();
+                                chart.getSeries(position_keys.length + i).append(new Date().getTime(), mainApp.value[flow_keys[i]]);
+                            }
+                        }
+                        for (var i = 0; i < leakage_keys.length; i++) {
+                            chart.getSeries(position_keys.length + flow_keys.length + i).visible = checkBox3.checked;
+                            if (checkBox3.checked) {
+                                chart.getSeries(position_keys.length + flow_keys.length + i).clear();
+                                chart.getSeries(position_keys.length + flow_keys.length + i).append(new Date().getTime(), mainApp.value[leakage_keys[i]]);
+                            }
+                        }
 
                         // Start the tests
                         testTimer.start();
-
-                        // Start updating the chart
-                        if (checkBox1.checked) {
-                            positionSeries.clear();
-                            for (var key in position_keys) {
-                                positionSeries.append(new Date().getTime(), mainApp.value[position_keys[key]]);
-                            }
-                        }
-                        if (checkBox2.checked) {
-                            flowSeries.clear();
-                            for (var key in flow_keys) {
-                                flowSeries.append(new Date().getTime(), mainApp.value[flow_keys[key]]);
-                            }
-                        }
-                        if (checkBox3.checked) {
-                            leakageSeries.clear();
-                            for (var key in leakage_keys) {
-                                leakageSeries.append(new Date().getTime(), mainApp.value[leakage_keys[key]]);
-                            }
-                        }
                     }
                 }
             }
