@@ -45,7 +45,7 @@ Page {
                 model: position_keys.length
                 LineSeries {
                     id: "positionSeries" + index
-                    name: position_keys[index]
+                    name: "Position " + index
                     visible: false
                 }
             }
@@ -53,7 +53,7 @@ Page {
                 model: flow_keys.length
                 LineSeries {
                     id: "flowSeries" + index
-                    name: flow_keys[index]
+                    name: "Flow " + index
                     visible: false
                 }
             }
@@ -61,7 +61,7 @@ Page {
                 model: leakage_keys.length
                 LineSeries {
                     id: "leakageSeries" + index
-                    name: leakage_keys[index]
+                    name: "Leakage " + index
                     visible: false
                 }
             }
