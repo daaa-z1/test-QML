@@ -39,44 +39,6 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.maximumWidth: parent.width * 0.75
-
-            // Component for LineSeries
-            Component {
-                id: lineSeriesComponent
-                LineSeries {
-                    name: "Series"
-                    visible: false
-                }
-            }
-
-            // Add series based on your data
-            Repeater {
-                model: position_keys.length
-                delegate: Loader {
-                    sourceComponent: lineSeriesComponent
-                    onLoaded: {
-                        item.name += " " + index;
-                    }
-                }
-            }
-            Repeater {
-                model: flow_keys.length
-                delegate: Loader {
-                    sourceComponent: lineSeriesComponent
-                    onLoaded: {
-                        item.name += " " + index;
-                    }
-                }
-            }
-            Repeater {
-                model: leakage_keys.length
-                delegate: Loader {
-                    sourceComponent: lineSeriesComponent
-                    onLoaded: {
-                        item.name += " " + index;
-                    }
-                }
-            }
         }
 
         // Input box
@@ -121,28 +83,34 @@ Page {
                     onClicked: {
                         // Handle start
                         for (var i = 0; i < position_keys.length; i++) {
-                            var series = chart.series[i];
+                            var series = Qt.createQmlObject('import QtCharts 2.15; LineSeries {}', chart);
+                            series.name = "Position " + i;
                             series.visible = checkBox1.checked;
                             if (checkBox1.checked && mainApp.value && mainApp.value[position_keys[i]]) {
                                 series.clear();
                                 series.append(new Date().getTime(), mainApp.value[position_keys[i]]);
                             }
+                            chart.addSeries(series);
                         }
                         for (var i = 0; i < flow_keys.length; i++) {
-                            var series = chart.series[position_keys.length + i];
+                            var series = Qt.createQmlObject('import QtCharts 2.15; LineSeries {}', chart);
+                            series.name = "Flow " + i;
                             series.visible = checkBox2.checked;
                             if (checkBox2.checked && mainApp.value && mainApp.value[flow_keys[i]]) {
                                 series.clear();
                                 series.append(new Date().getTime(), mainApp.value[flow_keys[i]]);
                             }
+                            chart.addSeries(series);
                         }
                         for (var i = 0; i < leakage_keys.length; i++) {
-                            var series = chart.series[position_keys.length + flow_keys.length + i];
+                            var series = Qt.createQmlObject('import QtCharts 2.15; LineSeries {}', chart);
+                            series.name = "Leakage " + i;
                             series.visible = checkBox3.checked;
                             if (checkBox3.checked && mainApp.value && mainApp.value[leakage_keys[i]]) {
                                 series.clear();
                                 series.append(new Date().getTime(), mainApp.value[leakage_keys[i]]);
                             }
+                            chart.addSeries(series);
                         }
 
                         // Start the tests
