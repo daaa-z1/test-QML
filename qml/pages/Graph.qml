@@ -16,13 +16,13 @@ Page {
         repeat: true
         onTriggered: {
             if (positionSeries.visible) {
-                positionSeries.visible = false;
+                positionSeries.visible = true;
                 flowSeries.visible = checkBox2.checked;
             } else if (flowSeries.visible) {
-                flowSeries.visible = false;
+                flowSeries.visible = true;
                 leakageSeries.visible = checkBox3.checked;
             } else if (leakageSeries.visible) {
-                leakageSeries.visible = false;
+                leakageSeries.visible = true;
                 positionSeries.visible = checkBox1.checked;
             }
         }
