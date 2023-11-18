@@ -4,60 +4,61 @@ import QtCharts 2.15
 
 Page {
     id: graphPage
-
     property var testData: ({})
     property string currentTest: ""
     property var testQueue: []
+    property var position_keys: ['curr_v', 'aktual']
+    property var flow_keys: ['pressure_in', 'flow']
+    property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
     property var updateTimer: Timer {
         interval: 1000
         running: true
         repeat: true
         onTriggered: {
-            dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd")
-            timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
+            dateField.text = Qt.formatDateTime(new Date(), "yyyy-MM-dd");
+            timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
         }
     }
 
-    // Fungsi untuk membuat grafik
     function createChart(testType) {
-        var keys = testType === "Position Test" ? position_keys :
-                   testType === "Flow Test" ? flow_keys :
-                   testType === "Leakage Test" ? leakage_keys : [];
+        var keys = [];
+        var currentTime = new Date().getTime();
+        if (testType === "Position Test") keys = position_keys;
+        else if (testType === "Flow Test") keys = flow_keys;
+        else if (testType === "Leakage Test") keys = leakage_keys;
         chartView.title = testType;
 
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
-            if (key && mainApp.value[key] !== undefined) {
-                lineSeries.append(new Date().getTime(), mainApp.value[key]);
+            if (key) {
+                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
+                series.append(currentTime, mainApp.value[key]);
             }
+            console.log(mainApp.value[key]);
         }
     }
 
-    // Fungsi untuk memulai pengujian berikutnya
     function startNextTest() {
         if (testQueue.length > 0) {
             currentTest = testQueue.shift();
             testData[currentTest] = [];
-
-            var keys = currentTest === "Position Test" ? position_keys :
-                       currentTest === "Flow Test" ? flow_keys :
-                       currentTest === "Leakage Test" ? leakage_keys : [];
+            var keys = [];
+            if (currentTest === "Position Test") keys = position_keys;
+            else if (currentTest === "Flow Test") keys = flow_keys;
+            else if (currentTest === "Leakage Test") keys = leakage_keys;
 
             lineSeries.clear();
-            createChart(currentTest);
+
+            if (testData[currentTest].length === 0) {
+                createChart(currentTest);
+            }
 
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
-                if (key && mainApp.value[key] !== undefined) {
-                    testData[currentTest].push(mainApp.value[key]);
-                }
+                testData[currentTest].push(mainApp.value[key]);
             }
 
-            Timer {
-                interval: 10000
-                running: true
-                onTriggered: startNextTest()
-            }
+            Qt.createQmlObject('import QtQuick 2.0; Timer { interval: 10000; running: true; onTriggered: graphPage.startNextTest() }', graphPage);
         } else {
             currentTest = "";
             positionTestCheckBox.enabled = true;
@@ -77,7 +78,6 @@ Page {
             antialiasing: true
             backgroundColor: "#f0f0f0"
             title: "Test Results"
-
             LineSeries {
                 id: lineSeries
                 XYPoint { x: 0; y: 0 }
@@ -92,8 +92,6 @@ Page {
             radius: 10
             border.color: "gray"
             border.width: 2
-
-            // Kotak input
             Column {
                 anchors.fill: parent
                 spacing: 10
@@ -135,47 +133,44 @@ Page {
                                 "Customer": customerField.text,
                                 "Project": projectField.text
                             };
+                        } else {
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
                 }
 
-                // Checkbox untuk jenis pengujian
                 CheckBox {
-                    text: "Position Test"
                     id: positionTestCheckBox
+                    text: "Position Test"
                 }
 
                 CheckBox {
-                    text: "Flow Test"
                     id: flowTestCheckBox
+                    text: "Flow Test"
                 }
 
                 CheckBox {
-                    text: "Leakage Test"
                     id: leakageTestCheckBox
+                    text: "Leakage Test"
                 }
 
-                // Tombol untuk memulai pengujian
                 Button {
-                    text: "Start Tests"
                     id: startButton
+                    text: "Start Tests"
                     onClicked: {
                         if (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) {
                             if (positionTestCheckBox.checked) testQueue.push("Position Test");
                             if (flowTestCheckBox.checked) testQueue.push("Flow Test");
                             if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
-
                             startButton.enabled = false;
                             positionTestCheckBox.enabled = false;
                             flowTestCheckBox.enabled = false;
                             leakageTestCheckBox.enabled = false;
-
                             if (testData[currentTest] === undefined) {
                                 createChart(currentTest);
                             }
-
                             startNextTest();
+                        } else {
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
@@ -186,5 +181,6 @@ Page {
 
     Connections {
         target: mainApp
+        
     }
 }
