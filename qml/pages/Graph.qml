@@ -179,9 +179,6 @@ Page {
 
     Connections {
         target: mainApp
-        function onValueChanged() {
-            // Update the chart with the new values
-            startNextTest();
-        }
+        
     }
 }
