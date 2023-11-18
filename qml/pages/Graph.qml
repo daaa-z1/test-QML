@@ -37,19 +37,16 @@ Page {
         onTriggered: {
             if (positionSeries.visible) {
                 for (var key in position_keys) {
-                    positionSeries.name = key;
                     positionSeries.append(new Date().getTime(), mainApp.value[position_keys[key]]);
                 }
             }
             if (flowSeries.visible) {
                 for (var key in flow_keys) {
-                    flowSeries.name = key
                     flowSeries.append(new Date().getTime(), mainApp.value[flow_keys[key]]);
                 }
             }
             if (leakageSeries.visible) {
                 for (var key in leakage_keys) {
-                    leakageSeries.name = key
                     leakageSeries.append(new Date().getTime(), mainApp.value[leakage_keys[key]]);
                 }
             }
