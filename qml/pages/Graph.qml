@@ -59,7 +59,7 @@ Page {
             // Add series based on your data
             Repeater {
                 model: positionModel
-                delegate: LineSeries {
+                LineSeries {
                     id: positionSeries
                     name: "Position " + index
                     visible: false
@@ -67,7 +67,7 @@ Page {
             }
             Repeater {
                 model: flowModel
-                delegate: LineSeries {
+                LineSeries {
                     id: flowSeries
                     name: "Flow " + index
                     visible: false
@@ -75,7 +75,7 @@ Page {
             }
             Repeater {
                 model: leakageModel
-                delegate: LineSeries {
+                LineSeries {
                     id: leakageSeries
                     name: "Leakage " + index
                     visible: false
