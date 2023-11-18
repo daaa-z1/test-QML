@@ -34,7 +34,7 @@ Page {
             if (key) {
                 var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
                 series.name = key;
-                chartSeries[key].append(i, mainApp.value[key]);
+                series.append(i, mainApp.value[key]);
             }
             console.log(mainApp.value[key]);
         }
