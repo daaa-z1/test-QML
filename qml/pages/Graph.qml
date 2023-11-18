@@ -16,27 +16,15 @@ Page {
         interval: 10000  // 10 seconds
         repeat: true
         onTriggered: {
-            if (positionSeries[0].visible) {
-                for (var i = 0; i < positionSeries.length; i++) {
-                    positionSeries[i].visible = false;
-                }
-                for (var i = 0; i < flowSeries.length; i++) {
-                    flowSeries[i].visible = checkBox2.checked;
-                }
-            } else if (flowSeries[0].visible) {
-                for (var i = 0; i < flowSeries.length; i++) {
-                    flowSeries[i].visible = false;
-                }
-                for (var i = 0; i < leakageSeries.length; i++) {
-                    leakageSeries[i].visible = checkBox3.checked;
-                }
-            } else if (leakageSeries[0].visible) {
-                for (var i = 0; i < leakageSeries.length; i++) {
-                    leakageSeries[i].visible = false;
-                }
-                for (var i = 0; i < positionSeries.length; i++) {
-                    positionSeries[i].visible = checkBox1.checked;
-                }
+            if (positionSeries.visible) {
+                positionSeries.visible = false;
+                flowSeries.visible = checkBox2.checked;
+            } else if (flowSeries.visible) {
+                flowSeries.visible = false;
+                leakageSeries.visible = checkBox3.checked;
+            } else if (leakageSeries.visible) {
+                leakageSeries.visible = false;
+                positionSeries.visible = checkBox1.checked;
             }
         }
     }
@@ -53,38 +41,30 @@ Page {
             Layout.maximumWidth: parent.width * 0.75
 
             // Add series based on your data
-            property var positionSeries: (function() {
-                var series = [];
-                for (var i = 0; i < position_keys.length; i++) {
-                    series.push(LineSeries {
-                        name: "Position " + i
-                        visible: false
-                    });
+            Repeater {
+                model: position_keys.length
+                delegate: LineSeries {
+                    id: "positionSeries" + index
+                    name: "Position " + index
+                    visible: false
                 }
-                return series;
-            })()
-
-            property var flowSeries: (function() {
-                var series = [];
-                for (var i = 0; i < flow_keys.length; i++) {
-                    series.push(LineSeries {
-                        name: "Flow " + i
-                        visible: false
-                    });
+            }
+            Repeater {
+                model: flow_keys.length
+                delegate: LineSeries {
+                    id: "flowSeries" + index
+                    name: "Flow " + index
+                    visible: false
                 }
-                return series;
-            })()
-
-            property var leakageSeries: (function() {
-                var series = [];
-                for (var i = 0; i < leakage_keys.length; i++) {
-                    series.push(LineSeries {
-                        name: "Leakage " + i
-                        visible: false
-                    });
+            }
+            Repeater {
+                model: leakage_keys.length
+                delegate: LineSeries {
+                    id: "leakageSeries" + index
+                    name: "Leakage " + index
+                    visible: false
                 }
-                return series;
-            })()
+            }
         }
 
         // Input box
@@ -129,7 +109,7 @@ Page {
                     onClicked: {
                         // Handle start
                         for (var i = 0; i < position_keys.length; i++) {
-                            var series = chart.positionSeries[i];
+                            var series = chart.findChild("positionSeries" + i);
                             series.visible = checkBox1.checked;
                             if (checkBox1.checked && mainApp.value && mainApp.value[position_keys[i]]) {
                                 series.clear();
@@ -137,7 +117,7 @@ Page {
                             }
                         }
                         for (var i = 0; i < flow_keys.length; i++) {
-                            var series = chart.flowSeries[i];
+                            var series = chart.findChild("flowSeries" + i);
                             series.visible = checkBox2.checked;
                             if (checkBox2.checked && mainApp.value && mainApp.value[flow_keys[i]]) {
                                 series.clear();
@@ -145,7 +125,7 @@ Page {
                             }
                         }
                         for (var i = 0; i < leakage_keys.length; i++) {
-                            var series = chart.leakageSeries[i];
+                            var series = chart.findChild("leakageSeries" + i);
                             series.visible = checkBox3.checked;
                             if (checkBox3.checked && mainApp.value && mainApp.value[leakage_keys[i]]) {
                                 series.clear();
