@@ -10,10 +10,9 @@ Page {
     property var flow_keys: ['pressure_in', 'flow']
     property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
 
-    // Timer for tests
     Timer {
         id: testTimer
-        interval: 10000  // 10 seconds
+        interval: 10000
         repeat: true
         onTriggered: {
             if (positionSeries.visible) {
@@ -29,22 +28,19 @@ Page {
         }
     }
 
-    // Layout
     RowLayout {
         anchors.fill: parent
 
-        // Chart
         ChartView {
             id: chart
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.maximumWidth: parent.width * 0.75
 
-            // Add series based on your data
             LineSeries {
                 id: positionSeries
                 name: "Position"
-                visible: false  // Initially hidden, will be shown when checkbox is checked
+                visible: false
             }
             LineSeries {
                 id: flowSeries
@@ -58,7 +54,6 @@ Page {
             }
         }
 
-        // Input box
         Rectangle {
             id: inputBox
             Layout.fillHeight: true
@@ -68,19 +63,16 @@ Page {
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 10
-                padding: 10
+                Layout.margins: 10
 
-                // Text fields
                 TextField { id: tanggal; placeholderText: "Tanggal" }
                 TextField { id: waktu; placeholderText: "Waktu" }
                 TextField { id: customer; placeholderText: "Nama Customer" }
                 TextField { id: deskripsi; placeholderText: "Deskripsi Proyek" }
 
-                // Submit button
                 Button {
                     text: "Submit"
                     onClicked: {
-                        // Handle submit
                         console.log("Tanggal: " + tanggal.text);
                         console.log("Waktu: " + waktu.text);
                         console.log("Nama Customer: " + customer.text);
@@ -89,21 +81,17 @@ Page {
                     }
                 }
 
-                // Check boxes
                 CheckBox { id: checkBox1; text: "Position Test" }
                 CheckBox { id: checkBox2; text: "Flow Test" }
                 CheckBox { id: checkBox3; text: "Leakage Test" }
 
-                // Start button
                 Button {
                     text: "Start"
                     onClicked: {
-                        // Handle start
                         positionSeries.visible = checkBox1.checked;
                         flowSeries.visible = checkBox2.checked;
                         leakageSeries.visible = checkBox3.checked;
 
-                        // Start the tests
                         if (checkBox1.checked) {
                             positionSeries.clear();
                             for (var key in position_keys) {
@@ -122,8 +110,6 @@ Page {
                                 leakageSeries.append(new Date().getTime(), mainApp.value[leakage_keys[key]]);
                             }
                         }
-
-                        // Start the timer
                         testTimer.start();
                     }
                 }
