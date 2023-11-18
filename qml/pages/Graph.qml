@@ -44,7 +44,7 @@ Page {
             Repeater {
                 model: position_keys.length
                 delegate: LineSeries {
-                    id: "positionSeries" + index
+                    id: positionSeries + index
                     name: "Position " + index
                     visible: false
                 }
@@ -52,7 +52,7 @@ Page {
             Repeater {
                 model: flow_keys.length
                 delegate: LineSeries {
-                    id: "flowSeries" + index
+                    id: flowSeries + index
                     name: "Flow " + index
                     visible: false
                 }
@@ -60,7 +60,7 @@ Page {
             Repeater {
                 model: leakage_keys.length
                 delegate: LineSeries {
-                    id: "leakageSeries" + index
+                    id: leakageSeries + index
                     name: "Leakage " + index
                     visible: false
                 }
