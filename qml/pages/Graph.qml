@@ -125,7 +125,7 @@ Page {
                             series.visible = checkBox1.checked;
                             if (checkBox1.checked) {
                                 series.clear();
-                                series.append(new Date().getTime(), mainApp.value[position_keys[i]]);
+                                series.append(new Date().getTime(), mainApp._value[position_keys[i]]);
                             }
                         }
                         for (var i = 0; i < flow_keys.length; i++) {
@@ -133,7 +133,7 @@ Page {
                             series.visible = checkBox2.checked;
                             if (checkBox2.checked) {
                                 series.clear();
-                                series.append(new Date().getTime(), mainApp.value[flow_keys[i]]);
+                                series.append(new Date().getTime(), mainApp._value[flow_keys[i]]);
                             }
                         }
                         for (var i = 0; i < leakage_keys.length; i++) {
@@ -141,7 +141,7 @@ Page {
                             series.visible = checkBox3.checked;
                             if (checkBox3.checked) {
                                 series.clear();
-                                series.append(new Date().getTime(), mainApp.value[leakage_keys[i]]);
+                                series.append(new Date().getTime(), mainApp._value[leakage_keys[i]]);
                             }
                         }
 
