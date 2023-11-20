@@ -114,7 +114,7 @@ Item {
     }
 
     // GraphView for displaying line charts
-    GraphView {
+    ChartView {
         id: graphView
         width: parent.width * 3 / 4
         height: parent.height
