@@ -3,16 +3,122 @@ import QtQuick.Controls 2.15
 import QtCharts 2.15
 
 Item {
+    property bool isTesting: false
+    property int currentTestIndex: 0
+    property var testKeysList: [['curr_v', 'aktual'], ['press_in', 'flow'], ['press_in', 'press_a', 'press_b', 'flow']]
 
-    property var position_keys: ['curr_v', 'aktual']
-    property var flow_keys: ['press_in', 'flow']
-    property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
+    Timer {
+        id: testTimer
+        interval: 10000 // 10 seconds
+        repeat: true
+        running: isTesting
+        onTriggered: {
+            currentTestIndex = (currentTestIndex + 1) % testKeysList.length;
+            restart();
+        }
+    }
 
-    ChartView {
-        id: chartView
-        anchors.fill: parent
-        theme: ChartView.ChartThemeDark
-        antialiasing: true
+    ColumnLayout {
+        id: inputBox
+        width: parent.width / 4
+        height: parent.height
+        anchors.right: parent.right
+
+        // First column for input data
+        ColumnLayout {
+            spacing: 10
+
+            TextField {
+                id: dateField
+                text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
+                readOnly: true
+                background: Rectangle { color: "lightgray"; radius: 5 }
+            }
+
+            TextField { 
+                id: timeField
+                text: Qt.formatDateTime(new Date(), "HH:mm:ss")
+                readOnly: true
+                background: Rectangle { color: "lightgray"; radius: 5 }
+            }
+
+            TextField {
+                id: customerField
+                placeholderText: "Customer Name"
+                background: Rectangle { color: "lightgray"; radius: 5 }
+            }
+
+            TextField {
+                id: projectField
+                placeholderText: "Project Description"
+                background: Rectangle { color: "lightgray"; radius: 5 }
+            }
+
+            Button {
+                text: "Submit"
+                onClicked: {
+                    if (customerField.text.trim() !== "" && projectField.text.trim() !== "") {
+                        testData = {
+                            "Date": dateField.text,
+                            "Time": timeField.text,
+                            "Customer": customerField.text,
+                            "Project": projectField.text
+                        };
+                    } else {
+                    }
+                }
+                background: Rectangle { color: "lightblue"; radius: 5 }
+            }
+        }
+
+        // Second column for testing control
+        ColumnLayout {
+            id: inputBoxCheckBoxes
+            spacing: 10
+            visible: false
+
+            CheckBox {
+                text: "Position Test"
+                checked: currentTestIndex === 0
+                onClicked: {
+                    currentTestIndex = 0;
+                    isTesting = true;
+                }
+            }
+
+            CheckBox {
+                text: "Flow Test"
+                checked: currentTestIndex === 1
+                onClicked: {
+                    currentTestIndex = 1;
+                    isTesting = true;
+                }
+            }
+
+            CheckBox {
+                text: "Leakage Test"
+                checked: currentTestIndex === 2
+                onClicked: {
+                    currentTestIndex = 2;
+                    isTesting = true;
+                }
+            }
+
+            Button {
+                text: "Start"
+                onClicked: {
+                    isTesting = true;
+                }
+            }
+        }
+    }
+
+    // GraphView for displaying line charts
+    GraphView {
+        id: graphView
+        width: parent.width * 3 / 4
+        height: parent.height
+        anchors.left: parent.left
 
         ValueAxis {
             id: axisX
@@ -27,47 +133,46 @@ Item {
         }
 
         LineSeries {
-            id: lineSeries1
-            name: "Position Test"
+            id: testLineSeries
             axisX: axisX
             axisY: axisY
             useOpenGL: true
         }
 
-        LineSeries {
-            id: lineSeries2
-            name: "Flow Test"
-            axisX: axisX
-            axisY: axisY
-            useOpenGL: true
-        }
-
-        LineSeries {
-            id: lineSeries3
-            name: "Leakage Test"
-            axisX: axisX
-            axisY: axisY
-            useOpenGL: true
-        }
-
-        Component.onCompleted: {
-            // Connect to the valueChanged signal of mainApp
-            mainApp.valueChanged.connect(updatePlot);
-        }
-
+        // Modified updatePlot function
         function updatePlot() {
-            // Append the new value to the series
-            var value1 = mainApp.value[position_keys[0]];
-            var value2 = mainApp.value[flow_keys[0]];
-            var value3 = mainApp.value[leakage_keys[0]];
-            lineSeries1.append(lineSeries1.count, value1);
-            lineSeries2.append(lineSeries2.count, value2);
-            lineSeries3.append(lineSeries3.count, value3);
+            var keys = testKeysList[currentTestIndex];
+            for (var i = 0; i < keys.length; ++i) {
+                var value = mainApp.value[keys[i]];
+                testLineSeries.append(testLineSeries.count, value);
+            }
 
             // Scroll the x-axis
-            if (lineSeries1.count > axisX.max - axisX.min) {
+            if (testLineSeries.count > axisX.max - axisX.min) {
                 axisX.min++;
                 axisX.max++;
+            }
+
+            // Clean old data if necessary
+            if (testLineSeries.count > 100) {
+                testLineSeries.remove(0);
+            }
+        }
+
+        Timer {
+            interval: 10000 // 10 seconds
+            running: isTesting
+            onTriggered: {
+                isTesting = false;
+            }
+        }
+
+        Connections {
+            target: mainApp
+            onValueChanged: {
+                if (isTesting) {
+                    updatePlot();
+                }
             }
         }
     }
