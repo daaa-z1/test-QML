@@ -5,9 +5,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Extras.Private 1.0
 
-
-//import QtQuick 2.0
-import QtCharts 2.1
+import QtCharts 2.15
 import "../controls"
 
 
@@ -99,7 +97,6 @@ Page {
             color: "#ff0000"
         }
 
-        ///
         Timer{
 			id:tm
 			interval: cv.intervalTM
@@ -107,7 +104,6 @@ Page {
 			running: true
 			onTriggered: {
 				cv.timcnt = cv.timcnt + 1
-				//cv.valueTM1 = mainApp.get_tiempo()*1000
 				cv.valueCH1 = mainApp.value['curr_v']
 				cv.valueCH2 = mainApp.value['aktual']
 				cv.valueCH3 = mainApp.value['pressure_in']
@@ -118,24 +114,12 @@ Page {
 					lines2.remove(0)
 					lines3.remove(0)
 					lines4.remove(0)
-					}
+				}
 				
 				lines1.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH1)
 				lines2.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH2)
 				lines3.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH3)
-				lines4.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH4)
-				
-				//lines1.append(cv.valueTM1+cv.timcnt*500 ,cv.valueCH1)
-				//lines2.append(cv.valueTM1+cv.timcnt*500 ,cv.valueCH2)
-				//lines3.append(cv.valueTM1+cv.timcnt*500 ,cv.valueCH3)
-				//lines4.append(cv.valueTM1+cv.timcnt*500 ,cv.valueCH4)
-				
-				//lines1.axisX.min = cv.timcnt < cv.periodGRAPH ? new Date(cv.startTIME) : new Date(cv.startTIME  - cv.periodGRAPH*1000 + cv.timcnt*1000)
-				//lines1.axisX.max = cv.timcnt < cv.periodGRAPH ? new Date(cv.startTIME  + cv.periodGRAPH*1000) : new Date(cv.startTIME   + cv.timcnt*1000)
-				
-				//lines1.axisX.min = new Date(cv.startTIME-cv.periodGRAPH*1000 + cv.timcnt*500)
-				//lines1.axisX.max = new Date(cv.startTIME + cv.timcnt*500)
-				
+				lines4.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH4)				
 				lines1.axisX.min = new Date(cv.startTIME-cv.periodGRAPH*1000 + cv.timcnt*cv.intervalTM)
 				lines1.axisX.max = new Date(cv.startTIME + cv.timcnt*cv.intervalTM)
 			}
@@ -145,12 +129,8 @@ Page {
     Component.onCompleted: {
 		cv.startTIME = mainApp.get_tiempo()*1000
 	}
-    
 
-	//########## END CHART VIEW ##############################
-	
 	Connections{
-        target: mainApp
-        
+        target: mainApp        
 	}
 }
