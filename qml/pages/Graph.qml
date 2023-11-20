@@ -36,7 +36,7 @@ Page {
             target: mainApp
             function onValueChanged() {
                 // Add the new data point to the series
-                lineSeries.append(mainApp.value[mainApp.keys[]]);
+                lineSeries.append(mainApp.value['aktual']);
                 // Keep only the last N data points to prevent the chart from growing indefinitely
                 if (lineSeries.count() > 100) {
                     lineSeries.remove(0, 1);
