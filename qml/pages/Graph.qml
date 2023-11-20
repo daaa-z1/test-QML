@@ -1,6 +1,6 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.4
+import QtQuick.Controls 2.15
 import QtCharts 2.15
 
 Item {
@@ -99,15 +99,15 @@ Item {
             text: "Start Tests"
             onClicked: {
                 if (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) {
-                    if (positionTestCheckBox.checked) testQueue.push("Position Test");
-                    if (flowTestCheckBox.checked) testQueue.push("Flow Test");
-                    if (leakageTestCheckBox.checked) testQueue.push("Leakage Test");
+                    if (positionTestCheckBox.checked) mainApp.testQueue.push("Position Test");
+                    if (flowTestCheckBox.checked) mainApp.testQueue.push("Flow Test");
+                    if (leakageTestCheckBox.checked) mainApp.testQueue.push("Leakage Test");
                     startButton.enabled = false;
                     positionTestCheckBox.enabled = false;
                     flowTestCheckBox.enabled = false;
                     leakageTestCheckBox.enabled = false;
-                    if (testData[currentTest] === undefined) {
-                        createChart(currentTest);
+                    if (testData[mainApp.currentTest] === undefined) {
+                        createChart(mainApp.currentTest);
                     }
                     startNextTest();
                 } else {
