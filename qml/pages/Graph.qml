@@ -1,14 +1,17 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtCharts 2.15
+import QtCharts 2.3
 
 Page {
     visible: true
+    // width: 640
+    // height: 480
     title: "Real-time Plot"
 
     ChartView {
         id: chartView
         anchors.fill: parent
+        theme: ChartView.ChartThemeDark
         antialiasing: true
 
         ValueAxis {
@@ -23,8 +26,8 @@ Page {
             max: 100
         }
 
-        SplineSeries {
-            id: splineSeries
+        LineSeries {
+            id: lineSeries
             name: "Value"
             axisX: axisX
             axisY: axisY
@@ -39,10 +42,10 @@ Page {
         function updatePlot() {
             // Append the new value to the series
             var value = mainApp.value["aktual"]; // replace "press_in" with the key you are interested in
-            splineSeries.append(splineSeries.count, value);
+            lineSeries.append(lineSeries.count, value);
 
             // Scroll the x-axis
-            if (splineSeries.count > axisX.max - axisX.min) {
+            if (lineSeries.count > axisX.max - axisX.min) {
                 axisX.min++;
                 axisX.max++;
             }
