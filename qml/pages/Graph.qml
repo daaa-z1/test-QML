@@ -3,7 +3,6 @@ import QtQuick.Controls 2.15
 import QtCharts 2.15
 
 Item {
-
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
@@ -50,6 +49,11 @@ Item {
             useOpenGL: true
         }
 
+        Legend {
+            visible: true
+            alignment: Qt.AlignTop
+        }
+
         Component.onCompleted: {
             // Connect to the valueChanged signal of mainApp
             mainApp.valueChanged.connect(updatePlot);
@@ -68,6 +72,13 @@ Item {
             if (lineSeries1.count > axisX.max - axisX.min) {
                 axisX.min++;
                 axisX.max++;
+            }
+
+            // Clean old data if necessary
+            if (lineSeries1.count > 100) {
+                lineSeries1.remove(0);
+                lineSeries2.remove(0);
+                lineSeries3.remove(0);
             }
         }
     }
