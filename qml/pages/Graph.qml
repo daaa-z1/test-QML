@@ -9,7 +9,7 @@ import QtCharts 2.15
 import "../controls"
 
 
-Page {
+Item {
 
 	Text {
 		id: title
