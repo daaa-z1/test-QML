@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import QtCharts 2.15
 
 Item {
@@ -25,45 +26,53 @@ Item {
         anchors.right: parent.right
 
         // First column for input data
-        Column {
+        ColumnLayout {
             spacing: 10
 
             TextField {
-                placeholderText: "Tanggal"
-                // Bind to MainApp property
-                text: mainApp.tanggal
+                id: dateField
+                text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
+                readOnly: true
+                background: Rectangle { color: "lightgray"; radius: 5 }
             }
 
             TextField {
-                placeholderText: "Waktu"
-                // Bind to MainApp property
-                text: mainApp.waktu
+                id: timeField
+                text: Qt.formatDateTime(new Date(), "HH:mm:ss")
+                readOnly: true
+                background: Rectangle { color: "lightgray"; radius: 5 }
             }
 
             TextField {
-                placeholderText: "Nama Customer"
-                // Bind to MainApp property
-                text: mainApp.namaCustomer
+                id: customerField
+                placeholderText: "Customer Name"
+                background: Rectangle { color: "lightgray"; radius: 5 }
             }
 
             TextField {
-                placeholderText: "Deskripsi Proyek"
-                // Bind to MainApp property
-                text: mainApp.deskripsiProyek
+                id: projectField
+                placeholderText: "Project Description"
+                background: Rectangle { color: "lightgray"; radius: 5 }
             }
 
             Button {
                 text: "Submit"
                 onClicked: {
-                    // Save data and show the checkboxes
-                    // Your logic to save the data here
-                    inputBoxCheckBoxes.visible = true;
+                    if (customerField.text.trim() !== "" && projectField.text.trim() !== "") {
+                        testData = {
+                            "Date": dateField.text,
+                            "Time": timeField.text,
+                            "Customer": customerField.text,
+                            "Project": projectField.text
+                        };
+                    } else {
+                    }
                 }
+                background: Rectangle { color: "lightblue"; radius: 5 }
             }
         }
 
-        // Second column for testing control
-        Column {
+        ColumnLayout {
             id: inputBoxCheckBoxes
             spacing: 10
             visible: false
