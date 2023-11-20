@@ -1,41 +1,54 @@
 import QtQuick 2.15
-import QtCharts 2.15
+import QtQuick.Controls 2.15
+import QtCharts 2.3
 
-ChartView {
-    id: chartView
-    width: parent.width
-    height: parent.height
+Page {
+    visible: true
+    width: 640
+    height: 480
+    title: "Real-time Plot"
 
-    LineSeries {
-        name: "Graph"
-        XYPoint { x: 0; y: mainApp.value['curr_v'] }
-        XYPoint { x: 1; y: mainApp.value['aktual'] }
-        // Tambahkan XYPoint lain sesuai dengan jumlah data yang ingin ditampilkan
-    }
+    ChartView {
+        id: chartView
+        anchors.fill: parent
+        theme: ChartView.ChartThemeDark
+        antialiasing: true
 
-    ValueAxis {
-        id: axisX
-        min: 0
-        max: 10  // Sesuaikan dengan jumlah data yang ingin ditampilkan
-        labelFormat: "%.0f"
-    }
+        ValueAxis {
+            id: axisX
+            min: 0
+            max: 10
+        }
 
-    ValueAxis {
-        id: axisY
-        min: 0
-        max: 100  // Sesuaikan dengan rentang nilai yang ingin ditampilkan
-        labelFormat: "%.0f"
-    }
+        ValueAxis {
+            id: axisY
+            min: 0
+            max: 100
+        }
 
-    Component.onCompleted: {
-        chartView.createDefaultAxes()
-    }
+        SplineSeries {
+            id: splineSeries
+            name: "Value"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
 
-    Connections {
-        target: mainApp
-        onValueChanged: {
-            // Tambahkan logika untuk menambahkan nilai ke LineSeries saat nilai berubah
-            chartView.series[0].append(mainApp.value['curr_v'], mainApp.value['aktual'])
+        Component.onCompleted: {
+            // Connect to the valueChanged signal of mainApp
+            mainApp.valueChanged.connect(updatePlot);
+        }
+
+        function updatePlot() {
+            // Append the new value to the series
+            var value = mainApp.value["press_in"]; // replace "press_in" with the key you are interested in
+            splineSeries.append(splineSeries.count, value);
+
+            // Scroll the x-axis
+            if (splineSeries.count > axisX.max - axisX.min) {
+                axisX.min++;
+                axisX.max++;
+            }
         }
     }
 }
