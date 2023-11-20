@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 2.15
 import QtCharts 2.15
 
 Page {
@@ -34,12 +34,12 @@ Page {
         // Connect to the signal from readValues in MainApp
         Connections {
             target: mainApp
-            onValueChanged: {
+            function onValueChanged() {
                 // Add the new data point to the series
                 lineSeries.append(mainApp.value.press_actual);
                 // Keep only the last N data points to prevent the chart from growing indefinitely
                 if (lineSeries.count() > 100) {
-                    lineSeries.remove(0);
+                    lineSeries.remove(0, 1);
                 }
                 // Adjust the axis range dynamically if needed
                 xAxis.max = lineSeries.count();
