@@ -9,7 +9,6 @@ Page {
     ChartView {
         id: chartView
         anchors.fill: parent
-        theme: ChartView.ChartThemeDark
         antialiasing: true
 
         ValueAxis {
