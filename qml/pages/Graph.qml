@@ -49,11 +49,6 @@ Item {
             useOpenGL: true
         }
 
-        Legend {
-            visible: true
-            alignment: Qt.AlignTop
-        }
-
         Component.onCompleted: {
             // Connect to the valueChanged signal of mainApp
             mainApp.valueChanged.connect(updatePlot);
