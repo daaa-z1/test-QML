@@ -8,8 +8,8 @@ Page {
     property string currentTest: ""
     property var testQueue: []
     property var position_keys: ['curr_v', 'aktual']
-    property var flow_keys: ['pressure_in', 'flow']
-    property var leakage_keys: ['pressure_in', 'pressure_a', 'pressure_b', 'flow']
+    property var flow_keys: ['press_in', 'flow']
+    property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
     property var updateTimer: Timer {
         interval: 1000
         running: true
@@ -172,6 +172,10 @@ Page {
                         }
                     }
                     background: Rectangle { color: "lightblue"; radius: 5 }
+                }
+                Component.onCompleted: {
+                    // Connect to the valueChanged signal of mainApp
+                    mainApp.valueChanged.connect(startNextTest);
                 }
             }
         }
