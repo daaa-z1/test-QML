@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.14
 import QtCharts 2.15
 
 Item {
@@ -19,61 +18,52 @@ Item {
         }
     }
 
-    ColumnLayout {
+    RowLayout {
         id: inputBox
         width: parent.width / 4
         height: parent.height
         anchors.right: parent.right
 
         // First column for input data
-        ColumnLayout {
+        Column {
             spacing: 10
 
             TextField {
-                id: dateField
-                text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
-                readOnly: true
-                background: Rectangle { color: "lightgray"; radius: 5 }
-            }
-
-            TextField { 
-                id: timeField
-                text: Qt.formatDateTime(new Date(), "HH:mm:ss")
-                readOnly: true
-                background: Rectangle { color: "lightgray"; radius: 5 }
+                placeholderText: "Tanggal"
+                // Bind to MainApp property
+                text: mainApp.tanggal
             }
 
             TextField {
-                id: customerField
-                placeholderText: "Customer Name"
-                background: Rectangle { color: "lightgray"; radius: 5 }
+                placeholderText: "Waktu"
+                // Bind to MainApp property
+                text: mainApp.waktu
             }
 
             TextField {
-                id: projectField
-                placeholderText: "Project Description"
-                background: Rectangle { color: "lightgray"; radius: 5 }
+                placeholderText: "Nama Customer"
+                // Bind to MainApp property
+                text: mainApp.namaCustomer
+            }
+
+            TextField {
+                placeholderText: "Deskripsi Proyek"
+                // Bind to MainApp property
+                text: mainApp.deskripsiProyek
             }
 
             Button {
                 text: "Submit"
                 onClicked: {
-                    if (customerField.text.trim() !== "" && projectField.text.trim() !== "") {
-                        testData = {
-                            "Date": dateField.text,
-                            "Time": timeField.text,
-                            "Customer": customerField.text,
-                            "Project": projectField.text
-                        };
-                    } else {
-                    }
+                    // Save data and show the checkboxes
+                    // Your logic to save the data here
+                    inputBoxCheckBoxes.visible = true;
                 }
-                background: Rectangle { color: "lightblue"; radius: 5 }
             }
         }
 
         // Second column for testing control
-        ColumnLayout {
+        Column {
             id: inputBoxCheckBoxes
             spacing: 10
             visible: false
@@ -114,9 +104,9 @@ Item {
         }
     }
 
-    // GraphView for displaying line charts
+    // ChartView for displaying line charts
     ChartView {
-        id: graphView
+        id: chartView
         width: parent.width * 3 / 4
         height: parent.height
         anchors.left: parent.left
