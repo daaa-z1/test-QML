@@ -179,9 +179,6 @@ Page {
                             positionTestCheckBox.enabled = false;
                             flowTestCheckBox.enabled = false;
                             leakageTestCheckBox.enabled = false;
-                            if (testData[currentTest] === undefined) {
-                                createChart(currentTest);
-                            }
                             startNextTest();
                         } else {
                         }
