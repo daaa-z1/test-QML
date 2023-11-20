@@ -189,8 +189,8 @@ Page {
                 }
                 Component.onCompleted: {
                     // Connect to the valueChanged signal of mainApp
-                    mainApp.valueChanged.connect(startNextTest);
                     mainApp.valueChanged.connect(createChart);
+                    mainApp.valueChanged.connect(startNextTest);
                 }
             }
         }
