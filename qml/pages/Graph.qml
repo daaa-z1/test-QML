@@ -31,8 +31,7 @@ Page {
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (key) {
-                var series = chartView.createSeries(ChartView.SeriesTypeLine, key, chartView.axisX(), chartView.axisY());
-                series.append(currentTime, mainApp.value[key]);
+                lineSeries.append(currentTime, mainApp.value[key]);
             }
             console.log(mainApp.value[key]);
         }
@@ -76,9 +75,24 @@ Page {
             antialiasing: true
             backgroundColor: "#f0f0f0"
             title: "Test Results"
+            ValueAxis {
+                id: axisX
+                min: 0
+                max: 10
+            }
+
+            ValueAxis {
+                id: axisY
+                min: 0
+                max: 100
+            }
+
             LineSeries {
                 id: lineSeries
-                XYPoint { x: 0; y: 0 }
+                name: "Value"
+                axisX: axisX
+                axisY: axisY
+                useOpenGL: true
             }
         }
 
