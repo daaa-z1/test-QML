@@ -233,6 +233,13 @@ class MainApp(QObject):
         calculated_values = [max(min(value, max_val), min_val) for value, max_val, min_val in zip(calculated_values, max_values, min_values)]
         calculated_values = [int(value) for value in calculated_values]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
+        
+    @pyqtSlot(result=int)
+    def get_tiempo(self):
+        date_time = QDateTime.currentDateTime()
+        unixTIME = date_time.toSecsSinceEpoch()
+        #unixTIMEx = date_time.currentMSecsSinceEpoch()
+        return unixTIME
    
 if __name__ == "__main__":
     app = QApplication(sys.argv)
