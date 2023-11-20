@@ -8,8 +8,8 @@ ChartView {
 
     LineSeries {
         name: "Graph"
-        XYPoint { x: 0; y: mainApp.value['press_in'] }
-        XYPoint { x: 1; y: mainApp.value['press_a'] }
+        XYPoint { x: 0; y: mainApp.value['curr_v'] }
+        XYPoint { x: 1; y: mainApp.value['aktual'] }
         // Tambahkan XYPoint lain sesuai dengan jumlah data yang ingin ditampilkan
     }
 
@@ -35,7 +35,7 @@ ChartView {
         target: mainApp
         onValueChanged: {
             // Tambahkan logika untuk menambahkan nilai ke LineSeries saat nilai berubah
-            chartView.series[0].append(mainApp.value['press_in'], mainApp.value['press_a'])
+            chartView.series[0].append(mainApp.value['curr_v'], mainApp.value['aktual'])
         }
     }
 }
