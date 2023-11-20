@@ -4,8 +4,6 @@ import QtCharts 2.3
 
 Page {
     visible: true
-    width: 640
-    height: 480
     title: "Real-time Plot"
 
     ChartView {
