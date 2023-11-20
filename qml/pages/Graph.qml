@@ -76,9 +76,24 @@ Page {
             antialiasing: true
             backgroundColor: "#f0f0f0"
             title: "Test Results"
+             ValueAxis {
+                id: axisX
+                min: 0
+                max: 10
+            }
+
+            ValueAxis {
+                id: axisY
+                min: 0
+                max: 100
+            }
+
             LineSeries {
                 id: lineSeries
-                XYPoint { x: 0; y: 0 }
+                name: "Test Page"
+                axisX: axisX
+                axisY: axisY
+                useOpenGL: true
             }
         }
 
