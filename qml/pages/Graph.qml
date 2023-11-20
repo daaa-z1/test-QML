@@ -11,7 +11,7 @@ import QtCharts 2.1
 import "../controls"
 
 
-Item {
+Page {
 
 	Text {
 		id: title
