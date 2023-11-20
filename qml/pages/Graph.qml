@@ -1,50 +1,41 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
 import QtCharts 2.15
 
-Page {
-    id: graphPage
+ChartView {
+    id: chartView
+    width: parent.width
+    height: parent.height
 
-    ChartView {
-        id: chartView
-        anchors.fill: parent
-        legend.visible: false
+    LineSeries {
+        name: "Graph"
+        XYPoint { x: 0; y: mainApp.value.press_in }
+        XYPoint { x: 1; y: mainApp.value.press_a }
+        // Tambahkan XYPoint lain sesuai dengan jumlah data yang ingin ditampilkan
+    }
 
-        LineSeries {
-            id: lineSeries
-        }
+    ValueAxis {
+        id: axisX
+        min: 0
+        max: 10  // Sesuaikan dengan jumlah data yang ingin ditampilkan
+        labelFormat: "%.0f"
+    }
 
-        ValueAxis {
-            id: xAxis
-            min: 0
-            max: 100
-        }
+    ValueAxis {
+        id: axisY
+        min: 0
+        max: 100  // Sesuaikan dengan rentang nilai yang ingin ditampilkan
+        labelFormat: "%.0f"
+    }
 
-        ValueAxis {
-            id: yAxis
-            min: 0
-            max: 100
-        }
+    Component.onCompleted: {
+        chartView.createDefaultAxes()
+    }
 
-        Component.onCompleted: {
-            // Set up initial series
-            chartView.series.append(lineSeries);
-        }
-
-        // Connect to the signal from readValues in MainApp
-        Connections {
-            target: mainApp
-            function onValueChanged() {
-                // Add the new data point to the series
-                lineSeries.append(mainApp.value['aktual']);
-                // Keep only the last N data points to prevent the chart from growing indefinitely
-                if (lineSeries.count() > 100) {
-                    lineSeries.remove(0, 1);
-                }
-                // Adjust the axis range dynamically if needed
-                xAxis.max = lineSeries.count();
-                yAxis.max = Math.max.apply(null, lineSeries.points);
-            }
+    Connections {
+        target: mainApp
+        onValueChanged: {
+            // Tambahkan logika untuk menambahkan nilai ke LineSeries saat nilai berubah
+            chartView.series[0].append(mainApp.value.press_in, mainApp.value.press_a)
         }
     }
 }
