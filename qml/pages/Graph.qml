@@ -3,10 +3,6 @@ import QtQuick.Controls 2.15
 import QtCharts 2.15
 
 Item {
-    visible: true
-    width: 640
-    height: 480
-    title: "Real-time Plot"
 
     ChartView {
         id: chartView
