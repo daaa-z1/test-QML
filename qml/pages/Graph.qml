@@ -1,136 +1,84 @@
 import QtQuick 2.15
-import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls.Styles 1.4
-import QtQuick.Extras 1.4
-import QtQuick.Extras.Private 1.0
-
 import QtCharts 2.15
-import "../controls"
-
 
 Item {
+    visible: true
+    width: 640
+    height: 480
+    title: "Real-time Plot"
 
-	Text {
-		id: title
-		text: qsTr("Analog Measure - Volatile chart")
-		anchors.top:  parent.top
-		anchors.horizontalCenter: parent.horizontalCenter
-		anchors.topMargin: 5
-		font.pointSize :18
-		color: "#a0a0a0"
-	}
-	//########## INI CHART VIEW ##############################
-	
-	ChartView{
-        id:cv
-        anchors{
-            top:title.bottom
-            topMargin:10
-            left:parent.left
-            right:parent.right
-            bottom:parent.bottom
-            bottomMargin:10
-            leftMargin:10
-            rightMargin:10
-        }
-        antialiasing: true
+    ChartView {
+        id: chartView
+        anchors.fill: parent
         theme: ChartView.ChartThemeDark
+        antialiasing: true
 
-        property int  timcnt: 0
-        property double  valueCH1: 0
-        property double  valueCH2: 0
-        property double  valueCH3: 0
-        property double  valueCH4: 0
-        //property double  valueTM1: 0        
-        property double  periodGRAPH: 30 // Seconds
-		property double  startTIME: 0
-		property double  intervalTM: 200 // miliseconds
-
-        ValueAxis{
-            id:yAxis
+        ValueAxis {
+            id: axisX
             min: 0
-            max: 1000
-            tickCount: 1
-            labelFormat: "%d"
+            max: 10
+        }
+
+        ValueAxis {
+            id: axisY
+            min: 0
+            max: 100
         }
 
         LineSeries {
-			name: "AIN 0"
-			id:lines1
-			//axisX: xAxis
-			axisY: yAxis
-			width: 2
-			color: "#1267D4"
-			axisX: 	DateTimeAxis {
-					id: eje
-					//format: "yyyy MMM"
-					format:"HH:mm:ss.z"
-					//format:"mm:ss.z"
-				}
-		}
-        
-        LineSeries {
-            name: "AIN 1"
-            id:lines2
-            axisX: eje
-            axisY: yAxis
-            width: 2
-            color: "#ffa500"
+            id: lineSeries1
+            name: "press_in"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
         }
 
         LineSeries {
-            name: "AIN 2"
-            id:lines3
-            axisX: eje
-            axisY: yAxis
-            width: 2
-            color: "#a5ff00"
+            id: lineSeries2
+            name: "press_a"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
         }
 
         LineSeries {
-            name: "AIN 3"
-            id:lines4
-            axisX: eje
-            axisY: yAxis
-            width: 2
-            color: "#ff0000"
+            id: lineSeries3
+            name: "press_b"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
         }
 
-        Timer{
-			id:tm
-			interval: cv.intervalTM
-			repeat: true
-			running: true
-			onTriggered: {
-				cv.timcnt = cv.timcnt + 1
-				cv.valueCH1 = mainApp.value['curr_v']
-				cv.valueCH2 = mainApp.value['aktual']
-				cv.valueCH3 = mainApp.value['pressure_in']
-				cv.valueCH4 = mainApp.value['flow']
-				
-				if (lines1.count>cv.periodGRAPH*1000/cv.intervalTM){
-					lines1.remove(0)
-					lines2.remove(0)
-					lines3.remove(0)
-					lines4.remove(0)
-				}
-				
-				lines1.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH1)
-				lines2.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH2)
-				lines3.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH3)
-				lines4.append(cv.startTIME+cv.timcnt*cv.intervalTM ,cv.valueCH4)				
-				lines1.axisX.min = new Date(cv.startTIME-cv.periodGRAPH*1000 + cv.timcnt*cv.intervalTM)
-				lines1.axisX.max = new Date(cv.startTIME + cv.timcnt*cv.intervalTM)
-			}
-		}
+        LineSeries {
+            id: lineSeries4
+            name: "flow"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
 
+        Component.onCompleted: {
+            // Connect to the valueChanged signal of mainApp
+            mainApp.valueChanged.connect(updatePlot);
+        }
+
+        function updatePlot() {
+            // Append the new value to the series
+            var value1 = mainApp.value["press_in"];
+            var value2 = mainApp.value["press_a"];
+            var value3 = mainApp.value["press_b"];
+            var value4 = mainApp.value["flow"];
+            lineSeries1.append(lineSeries1.count, value1);
+            lineSeries2.append(lineSeries2.count, value2);
+            lineSeries3.append(lineSeries3.count, value3);
+            lineSeries4.append(lineSeries4.count, value4);
+
+            // Scroll the x-axis
+            if (lineSeries1.count > axisX.max - axisX.min) {
+                axisX.min++;
+                axisX.max++;
+            }
+        }
     }
-    Component.onCompleted: {
-		cv.startTIME = mainApp.get_tiempo()*1000
-	}
-
-	Connections{
-        target: mainApp        
-	}
 }

@@ -238,7 +238,6 @@ class MainApp(QObject):
     def get_tiempo(self):
         date_time = QDateTime.currentDateTime()
         unixTIME = date_time.toSecsSinceEpoch()
-        #unixTIMEx = date_time.currentMSecsSinceEpoch()
         return unixTIME
    
 if __name__ == "__main__":
