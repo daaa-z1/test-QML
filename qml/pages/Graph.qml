@@ -41,7 +41,7 @@ Page {
 
         function updatePlot() {
             // Append the new value to the series
-            var value = mainApp.value["press_in"]; // replace "press_in" with the key you are interested in
+            var value = mainApp.value["aktual"]; // replace "press_in" with the key you are interested in
             splineSeries.append(splineSeries.count, value);
 
             // Scroll the x-axis
