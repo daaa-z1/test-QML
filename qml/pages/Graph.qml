@@ -20,6 +20,7 @@ Page {
         anchors.left: parent.left
         theme: ChartView.ChartThemeDark
         antialiasing: true
+        name: "Testing Page"
 
         ValueAxis {
             id: axisX
