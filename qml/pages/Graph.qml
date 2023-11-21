@@ -5,6 +5,8 @@ import QtCharts 2.3
 
 Page {
     id: root
+    width: 800
+    height: 600
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
