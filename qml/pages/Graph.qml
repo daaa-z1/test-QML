@@ -86,7 +86,7 @@ Page {
                     if (chartView.series[i].name === name) {
                         return chartView.series[i];
                     }
-                }
+                };
                 var newSeries = QtCharts.LineSeries {
                     name: name
                     axisX: QtCharts.DateTimeAxis {
