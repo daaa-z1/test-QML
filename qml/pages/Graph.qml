@@ -75,14 +75,11 @@ Page {
     }
 
     function createSeries(name) {
-        var axisX = QtCharts.DateTimeAxis {
-            format: "hh:mm:ss"
-        };
-        var axisY = QtCharts.ValueAxis {
-            min: 0
-            max: 100
-        };
-        var newSeries = chartView.createSeries(QtCharts.SeriesTypeLine, name, axisX, axisY);
+        var newSeries = chartView.createSeries(QtCharts.SeriesTypeLine, name);
+        var axisX = chartView.addAxis(QtCharts.DateTimeAxis { format: "hh:mm:ss" }, Qt.BottomEdge);
+        var axisY = chartView.addAxis(QtCharts.ValueAxis { min: 0; max: 100 }, Qt.LeftEdge);
+        newSeries.attachAxis(axisX);
+        newSeries.attachAxis(axisY);
         return newSeries;
     }
 
