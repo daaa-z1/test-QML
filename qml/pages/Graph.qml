@@ -65,13 +65,11 @@ ApplicationWindow {
         Repeater {
             model: current_keys.length
             delegate: Component {
-                Item {
-                    LineSeries {
-                        name: current_keys[index]
-                        axisX: axisX
-                        axisY: axisY
-                        useOpenGL: true
-                    }
+                LineSeries {
+                    name: current_keys[index]
+                    axisX: axisX
+                    axisY: axisY
+                    useOpenGL: true
                 }
             }
         }
