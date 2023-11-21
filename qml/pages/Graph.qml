@@ -31,7 +31,7 @@ Page {
 
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
-                var value = mainApp.value[key]; // Anda perlu mengganti ini dengan kode Anda sendiri untuk membaca nilai dari MainApp
+                var value = mainApp.value[key];
                 var series = chartView.series(key);
                 series.append(new Date().getTime(), value);
             }
