@@ -12,7 +12,7 @@ ApplicationWindow {
     property var flow_keys: ['press_in', 'flow']
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
     property var testQueue: []
-    property var current_test: ""
+    property int testIndex: 0
     property int testCount: 0
     property var current_keys: []
     property bool testing: false
@@ -56,12 +56,14 @@ ApplicationWindow {
         function updatePlot() {
             // Append the new value to the series
             for (var i = 0; i < current_keys.length; i++) {
-                var value = mainApp.value[current_keys[i]];
-                chartView.series[i].append(chartView.series[i].count, value);
+                if (chartView.series.length > i) {
+                    var value = mainApp.value[current_keys[i]];
+                    chartView.series[i].append(chartView.series[i].count, value);
+                }
             }
 
             // Scroll the x-axis
-            if (chartView.series[0].count > axisX.max - axisX.min) {
+            if (chartView.series.length > 0 && chartView.series[0].count > axisX.max - axisX.min) {
                 axisX.min++;
                 axisX.max++;
             }
@@ -70,18 +72,19 @@ ApplicationWindow {
             testCount++;
             if (testCount >= 100) {
                 testCount = 0;
-                current_test = testQueue.shift();
-                if (current_test === "position") {
-                    current_keys = position_keys;
-                } else if (current_test === "flow") {
-                    current_keys = flow_keys;
-                } else if (current_test === "leakage") {
-                    current_keys = leakage_keys;
-                }
-                for (var i = 0; i < chartView.series.length; i++) {
-                    chartView.series[i].clear();
-                }
-                if (testQueue.length === 0) {
+                if (testQueue.length > 0) {
+                    current_test = testQueue.shift();
+                    if (current_test === "position") {
+                        current_keys = position_keys;
+                    } else if (current_test === "flow") {
+                        current_keys = flow_keys;
+                    } else if (current_test === "leakage") {
+                        current_keys = leakage_keys;
+                    }
+                    for (var i = 0; i < chartView.series.length; i++) {
+                        chartView.series[i].clear();
+                    }
+                } else {
                     testing = false;
                 }
             }
@@ -162,13 +165,15 @@ ApplicationWindow {
                     // Reset the test count
                     testCount = 0;
                     testing = true;
-                    current_test = testQueue.shift();
-                    if (current_test === "position") {
-                        current_keys = position_keys;
-                    } else if (current_test === "flow") {
-                        current_keys = flow_keys;
-                    } else if (current_test === "leakage") {
-                        current_keys = leakage_keys;
+                    if (testQueue.length > 0) {
+                        current_test = testQueue.shift();
+                        if (current_test === "position") {
+                            current_keys = position_keys;
+                        } else if (current_test === "flow") {
+                            current_keys = flow_keys;
+                        } else if (current_test === "leakage") {
+                            current_keys = leakage_keys;
+                        }
                     }
                 }
             }
