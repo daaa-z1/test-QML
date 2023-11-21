@@ -20,7 +20,7 @@ Page {
         anchors.left: parent.left
         theme: ChartView.ChartThemeDark
         antialiasing: true
-        name: "Testing Page"
+        title: "Testing Page"
 
         ValueAxis {
             id: axisX
@@ -107,13 +107,13 @@ Page {
                 }
                 if (testQueue[testIndex] === "Position Test") {
                     current_keys = position_keys;
-                    chartView.name = testIndex;
+                    chartView.title = testIndex;
                 } else if (testQueue[testIndex] === "Flow Test") {
                     current_keys = flow_keys;
-                    chartView.name = testIndex;
+                    chartView.title = testIndex;
                 } else if (testQueue[testIndex] === "Leakage Test") {
                     current_keys = leakage_keys;
-                    chartView.name = testIndex;
+                    chartView.title = testIndex;
                 }
                 lineSeries1.clear();
                 lineSeries2.clear();
