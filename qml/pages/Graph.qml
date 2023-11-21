@@ -35,6 +35,9 @@ Page {
                 var key = keys[i];
                 var value = mainApp.value[key]; // Anda perlu mengganti ini dengan kode Anda sendiri untuk membaca nilai dari MainApp
                 var series = chartView.series(key);
+                if (!series) {
+                    series = createSeries(key);
+                }
                 series.append(new Date().getTime(), value);
             }
 
@@ -71,6 +74,21 @@ Page {
         testTimer.stop();
     }
 
+    function createSeries(name) {
+        var newSeries = QtCharts.LineSeries {
+            name: name
+            axisX: QtCharts.DateTimeAxis {
+                format: "hh:mm:ss"
+            }
+            axisY: QtCharts.ValueAxis {
+                min: 0
+                max: 100
+            }
+        };
+        chartView.addSeries(newSeries);
+        return newSeries;
+    }
+
     Rectangle {
         id: graphArea
         width: root.width * 0.75
@@ -89,18 +107,7 @@ Page {
                         return chartView.series[i];
                     }
                 }
-                var newSeries = QtCharts.LineSeries {
-                    name: name
-                    axisX: QtCharts.DateTimeAxis {
-                        format: "hh:mm:ss"
-                    }
-                    axisY: QtCharts.ValueAxis {
-                        min: 0
-                        max: 100
-                    }
-                };
-                chartView.addSeries(newSeries);
-                return newSeries;
+                return null;
             }
         }
     }
