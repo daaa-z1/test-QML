@@ -8,7 +8,8 @@ Page {
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
-
+    property var testQueue: []
+    property var current_test: ""
     property var current_keys: []
     property bool testing: false
 
@@ -18,24 +19,21 @@ Page {
         repeat: true
         running: false
         onTriggered: {
-            if (current_keys.length > 0) {
+            if (testQueue.length > 0) {
+                current_test = testQueue.shift();
+                if (current_test === "position") {
+                    current_keys = position_keys;
+                } else if (current_test === "flow") {
+                    current_keys = flow_keys;
+                } else if (current_test === "leakage") {
+                    current_keys = leakage_keys;
+                }
                 for (var i = 0; i < chartView.series.length; i++) {
                     chartView.series[i].clear();
                 }
-                current_keys = [];
+            } else {
                 testing = false;
                 timer.running = false;
-            } else {
-                if (positionCheckBox.checked) {
-                    current_keys = position_keys;
-                } else if (flowCheckBox.checked) {
-                    current_keys = flow_keys;
-                } else if (leakageCheckBox.checked) {
-                    current_keys = leakage_keys;
-                }
-                testing = true;
-                timer.running = true;
-                timer.start();
             }
         }
     }
@@ -47,7 +45,7 @@ Page {
         anchors.left: parent.left
         theme: ChartView.ChartThemeDark
         antialiasing: true
-        title: testing ? "Testing..." : current_keys.length > 0 ? current_keys.join(", ") : "No Test"
+        title: "Testing Page"
 
         ValueAxis {
             id: axisX
@@ -106,30 +104,71 @@ Page {
             anchors.fill: parent
             spacing: 10
 
+            TextField {
+                id: dateField
+                placeholderText: "Tanggal"
+            }
+
+            TextField {
+                id: timeField
+                placeholderText: "Waktu"
+            }
+
+            TextField {
+                id: customerField
+                placeholderText: "Nama Customer"
+            }
+
+            TextField {
+                id: projectField
+                placeholderText: "Deskripsi Proyek"
+            }
+
+            Button {
+                text: "Submit"
+                onClicked: {
+                    // Handle the submit action here
+                }
+            }
+
             CheckBox {
-                id: positionCheckBox
+                id: checkBox1
                 text: "Position Test"
                 enabled: !testing
             }
 
             CheckBox {
-                id: flowCheckBox
+                id: checkBox2
                 text: "Flow Test"
                 enabled: !testing
             }
 
             CheckBox {
-                id: leakageCheckBox
+                id: checkBox3
                 text: "Leakage Test"
                 enabled: !testing
             }
 
             Button {
-                text: testing ? "Stop" : "Start"
-                enabled: !testing && (positionCheckBox.checked || flowCheckBox.checked || leakageCheckBox.checked)
+                text: testing ? "Testing..." : "Start"
+                enabled: !testing
+                enabled: !testing && (checkBox1.checked || checkBox2.checked || checkBox3.checked)
                 onClicked: {
-                    // Set the current keys and start/stop testing
-                    timer.triggered();
+                    // Add the selected tests to the queue
+                    testQueue = [];
+                    if (checkBox1.checked) {
+                        testQueue.push("position");
+                    }
+                    if (checkBox2.checked) {
+                        testQueue.push("flow");
+                    }
+                    if (checkBox3.checked) {
+                        testQueue.push("leakage");
+                    }
+                    // Start the timer
+                    testing = true;
+                    timer.running = true;
+                    timer.start();
                 }
             }
         }
