@@ -31,7 +31,7 @@ Page {
 
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
-                var value = mainApp.value[key];
+                var value = mainApp.value[key]; // Anda perlu mengganti ini dengan kode Anda sendiri untuk membaca nilai dari MainApp
                 var series = chartView.series(key);
                 series.append(new Date().getTime(), value);
             }
@@ -88,13 +88,13 @@ Page {
                     }
                 }
                 var newSeries = QtCharts.LineSeries {
-                    name: name;
+                    name: name
                     axisX: QtCharts.DateTimeAxis {
-                        format: "hh:mm:ss";
+                        format: "hh:mm:ss"
                     }
                     axisY: QtCharts.ValueAxis {
-                        min: 0;
-                        max: 100;
+                        min: 0
+                        max: 100
                     }
                 };
                 chartView.addSeries(newSeries);
