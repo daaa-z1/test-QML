@@ -76,10 +76,6 @@ Page {
 
     function createSeries(name) {
         var newSeries = chartView.createSeries(QtCharts.SeriesTypeLine, name);
-        var axisX = QtCharts.DateTimeAxis { format: "hh:mm:ss" };
-        var axisY = QtCharts.ValueAxis { min: 0; max: 100 };
-        chartView.addAxis(axisX, Qt.BottomEdge);
-        chartView.addAxis(axisY, Qt.LeftEdge);
         newSeries.attachAxis(axisX);
         newSeries.attachAxis(axisY);
         return newSeries;
@@ -96,6 +92,17 @@ Page {
             anchors.fill: parent
             title: "Real-time Data"
             antialiasing: true
+
+            QtCharts.DateTimeAxis {
+                id: axisX
+                format: "hh:mm:ss"
+            }
+
+            QtCharts.ValueAxis {
+                id: axisY
+                min: 0
+                max: 100
+            }
 
             function series(name) {
                 for (var i = 0; i < chartView.series.length; i++) {
