@@ -50,7 +50,7 @@ Page {
             // Append the new value to the series
             for (var i = 0; i < current_keys.length; i++) {
                 var value = mainApp.value[current_keys[i]];
-                lineSeries.append(lineSeries.count, value);
+                lineSeries[i].append(lineSeries.count, value);
             }
 
             // Scroll the x-axis
