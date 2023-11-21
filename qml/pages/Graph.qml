@@ -2,11 +2,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
-ApplicationWindow {
-    visible: true
-    width: 640
-    height: 480
-    title: "Real-time Plot"
+Page {
+    id: graphPage
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
