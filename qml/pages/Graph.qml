@@ -168,7 +168,7 @@ ApplicationWindow {
                     // Start the timer
                     testing = true;
                     timer.running = true;
-                    timer.trigger();
+                    timer.start();
                 }
             }
         }
