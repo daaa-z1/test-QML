@@ -2,7 +2,11 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
-Page {
+ApplicationWindow {
+    visible: true
+    width: 640
+    height: 480
+    title: "Real-time Plot"
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
@@ -34,8 +38,32 @@ Page {
         }
 
         LineSeries {
-            id: lineSeries
-            name: "Test"
+            id: lineSeries1
+            name: "Test 1"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
+
+        LineSeries {
+            id: lineSeries2
+            name: "Test 2"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
+
+        LineSeries {
+            id: lineSeries3
+            name: "Test 3"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
+
+        LineSeries {
+            id: lineSeries4
+            name: "Test 4"
             axisX: axisX
             axisY: axisY
             useOpenGL: true
@@ -48,13 +76,25 @@ Page {
 
         function updatePlot() {
             // Append the new value to the series
-            for (var i = 0; i < current_keys.length; i++) {
-                var value = mainApp.value[current_keys[i]];
-                lineSeries[i].append(lineSeries.count, value);
+            if (current_keys.length > 0) {
+                var value1 = mainApp.value[current_keys[0]];
+                lineSeries1.append(lineSeries1.count, value1);
+            }
+            if (current_keys.length > 1) {
+                var value2 = mainApp.value[current_keys[1]];
+                lineSeries2.append(lineSeries2.count, value2);
+            }
+            if (current_keys.length > 2) {
+                var value3 = mainApp.value[current_keys[2]];
+                lineSeries3.append(lineSeries3.count, value3);
+            }
+            if (current_keys.length > 3) {
+                var value4 = mainApp.value[current_keys[3]];
+                lineSeries4.append(lineSeries4.count, value4);
             }
 
             // Scroll the x-axis
-            if (lineSeries.count > axisX.max - axisX.min) {
+            if (lineSeries1.count > axisX.max - axisX.min) {
                 axisX.min++;
                 axisX.max++;
             }
@@ -75,6 +115,10 @@ Page {
                 } else if (testQueue[testIndex] === "leakage") {
                     current_keys = leakage_keys;
                 }
+                lineSeries1.clear();
+                lineSeries2.clear();
+                lineSeries3.clear();
+                lineSeries4.clear();
             }
         }
     }
@@ -154,6 +198,13 @@ Page {
                     testIndex = 0;
                     testCount = 0;
                     testing = true;
+                    if (testQueue[testIndex] === "position") {
+                        current_keys = position_keys;
+                    } else if (testQueue[testIndex] === "flow") {
+                        current_keys = flow_keys;
+                    } else if (testQueue[testIndex] === "leakage") {
+                        current_keys = leakage_keys;
+                    }
                 }
             }
         }
