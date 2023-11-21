@@ -88,15 +88,15 @@ Page {
                     }
                 }
                 var newSeries = QtCharts.LineSeries {
-                    name: name
+                    name: name;
                     axisX: QtCharts.DateTimeAxis {
-                        format: "hh:mm:ss"
+                        format: "hh:mm:ss";
                     }
                     axisY: QtCharts.ValueAxis {
-                        min: 0
-                        max: 100
+                        min: 0;
+                        max: 100;
                     }
-                }
+                };
                 chartView.addSeries(newSeries);
                 return newSeries;
             }
