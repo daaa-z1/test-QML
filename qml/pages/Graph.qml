@@ -8,9 +8,7 @@ Page {
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
-    property var testQueue: []
-    property var current_test: ""
-    property var current_keys: []
+    
     property bool testing: false
 
     Timer {
@@ -21,13 +19,7 @@ Page {
         onTriggered: {
             if (testQueue.length > 0) {
                 current_test = testQueue.shift();
-                if (current_test === "position") {
-                    current_keys = position_keys;
-                } else if (current_test === "flow") {
-                    current_keys = flow_keys;
-                } else if (current_test === "leakage") {
-                    current_keys = leakage_keys;
-                }
+                current_keys = getKeysForTest(current_test);
                 for (var i = 0; i < chartView.series.length; i++) {
                     chartView.series[i].clear();
                 }
@@ -104,30 +96,10 @@ Page {
             anchors.fill: parent
             spacing: 10
 
-            TextField {
-                id: dateField
-                placeholderText: "Tanggal"
-            }
-
-            TextField {
-                id: timeField
-                placeholderText: "Waktu"
-            }
-
-            TextField {
-                id: customerField
-                placeholderText: "Nama Customer"
-            }
-
-            TextField {
-                id: projectField
-                placeholderText: "Deskripsi Proyek"
-            }
-
             Button {
                 text: "Submit"
                 onClicked: {
-                    // Handle the submit action here
+                    // Handle the submit action here, e.g., save test data
                 }
             }
 
@@ -151,7 +123,7 @@ Page {
 
             Button {
                 text: "Start"
-                enabled: !testing
+                enabled: !testing && (checkBox1.checked || checkBox2.checked || checkBox3.checked)
                 onClicked: {
                     // Add the selected tests to the queue
                     testQueue = [];
@@ -171,5 +143,16 @@ Page {
                 }
             }
         }
+    }
+
+    function getKeysForTest(testType) {
+        if (testType === "position") {
+            return position_keys;
+        } else if (testType === "flow") {
+            return flow_keys;
+        } else if (testType === "leakage") {
+            return leakage_keys;
+        }
+        return [];
     }
 }
