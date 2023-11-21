@@ -64,7 +64,7 @@ ApplicationWindow {
 
         Repeater {
             model: current_keys.length
-            delegate: LineSeries {
+            LineSeries {
                 name: current_keys[index]
                 axisX: axisX
                 axisY: axisY
