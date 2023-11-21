@@ -13,7 +13,7 @@ ApplicationWindow {
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
     property var testQueue: []
     property var current_test: ""
-    property var current_keys: ['test1', 'test2', 'test3']
+    property var current_keys: []
     property bool testing: false
 
     Timer {
@@ -26,13 +26,10 @@ ApplicationWindow {
                 current_test = testQueue.shift();
                 if (current_test === "position") {
                     current_keys = position_keys;
-                    chartView.title = current_test;
                 } else if (current_test === "flow") {
                     current_keys = flow_keys;
-                    chartView.title = current_test;
                 } else if (current_test === "leakage") {
                     current_keys = leakage_keys;
-                    chartView.title = current_test;
                 }
                 for (var i = 0; i < chartView.series.length; i++) {
                     chartView.series[i].clear();
@@ -51,7 +48,7 @@ ApplicationWindow {
         anchors.left: parent.left
         theme: ChartView.ChartThemeDark
         antialiasing: true
-        title: 'Testing Chart'
+        title: current_test
 
         ValueAxis {
             id: axisX
@@ -67,7 +64,7 @@ ApplicationWindow {
 
         Repeater {
             model: current_keys.length
-            delegate: Item {
+            delegate: Component {
                 LineSeries {
                     name: current_keys[index]
                     axisX: axisX
