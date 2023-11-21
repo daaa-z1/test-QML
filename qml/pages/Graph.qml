@@ -97,7 +97,6 @@ Page {
                         max: 100
                     }
                 };
-
                 chartView.addSeries(newSeries);
                 return newSeries;
             }
