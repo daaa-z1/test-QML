@@ -11,6 +11,7 @@ Page {
     property int testIndex: 0
     property int testCount: 0
     property var current_keys: []
+    property bool testing: false
 
     ChartView {
         id: chartView
@@ -65,6 +66,7 @@ Page {
                 testIndex++;
                 if (testIndex >= testQueue.length) {
                     testIndex = 0;
+                    testing = false;
                 }
                 if (testQueue[testIndex] === "position") {
                     current_keys = position_keys;
@@ -118,20 +120,24 @@ Page {
             CheckBox {
                 id: checkBox1
                 text: "Position Test"
+                enabled: !testing
             }
 
             CheckBox {
                 id: checkBox2
                 text: "Flow Test"
+                enabled: !testing
             }
 
             CheckBox {
                 id: checkBox3
                 text: "Leakage Test"
+                enabled: !testing
             }
 
             Button {
                 text: "Start"
+                enabled: !testing
                 onClicked: {
                     // Add the selected tests to the queue
                     testQueue = [];
@@ -147,6 +153,7 @@ Page {
                     // Reset the test index and count
                     testIndex = 0;
                     testCount = 0;
+                    testing = true;
                 }
             }
         }
