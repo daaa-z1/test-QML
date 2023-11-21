@@ -13,7 +13,7 @@ ApplicationWindow {
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
     property var testQueue: []
     property var current_test: ""
-    property var current_keys: []
+    property var current_keys: ['test1']
     property bool testing: false
 
     Timer {
@@ -64,11 +64,13 @@ ApplicationWindow {
 
         Repeater {
             model: current_keys.length
-            delegate: LineSeries {
-                name: current_keys[index]
-                axisX: axisX
-                axisY: axisY
-                useOpenGL: true
+            delegate: Item {
+                LineSeries {
+                    name: current_keys[index]
+                    axisX: axisX
+                    axisY: axisY
+                    useOpenGL: true
+                }
             }
         }
 
