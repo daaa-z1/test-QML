@@ -8,7 +8,8 @@ Page {
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
-    
+
+    property var current_keys: []
     property bool testing: false
 
     Timer {
@@ -17,15 +18,24 @@ Page {
         repeat: true
         running: false
         onTriggered: {
-            if (testQueue.length > 0) {
-                current_test = testQueue.shift();
-                current_keys = getKeysForTest(current_test);
+            if (current_keys.length > 0) {
                 for (var i = 0; i < chartView.series.length; i++) {
                     chartView.series[i].clear();
                 }
-            } else {
+                current_keys = [];
                 testing = false;
                 timer.running = false;
+            } else {
+                if (positionCheckBox.checked) {
+                    current_keys = position_keys;
+                } else if (flowCheckBox.checked) {
+                    current_keys = flow_keys;
+                } else if (leakageCheckBox.checked) {
+                    current_keys = leakage_keys;
+                }
+                testing = true;
+                timer.running = true;
+                timer.start();
             }
         }
     }
@@ -37,7 +47,7 @@ Page {
         anchors.left: parent.left
         theme: ChartView.ChartThemeDark
         antialiasing: true
-        title: current_test
+        title: testing ? "Testing..." : current_keys.length > 0 ? current_keys.join(", ") : "No Test"
 
         ValueAxis {
             id: axisX
@@ -96,63 +106,32 @@ Page {
             anchors.fill: parent
             spacing: 10
 
-            Button {
-                text: "Submit"
-                onClicked: {
-                    // Handle the submit action here, e.g., save test data
-                }
-            }
-
             CheckBox {
-                id: checkBox1
+                id: positionCheckBox
                 text: "Position Test"
                 enabled: !testing
             }
 
             CheckBox {
-                id: checkBox2
+                id: flowCheckBox
                 text: "Flow Test"
                 enabled: !testing
             }
 
             CheckBox {
-                id: checkBox3
+                id: leakageCheckBox
                 text: "Leakage Test"
                 enabled: !testing
             }
 
             Button {
-                text: "Start"
-                enabled: !testing && (checkBox1.checked || checkBox2.checked || checkBox3.checked)
+                text: testing ? "Stop" : "Start"
+                enabled: !testing && (positionCheckBox.checked || flowCheckBox.checked || leakageCheckBox.checked)
                 onClicked: {
-                    // Add the selected tests to the queue
-                    testQueue = [];
-                    if (checkBox1.checked) {
-                        testQueue.push("position");
-                    }
-                    if (checkBox2.checked) {
-                        testQueue.push("flow");
-                    }
-                    if (checkBox3.checked) {
-                        testQueue.push("leakage");
-                    }
-                    // Start the timer
-                    testing = true;
-                    timer.running = true;
-                    timer.start();
+                    // Set the current keys and start/stop testing
+                    timer.triggered();
                 }
             }
         }
-    }
-
-    function getKeysForTest(testType) {
-        if (testType === "position") {
-            return position_keys;
-        } else if (testType === "flow") {
-            return flow_keys;
-        } else if (testType === "leakage") {
-            return leakage_keys;
-        }
-        return [];
     }
 }
