@@ -104,12 +104,15 @@ Page {
                     testIndex = 0;
                     testing = false;
                 }
-                if (testQueue[testIndex] === "position") {
+                if (testQueue[testIndex] === "Position Test") {
                     current_keys = position_keys;
-                } else if (testQueue[testIndex] === "flow") {
+                    chartView.name = testIndex;
+                } else if (testQueue[testIndex] === "Flow Test") {
                     current_keys = flow_keys;
-                } else if (testQueue[testIndex] === "leakage") {
+                    chartView.name = testIndex;
+                } else if (testQueue[testIndex] === "Leakage Test") {
                     current_keys = leakage_keys;
+                    chartView.name = testIndex;
                 }
                 lineSeries1.clear();
                 lineSeries2.clear();
@@ -182,23 +185,23 @@ Page {
                     // Add the selected tests to the queue
                     testQueue = [];
                     if (checkBox1.checked) {
-                        testQueue.push("position");
+                        testQueue.push("Position Test");
                     }
                     if (checkBox2.checked) {
-                        testQueue.push("flow");
+                        testQueue.push("Flow Test");
                     }
                     if (checkBox3.checked) {
-                        testQueue.push("leakage");
+                        testQueue.push("Leakage Test");
                     }
                     // Reset the test index and count
                     testIndex = 0;
                     testCount = 0;
                     testing = true;
-                    if (testQueue[testIndex] === "position") {
+                    if (testQueue[testIndex] === "Postion Test") {
                         current_keys = position_keys;
-                    } else if (testQueue[testIndex] === "flow") {
+                    } else if (testQueue[testIndex] === "Flow Test") {
                         current_keys = flow_keys;
-                    } else if (testQueue[testIndex] === "leakage") {
+                    } else if (testQueue[testIndex] === "Leakage Test") {
                         current_keys = leakage_keys;
                     }
                 }
