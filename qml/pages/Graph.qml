@@ -236,6 +236,7 @@ Page {
             chartView.title = "" + currentTest;
 
             var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; onTriggered: startNextTest() }', graphPage);
+            var pauseTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 3000; running: false; repeat: false; onTriggered: testQueue.shift()}', graphPage);
 
             testTimer.running = true;
 
