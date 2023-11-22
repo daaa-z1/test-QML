@@ -230,26 +230,25 @@ Page {
     }
 
     function startNextTest() {
+        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; onTriggered: startNextTest() }', graphPage);
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
             chartView.title = "" + currentTest;
-
-            var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; onTriggered: startNextTest() }', graphPage);
-            var pauseTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 3000; running: false; repeat: false; onTriggered: testQueue.shift()}', graphPage);
 
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
                 resetTest();
-                pauseTimer.running = true;
+                testQueue.shift();
                 startNextTest();
             });
         } else {
             testing = false;
 
             if (testQueue.length === 0) {
+                testTimer.running = false;
                 positionTestCheckBox.checked = false;
                 flowTestCheckBox.checked = false;
                 leakageTestCheckBox.checked = false;
