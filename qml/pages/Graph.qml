@@ -240,7 +240,9 @@ Page {
             chartView.updatePlot(currentTest);
             chartView.title = "" + currentTest;
 
-            var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 3000; running: true; repeat: false; onTriggered: startNextTest() }', graphPage);
+            var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; onTriggered: startNextTest() }', graphPage);
+
+            testTimer.running = true;
 
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
