@@ -69,7 +69,7 @@ Page {
             lineSeries2.visible = false;
             lineSeries3.visible = false;
             lineSeries4.visible = false;
-            mainApp.valueChanged.connect(updatePlot);
+            mainApp.valueChanged.connect(updateGraph);
         }
 
         function startNextTest() {
@@ -194,9 +194,6 @@ Page {
                         testQueue.push("Leakage Test");
                     }
                     // Reset the test index and count
-                    testIndex = 0;
-                    testCount = 0;
-                    testing = true;
                     testing = true;
                     startNextTest();
                 }
