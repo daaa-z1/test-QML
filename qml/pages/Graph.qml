@@ -21,7 +21,6 @@ Page {
         anchors.left: parent.left
         theme: ChartView.ChartThemeDark
         antialiasing: true
-        title: testing ? testQueue[testIndex] : "No Test"
 
         ValueAxis {
             id: axisX
@@ -37,7 +36,7 @@ Page {
 
         LineSeries {
             id: lineSeries1
-            name: current_keys.length > 0 ? current_keys[0] : ""
+            name: "Test 1"
             axisX: axisX
             axisY: axisY
             useOpenGL: true
@@ -45,7 +44,7 @@ Page {
 
         LineSeries {
             id: lineSeries2
-            name: current_keys.length > 0 ? current_keys[1] : ""
+            name: "Test 2"
             axisX: axisX
             axisY: axisY
             useOpenGL: true
@@ -53,7 +52,7 @@ Page {
 
         LineSeries {
             id: lineSeries3
-            name: current_keys.length > 0 ? current_keys[2] : ""
+            name: "Test 3"
             axisX: axisX
             axisY: axisY
             useOpenGL: true
@@ -61,18 +60,18 @@ Page {
 
         LineSeries {
             id: lineSeries4
-            name: current_keys.length > 0 ? current_keys[3] : ""
+            name: "Test 4"
             axisX: axisX
             axisY: axisY
             useOpenGL: true
         }
 
         Component.onCompleted: {
+            lineSeries1.visible = false;
+            lineSeries2.visible = false;
+            lineSeries3.visible = false;
+            lineSeries4.visible = false;
             mainApp.valueChanged.connect(updatePlot);
-            lineSeries1.visible = testing && current_keys.length > 0;
-            lineSeries2.visible = testing && current_keys.length > 1;
-            lineSeries3.visible = testing && current_keys.length > 2;
-            lineSeries4.visible = testing && current_keys.length > 3;
         }
 
         function updatePlot() {
@@ -92,6 +91,18 @@ Page {
                 var value4 = mainApp.value[current_keys[3]];
                 lineSeries4.append(lineSeries4.count, value4);
             }
+
+            chartView.title = "Test " + (testIndex + 1) + ": " + testQueue[testIndex];
+
+            lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
+            lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
+            lineSeries3.name = current_keys.length > 2 ? current_keys[2] : "";
+            lineSeries4.name = current_keys.length > 3 ? current_keys[3] : "";
+
+            lineSeries1.visible = testing && current_keys.length > 0;
+            lineSeries2.visible = testing && current_keys.length > 1;
+            lineSeries3.visible = testing && current_keys.length > 2;
+            lineSeries4.visible = testing && current_keys.length > 3;
 
             // Scroll the x-axis
             if (lineSeries1.count > axisX.max - axisX.min) {
