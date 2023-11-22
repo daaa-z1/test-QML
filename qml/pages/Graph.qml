@@ -157,19 +157,19 @@ Page {
             }
 
             CheckBox {
-                id: checkBox1
+                id: positionTestCheckBox
                 text: "Position Test"
                 enabled: !testing
             }
 
             CheckBox {
-                id: checkBox2
+                id: flowTestCheckBox
                 text: "Flow Test"
                 enabled: !testing
             }
 
             CheckBox {
-                id: checkBox3
+                id: leakageTestCheckBox
                 text: "Leakage Test"
                 enabled: !testing
             }
