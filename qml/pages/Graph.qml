@@ -108,10 +108,6 @@ Page {
             lineSeries3.visible = testing && current_keys.length > 2;
             lineSeries4.visible = testing && current_keys.length > 3;
 
-            if (lineSeries1.count > axisX.max - axisX.min) {
-                axisX.min;
-                axisX.max++;
-            }
 
             if (testing && testQueue.length === 0) {
                 startNextTest();
@@ -203,7 +199,7 @@ Page {
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
-            chartView.title = "Test: " + currentTest;
+            chartView.title = "" + currentTest;
 
             var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: true; repeat: false; onTriggered: startNextTest() }', graphPage);
 
@@ -212,6 +208,10 @@ Page {
                 testQueue.shift();
                 startNextTest();
             });
+            if (lineSeries1.count > axisX.max - axisX.min) {
+                axisX.min;
+                axisX.max++;
+            }
         } else {
             testing = false;
 
