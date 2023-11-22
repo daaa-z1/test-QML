@@ -203,7 +203,7 @@ Page {
     function startNextTest() {
         if (testQueue.length > 0) {
             var currentTest = testQueue.shift();
-            updatePlot(currentTest);
+            chartView.updatePlot(currentTest);
         } else {
             testing = false;
 
