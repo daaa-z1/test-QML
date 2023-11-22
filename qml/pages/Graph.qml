@@ -136,7 +136,7 @@ Page {
         border.width: 2
         radius: 10
         // Hapus properti shadow
-        color: "white"
+        color: "darkgrey"
 
         // Tambahkan efek bayangan dengan DropShadow
         Rectangle {
@@ -148,10 +148,10 @@ Page {
                 anchors.fill: parent
                 radius: 5
                 samples: 10
-                color: "blue"
+                color: "grey"
                 source: parent
             }
-            
+
             Column {
                 anchors.fill: parent
                 spacing: 10
