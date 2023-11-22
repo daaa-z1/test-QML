@@ -202,8 +202,16 @@ Page {
 
     function startNextTest() {
         if (testQueue.length > 0) {
-            var currentTest = testQueue.shift();
+            var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
+
+            var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: true; repeat: false; onTriggered: startNextTest() }', graphPage);
+
+            testTimer.triggered.connect(function() {
+                testTimer.destroy();
+                testQueue.shift();
+                startNextTest();
+            });
         } else {
             testing = false;
 
