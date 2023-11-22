@@ -219,6 +219,7 @@ Page {
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
                 testQueue.shift();
+                resetTest();
                 startNextTest();
             });
         } else {
