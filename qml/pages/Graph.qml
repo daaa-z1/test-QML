@@ -128,12 +128,12 @@ Page {
                     // Reset currentTest
                     currentTest = null;
                     axisX.min = 0;
-                    axisX.max = 0;
+                    axisX.max = testQueue.length * 10;
                 } else {
                     // Set the currentTest for the next test
                     currentTest = testQueue[testIndex];
-                    axisX.min = 0;
-                    axisX.max = 0;
+                    axisX.min = testIndex * 10;
+                    axisX.max = (testIndex + 1) * 10;
                 }
                 if (testQueue[testIndex] === "Postion Test") {
                     current_keys = position_keys;
