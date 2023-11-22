@@ -119,7 +119,7 @@ Page {
             lineSeries4.append(lineSeries4.count, value4);
         }
 
-        chartView.title = currentTest;
+        chartView.title = qsTr(currentTest);
 
         lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
         lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
