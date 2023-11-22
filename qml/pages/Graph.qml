@@ -128,20 +128,12 @@ Page {
                     // Reset currentTest
                     currentTest = null;
                     axisX.min = 0;
-                    axisX.max = 10;
-                    lineSeries1.clear();
-                    lineSeries2.clear();
-                    lineSeries3.clear();
-                    lineSeries4.clear();
+                    axisX.max = 0;
                 } else {
                     // Set the currentTest for the next test
                     currentTest = testQueue[testIndex];
                     axisX.min = 0;
-                    axisX.max = 10;
-                    lineSeries1.clear();
-                    lineSeries2.clear();
-                    lineSeries3.clear();
-                    lineSeries4.clear();
+                    axisX.max = 0;
                 }
                 if (testQueue[testIndex] === "Postion Test") {
                     current_keys = position_keys;
@@ -150,10 +142,10 @@ Page {
                 } else if (testQueue[testIndex] === "Leakage Test") {
                     current_keys = leakage_keys;
                 }
-                // lineSeries1.clear();
-                // lineSeries2.clear();
-                // lineSeries3.clear();
-                // lineSeries4.clear();
+                lineSeries1.clear();
+                lineSeries2.clear();
+                lineSeries3.clear();
+                lineSeries4.clear();
             }
         }
     }
