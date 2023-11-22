@@ -237,7 +237,6 @@ Page {
 
     function resetTest() {
         testing = false;
-        testQueue = [];
         positionTestCheckBox.checked = false;
         flowTestCheckBox.checked = false;
         leakageTestCheckBox.checked = false;
