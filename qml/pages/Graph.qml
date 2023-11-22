@@ -151,7 +151,6 @@ Page {
 
             Button {
                 text: "Submit"
-                Layout.alignment: Qt.AlignRight
                 onClicked: {
                     // Handle the submit action here
                 }
