@@ -110,7 +110,7 @@ Page {
             lineSeries4.visible = testing && current_keys.length > 3;
 
             if (lineSeries1.count > axisX.max - axisX.min) {
-                axisX.min++;
+                axisX.min;
                 axisX.max++;
             }
 
