@@ -185,7 +185,7 @@ Page {
                     testQueue = [];
                     axisX.min = axisX.min
                     axisX.max = axisX.max
-                    
+
                     if (positionTestCheckBox.checked) {
                         testQueue.push("Position Test");
                     }
@@ -218,6 +218,8 @@ Page {
                 testQueue.shift();
                 startNextTest();
             });
+            axisX.min = axisX.min
+            axisX.max = axisX.max
         } else {
             testing = false;
 
