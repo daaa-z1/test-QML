@@ -37,7 +37,7 @@ Page {
 
         LineSeries {
             id: lineSeries1
-            name: current_keys.length > 0 ? current_keys[] : ""
+            name: current_keys.length > 0 ? current_keys[0] : ""
             axisX: axisX
             axisY: axisY
             useOpenGL: true
