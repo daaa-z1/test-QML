@@ -144,6 +144,14 @@ Page {
             radius: inputBox.radius
             color: inputBox.color
             
+            DropShadow {
+                anchors.fill: parent
+                radius: 5
+                samples: 10
+                color: "blue"
+                source: parent
+            }
+            
             Column {
                 anchors.fill: parent
                 spacing: 10
@@ -222,14 +230,6 @@ Page {
                         }
                     }
                 }
-            }
-
-            DropShadow {
-                anchors.fill: parent
-                radius: 5
-                samples: 10
-                color: "gray"
-                source: parent
             }
         }
     }
