@@ -9,8 +9,6 @@ Page {
     property var flow_keys: ['press_in', 'flow']
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
     property var testQueue: []
-    property int testIndex: 0
-    property int testCount: 0
     property var current_keys: []
     property bool testing: false
 
@@ -71,28 +69,43 @@ Page {
             lineSeries2.visible = false;
             lineSeries3.visible = false;
             lineSeries4.visible = false;
-            mainApp.valueChanged.connect(updatePlot);
+            mainApp.valueChanged.connect(updateGraph);
         }
 
-        function updatePlot() {
-            if (current_keys.length > 0) {
-                var value1 = mainApp.value[current_keys[0]];
-                lineSeries1.append(lineSeries1.count, value1);
+        function startNextTest() {
+            if (testQueue.length > 0) {
+                currentTest = testQueue.shift();
+                updateGraph(currentTest);
+            } else {
+                // Semua pengujian selesai
+                testing = false;
+
+                // Uncheck all checkboxes dan reset title setelah semua pengujian selesai
+                positionTestCheckBox.checked = false;
+                flowTestCheckBox.checked = false;
+                leakageTestCheckBox.checked = false;
+                chartView.title = "Test Completed";  // Set the title back to default
+
+                // Reset currentTest
+                currentTest = null;
+                axisX.min = 0;
+                axisX.max = testQueue.length * 10;
             }
-            if (current_keys.length > 1) {
-                var value2 = mainApp.value[current_keys[1]];
-                lineSeries2.append(lineSeries2.count, value2);
-            }
-            if (current_keys.length > 2) {
-                var value3 = mainApp.value[current_keys[2]];
-                lineSeries3.append(lineSeries3.count, value3);
-            }
-            if (current_keys.length > 3) {
-                var value4 = mainApp.value[current_keys[3]];
-                lineSeries4.append(lineSeries4.count, value4);
+        }
+
+        function updateGraph(testType) {
+            if (testType === "Position Test") {
+                current_keys = position_keys;
+            } else if (testType === "Flow Test") {
+                current_keys = flow_keys;
+            } else if (testType === "Leakage Test") {
+                current_keys = leakage_keys;
             }
 
-            chartView.title = "Test " + (testIndex + 1) + ": " + testQueue[testIndex];
+            lineSeries1.clear();
+            lineSeries2.clear();
+            lineSeries3.clear();
+            lineSeries4.clear();
 
             lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
             lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
@@ -104,49 +117,7 @@ Page {
             lineSeries3.visible = testing && current_keys.length > 2;
             lineSeries4.visible = testing && current_keys.length > 3;
 
-            // Scroll the x-axis
-            if (lineSeries1.count > axisX.max - axisX.min) {
-                axisX.min++;
-                axisX.max++;
-            }
-
-            // Update the test count
-            testCount++;
-            if (testCount >= 100) {
-                testCount = 0;
-                testIndex++;
-                 if (testIndex >= testQueue.length) {
-                    testIndex = 0;
-                    testing = false;
-
-                    // Uncheck all checkboxes and reset title after all tests are finished
-                    positionTestCheckBox.checked = false;
-                    flowTestCheckBox.checked = false;
-                    leakageTestCheckBox.checked = false;
-                    chartView.title = "Test Completed";  // Set the title back to default
-
-                    // Reset currentTest
-                    currentTest = null;
-                    axisX.min = 0;
-                    axisX.max = testQueue.length * 10;
-                } else {
-                    // Set the currentTest for the next test
-                    currentTest = testQueue[testIndex];
-                    axisX.min = testIndex * 10;
-                    axisX.max = (testIndex + 1) * 10;
-                }
-                if (testQueue[testIndex] === "Postion Test") {
-                    current_keys = position_keys;
-                } else if (testQueue[testIndex] === "Flow Test") {
-                    current_keys = flow_keys;
-                } else if (testQueue[testIndex] === "Leakage Test") {
-                    current_keys = leakage_keys;
-                }
-                lineSeries1.clear();
-                lineSeries2.clear();
-                lineSeries3.clear();
-                lineSeries4.clear();
-            }
+            chartView.title = "Test: " + testType;
         }
     }
 
@@ -223,16 +194,8 @@ Page {
                         testQueue.push("Leakage Test");
                     }
                     // Reset the test index and count
-                    testIndex = 0;
-                    testCount = 0;
                     testing = true;
-                    if (testQueue[testIndex] === "Position Test") {
-                        current_keys = position_keys;
-                    } else if (testQueue[testIndex] === "Flow Test") {
-                        current_keys = flow_keys;
-                    } else if (testQueue[testIndex] === "Leakage Test") {
-                        current_keys = leakage_keys;
-                    }
+                    startNextTest()
                 }
             }
         }
