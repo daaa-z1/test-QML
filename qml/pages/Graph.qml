@@ -205,9 +205,9 @@ Page {
         } else {
             testing = false;
 
-            positionTestCheckBox.checked = false;
-            flowTestCheckBox.checked = false;
-            leakageTestCheckBox.checked = false;
+            // positionTestCheckBox.checked = false;
+            // flowTestCheckBox.checked = false;
+            // leakageTestCheckBox.checked = false;
             chartView.title = "Test Completed";
             current_keys = [];
             axisX.min = 0;
