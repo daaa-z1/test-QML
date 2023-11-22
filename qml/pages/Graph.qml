@@ -131,18 +131,31 @@ Page {
         height: parent.height
         anchors.right: parent.right
 
+        border.color: "lightblue"
+        border.width: 2
+        radius: 10
+        shadow.enabled: true
+        shadow.color: "gray"
+        shadow.radius: 5
+        shadow.offset.x: 2
+        shadow.offset.y: 2
+
         Column {
             anchors.fill: parent
             spacing: 10
 
-            TextField {
-                id: dateField
-                placeholderText: "Tanggal"
-            }
+            Row {
+                spacing: 10
 
-            TextField {
-                id: timeField
-                placeholderText: "Waktu"
+                TextField {
+                    id: dateField
+                    placeholderText: "Tanggal"
+                }
+
+                TextField {
+                    id: timeField
+                    placeholderText: "Waktu"
+                }
             }
 
             TextField {
@@ -214,7 +227,7 @@ Page {
             chartView.updatePlot(currentTest);
             chartView.title = "" + currentTest;
 
-            var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: true; repeat: false; onTriggered: startNextTest() }', graphPage);
+            var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 3000; running: true; repeat: false; onTriggered: startNextTest() }', graphPage);
 
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
@@ -239,6 +252,7 @@ Page {
         positionTestCheckBox.checked = false;
         flowTestCheckBox.checked = false;
         leakageTestCheckBox.checked = false;
+        chartView.title = "Test Reset";
         axisX.min = 0;
         axisX.max = 10;
         lineSeries1.clear();
