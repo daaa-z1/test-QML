@@ -128,12 +128,12 @@ Page {
                     // Reset currentTest
                     currentTest = null;
                     axisX.min = 0;
-                    axisX.max = 10;
+                    axisX.max = lineSeries1.count > 10 ? lineSeries1.count : 10
                 } else {
                     // Set the currentTest for the next test
                     currentTest = testQueue[testIndex];
                     axisX.min = 0;
-                    axisX.max = 10;
+                    axisX.max = lineSeries1.count > 10 ? lineSeries1.count : 10
                 }
                 if (testQueue[testIndex] === "Postion Test") {
                     current_keys = position_keys;
@@ -146,6 +146,10 @@ Page {
                 lineSeries2.clear();
                 lineSeries3.clear();
                 lineSeries4.clear();
+                if (lineSeries1.count > axisX.max - axisX.min) {
+                    axisX.min++;
+                    axisX.max++;
+                }
             }
         }
     }
