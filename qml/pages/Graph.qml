@@ -181,13 +181,13 @@ Page {
                 onClicked: {
                     // Add the selected tests to the queue
                     testQueue = [];
-                    if (checkBox1.checked) {
+                    if (positionTestCheckBox.checked) {
                         testQueue.push("Position Test");
                     }
-                    if (checkBox2.checked) {
+                    if (flowTestCheckBox.checked) {
                         testQueue.push("Flow Test");
                     }
-                    if (checkBox3.checked) {
+                    if (leakageTestCheckBox.checked) {
                         testQueue.push("Leakage Test");
                     }
                     // Reset the test index and count
