@@ -241,7 +241,6 @@ Page {
         flowTestCheckBox.checked = false;
         leakageTestCheckBox.checked = false;
         chartView.title = "Test Reset";
-        current_keys = [];
         axisX.min = 0;
         axisX.max = 10;
         lineSeries1.clear();
