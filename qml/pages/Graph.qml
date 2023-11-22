@@ -205,13 +205,15 @@ Page {
         } else {
             testing = false;
 
-            // positionTestCheckBox.checked = false;
-            // flowTestCheckBox.checked = false;
-            // leakageTestCheckBox.checked = false;
-            chartView.title = "Test Completed";
-            current_keys = [];
-            axisX.min = 0;
-            axisX.max = 10;
+            if (testQueue.length === 0) {
+                positionTestCheckBox.checked = false;
+                flowTestCheckBox.checked = false;
+                leakageTestCheckBox.checked = false;
+                chartView.title = "Test Completed";
+                current_keys = [];
+                axisX.min = 0;
+                axisX.max = 10;
+            }
         }
     }
 }
