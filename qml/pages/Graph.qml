@@ -244,6 +244,7 @@ Page {
                 testTimer.destroy();
                 resetTest();
                 pauseTimer.running = true;
+                startNextTest()
             });
         } else {
             testing = false;
