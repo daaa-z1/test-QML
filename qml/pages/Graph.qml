@@ -69,38 +69,44 @@ Page {
             lineSeries2.visible = false;
             lineSeries3.visible = false;
             lineSeries4.visible = false;
-            mainApp.valueChanged.connect(updateGraph);
+            mainApp.valueChanged.connect(updatePlot);
         }
 
         function startNextTest() {
             if (testQueue.length > 0) {
-                currentTest = testQueue.shift();
-                updateGraph(currentTest);
+                var currentTest = testQueue.shift();
+                updatePlot(currentTest);
             } else {
-                // Semua pengujian selesai
+                // Jika antrian kosong, berhenti pengujian
                 testing = false;
 
-                // Uncheck all checkboxes dan reset title setelah semua pengujian selesai
+                // Uncheck semua checkbox dan reset judul setelah semua tes selesai
                 positionTestCheckBox.checked = false;
                 flowTestCheckBox.checked = false;
                 leakageTestCheckBox.checked = false;
-                chartView.title = "Test Completed";  // Set the title back to default
+                chartView.title = "Test Completed";  // Setel judul kembali ke default
 
-                // Reset currentTest
-                currentTest = null;
+                // Reset current_keys
+                current_keys = [];
                 axisX.min = 0;
-                axisX.max = testQueue.length * 10;
+                axisX.max = 10;
             }
         }
 
-        function updateGraph(test) {
-            // Clear grafik setiap kali tes berganti
+        function updateGraph(testType) {
+            if (testType === "Position Test") {
+                current_keys = position_keys;
+            } else if (testType === "Flow Test") {
+                current_keys = flow_keys;
+            } else if (testType === "Leakage Test") {
+                current_keys = leakage_keys;
+            }
+
             lineSeries1.clear();
             lineSeries2.clear();
             lineSeries3.clear();
             lineSeries4.clear();
 
-            // Set nama dan visibilitas LineSeries berdasarkan currentTest
             lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
             lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
             lineSeries3.name = current_keys.length > 2 ? current_keys[2] : "";
@@ -111,32 +117,7 @@ Page {
             lineSeries3.visible = testing && current_keys.length > 2;
             lineSeries4.visible = testing && current_keys.length > 3;
 
-            // Set judul grafik berdasarkan currentTest
-            chartView.title = "Test: " + test;
-
-            // Update nilai grafik
-            if (current_keys.length > 0) {
-                var value1 = mainApp.value[current_keys[0]];
-                lineSeries1.append(lineSeries1.count, value1);
-            }
-            if (current_keys.length > 1) {
-                var value2 = mainApp.value[current_keys[1]];
-                lineSeries2.append(lineSeries2.count, value2);
-            }
-            if (current_keys.length > 2) {
-                var value3 = mainApp.value[current_keys[2]];
-                lineSeries3.append(lineSeries3.count, value3);
-            }
-            if (current_keys.length > 3) {
-                var value4 = mainApp.value[current_keys[3]];
-                lineSeries4.append(lineSeries4.count, value4);
-            }
-
-            // Scroll x-axis jika diperlukan
-            if (lineSeries1.count > axisX.max - axisX.min) {
-                axisX.min++;
-                axisX.max++;
-            }
+            chartView.title = "Test: " + testType;
         }
     }
 
@@ -213,8 +194,11 @@ Page {
                         testQueue.push("Leakage Test");
                     }
                     // Reset the test index and count
+                    testIndex = 0;
+                    testCount = 0;
                     testing = true;
-                    startNextTest()
+                    testing = true;
+                    startNextTest();
                 }
             }
         }
