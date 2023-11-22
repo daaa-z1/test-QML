@@ -76,16 +76,16 @@ Page {
         function updatePlot(currentTest) {
             if (currentTest === "Position Test") {
                 current_keys = position_keys;
-                axisX.min = mainApp.parameter['aktual'].minValue;
-                axisX.max = mainApp.parameter['aktual'].maxValue;
+                axisY.min = mainApp.parameter['aktual'].minValue;
+                axisY.max = mainApp.parameter['aktual'].maxValue;
             } else if (currentTest === "Flow Test") {
                 current_keys = flow_keys;
-                axisX.min = mainApp.parameter['press_in'].minValue;
-                axisX.max = mainApp.parameter['press_in'].maxValue;
+                axisY.min = mainApp.parameter['press_in'].minValue;
+                axisY.max = mainApp.parameter['press_in'].maxValue;
             } else if (currentTest === "Leakage Test") {
                 current_keys = leakage_keys;
-                axisX.min = mainApp.parameter['press_in'].minValue;
-                axisX.max = mainApp.parameter['press_in'].maxValue;
+                axisY.min = mainApp.parameter['press_in'].minValue;
+                axisY.max = mainApp.parameter['press_in'].maxValue;
             }
 
             if (current_keys.length > 0) {
