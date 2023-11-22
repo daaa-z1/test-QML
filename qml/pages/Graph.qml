@@ -21,6 +21,7 @@ Page {
         anchors.left: parent.left
         theme: ChartView.ChartThemeDark
         antialiasing: true
+        title: testing ? testQueue[testIndex] : "No Test"
 
         ValueAxis {
             id: axisX
@@ -36,7 +37,7 @@ Page {
 
         LineSeries {
             id: lineSeries1
-            name: "Test 1"
+            name: current_keys.length > 0 ? current_keys[] : ""
             axisX: axisX
             axisY: axisY
             useOpenGL: true
@@ -44,7 +45,7 @@ Page {
 
         LineSeries {
             id: lineSeries2
-            name: "Test 2"
+            name: current_keys.length > 0 ? current_keys[1] : ""
             axisX: axisX
             axisY: axisY
             useOpenGL: true
@@ -52,7 +53,7 @@ Page {
 
         LineSeries {
             id: lineSeries3
-            name: "Test 3"
+            name: current_keys.length > 0 ? current_keys[2] : ""
             axisX: axisX
             axisY: axisY
             useOpenGL: true
@@ -60,7 +61,7 @@ Page {
 
         LineSeries {
             id: lineSeries4
-            name: "Test 4"
+            name: current_keys.length > 0 ? current_keys[3] : ""
             axisX: axisX
             axisY: axisY
             useOpenGL: true
@@ -68,6 +69,10 @@ Page {
 
         Component.onCompleted: {
             mainApp.valueChanged.connect(updatePlot);
+            lineSeries1.visible = testing && current_keys.length > 0;
+            lineSeries2.visible = testing && current_keys.length > 1;
+            lineSeries3.visible = testing && current_keys.length > 2;
+            lineSeries4.visible = testing && current_keys.length > 3;
         }
 
         function updatePlot() {
