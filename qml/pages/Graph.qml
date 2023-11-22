@@ -108,6 +108,13 @@ Page {
             lineSeries3.visible = testing && current_keys.length > 2;
             lineSeries4.visible = testing && current_keys.length > 3;
 
+            axisX.min = axisX.min
+            axisX.max = axisX.max
+
+            if (lineSeries1.count > axisX.max - axisX.min) {
+                axisX.min;
+                axisX.max++;
+            }
 
             if (testing && testQueue.length === 0) {
                 startNextTest();
@@ -208,10 +215,6 @@ Page {
                 testQueue.shift();
                 startNextTest();
             });
-            if (lineSeries1.count > axisX.max - axisX.min) {
-                axisX.min;
-                axisX.max++;
-            }
         } else {
             testing = false;
 
