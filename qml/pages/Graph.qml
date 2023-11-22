@@ -137,20 +137,20 @@ Page {
         radius: 10
         // Hapus properti shadow
         color: "darkgrey"
+        
+        DropShadow {
+            anchors.fill: parent
+            radius: 5
+            samples: 10
+            color: "grey"
+            source: parent
+        }
 
         // Tambahkan efek bayangan dengan DropShadow
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
             color: inputBox.color
-            
-            DropShadow {
-                anchors.fill: parent
-                radius: 5
-                samples: 10
-                color: "grey"
-                source: parent
-            }
 
             Column {
                 anchors.fill: parent
