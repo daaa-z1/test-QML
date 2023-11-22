@@ -76,10 +76,16 @@ Page {
         function updatePlot(currentTest) {
             if (currentTest === "Position Test") {
                 current_keys = position_keys;
+                axisX.min = mainApp.parameter['aktual'].minValue;
+                axisX.max = mainApp.parameter['aktual'].maxValue;
             } else if (currentTest === "Flow Test") {
                 current_keys = flow_keys;
+                axisX.min = mainApp.parameter['press_in'].minValue;
+                axisX.max = mainApp.parameter['press_in'].maxValue;
             } else if (currentTest === "Leakage Test") {
                 current_keys = leakage_keys;
+                axisX.min = mainApp.parameter['press_in'].minValue;
+                axisX.max = mainApp.parameter['press_in'].maxValue;
             }
 
             if (current_keys.length > 0) {
@@ -115,13 +121,13 @@ Page {
             }
 
             if (!testing) {
-                axisX.min = 0;
-                axisX.max = 10;
+                axisX.min = axisX.min;
+                axisX.max = axisX.max;
             }
 
             if (testQueue.length === 0) {
-                axisX.min = 0;
-                axisX.max = 10;
+                axisX.min = axisX.min;
+                axisX.max = axisX.max;
             }
         }
     }
@@ -135,18 +141,7 @@ Page {
         border.color: "lightblue"
         border.width: 2
         radius: 10
-        // Hapus properti shadow
         color: "darkgrey"
-        
-        DropShadow {
-            anchors.fill: parent
-            radius: 5
-            samples: 10
-            color: "grey"
-            source: parent
-        }
-
-        // Tambahkan efek bayangan dengan DropShadow
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
@@ -267,9 +262,8 @@ Page {
         positionTestCheckBox.checked = false;
         flowTestCheckBox.checked = false;
         leakageTestCheckBox.checked = false;
-        chartView.title = "Test Reset";
-        axisX.min = 0;
-        axisX.max = 10;
+        axisX.min = axisX.min;
+        axisX.max = axisX.max;
         lineSeries1.clear();
         lineSeries2.clear();
         lineSeries3.clear();
