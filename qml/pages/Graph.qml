@@ -131,104 +131,104 @@ Page {
         height: parent.height
         anchors.right: parent.right
 
-        border.color: "lightblue"
-        border.width: 2
-        radius: 10
-        // Hapus properti shadow
-        color: "white"
+        Item {
+            width: parent.width / 4
+            height: parent.height
 
-        // Tambahkan efek bayangan dengan DropShadow
-        Rectangle {
-            anchors.fill: parent
-            radius: inputBox.radius
-            color: inputBox.color
+            Rectangle {
+                width: parent.width
+                height: parent.height
+                border.color: "lightblue"
+                border.width: 2
+                radius: 10
+
+                Column {
+                    anchors.fill: parent
+                    spacing: 10
+
+                    Row {
+                        spacing: 10
+
+                        TextField {
+                            id: dateField
+                            placeholderText: "Tanggal"
+                        }
+
+                        TextField {
+                            id: timeField
+                            placeholderText: "Waktu"
+                        }
+                    }
+
+                    TextField {
+                        id: customerField
+                        placeholderText: "Nama Customer"
+                    }
+
+                    TextField {
+                        id: projectField
+                        placeholderText: "Deskripsi Proyek"
+                    }
+
+                    Button {
+                        text: "Submit"
+                        onClicked: {
+                            // Handle the submit action here
+                        }
+                    }
+
+                    CheckBox {
+                        id: positionTestCheckBox
+                        text: "Position Test"
+                        enabled: !testing
+                    }
+
+                    CheckBox {
+                        id: flowTestCheckBox
+                        text: "Flow Test"
+                        enabled: !testing
+                    }
+
+                    CheckBox {
+                        id: leakageTestCheckBox
+                        text: "Leakage Test"
+                        enabled: !testing
+                    }
+
+                    Button {
+                        id: startButton
+                        text: testing ? "Testing..." : "Start"
+                        enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
+                        onClicked: {
+                            testQueue = [];
+
+                            if (positionTestCheckBox.checked) {
+                                testQueue.push("Position Test");
+                            }
+                            if (flowTestCheckBox.checked) {
+                                testQueue.push("Flow Test");
+                            }
+                            if (leakageTestCheckBox.checked) {
+                                testQueue.push("Leakage Test");
+                            }
+
+                            if (testQueue.length > 0) {
+                                testing = true;
+                                startNextTest();
+                            } else {
+                                resetTest();
+                            }
+                        }
+                    }
+                }
+            }
 
             DropShadow {
                 anchors.fill: parent
                 radius: 5
-                samples: 10
+                samples: 9
                 color: "gray"
                 source: parent
-            }
-
-            Column {
-                anchors.fill: parent
-                spacing: 10
-
-                Row {
-                    spacing: 10
-
-                    TextField {
-                        id: dateField
-                        placeholderText: "Tanggal"
-                    }
-
-                    TextField {
-                        id: timeField
-                        placeholderText: "Waktu"
-                    }
-                }
-
-                TextField {
-                    id: customerField
-                    placeholderText: "Nama Customer"
-                }
-
-                TextField {
-                    id: projectField
-                    placeholderText: "Deskripsi Proyek"
-                }
-
-                Button {
-                    text: "Submit"
-                    onClicked: {
-                        // Handle the submit action here
-                    }
-                }
-
-                CheckBox {
-                    id: positionTestCheckBox
-                    text: "Position Test"
-                    enabled: !testing
-                }
-
-                CheckBox {
-                    id: flowTestCheckBox
-                    text: "Flow Test"
-                    enabled: !testing
-                }
-
-                CheckBox {
-                    id: leakageTestCheckBox
-                    text: "Leakage Test"
-                    enabled: !testing
-                }
-
-                Button {
-                    id: startButton
-                    text: testing ? "Testing..." : "Start"
-                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
-                    onClicked: {
-                        testQueue = [];
-
-                        if (positionTestCheckBox.checked) {
-                            testQueue.push("Position Test");
-                        }
-                        if (flowTestCheckBox.checked) {
-                            testQueue.push("Flow Test");
-                        }
-                        if (leakageTestCheckBox.checked) {
-                            testQueue.push("Leakage Test");
-                        }
-
-                        if (testQueue.length > 0) {
-                            testing = true;
-                            startNextTest();
-                        } else {
-                            resetTest();
-                        }
-                    }
-                }
             }
         }
     }
@@ -264,9 +264,8 @@ Page {
         positionTestCheckBox.checked = false;
         flowTestCheckBox.checked = false;
         leakageTestCheckBox.checked = false;
-        chartView.title = "Test Reset";
-        axisX.min = 0;
-        axisX.max = 10;
+        axisX.min = axisX.min;
+        axisX.max = axisX.max;
         lineSeries1.clear();
         lineSeries2.clear();
         lineSeries3.clear();
