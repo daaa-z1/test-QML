@@ -1,167 +1,176 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtCharts 2.3
+import QtCharts 2.15
 
 Page {
-    id: root
-    width: 800
-    height: 600
+    id: graphPage
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
-    property bool testing: false
-    property int testDuration: 10000 // 10 detik
-    property int testInterval: 1000 // 1 detik
     property var testQueue: []
-    property var currentTest: ""
+    property int testIndex: 0
+    property int testCount: 0
+    property var current_keys: []
+    property bool testing: false
 
-    Timer {
-        id: testTimer
-        interval: root.testInterval
-        repeat: true
-        onTriggered: {
-            var keys = [];
-            if (currentTest === "Position Test") {
-                keys = position_keys;
-            } else if (currentTest === "Flow Test") {
-                keys = flow_keys;
-            } else if (currentTest === "Leakage Test") {
-                keys = leakage_keys;
+    ChartView {
+        id: chartView
+        width: parent.width * 3 / 4
+        height: parent.height
+        anchors.left: parent.left
+        theme: ChartView.ChartThemeDark
+        antialiasing: true
+
+        ValueAxis {
+            id: axisX
+            min: 0
+            max: 10
+        }
+
+        ValueAxis {
+            id: axisY
+            min: 0
+            max: 100
+        }
+
+        LineSeries {
+            id: lineSeries1
+            name: "Test 1"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
+
+        LineSeries {
+            id: lineSeries2
+            name: "Test 2"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
+
+        LineSeries {
+            id: lineSeries3
+            name: "Test 3"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
+
+        LineSeries {
+            id: lineSeries4
+            name: "Test 4"
+            axisX: axisX
+            axisY: axisY
+            useOpenGL: true
+        }
+
+        Component.onCompleted: {
+            mainApp.valueChanged.connect(updatePlot);
+        }
+
+        function updatePlot() {
+            if (current_keys.length > 0) {
+                var value1 = mainApp.value[current_keys[0]];
+                lineSeries1.append(lineSeries1.count, value1);
+            }
+            if (current_keys.length > 1) {
+                var value2 = mainApp.value[current_keys[1]];
+                lineSeries2.append(lineSeries2.count, value2);
+            }
+            if (current_keys.length > 2) {
+                var value3 = mainApp.value[current_keys[2]];
+                lineSeries3.append(lineSeries3.count, value3);
+            }
+            if (current_keys.length > 3) {
+                var value4 = mainApp.value[current_keys[3]];
+                lineSeries4.append(lineSeries4.count, value4);
             }
 
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-                var value = mainApp.value[key]; // Anda perlu mengganti ini dengan kode Anda sendiri untuk membaca nilai dari MainApp
-                var series = chartView.series(key);
-                if (!series) {
-                    series = createSeries(key);
+            // Scroll the x-axis
+            if (lineSeries1.count > axisX.max - axisX.min) {
+                axisX.min++;
+                axisX.max++;
+            }
+
+            // Update the test count
+            testCount++;
+            if (testCount >= 100) {
+                testCount = 0;
+                testIndex++;
+                if (testIndex >= testQueue.length) {
+                    testIndex = 0;
+                    testing = false;
                 }
-                series.append(new Date().getTime(), value);
-            }
-
-            // Jika pengujian telah berlangsung selama 10 detik, lanjutkan ke pengujian berikutnya
-            if (testTimer.runningTime >= testDuration) {
-                testTimer.restart();
-                if (testQueue.length > 0) {
-                    currentTest = testQueue.shift();
-                } else {
-                    stopTesting();
+                if (testQueue[testIndex] === "Postion Test") {
+                    current_keys = position_keys;
+                } else if (testQueue[testIndex] === "Flow Test") {
+                    current_keys = flow_keys;
+                } else if (testQueue[testIndex] === "Leakage Test") {
+                    current_keys = leakage_keys;
                 }
+                lineSeries1.clear();
+                lineSeries2.clear();
+                lineSeries3.clear();
+                lineSeries4.clear();
             }
         }
     }
 
-    function startTesting() {
-        testing = true;
-        testQueue = [];
-        if (positionTestCheckBox.checked) {
-            testQueue.push("Position Test");
-        }
-        if (flowTestCheckBox.checked) {
-            testQueue.push("Flow Test");
-        }
-        if (leakageTestCheckBox.checked) {
-            testQueue.push("Leakage Test");
-        }
-        currentTest = testQueue.shift();
-        testTimer.start();
-    }
-
-    function stopTesting() {
-        testing = false;
-        testTimer.stop();
-    }
-
-    function createSeries(name) {
-        var newSeries = chartView.createSeries(QtCharts.SeriesTypeLine, name);
-        newSeries.attachAxis(axisX);
-        newSeries.attachAxis(axisY);
-        return newSeries;
-    }
-
-    Rectangle {
-        id: graphArea
-        width: root.width * 0.75
-        height: root.height
-        color: "#f0f0f0"
-
-        QtCharts.ChartView {
-            id: chartView
-            anchors.fill: parent
-            title: "Real-time Data"
-            antialiasing: true
-
-            QtCharts.DateTimeAxis {
-                id: axisX
-                format: "hh:mm:ss"
-            }
-
-            QtCharts.ValueAxis {
-                id: axisY
-                min: 0
-                max: 100
-            }
-
-            function series(name) {
-                for (var i = 0; i < chartView.series.length; i++) {
-                    if (chartView.series[i].name === name) {
-                        return chartView.series[i];
-                    }
-                }
-                return null;
-            }
-        }
-    }
-
+    // Input box
     Rectangle {
         id: inputBox
-        width: root.width * 0.25
-        height: root.height
-        color: "#ffffff"
-        anchors.right: root.right
+        width: parent.width / 4
+        height: parent.height
+        anchors.right: parent.right
 
-        ColumnLayout {
+        Column {
             anchors.fill: parent
             spacing: 10
-            padding: 10
 
             TextField {
+                id: dateField
                 placeholderText: "Tanggal"
             }
 
             TextField {
+                id: timeField
                 placeholderText: "Waktu"
             }
 
             TextField {
+                id: customerField
                 placeholderText: "Nama Customer"
             }
 
             TextField {
+                id: projectField
                 placeholderText: "Deskripsi Proyek"
             }
 
             Button {
                 text: "Submit"
                 Layout.alignment: Qt.AlignRight
+                onClicked: {
+                    // Handle the submit action here
+                }
             }
 
             CheckBox {
-                id: positionTestCheckBox
+                id: checkBox1
                 text: "Position Test"
                 enabled: !testing
             }
 
             CheckBox {
-                id: flowTestCheckBox
+                id: checkBox2
                 text: "Flow Test"
                 enabled: !testing
             }
 
             CheckBox {
-                id: leakageTestCheckBox
+                id: checkBox3
                 text: "Leakage Test"
                 enabled: !testing
             }
@@ -169,14 +178,29 @@ Page {
             Button {
                 id: startButton
                 text: testing ? "Testing..." : "Start"
-                Layout.alignment: Qt.AlignRight
                 enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
-
                 onClicked: {
-                    if (testing) {
-                        stopTesting();
-                    } else {
-                        startTesting();
+                    // Add the selected tests to the queue
+                    testQueue = [];
+                    if (checkBox1.checked) {
+                        testQueue.push("Position Test");
+                    }
+                    if (checkBox2.checked) {
+                        testQueue.push("Flow Test");
+                    }
+                    if (checkBox3.checked) {
+                        testQueue.push("Leakage Test");
+                    }
+                    // Reset the test index and count
+                    testIndex = 0;
+                    testCount = 0;
+                    testing = true;
+                    if (testQueue[testIndex] === "Position Test") {
+                        current_keys = position_keys;
+                    } else if (testQueue[testIndex] === "Flow Test") {
+                        current_keys = flow_keys;
+                    } else if (testQueue[testIndex] === "Leakage Test") {
+                        current_keys = leakage_keys;
                     }
                 }
             }
