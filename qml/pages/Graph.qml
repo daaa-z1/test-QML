@@ -93,20 +93,14 @@ Page {
             }
         }
 
-        function updateGraph(testType) {
-            if (testType === "Position Test") {
-                current_keys = position_keys;
-            } else if (testType === "Flow Test") {
-                current_keys = flow_keys;
-            } else if (testType === "Leakage Test") {
-                current_keys = leakage_keys;
-            }
-
+        function updateGraph(test) {
+            // Clear grafik setiap kali tes berganti
             lineSeries1.clear();
             lineSeries2.clear();
             lineSeries3.clear();
             lineSeries4.clear();
 
+            // Set nama dan visibilitas LineSeries berdasarkan currentTest
             lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
             lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
             lineSeries3.name = current_keys.length > 2 ? current_keys[2] : "";
@@ -117,7 +111,32 @@ Page {
             lineSeries3.visible = testing && current_keys.length > 2;
             lineSeries4.visible = testing && current_keys.length > 3;
 
-            chartView.title = "Test: " + testType;
+            // Set judul grafik berdasarkan currentTest
+            chartView.title = "Test: " + test;
+
+            // Update nilai grafik
+            if (current_keys.length > 0) {
+                var value1 = mainApp.value[current_keys[0]];
+                lineSeries1.append(lineSeries1.count, value1);
+            }
+            if (current_keys.length > 1) {
+                var value2 = mainApp.value[current_keys[1]];
+                lineSeries2.append(lineSeries2.count, value2);
+            }
+            if (current_keys.length > 2) {
+                var value3 = mainApp.value[current_keys[2]];
+                lineSeries3.append(lineSeries3.count, value3);
+            }
+            if (current_keys.length > 3) {
+                var value4 = mainApp.value[current_keys[3]];
+                lineSeries4.append(lineSeries4.count, value4);
+            }
+
+            // Scroll x-axis jika diperlukan
+            if (lineSeries1.count > axisX.max - axisX.min) {
+                axisX.min++;
+                axisX.max++;
+            }
         }
     }
 
