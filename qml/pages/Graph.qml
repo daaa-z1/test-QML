@@ -98,7 +98,6 @@ Page {
                 lineSeries4.append(lineSeries4.count, value4);
             }
 
-            chartView.title = "Test: " + currentTest;
             lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
             lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
             lineSeries3.name = current_keys.length > 2 ? current_keys[2] : "";
@@ -204,6 +203,7 @@ Page {
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
+            chartView.title = "Test: " + currentTest;
 
             var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: true; repeat: false; onTriggered: startNextTest() }', graphPage);
 
