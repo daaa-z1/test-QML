@@ -134,87 +134,99 @@ Page {
         border.color: "lightblue"
         border.width: 2
         radius: 10
-        shadow.enabled: true
-        shadow.color: "gray"
-        shadow.radius: 5
-        shadow.offset.x: 2
-        shadow.offset.y: 2
+        // Hapus properti shadow
+        color: "white"
 
-        Column {
+        // Tambahkan efek bayangan dengan DropShadow
+        Rectangle {
             anchors.fill: parent
-            spacing: 10
+            radius: inputBox.radius
+            color: inputBox.color
 
-            Row {
+            DropShadow {
+                anchors.fill: parent
+                radius: 5
+                samples: 10
+                color: "gray"
+                source: parent
+            }
+
+            Column {
+                anchors.fill: parent
                 spacing: 10
 
-                TextField {
-                    id: dateField
-                    placeholderText: "Tanggal"
+                Row {
+                    spacing: 10
+
+                    TextField {
+                        id: dateField
+                        placeholderText: "Tanggal"
+                    }
+
+                    TextField {
+                        id: timeField
+                        placeholderText: "Waktu"
+                    }
                 }
 
                 TextField {
-                    id: timeField
-                    placeholderText: "Waktu"
+                    id: customerField
+                    placeholderText: "Nama Customer"
                 }
-            }
 
-            TextField {
-                id: customerField
-                placeholderText: "Nama Customer"
-            }
-
-            TextField {
-                id: projectField
-                placeholderText: "Deskripsi Proyek"
-            }
-
-            Button {
-                text: "Submit"
-                onClicked: {
-                    // Handle the submit action here
+                TextField {
+                    id: projectField
+                    placeholderText: "Deskripsi Proyek"
                 }
-            }
 
-            CheckBox {
-                id: positionTestCheckBox
-                text: "Position Test"
-                enabled: !testing
-            }
-
-            CheckBox {
-                id: flowTestCheckBox
-                text: "Flow Test"
-                enabled: !testing
-            }
-
-            CheckBox {
-                id: leakageTestCheckBox
-                text: "Leakage Test"
-                enabled: !testing
-            }
-
-            Button {
-                id: startButton
-                text: testing ? "Testing..." : "Start"
-                enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
-                onClicked: {
-                    testQueue = [];
-
-                    if (positionTestCheckBox.checked) {
-                        testQueue.push("Position Test");
+                Button {
+                    text: "Submit"
+                    onClicked: {
+                        // Handle the submit action here
                     }
-                    if (flowTestCheckBox.checked) {
-                        testQueue.push("Flow Test");
-                    }
-                    if (leakageTestCheckBox.checked) {
-                        testQueue.push("Leakage Test");
-                    }
+                }
 
-                    if (testQueue.length > 0) {
-                        testing = true;
-                        startNextTest();
-                    } else {
-                        resetTest();
+                CheckBox {
+                    id: positionTestCheckBox
+                    text: "Position Test"
+                    enabled: !testing
+                }
+
+                CheckBox {
+                    id: flowTestCheckBox
+                    text: "Flow Test"
+                    enabled: !testing
+                }
+
+                CheckBox {
+                    id: leakageTestCheckBox
+                    text: "Leakage Test"
+                    enabled: !testing
+                }
+
+                Button {
+                    id: startButton
+                    text: testing ? "Testing..." : "Start"
+                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
+                    onClicked: {
+                        testQueue = [];
+
+                        if (positionTestCheckBox.checked) {
+                            testQueue.push("Position Test");
+                        }
+                        if (flowTestCheckBox.checked) {
+                            testQueue.push("Flow Test");
+                        }
+                        if (leakageTestCheckBox.checked) {
+                            testQueue.push("Leakage Test");
+                        }
+
+                        if (testQueue.length > 0) {
+                            testing = true;
+                            startNextTest();
+                        } else {
+                            resetTest();
+                        }
                     }
                 }
             }
