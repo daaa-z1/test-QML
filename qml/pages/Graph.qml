@@ -108,9 +108,6 @@ Page {
             lineSeries3.visible = testing && current_keys.length > 2;
             lineSeries4.visible = testing && current_keys.length > 3;
 
-            axisX.min = axisX.min
-            axisX.max = axisX.max
-
             if (lineSeries1.count > axisX.max - axisX.min) {
                 axisX.min;
                 axisX.max++;
@@ -183,8 +180,6 @@ Page {
                 enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
                 onClicked: {
                     testQueue = [];
-                    axisX.min = axisX.min
-                    axisX.max = axisX.max
 
                     if (positionTestCheckBox.checked) {
                         testQueue.push("Position Test");
