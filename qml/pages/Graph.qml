@@ -242,7 +242,7 @@ Page {
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
                 resetTest();
-                testQueue.shift();
+                pauseTimer.running = true;
                 startNextTest();
             });
         } else {
