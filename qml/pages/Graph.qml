@@ -113,8 +113,14 @@ Page {
                 axisX.max++;
             }
 
-            if (testing && testQueue.length === 0) {
-                startNextTest();
+            if (!testing) {
+                axisX.min = 0;
+                axisX.max = 10;
+            }
+
+            if (testQueue.length === 0) {
+                axisX.min = 0;
+                axisX.max = 10;
             }
         }
     }
@@ -194,6 +200,8 @@ Page {
                     if (testQueue.length > 0) {
                         testing = true;
                         startNextTest();
+                    } else {
+                        resetTest();
                     }
                 }
             }
@@ -213,8 +221,6 @@ Page {
                 testQueue.shift();
                 startNextTest();
             });
-            axisX.min = axisX.min
-            axisX.max = axisX.max
         } else {
             testing = false;
 
@@ -224,9 +230,23 @@ Page {
                 leakageTestCheckBox.checked = false;
                 chartView.title = "Test Completed";
                 current_keys = [];
-                axisX.min = 0;
-                axisX.max = 10;
             }
         }
+    }
+
+    function resetTest() {
+        testing = false;
+        testQueue = [];
+        positionTestCheckBox.checked = false;
+        flowTestCheckBox.checked = false;
+        leakageTestCheckBox.checked = false;
+        chartView.title = "Test Reset";
+        current_keys = [];
+        axisX.min = 0;
+        axisX.max = 10;
+        lineSeries1.clear();
+        lineSeries2.clear();
+        lineSeries3.clear();
+        lineSeries4.clear();
     }
 }
