@@ -114,7 +114,9 @@ Page {
                 axisX.max++;
             }
 
-            startNextTest();
+            if (testing && testQueue.length === 0) {
+                startNextTest();
+            }
         }
     }
 
