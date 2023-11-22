@@ -121,13 +121,13 @@ Page {
             }
 
             if (!testing) {
-                axisX.min = axisX.min;
-                axisX.max = axisX.max;
+                axisX.min = 0;
+                axisX.max = 10;
             }
 
             if (testQueue.length === 0) {
-                axisX.min = axisX.min;
-                axisX.max = axisX.max;
+                axisX.min = 0;
+                axisX.max = 10;
             }
         }
     }
@@ -262,8 +262,8 @@ Page {
         positionTestCheckBox.checked = false;
         flowTestCheckBox.checked = false;
         leakageTestCheckBox.checked = false;
-        axisX.min = axisX.min;
-        axisX.max = axisX.max;
+        axisX.min = 0;
+        axisX.max = 10;
         lineSeries1.clear();
         lineSeries2.clear();
         lineSeries3.clear();
