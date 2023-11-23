@@ -1,10 +1,14 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls.Material 2.12
 import QtCharts 2.15
 import QtGraphicalEffects 1.0
 
 Page {
     id: graphPage
+
+    Material.theme: Material.Dark
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
@@ -186,21 +190,18 @@ Page {
                     id: positionTestCheckBox
                     text: "Position Test"
                     enabled: !testing
-                    color: "white"
                 }
 
                 CheckBox {
                     id: flowTestCheckBox
                     text: "Flow Test"
                     enabled: !testing
-                    color: "white"
                 }
 
                 CheckBox {
                     id: leakageTestCheckBox
                     text: "Leakage Test"
                     enabled: !testing
-                    color: "white"
                 }
 
                 Button {
