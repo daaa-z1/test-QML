@@ -9,6 +9,7 @@ Page {
     id: graphPage
 
     Material.theme: Material.Dark
+    Material.accent: Material.DeepOrange
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
@@ -142,14 +143,14 @@ Page {
         height: parent.height
         anchors.right: parent.right
 
-        border.color: "#1C1C1C"
+        // border.color: "#1C1C1C"
         border.width: 2
         radius: 10
-        color: "#2E2E2E"
+        // color: "#2E2E2E"
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
-            color: inputBox.color
+            // color: inputBox.color
 
             Column {
                 anchors.fill: parent
