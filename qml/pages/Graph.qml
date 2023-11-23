@@ -146,7 +146,7 @@ Page {
         // border.color: "#1C1C1C"
         border.width: 2
         radius: 10
-        Material.theme: Material.Dark
+        Material.background: Material.Dark
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
