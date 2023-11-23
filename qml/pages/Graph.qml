@@ -165,7 +165,6 @@ Page {
 
                     TextField {
                         id: dateField
-                        anchors.right: timeField.left
                         placeholderText: "Tanggal"
                     }
 
