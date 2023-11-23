@@ -139,7 +139,7 @@ Page {
         }
     }
 
-    Rectangle {
+    Pane {
         id: inputBox
         width: parent.width / 4
         height: parent.height
