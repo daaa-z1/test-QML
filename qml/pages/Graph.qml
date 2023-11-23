@@ -165,14 +165,12 @@ Page {
 
                     TextField {
                         id: dateField
-                        anchors.right: timeField.left
                         placeholderText: "Tanggal"
                     }
 
                     TextField {
                         id: timeField
-                        width: parameter.width * 0.1
-                        anchors.right: parent.right
+                        width: parent.width * 0.1
                         placeholderText: "Waktu"
                     }
                 }
