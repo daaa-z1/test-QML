@@ -212,7 +212,7 @@ Page {
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
                     highlighted: true
-                    Material.accent: Material.BlueGrey
+                    Material.accent: Material.White
                     Material.elevation: 20
                     onClicked: {
                         testQueue = [];
