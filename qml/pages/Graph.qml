@@ -147,13 +147,12 @@ Page {
         border.color: "steelblue"
         border.width: 2
         radius: 10
-        color: "lightgrey"
+        Material.theme: Material.Dark
 
         Material.elevation: 6
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
-            color: inputBox.color
 
             Column {
                 anchors.fill: parent
