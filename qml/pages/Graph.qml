@@ -144,7 +144,7 @@ Page {
         width: parent.width / 4
         height: parent.height
         anchors.right: parent.right
-        anchors.marginRight:5
+        marginRight: 5
 
         border.color: "steelblue"
         border.width: 2
@@ -156,7 +156,7 @@ Page {
             radius: inputBox.radius
             gradient: Gradient.RiskyConcrete
 
-            Column {
+            ColumnLayout {
                 anchors.fill: parent
                 spacing: 10
                 padding: 5
