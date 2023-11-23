@@ -155,21 +155,24 @@ Page {
             radius: inputBox.radius
             gradient: Gradient.RiskyConcrete
 
-            ColumnLayout {
+            Column {
                 anchors.fill: parent
                 spacing: 10
-                Layout.margins: 5
+                padding: 5
 
                 Row {
                     spacing: 10
 
                     TextField {
                         id: dateField
+                        anchors.right: timeField.left
                         placeholderText: "Tanggal"
                     }
 
                     TextField {
                         id: timeField
+                        width: parameter.width * 0.1
+                        anchors.right: parent.right
                         placeholderText: "Waktu"
                     }
                 }
