@@ -171,7 +171,6 @@ Page {
                     TextField {
                         id: timeField
                         width: parent.width * 0.3
-                        anchors.right: parent.right
                         placeholderText: "Waktu"
                     }
                 }
