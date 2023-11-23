@@ -144,7 +144,6 @@ Page {
         width: parent.width / 4
         height: parent.height
         anchors.right: parent.right
-        marginRight: 5
 
         border.color: "steelblue"
         border.width: 2
