@@ -150,7 +150,7 @@ Page {
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
-            // color: inputBox.color
+            color: inputBox.color
 
             Column {
                 anchors.fill: parent
