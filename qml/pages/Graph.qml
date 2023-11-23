@@ -146,14 +146,14 @@ Page {
 
         border.color: "steelblue"
         border.width: 2
-        radius: 10
-        color: Material.color(Material.Dark)
+        radius: 5
+        color: Material.color("#FFFFFF")
+        Material.elevation: 6
 
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
             color: "transparent"
-            Material.elevation: 6
 
             Column {
                 anchors.fill: parent
