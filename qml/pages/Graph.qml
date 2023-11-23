@@ -152,7 +152,7 @@ Page {
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
-            gradient: "Premium Dark"
+            gradient: "LoonCrest"
 
             Column {
                 anchors.fill: parent
