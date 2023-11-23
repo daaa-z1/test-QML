@@ -139,7 +139,7 @@ Page {
         }
     }
 
-    Pane {
+    Rectangle {
         id: inputBox
         width: parent.width / 4
         height: parent.height
@@ -217,7 +217,7 @@ Page {
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
                     highlighted: true
-                    Material.accent: Material.White
+                    Material.background: Material.Tale
                     Material.elevation: 6
                     onClicked: {
                         testQueue = [];
