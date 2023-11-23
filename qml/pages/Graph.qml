@@ -212,7 +212,7 @@ Page {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
-                    Material.background: testing ? Material.Grey : Material.Indigo
+                    Material.accent: testing ? Material.Grey : Material.Indigo
                     onClicked: {
                         testQueue = [];
 
