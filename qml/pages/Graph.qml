@@ -186,18 +186,21 @@ Page {
                     id: positionTestCheckBox
                     text: "Position Test"
                     enabled: !testing
+                    color: "white"
                 }
 
                 CheckBox {
                     id: flowTestCheckBox
                     text: "Flow Test"
                     enabled: !testing
+                    color: "white"
                 }
 
                 CheckBox {
                     id: leakageTestCheckBox
                     text: "Leakage Test"
                     enabled: !testing
+                    color: "white"
                 }
 
                 Button {
