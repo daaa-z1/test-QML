@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Material 2.12
 import QtCharts 2.15
 import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.15
 
 Page {
     id: graphPage
