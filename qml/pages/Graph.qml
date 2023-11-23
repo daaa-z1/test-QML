@@ -177,11 +177,13 @@ Page {
 
                 TextField {
                     id: customerField
+                    width: parent.width
                     placeholderText: "Nama Customer"
                 }
 
                 TextField {
                     id: projectField
+                    width: parent.width
                     placeholderText: "Deskripsi Proyek"
                 }
 
