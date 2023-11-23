@@ -214,7 +214,7 @@ Page {
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
                     highlighted: true
                     Material.accent: Material.BlueGrey
-                    Material.elevation: 6
+                    Material.elevation: 20
                     onClicked: {
                         testQueue = [];
 
