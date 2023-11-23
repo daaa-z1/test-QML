@@ -158,7 +158,7 @@ Page {
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 10
-                margins: 5
+                Layout.margin: 5
 
                 Row {
                     spacing: 10
