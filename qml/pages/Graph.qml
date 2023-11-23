@@ -25,6 +25,7 @@ Page {
         anchors.left: parent.left
         theme: ChartView.ChartThemeDark
         antialiasing: true
+        title: "Testing Page Test Bench Experts"
 
         ValueAxis {
             id: axisX
@@ -143,10 +144,12 @@ Page {
         height: parent.height
         anchors.right: parent.right
 
-        // border.color: "#1C1C1C"
+        border.color: "steelblue"
         border.width: 2
         radius: 10
-        Material.background: Material.Dark
+        color: "lightgrey"
+
+        Material.elevation: 6
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
@@ -154,7 +157,7 @@ Page {
 
             Column {
                 anchors.fill: parent
-                spacing: 15
+                spacing: 10
 
                 Row {
                     spacing: 10
@@ -209,10 +212,7 @@ Page {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
-                    background: Rectangle {
-                        color: startButton.enabled ? "#4285F4" : "#555555"
-                        radius: 5
-                    }
+                    Material.background: testing ? Material.Grey : Material.Indigo
                     onClicked: {
                         testQueue = [];
 
