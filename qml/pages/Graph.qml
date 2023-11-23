@@ -152,7 +152,7 @@ Page {
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
-            gradient: Gradient.MountainRock
+            gradient: Gradient.RiskyConcrete
 
             Column {
                 anchors.fill: parent
