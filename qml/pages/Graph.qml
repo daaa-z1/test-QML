@@ -138,10 +138,10 @@ Page {
         height: parent.height
         anchors.right: parent.right
 
-        border.color: "lightblue"
+        border.color: "#1C1C1C"
         border.width: 2
         radius: 10
-        color: "darkgrey"
+        color: "#2E2E2E"
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
@@ -149,7 +149,7 @@ Page {
 
             Column {
                 anchors.fill: parent
-                spacing: 10
+                spacing: 15
 
                 Row {
                     spacing: 10
@@ -204,6 +204,10 @@ Page {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
+                    background: Rectangle {
+                        color: startButton.enabled ? "#4285F4" : "#555555"
+                        radius: 5
+                    }
                     onClicked: {
                         testQueue = [];
 
@@ -257,7 +261,6 @@ Page {
                 leakageTestCheckBox.checked = false;
                 chartView.title = "Test Completed";
                 current_keys = [];
-                Qt.createComponent("main.qml");
             }
         }
     }
