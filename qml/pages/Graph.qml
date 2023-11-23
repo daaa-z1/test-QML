@@ -257,6 +257,7 @@ Page {
                 leakageTestCheckBox.checked = false;
                 chartView.title = "Test Completed";
                 current_keys = [];
+                Qt.createComponent("main.qml");
             }
         }
     }
