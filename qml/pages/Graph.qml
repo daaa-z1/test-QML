@@ -9,7 +9,7 @@ Page {
     id: graphPage
 
     Material.theme: Material.Dark
-    Material.accent: Material.DeepOrange
+    // Material.accent: Material.DeepOrange
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
