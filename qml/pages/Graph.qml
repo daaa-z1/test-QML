@@ -152,7 +152,7 @@ Page {
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
-            color: inputBox.color
+            color: "transparent"
             Material.elevation: 6
 
             Column {
