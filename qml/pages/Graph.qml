@@ -152,7 +152,7 @@ Page {
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
-            gradient: Gradient.PremiumDark
+            gradient: Gradient.AboveTheSky
 
             Column {
                 anchors.fill: parent
