@@ -8,7 +8,7 @@ import QtGraphicalEffects 1.0
 Page {
     id: graphPage
 
-    Material.background: Material.Teal
+    Material.theme: Material.Light
     // Material.accent: Material.DeepOrange
 
     property var position_keys: ['curr_v', 'aktual']
