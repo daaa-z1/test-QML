@@ -157,6 +157,7 @@ Page {
             Column {
                 anchors.fill: parent
                 spacing: 10
+                padding: 5
 
                 Row {
                     spacing: 10
