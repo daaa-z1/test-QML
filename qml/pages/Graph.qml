@@ -13,6 +13,7 @@ Page {
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
     property var testQueue: []
     property var current_keys: []
+    property var currentTest: ""
     property bool testing: false
 
     ChartView {
