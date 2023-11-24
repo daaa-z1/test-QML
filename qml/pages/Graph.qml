@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.12
 import QtQuick.Controls.Styles 1.4
 import QtCharts 2.15
 import QtGraphicalEffects 1.15
@@ -7,6 +8,9 @@ import QtQuick.Layouts 1.15
 
 Page {
     id: graphPage
+
+    Material.theme: Material.Dark
+    Material.accent: Material.color("darkblue")
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
