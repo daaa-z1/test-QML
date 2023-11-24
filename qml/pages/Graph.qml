@@ -125,12 +125,12 @@ Page {
 
             if (!testing) {
                 axisX.min = 0;
-                axisX.max = 10;
+                axisX.max = 105;
             }
 
             if (testQueue.length === 0) {
                 axisX.min = 0;
-                axisX.max = 10;
+                axisX.max = 105;
             }
         }
     }
