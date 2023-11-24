@@ -152,7 +152,6 @@ Page {
                 color: "#aa000000"
                 radius: 10
                 spread: 0.1
-                transparentBorder: true
             }
 
             Column {
