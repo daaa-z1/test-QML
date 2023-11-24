@@ -190,6 +190,22 @@ Page {
 
                 Button {
                     text: "Submit"
+                    background: Rectangle {
+                        color: control.pressed ? "#333" : "#444"
+                        radius: 5
+                        border.color: "#555"
+                        border.width: 1
+                        opacity: 1
+
+                        DropShadow {
+                            horizontalOffset: 5
+                            verticalOffset: 5
+                            radius: 5
+                            samples: 5
+                            color: "#aa000000"
+                            source: parent
+                        }
+                    }
                     onClicked: {
                         // Handle the submit action here
                     }
