@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.12
 import QtQuick.Controls.Styles 1.4
 import QtCharts 2.15
 import QtGraphicalEffects 1.15
@@ -8,9 +7,6 @@ import QtQuick.Layouts 1.15
 
 Page {
     id: graphPage
-
-    Material.theme: Material.Dark
-    Material.accent: Material.color("darkblue")
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
@@ -194,7 +190,6 @@ Page {
 
                 Button {
                     text: "Submit"
-                    Material.accent: Material.Red
                     onClicked: {
                         // Handle the submit action here
                     }
@@ -240,6 +235,25 @@ Page {
                             startNextTest();
                         } else {
                             resetTest();
+                        }
+                    }
+                    style: ButtonStyle {
+                        background: Rectangle {
+                            color: control.pressed ? "#333" : "#444"
+                            radius: 5
+                            border.color: "#555"
+                            border.width: 1
+                            opacity: 1
+
+                            DropShadow {
+                                id: buttonDropShadow
+                                horizontalOffset: 5
+                                verticalOffset: 5
+                                radius: 5
+                                samples: 5
+                                color: "#aa000000"
+                                source: parent
+                            }
                         }
                     }
                 }
