@@ -169,7 +169,7 @@ Page {
 
                     TextField {
                         id: dateField
-                        width: parent.width * 0.6
+                        width: parent.width * 0.5
                         placeholderText: "Tanggal"
                     }
                 }
