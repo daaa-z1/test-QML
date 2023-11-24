@@ -87,8 +87,8 @@ Page {
                 axisY.max = mainApp.parameter['press_in'].maxValue;
             } else if (currentTest === "Leakage Test") {
                 current_keys = leakage_keys;
-                axisY.min = mainApp.parameter['press_in'].minValue;
-                axisY.max = mainApp.parameter['press_in'].maxValue;
+                axisY.min = mainApp.parameter['flow'].minValue;
+                axisY.max = mainApp.parameter['flow'].maxValue;
             }
 
             if (current_keys.length > 0) {
