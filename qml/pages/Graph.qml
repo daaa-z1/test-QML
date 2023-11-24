@@ -217,6 +217,25 @@ Page {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
+                    style: ButtonStyle {
+                        background: Rectangle {
+                            color: control.pressed ? "#333" : "#444"
+                            radius: 5
+                            border.color: "#555"
+                            border.width: 1
+                            opacity: 1
+
+                            DropShadow {
+                                id: buttonDropShadow
+                                horizontalOffset: 5
+                                verticalOffset: 5
+                                radius: 5
+                                samples: 5
+                                color: "#aa000000"
+                                source: parent
+                            }
+                        }
+                    }
                     onClicked: {
                         testQueue = [];
 
@@ -235,25 +254,6 @@ Page {
                             startNextTest();
                         } else {
                             resetTest();
-                        }
-                    }
-                    style: ButtonStyle {
-                        background: Rectangle {
-                            color: control.pressed ? "#333" : "#444"
-                            radius: 5
-                            border.color: "#555"
-                            border.width: 1
-                            opacity: 1
-
-                            DropShadow {
-                                id: buttonDropShadow
-                                horizontalOffset: 5
-                                verticalOffset: 5
-                                radius: 5
-                                samples: 5
-                                color: "#aa000000"
-                                source: parent
-                            }
                         }
                     }
                 }
