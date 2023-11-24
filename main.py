@@ -235,9 +235,9 @@ class MainApp(QObject):
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
         
     @pyqtSlot()
-    def takeScreenshot(self, test, cust):
+    def takeScreenshot(self):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        screenshot_path = f"screenshots/{cust}_{timestamp}_{test}.png"
+        screenshot_path = f"screenshots/{timestamp}_TestResult.png"
 
         # Pastikan folder 'screenshots' sudah ada
         os.makedirs("screenshots", exist_ok=True)
