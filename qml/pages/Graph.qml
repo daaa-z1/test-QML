@@ -213,7 +213,7 @@ Page {
                 Button {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
-                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
+                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked || testQueue.length > 0)
                     onClicked: {
                         testQueue = [];
 
