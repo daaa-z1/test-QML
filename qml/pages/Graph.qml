@@ -229,10 +229,11 @@ Page {
 
                         if (testQueue.length > 0) {
                             testing = true;
-                            startNextTest();
+                            updatePlot(testQueue[0])
                         } else {
                             resetTest();
                         }
+                        startNextTest();
                     }
                 }
             }
