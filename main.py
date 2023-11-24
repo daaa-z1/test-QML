@@ -1,5 +1,5 @@
 import sys
-import json
+from datetime import datetime
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime
@@ -234,11 +234,21 @@ class MainApp(QObject):
         calculated_values = [int(value) for value in calculated_values]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
         
-    @pyqtSlot(result=int)
-    def get_tiempo(self):
-        date_time = QDateTime.currentDateTime()
-        unixTIME = date_time.toSecsSinceEpoch()
-        return unixTIME
+    @pyqtSlot()
+    def takeScreenshot(self, test, cust):
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        screenshot_path = f"screenshots/{cust}_{timestamp}_{test}.png"
+
+        # Pastikan folder 'screenshots' sudah ada
+        os.makedirs("screenshots", exist_ok=True)
+
+        # Ambil screenshot grafik pengujian
+        screenshot = QApplication.primaryScreen().grabWindow(chartView.winId())
+
+        # Simpan screenshot dengan format tertentu
+        screenshot.save(screenshot_path)
+
+        print(f"Screenshot saved: {screenshot_path}")
    
 if __name__ == "__main__":
     app = QApplication(sys.argv)
