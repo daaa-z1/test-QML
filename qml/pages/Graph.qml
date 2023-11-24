@@ -148,7 +148,7 @@ Page {
         border.color: "steelblue"
         border.width: 2
         radius: 5
-        Material.elevation: 6
+        Material.elevation: 16
 
         Rectangle {
             anchors.fill: parent
