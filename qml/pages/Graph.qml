@@ -26,24 +26,14 @@ Page {
 
         ValueAxis {
             id: axisX
-            min: -5
-            max: 5
-            tickCount: 11
-            labelFormat: "%.0f"
-            minorTickCount: 0
-            labelsVisible: false
-            lineVisible: true
+            min: 0
+            max: 10
         }
 
         ValueAxis {
             id: axisY
-            min: -5
-            max: 5
-            tickCount: 11
-            labelFormat: "%.0f"
-            minorTickCount: 0
-            labelsVisible: false
-            lineVisible: true
+            min: 0
+            max: 100
         }
 
         LineSeries {
