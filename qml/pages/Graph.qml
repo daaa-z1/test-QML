@@ -141,6 +141,12 @@ Page {
         height: parent.height
         anchors.right: parent.right
         radius: 5
+        layer.enabled: true
+        layer.effect: Glow{
+            samples: 15
+            color: "darkblue"
+            transparentBorder: true
+        }
 
         Rectangle {
             anchors.fill: parent
@@ -233,16 +239,6 @@ Page {
                     }
                 }
             }
-        }
-
-        DropShadow{
-            anchors.fill: inputBox
-            color: "#aa000000"
-            radius: 8
-            samples: 17
-            horizontalOffset: 0
-            verticalOffset: 3
-            spread: 0
         }
     }
 
