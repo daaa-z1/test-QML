@@ -79,16 +79,16 @@ Page {
         function updatePlot(currentTest) {
             if (currentTest === "Position Test") {
                 current_keys = position_keys;
-                axisY.min = mainApp.parameter['aktual'].minValue;
-                axisY.max = mainApp.parameter['aktual'].maxValue;
+                axisY.min = mainApp.parameter['aktual'].minValue - 2;
+                axisY.max = mainApp.parameter['aktual'].maxValue + 2;
             } else if (currentTest === "Flow Test") {
                 current_keys = flow_keys;
-                axisY.min = mainApp.parameter['press_in'].minValue;
-                axisY.max = mainApp.parameter['press_in'].maxValue;
+                axisY.min = mainApp.parameter['press_in'].minValue - 10;
+                axisY.max = mainApp.parameter['press_in'].maxValue + 10;
             } else if (currentTest === "Leakage Test") {
                 current_keys = leakage_keys;
-                axisY.min = mainApp.parameter['press_in'].minValue;
-                axisY.max = mainApp.parameter['press_in'].maxValue;
+                axisY.min = mainApp.parameter['press_in'].minValue - 10;
+                axisY.max = mainApp.parameter['press_in'].maxValue + 10;
             }
 
             if (current_keys.length > 0) {
@@ -280,7 +280,7 @@ Page {
     }
 
     function startNextTest() {
-        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 60000; running: false; repeat: false; }', graphPage);
+        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; }', graphPage);
         
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
