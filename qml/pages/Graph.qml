@@ -142,9 +142,9 @@ Page {
         anchors.right: parent.right
         radius: 5
         layer.enabled: true
-        layer.effect: Glow{
+        layer.effect: DropShadow {
             samples: 15
-            color: "#aa000000"
+            color: "white"
             transparentBorder: true
         }
 
