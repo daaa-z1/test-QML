@@ -13,6 +13,7 @@ Page {
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
     property var testQueue: []
     property var current_keys: []
+    property var currentTest: ""
     property bool testing: false
 
     ChartView {
@@ -229,11 +230,10 @@ Page {
 
                         if (testQueue.length > 0) {
                             testing = true;
-                            ChartView.updatePlot(testQueue[0])
+                            startNextTest();
                         } else {
                             resetTest();
                         }
-                        startNextTest();
                     }
                 }
             }
@@ -244,7 +244,7 @@ Page {
         var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; onTriggered: startNextTest() }', graphPage);
         
         if (testQueue.length > 0) {
-            var currentTest = testQueue.shift();
+            currentTest = testQueue.shift();
             chartView.updatePlot(currentTest);
             chartView.title = "" + currentTest;
 
