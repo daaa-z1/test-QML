@@ -286,11 +286,13 @@ Page {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
             chartView.title = "" + currentTest;
+            var cust = customerField.text
 
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
+                mainApp.takeScreenshot(currentTest, cust);
                 resetTest();
                 testQueue.shift();
                 startNextTest();
