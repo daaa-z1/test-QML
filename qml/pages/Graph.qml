@@ -258,6 +258,7 @@ Page {
         } else {
             testing = false;
             resetTest();
+        }
     }
 
     function resetTest() {
