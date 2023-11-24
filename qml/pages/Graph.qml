@@ -152,7 +152,8 @@ Page {
                 samples: 5
                 color: "#aa000000"
                 radius: 10
-                spread: 0.1
+                spread: 0
+                source: parent
             }
 
             Column {
