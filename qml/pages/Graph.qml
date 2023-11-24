@@ -1,16 +1,12 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Styles 1.4
-import QtQuick.Controls.Material 2.12
 import QtCharts 2.15
 import QtGraphicalEffects 1.15
 import QtQuick.Layouts 1.15
 
 Page {
     id: graphPage
-
-    Material.theme: Material.Light
-    Material.accent: Material.DeepOrange
 
     property var position_keys: ['curr_v', 'aktual']
     property var flow_keys: ['press_in', 'flow']
@@ -144,15 +140,13 @@ Page {
         width: parent.width / 4
         height: parent.height
         anchors.right: parent.right
-
-        border.color: "steelblue"
-        border.width: 2
         radius: 5
-        Material.elevation: 16
 
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
+            border.color: "steelblue"
+            border.width: 2
             gradient: Gradient.RiskyConcrete
 
             Column {
@@ -217,8 +211,6 @@ Page {
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
                     highlighted: true
-                    Material.accent: Material.Tale
-                    Material.elevation: 6
                     onClicked: {
                         testQueue = [];
 
