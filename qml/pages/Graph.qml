@@ -194,6 +194,7 @@ Page {
 
                 Button {
                     text: "Submit"
+                    Material.accent: Material.Red
                     onClicked: {
                         // Handle the submit action here
                     }
