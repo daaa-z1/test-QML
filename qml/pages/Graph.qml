@@ -193,6 +193,7 @@ Page {
                 }
 
                 Button {
+                    id: textFieldButton
                     text: "Submit"
                     background: Rectangle {
                         color: parent.pressed ? "#333" : "#444"
@@ -207,7 +208,7 @@ Page {
                             radius: 5
                             samples: 5
                             color: "#aa000000"
-                            source: parent
+                            source: textFieldButton
                         }
                     }
                     onClicked: {
