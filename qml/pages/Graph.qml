@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Material 2.12
 import QtCharts 2.15
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.15
 import QtQuick.Layouts 1.15
 
 Page {
@@ -217,7 +217,7 @@ Page {
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
                     highlighted: true
-                    Material.background: Material.Tale
+                    Material.accent: Material.Tale
                     Material.elevation: 6
                     onClicked: {
                         testQueue = [];
