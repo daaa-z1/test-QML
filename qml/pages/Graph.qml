@@ -259,6 +259,8 @@ Page {
             testing = false;
             testTimer.running = false;
             testTimer.destroy();
+            current_keys = [];
+
 
             if (testQueue.length === 0) {
                 testTimer.running = false;
@@ -266,7 +268,6 @@ Page {
                 flowTestCheckBox.checked = false;
                 leakageTestCheckBox.checked = false;
                 chartView.title = "Test Completed";
-                current_keys = [];
             }
         }
     }
