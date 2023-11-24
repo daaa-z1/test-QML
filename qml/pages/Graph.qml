@@ -151,8 +151,6 @@ Page {
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
-            border.color: "steelblue"
-            border.width: 2
             gradient: Gradient.RiskyConcrete
 
             Column {
