@@ -162,7 +162,7 @@ Page {
                         width: parent.width * 0.3
                         placeholderText: "Waktu"
                     }
-                    
+
                     TextField {
                         id: dateField
                         placeholderText: "Tanggal"
@@ -233,6 +233,16 @@ Page {
                     }
                 }
             }
+        }
+
+        DropShadow{
+            anchors.fill: inputBox
+            color: "#aa000000"
+            radius: 8
+            samples: 17
+            horizontalOffset: 0
+            verticalOffset: 3
+            spread: 0
         }
     }
 
