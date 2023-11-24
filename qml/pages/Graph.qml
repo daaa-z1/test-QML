@@ -27,7 +27,7 @@ Page {
         ValueAxis {
             id: axisX
             min: 0
-            max: 10
+            max: 100
         }
 
         ValueAxis {
