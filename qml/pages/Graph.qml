@@ -141,17 +141,19 @@ Page {
         height: parent.height
         anchors.right: parent.right
         radius: 5
-        layer.enabled: true
-        layer.effect: DropShadow {
-            samples: 15
-            color: "#aa000000"
-            transparentBorder: true
-        }
 
         Rectangle {
             anchors.fill: parent
             radius: inputBox.radius
             gradient: Gradient.RiskyConcrete
+            layer.enabled: true
+            layer.effect: InnerShadow {
+                samples: 5
+                color: "#aa000000"
+                radius: 10
+                spread: 0.1
+                transparentBorder: true
+            }
 
             Column {
                 anchors.fill: parent
