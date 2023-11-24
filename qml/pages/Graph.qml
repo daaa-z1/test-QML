@@ -153,7 +153,7 @@ Page {
                 color: "#aa000000"
                 radius: 10
                 spread: 0
-                source: parent
+                source: inputBox
             }
 
             Column {
@@ -194,7 +194,7 @@ Page {
                 Button {
                     text: "Submit"
                     background: Rectangle {
-                        color: control.pressed ? "#333" : "#444"
+                        color: parent.pressed ? "#333" : "#444"
                         radius: 5
                         border.color: "#555"
                         border.width: 1
