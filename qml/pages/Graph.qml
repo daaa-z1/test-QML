@@ -260,7 +260,7 @@ Page {
             testTimer.running = false;
             testTimer.destroy();
 
-            if (testQueue.length =< 0) {
+            if (testQueue.length <= 0) {
                 positionTestCheckBox.checked = false;
                 flowTestCheckBox.checked = false;
                 leakageTestCheckBox.checked = false;
