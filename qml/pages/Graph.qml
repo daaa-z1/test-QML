@@ -169,7 +169,6 @@ Page {
 
                     TextField {
                         id: dateField
-                        width: parent.width * 0.5
                         placeholderText: "Tanggal"
                     }
                 }
@@ -258,6 +257,7 @@ Page {
             });
         } else {
             testing = false;
+            testTimer.running = false;
             testTimer.destroy();
 
             if (testQueue.length === 0) {
