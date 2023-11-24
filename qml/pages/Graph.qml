@@ -162,16 +162,15 @@ Page {
                     spacing: 10
 
                     TextField {
-                        id: timeField
-                        width: parent.width * 0.3
-                        text: Qt.formatDateTime(new Date(), "HH:mm:ss")
+                        id: dateField
+                        text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
                         readOnly: true
                         background: Rectangle { color: "lightgray"; radius: 5 }
                     }
-
+                    
                     TextField {
-                        id: dateField
-                        text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
+                        id: timeField
+                        text: Qt.formatDateTime(new Date(), "HH:mm:ss")
                         readOnly: true
                         background: Rectangle { color: "lightgray"; radius: 5 }
                     }
