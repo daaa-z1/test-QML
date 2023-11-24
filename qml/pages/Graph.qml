@@ -28,12 +28,22 @@ Page {
             id: axisX
             min: 0
             max: 10
+            tickCount: 11
+            labelFormat: "%.0f"
+            minorTickCount: 0
+            labelsVisible: true
+            lineVisible: true
         }
 
         ValueAxis {
             id: axisY
             min: 0
             max: 100
+            tickCount: 11
+            labelFormat: "%.0f"
+            minorTickCount: 0
+            labelsVisible: true
+            lineVisible: true
         }
 
         LineSeries {
