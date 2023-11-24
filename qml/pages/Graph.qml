@@ -87,8 +87,8 @@ Page {
                 axisY.max = mainApp.parameter['press_in'].maxValue;
             } else if (currentTest === "Leakage Test") {
                 current_keys = leakage_keys;
-                axisY.min = mainApp.parameter['flow'].minValue;
-                axisY.max = mainApp.parameter['flow'].maxValue;
+                axisY.min = mainApp.parameter['press_in'].minValue;
+                axisY.max = mainApp.parameter['press_in'].maxValue;
             }
 
             if (current_keys.length > 0) {
@@ -213,7 +213,7 @@ Page {
                 Button {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
-                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked || testQueue.length > 0)
+                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
                     onClicked: {
                         testQueue = [];
 
@@ -240,13 +240,13 @@ Page {
     }
 
     function startNextTest() {
+        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; onTriggered: startNextTest() }', graphPage);
         
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
             chartView.title = "" + currentTest;
 
-            var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; onTriggered: startNextTest() }', graphPage);
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
@@ -259,15 +259,22 @@ Page {
             testing = false;
             testTimer.running = false;
             testTimer.destroy();
-            positionTestCheckBox.checked = false;
-            flowTestCheckBox.checked = false;
-            leakageTestCheckBox.checked = false;
-            chartView.title = "Test Completed";
-            current_keys = [];
+
+            if (testQueue.length === 0) {
+                testTimer.running = false;
+                positionTestCheckBox.checked = false;
+                flowTestCheckBox.checked = false;
+                leakageTestCheckBox.checked = false;
+                chartView.title = "Test Completed";
+                current_keys = [];
+            }
         }
     }
 
     function resetTest() {
+        positionTestCheckBox.checked = false;
+        flowTestCheckBox.checked = false;
+        leakageTestCheckBox.checked = false;
         axisX.min = 0;
         axisX.max = 10;
         lineSeries1.clear();
