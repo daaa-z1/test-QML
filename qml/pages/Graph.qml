@@ -144,7 +144,7 @@ Page {
         layer.enabled: true
         layer.effect: DropShadow {
             samples: 15
-            color: "white"
+            color: "#aa000000"
             transparentBorder: true
         }
 
