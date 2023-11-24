@@ -259,14 +259,11 @@ Page {
             testing = false;
             testTimer.running = false;
             testTimer.destroy();
-
-            if (testQueue.length <= 0) {
-                positionTestCheckBox.checked = false;
-                flowTestCheckBox.checked = false;
-                leakageTestCheckBox.checked = false;
-                chartView.title = "Test Completed";
-                current_keys = [];
-            }
+            positionTestCheckBox.checked = false;
+            flowTestCheckBox.checked = false;
+            leakageTestCheckBox.checked = false;
+            chartView.title = "Test Completed";
+            current_keys = [];
         }
     }
 
