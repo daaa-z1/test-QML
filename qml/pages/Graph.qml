@@ -144,7 +144,7 @@ Page {
         layer.enabled: true
         layer.effect: Glow{
             samples: 15
-            color: "darkblue"
+            color: "bluegrey"
             transparentBorder: true
         }
 
@@ -216,7 +216,6 @@ Page {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
-                    highlighted: true
                     onClicked: {
                         testQueue = [];
 
