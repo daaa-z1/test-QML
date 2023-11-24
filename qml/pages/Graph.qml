@@ -158,14 +158,14 @@ Page {
                     spacing: 10
 
                     TextField {
-                        id: dateField
-                        placeholderText: "Tanggal"
-                    }
-
-                    TextField {
                         id: timeField
                         width: parent.width * 0.3
                         placeholderText: "Waktu"
+                    }
+                    
+                    TextField {
+                        id: dateField
+                        placeholderText: "Tanggal"
                     }
                 }
 
