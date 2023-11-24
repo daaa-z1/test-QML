@@ -196,7 +196,7 @@ Page {
                     id: textFieldButton
                     text: "Submit"
                     background: Rectangle {
-                        color: parent.pressed ? "#333" : "#444"
+                        color: control.pressed ? "#333" : "#444"
                         radius: 5
                         border.color: "#555"
                         border.width: 1
