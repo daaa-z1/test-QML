@@ -164,12 +164,16 @@ Page {
                     TextField {
                         id: timeField
                         width: parent.width * 0.3
-                        placeholderText: "Waktu"
+                        text: Qt.formatDateTime(new Date(), "HH:mm:ss")
+                        readOnly: true
+                        background: Rectangle { color: "lightgray"; radius: 5 }
                     }
 
                     TextField {
                         id: dateField
-                        placeholderText: "Tanggal"
+                        text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
+                        readOnly: true
+                        background: Rectangle { color: "lightgray"; radius: 5 }
                     }
                 }
 
