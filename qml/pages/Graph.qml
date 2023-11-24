@@ -259,8 +259,6 @@ Page {
             testing = false;
             testTimer.running = false;
             testTimer.destroy();
-            current_keys = [];
-
 
             if (testQueue.length === 0) {
                 testTimer.running = false;
@@ -282,5 +280,6 @@ Page {
         lineSeries2.clear();
         lineSeries3.clear();
         lineSeries4.clear();
+        current_keys = [];
     }
 }
