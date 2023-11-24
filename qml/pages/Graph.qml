@@ -27,7 +27,7 @@ Page {
         ValueAxis {
             id: axisX
             min: 0
-            max: 100
+            max: 10
         }
 
         ValueAxis {
@@ -125,12 +125,12 @@ Page {
 
             if (!testing) {
                 axisX.min = 0;
-                axisX.max = 105;
+                axisX.max = 10;
             }
 
             if (testQueue.length === 0) {
                 axisX.min = 0;
-                axisX.max = 105;
+                axisX.max = 10;
             }
         }
     }
