@@ -272,9 +272,6 @@ Page {
     }
 
     function resetTest() {
-        positionTestCheckBox.checked = false;
-        flowTestCheckBox.checked = false;
-        leakageTestCheckBox.checked = false;
         axisX.min = 0;
         axisX.max = 10;
         lineSeries1.clear();
