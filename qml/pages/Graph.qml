@@ -150,9 +150,9 @@ Page {
             layer.enabled: true
             layer.effect: InnerShadow {
                 samples: 24
-                color: "#aa000000"
+                color: "#000000"
                 radius: 16
-                spread: 0
+                spread: 0.5
             }
 
             Column {
