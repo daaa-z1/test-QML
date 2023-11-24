@@ -257,7 +257,17 @@ Page {
             });
         } else {
             testing = false;
-            resetTest();
+            testTimer.running = false;
+            testTimer.destroy();
+
+            if (testQueue.length === 0) {
+                testTimer.running = false;
+                positionTestCheckBox.checked = false;
+                flowTestCheckBox.checked = false;
+                leakageTestCheckBox.checked = false;
+                chartView.title = "Test Completed";
+                current_keys = [];
+            }
         }
     }
 
