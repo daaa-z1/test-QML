@@ -229,7 +229,7 @@ Page {
 
                         if (testQueue.length > 0) {
                             testing = true;
-                            updatePlot(testQueue[0])
+                            ChartView.updatePlot(testQueue[0])
                         } else {
                             resetTest();
                         }
