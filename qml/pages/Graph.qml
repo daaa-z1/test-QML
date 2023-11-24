@@ -140,6 +140,7 @@ Page {
         width: parent.width / 4
         height: parent.height
         anchors.right: parent.right
+        color: "transparent"
         radius: 5
 
         Rectangle {
@@ -147,7 +148,7 @@ Page {
             radius: inputBox.radius
             gradient: Gradient.RiskyConcrete
             layer.enabled: true
-            layer.effect: InnerShadow {
+            layer.effect: DropShadow {
                 samples: 5
                 color: "#aa000000"
                 radius: 10
