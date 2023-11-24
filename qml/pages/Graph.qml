@@ -13,7 +13,6 @@ Page {
     property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
     property var testQueue: []
     property var current_keys: []
-    property var currentTest: ""
     property bool testing: false
 
     ChartView {
@@ -77,16 +76,16 @@ Page {
             mainApp.valueChanged.connect(updatePlot);
         }
 
-        function updatePlot(test) {
-            if (test === "Position Test") {
+        function updatePlot(currentTest) {
+            if (currentTest === "Position Test") {
                 current_keys = position_keys;
                 axisY.min = mainApp.parameter['aktual'].minValue;
                 axisY.max = mainApp.parameter['aktual'].maxValue;
-            } else if (test === "Flow Test") {
+            } else if (currentTest === "Flow Test") {
                 current_keys = flow_keys;
                 axisY.min = mainApp.parameter['press_in'].minValue;
                 axisY.max = mainApp.parameter['press_in'].maxValue;
-            } else if (test === "Leakage Test") {
+            } else if (currentTest === "Leakage Test") {
                 current_keys = leakage_keys;
                 axisY.min = mainApp.parameter['press_in'].minValue;
                 axisY.max = mainApp.parameter['press_in'].maxValue;
