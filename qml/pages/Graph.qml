@@ -148,12 +148,11 @@ Page {
             radius: inputBox.radius
             gradient: Gradient.RiskyConcrete
             layer.enabled: true
-            layer.effect: DropShadow {
-                samples: 5
+            layer.effect: InnerShadow {
+                samples: 24
                 color: "#aa000000"
-                radius: 10
+                radius: 16
                 spread: 0
-                source: inputBox
             }
 
             Column {
