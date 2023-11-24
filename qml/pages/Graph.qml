@@ -152,7 +152,7 @@ Page {
                 samples: 24
                 color: "#000000"
                 radius: 16
-                spread: 0.5
+                spread: 0
                 horizontalOffset: -5
                 verticalOffset: -5
             }
