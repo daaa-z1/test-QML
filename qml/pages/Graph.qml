@@ -153,6 +153,7 @@ Page {
                 color: "#000000"
                 radius: 16
                 spread: 0.5
+                verticalOffset: 10
             }
 
             Column {
