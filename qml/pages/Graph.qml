@@ -144,7 +144,7 @@ Page {
         layer.enabled: true
         layer.effect: Glow{
             samples: 15
-            color: "bluegrey"
+            color: "#aa000000"
             transparentBorder: true
         }
 
