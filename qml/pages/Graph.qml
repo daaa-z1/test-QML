@@ -296,11 +296,9 @@ Page {
 
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
-                Qt.callLater(function() {
-                    chartView.grabToImage(function(result) {
-                        var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
-                        result.saveToFile(path);
-                    });
+                chartView.grabToImage(function(result) {
+                    var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
+                    result.saveToFile(path);
                 });
                 resetTest();
                 testQueue.shift();
