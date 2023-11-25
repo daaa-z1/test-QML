@@ -283,6 +283,13 @@ Page {
         }
     }
 
+    function takeScreenshot() {
+        chartView.grabToImage(function(result) {
+            var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
+            result.saveToFile(path);
+        });
+    }
+
     function startNextTest() {
         var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; }', graphPage);
         
@@ -295,13 +302,8 @@ Page {
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
-                Qt.callLater(function() {
-                    chartView.grabToImage(function(result) {
-                        var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
-                        result.saveToFile(path);
-                    });
-                },500);
                 testTimer.destroy();
+                takeScreenshot();
                 resetTest();
                 testQueue.shift();
                 startNextTest();
