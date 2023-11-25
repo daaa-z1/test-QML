@@ -246,23 +246,27 @@ class MainApp(QObject):
         # Ambil screenshot grafik pengujian
         root_object = engine.rootObjects()[0]
         if root_object:
-            graph_page = root_object.findChild(QObject, "graphPage")
-            if graph_page:
-                chart_view_item = graph_page.findChild(QObject, "chartView")
-                if chart_view_item:
-                    screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
+            content_area = root_object.findChild(QObject, "contentArea")
+            if content_area:
+                page_loader = content_area.findChild(QObject, "pageLoader")
+                if page_loader:
+                    chart_view_item = page_loader.item
+                    if chart_view_item:
+                        screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
 
-                    # Simpan screenshot dengan format tertentu
-                    screenshot.save(screenshot_path)
+                        # Simpan screenshot dengan format tertentu
+                        screenshot.save(screenshot_path)
 
-                    print(f"Screenshot saved: {screenshot_path}")
+                        print(f"Screenshot saved: {screenshot_path}")
+                    else:
+                        print("Error: Unable to find 'pageLoader.item' in QML.")
                 else:
-                    print("Error: Unable to find 'chartView' in QML.")
+                    print("Error: Unable to find 'pageLoader' in QML.")
             else:
-                print("Error: Unable to find 'graphPage' in QML.")
+                print("Error: Unable to find 'contentArea' in QML.")
         else:
             print("Error: Unable to find root object in QML.")
-  
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
