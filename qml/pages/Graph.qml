@@ -17,6 +17,7 @@ Page {
 
     ChartView {
         id: chartView
+        objectName: "chartView"
         width: parent.width * 3 / 4
         height: parent.height
         anchors.left: parent.left
