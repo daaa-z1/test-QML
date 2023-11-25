@@ -28,6 +28,7 @@ ApplicationWindow {
                 id: pageLoader
                 anchors.fill: parent
                 sourceComponent: Qt.createComponent("pages/Dashboard.qml")
+                property var loadedItem: null
             }
 
             RowLayout {
