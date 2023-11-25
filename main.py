@@ -4,7 +4,6 @@ from datetime import datetime
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime
-from PyQt5.QtQuick import QQuickItem
 from koneksi import *
 
 try:
@@ -243,7 +242,7 @@ class MainApp(QObject):
 
         os.makedirs("screenshots", exist_ok=True)
 
-        chart_view_item = engine.rootObjects()[0].findChild(QQuickItem, "chartView")
+        chart_view_item = engine.rootObjects()[0].findChild(QObject, "graphPage").findChild(QObject, "chartView")
         screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
 
         screenshot.save(screenshot_path)
