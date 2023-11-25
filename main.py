@@ -240,13 +240,11 @@ class MainApp(QObject):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         screenshot_path = f"screenshots/{timestamp}_TestResult.png"
 
-        # Pastikan folder 'screenshots' sudah ada
         os.makedirs("screenshots", exist_ok=True)
 
-        # Ambil screenshot grafik pengujian
-        screenshot = QApplication.primaryScreen().grabWindow(chartView.winId())
+        chart_view_item = engine.rootObjects()[0].findChild(QQuickItem, "chartView")
+        screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
 
-        # Simpan screenshot dengan format tertentu
         screenshot.save(screenshot_path)
 
         print(f"Screenshot saved: {screenshot_path}")
