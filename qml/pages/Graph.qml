@@ -300,16 +300,11 @@ Page {
                         var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
                         result.saveToFile(path);
                     });
-                });
-                Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 500; running: true; repeat: false; triggeredOnStart: true; }', graphPage, "WaitTimer");
-                var waitTimer = graphPage.findChild("WaitTimer");
-                waitTimer.triggered.connect(function() {
-                    waitTimer.destroy();
                     testTimer.destroy();
                     resetTest();
                     testQueue.shift();
                     startNextTest();
-                });
+                },100);
             });
         } else {
             testing = false;
