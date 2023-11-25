@@ -18,7 +18,8 @@ Page {
     Timer {
         id: timeTimer
         interval: 1000
-        repeat: false
+        running: true
+        repeat: true
         onTriggered: timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
     }
 
