@@ -19,7 +19,7 @@ Page {
         id: timeTimer
         interval: 1000
         repeat: false
-        onTrigger: timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
+        onTriggered: timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
     }
 
     ChartView {
