@@ -1,9 +1,9 @@
 import sys
 import os
 from datetime import datetime
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QQmlComponent, QQmlEngine
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime, QUrl
 from koneksi import *
 
 try:
@@ -240,15 +240,19 @@ class MainApp(QObject):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         screenshot_path = f"screenshots/{timestamp}_TestResult.png"
 
+        # Pastikan folder 'screenshots' sudah ada
         os.makedirs("screenshots", exist_ok=True)
 
-        chart_view_item = engine.rootObjects()[0].findChild(QObject, "graphPage").findChild(QObject, "chartView")
+        # Ambil screenshot grafik pengujian
+        qml_component = QQmlComponent(engine, QUrl.fromLocalFile("qml/main.qml"))
+        qml_object = qml_component.create()
+
+        # Cari ChartView langsung dari QML
+        chart_view_item = qml_object.findChild(QObject, "chartView")
         screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
 
+        # Simpan screenshot dengan format tertentu
         screenshot.save(screenshot_path)
-
-        print(f"Screenshot saved: {screenshot_path}")
-   
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
