@@ -248,16 +248,20 @@ class MainApp(QObject):
         if root_object:
             content_area = root_object.findChild(QObject, "contentArea")
             if content_area:
-                chart_view_item = content_area.findChild(QObject, "chartView")
-                if chart_view_item:
-                    screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
+                page_loader = content_area.findChild(QObject, "pageLoader")
+                if page_loader:
+                    chart_view_item = page_loader.item
+                    if chart_view_item:
+                        screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
 
-                    # Simpan screenshot dengan format tertentu
-                    screenshot.save(screenshot_path)
+                        # Simpan screenshot dengan format tertentu
+                        screenshot.save(screenshot_path)
 
-                    print(f"Screenshot saved: {screenshot_path}")
+                        print(f"Screenshot saved: {screenshot_path}")
+                    else:
+                        print("Error: Unable to find 'pageLoader.item' in QML.")
                 else:
-                    print("Error: Unable to find 'chartView' in QML.")
+                    print("Error: Unable to find 'pageLoader' in QML.")
             else:
                 print("Error: Unable to find 'contentArea' in QML.")
         else:
