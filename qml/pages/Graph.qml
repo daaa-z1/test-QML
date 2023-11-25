@@ -303,8 +303,8 @@ Page {
                     testTimer.destroy();
                     resetTest();
                     testQueue.shift();
-                },100);
-                startNextTest();
+                    startNextTest();
+                },500);
             });
         } else {
             testing = false;
