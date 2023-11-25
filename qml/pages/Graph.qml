@@ -15,6 +15,13 @@ Page {
     property var current_keys: []
     property bool testing: false
 
+    Timer {
+        id: timeTimer
+        interval: 1000
+        repeat: false
+        onTrigger: timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
+    }
+
     ChartView {
         id: chartView
         objectName: "chartView"
@@ -294,7 +301,7 @@ Page {
             testTimer.triggered.connect(function() {
                 Qt.callLater(function() {
                     chartView.grabToImage(function(result) {
-                        var path = "./screenshot"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
+                        var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
                         result.saveToFile(path);
                     });
                 });
