@@ -292,9 +292,11 @@ Page {
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
-                chartView.grabToImage(function(result) {
-                    var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
-                    result.saveToFile(path);
+                Qt.callLater(function() {
+                    chartView.grabToImage(function(result) {
+                        var path = "./screenshot"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
+                        result.saveToFile(path);
+                    });
                 });
                 testTimer.destroy();
                 resetTest();
