@@ -82,17 +82,17 @@ Page {
                 current_keys = position_keys;
                 axisY.min = mainApp.parameter['aktual'].minValue - 2;
                 axisY.max = mainApp.parameter['aktual'].maxValue + 2;
-                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss"
+                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
             } else if (currentTest === "Flow Test") {
                 current_keys = flow_keys;
                 axisY.min = mainApp.parameter['press_in'].minValue - 10;
                 axisY.max = mainApp.parameter['press_in'].maxValue + 10;
-                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss"
+                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
             } else if (currentTest === "Leakage Test") {
                 current_keys = leakage_keys;
                 axisY.min = mainApp.parameter['press_in'].minValue - 10;
                 axisY.max = mainApp.parameter['press_in'].maxValue + 10;
-                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss"
+                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
             }
 
             if (current_keys.length > 0) {
