@@ -4,6 +4,7 @@ from datetime import datetime
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime
+from PyQt5.QtQuick import QQuickItem
 from koneksi import *
 
 try:
