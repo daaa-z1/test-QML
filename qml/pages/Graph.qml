@@ -281,10 +281,10 @@ Page {
     }
 
     function captureAndSaveScreenshot(customer, date, testType) {
-        var screenshotPath = customer + "_" + date + "_" + testType + ".png";
+        var screenshotPath = "./screenshot" + customer + "_" + date + "_" + testType + ".png";
         const screenshot = chartView.grabToImage(QSize(chartView.width, chartView.height));
 
-        screenshot.saveToFile(screenshotPath, "png");
+        screenshot.saveToFile(screenshotPath);
     }
 
     function startNextTest() {
