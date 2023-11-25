@@ -300,11 +300,11 @@ Page {
                         var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
                         result.saveToFile(path);
                     });
-                    testTimer.destroy();
-                    resetTest();
-                    testQueue.shift();
-                    startNextTest();
                 },500);
+                testTimer.destroy();
+                resetTest();
+                testQueue.shift();
+                startNextTest();
             });
         } else {
             testing = false;
