@@ -280,13 +280,6 @@ Page {
         }
     }
 
-    function captureAndSaveScreenshot(customer, date, testType) {
-        var screenshotPath = "./screenshot" + customer + "_" + date + "_" + testType + ".png";
-        const screenshot = chartView.grabToImage(QSize(chartView.width, chartView.height));
-
-        screenshot.saveToFile(screenshotPath);
-    }
-
     function startNextTest() {
         var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; }', graphPage);
         
@@ -300,7 +293,10 @@ Page {
 
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
-                captureAndSaveScreenshot(customerField.text, dateField.text, currentTest);
+                chartView.grabToImage(function(result) {
+                    var path = "./screenshot"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
+                    result.saveToFile(path);
+                });
                 resetTest();
                 testQueue.shift();
                 startNextTest();
