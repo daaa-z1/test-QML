@@ -295,6 +295,10 @@ Page {
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
+                chartView.grabToImage(function(result) {
+                    var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
+                    result.saveToFile(path);
+                });
                 testTimer.destroy();
                 resetTest();
                 testQueue.shift();
@@ -317,10 +321,6 @@ Page {
     }
 
     function resetTest() {
-        chartView.grabToImage(function(result) {
-            var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
-            result.saveToFile(path);
-        });
         positionTestCheckBox.checked = false;
         flowTestCheckBox.checked = false;
         leakageTestCheckBox.checked = false;
