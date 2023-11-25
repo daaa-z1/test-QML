@@ -1,9 +1,9 @@
 import sys
 import os
 from datetime import datetime
-from PyQt5.QtWidgets import QApplication, QQmlComponent, QQmlEngine
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime, QUrl
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime
 from koneksi import *
 
 try:
@@ -244,15 +244,25 @@ class MainApp(QObject):
         os.makedirs("screenshots", exist_ok=True)
 
         # Ambil screenshot grafik pengujian
-        qml_component = QQmlComponent(engine, QUrl.fromLocalFile("qml/main.qml"))
-        qml_object = qml_component.create()
+        root_object = engine.rootObjects()[0]
+        if root_object:
+            graph_page = root_object.findChild(QObject, "graphPage")
+            if graph_page:
+                chart_view_item = graph_page.findChild(QObject, "chartView")
+                if chart_view_item:
+                    screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
 
-        # Cari ChartView langsung dari QML
-        chart_view_item = qml_object.findChild(QObject, "chartView")
-        screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
+                    # Simpan screenshot dengan format tertentu
+                    screenshot.save(screenshot_path)
 
-        # Simpan screenshot dengan format tertentu
-        screenshot.save(screenshot_path)
+                    print(f"Screenshot saved: {screenshot_path}")
+                else:
+                    print("Error: Unable to find 'chartView' in QML.")
+            else:
+                print("Error: Unable to find 'graphPage' in QML.")
+        else:
+            print("Error: Unable to find root object in QML.")
+        
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
