@@ -280,6 +280,13 @@ Page {
         }
     }
 
+    function captureAndSaveScreenshot(customer, date, testType) {
+        var screenshotPath = customer + "_" + date + "_" + testType + ".png";
+        var screenshot = chartView.grabToImage();
+
+        screenshot.saveToFile(screenshotPath, "png");
+    }
+
     function startNextTest() {
         var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; }', graphPage);
         
@@ -293,7 +300,7 @@ Page {
 
             testTimer.triggered.connect(function() {
                 testTimer.destroy();
-                mainApp.takeScreenshot();
+                captureAndSaveScreenshot(customerField.text, dateField.text, currentTest);
                 resetTest();
                 testQueue.shift();
                 startNextTest();

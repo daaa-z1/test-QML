@@ -28,9 +28,6 @@ ApplicationWindow {
                 id: pageLoader
                 anchors.fill: parent
                 sourceComponent: Qt.createComponent("pages/Dashboard.qml")
-                onLoaded: {
-                    item.objectName = "contentArea" // Tambahkan baris ini
-                }
             }
 
             RowLayout {
@@ -69,7 +66,6 @@ ApplicationWindow {
                     }
                     onClicked: {
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
-                        pageLoader.itemName = "graphPage"
                         for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
                             if (gauge) {
