@@ -262,7 +262,7 @@ class MainApp(QObject):
                 print("Error: Unable to find 'graphPage' in QML.")
         else:
             print("Error: Unable to find root object in QML.")
-        
+  
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
