@@ -295,6 +295,8 @@ Page {
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
+                resetTest();
+                testQueue.shift();
                 Qt.callLater(function() {
                     chartView.grabToImage(function(result) {
                         var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
@@ -302,8 +304,6 @@ Page {
                     });
                     testTimer.destroy();
                 },500);
-                resetTest();
-                testQueue.shift();
                 startNextTest();
             });
         } else {
