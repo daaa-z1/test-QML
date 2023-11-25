@@ -28,7 +28,9 @@ ApplicationWindow {
                 id: pageLoader
                 anchors.fill: parent
                 sourceComponent: Qt.createComponent("pages/Dashboard.qml")
-                property var loadedItem: null
+                onLoaded: {
+                    item.objectName = "contentArea" // Tambahkan baris ini
+                }
             }
 
             RowLayout {
