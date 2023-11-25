@@ -295,16 +295,16 @@ Page {
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
-                resetTest();
-                testQueue.shift();
                 Qt.callLater(function() {
                     chartView.grabToImage(function(result) {
                         var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
                         result.saveToFile(path);
-                    });
                     testTimer.destroy();
+                    resetTest();
+                    testQueue.shift();
+                    startNextTest();
+                    });
                 },500);
-                startNextTest();
             });
         } else {
             testing = false;
