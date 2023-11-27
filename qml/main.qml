@@ -133,6 +133,8 @@ ApplicationWindow {
 
                 ColumnLayout {
                     id: dataLayout
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                     spacing: 10
 
                     RowLayout {
