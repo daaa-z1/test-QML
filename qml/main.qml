@@ -134,7 +134,7 @@ ApplicationWindow {
                 ColumnLayout {
                     id: dataLayout
                     anchors.fill: parent
-                    anchors.rightMargin: 5
+                    anchors.rightMargin: 10
                     spacing: 10
 
                     RowLayout {
