@@ -130,7 +130,8 @@ ApplicationWindow {
                 color: "lightgray"
                 border.color: "black"
                 border.width: 1
-                ColumnLayout{
+
+                ColumnLayout {
                     spacing: 10
 
                     RowLayout {
@@ -139,7 +140,7 @@ ApplicationWindow {
                         Label {
                             text: "Pin 1"
                         }
-                        
+
                         ComboBox {
                             id: comboBox1
                             textRole: "key"
@@ -154,6 +155,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         Label {
                             text: "Pin 2"
                         }
@@ -172,6 +174,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         Label {
                             text: "Pin 3"
                         }
@@ -190,6 +193,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         function checkForNewElement() {
                             if (comboBox1.currentIndex === 3 && comboBox2.currentIndex === 3) {
                                 var alreadyExists = false;
@@ -212,7 +216,7 @@ ApplicationWindow {
                         Label {
                             text: "Pin 4"
                         }
-                        
+
                         ComboBox {
                             id: comboBox4
                             textRole: "key"
@@ -227,6 +231,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         Label {
                             text: "Pin 5"
                         }
@@ -246,6 +251,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         Label {
                             text: "Pin 6"
                         }
@@ -265,13 +271,14 @@ ApplicationWindow {
                             }
                         }
                     }
+
                     RowLayout {
                         spacing: 10
 
                         Label {
                             text: "Pin 7"
                         }
-                        
+
                         ComboBox {
                             id: comboBox7
                             textRole: "key"
@@ -287,6 +294,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         Label {
                             text: "Pin 8"
                         }
@@ -305,6 +313,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         Label {
                             text: "Pin 9"
                         }
@@ -325,13 +334,14 @@ ApplicationWindow {
                             }
                         }
                     }
+
                     RowLayout {
                         spacing: 10
 
                         Label {
                             text: "Pin 10"
                         }
-                        
+
                         ComboBox {
                             id: comboBox10
                             textRole: "key"
@@ -347,6 +357,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         Label {
                             text: "Pin 11"
                         }
@@ -363,6 +374,7 @@ ApplicationWindow {
                                 }
                             }
                         }
+
                         Label {
                             text: "Reset All"
                         }
@@ -393,6 +405,7 @@ ApplicationWindow {
                     }
                 }
             }
+
         }
         Footer {
             id: appFooter
