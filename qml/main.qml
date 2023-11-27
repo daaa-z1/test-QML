@@ -150,9 +150,7 @@ ApplicationWindow {
                                 ListElement{key: "+15"; value: 'Relay2'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState1(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState1(model.get(currentIndex).value, 1)
                             }
                         }
 
@@ -169,9 +167,7 @@ ApplicationWindow {
                                 ListElement{key: "-15"; value: 'Relay2'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState2(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState2(model.get(currentIndex).value, 1)
                             }
                         }
 
@@ -188,9 +184,7 @@ ApplicationWindow {
                                 ListElement{key: "GND"; value: 'Relay4'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState3(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState3(model.get(currentIndex).value, 1)
                             }
                         }
 
@@ -226,9 +220,7 @@ ApplicationWindow {
                                 ListElement{key: "Act Press"; value: 'Relay6'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState4(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState4(model.get(currentIndex).value, 1)
                             }
                         }
 
@@ -246,9 +238,7 @@ ApplicationWindow {
                                 ListElement{key: "Reff Q"; value: 'Relay9'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState5(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState5(model.get(currentIndex).value, 1)
                             }
                         }
 
@@ -265,9 +255,7 @@ ApplicationWindow {
                                 ListElement{key: "Reff Pressure"; value: 'Relay11'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState6(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState6(model.get(currentIndex).value, 1)
                             }
                         }
                     }
@@ -289,9 +277,7 @@ ApplicationWindow {
                                 ListElement{key: "Reff"; value: 'Relay14'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState7(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState7(model.get(currentIndex).value, 1)
                             }
                         }
 
@@ -308,9 +294,7 @@ ApplicationWindow {
                                 ListElement{key: "Actual Pressure"; value: 'Relay16'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState8(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState8(model.get(currentIndex).value, 1)
                             }
                         }
 
@@ -328,9 +312,7 @@ ApplicationWindow {
                                 ListElement{key: "+24"; value: 'Relay19'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState9(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState9(model.get(currentIndex).value, 1)
                             }
                         }
                     }
@@ -352,8 +334,7 @@ ApplicationWindow {
                                 ListElement{key: "+24"; value: 'Relay22'}
                             }
                             onCurrentIndexChanged: {
-                                if (model.get(currentIndex).value !== "nothing"){
-                                    mainApp.setDOState10(model.get(currentIndex).value, 1)
+                                mainApp.setDOState10(model.get(currentIndex).value, 1)
                                 }
                             }
                         }
