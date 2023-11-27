@@ -193,7 +193,7 @@ ApplicationWindow {
                         }
 
                         function checkForNewElement() {
-                            if (comboBox1.currentIndex === 2 && comboBox2.currentIndex === 2) {
+                            if (comboBox1.currentText === "+15" && comboBox2.currentText === "-15") {
                                 var alreadyExists = false;
                                 for (var i = 0; i < comboBox3.model.count; i++) {
                                     if (comboBox3.model.get(i).value === "Relay2") {
