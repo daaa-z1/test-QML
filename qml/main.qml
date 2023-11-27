@@ -191,22 +191,22 @@ ApplicationWindow {
                                 checkForNewElement()
                             }
                         }
-
-                        function checkForNewElement() {
-                            if (comboBox1.currentText === "+15" && comboBox2.currentText === "-15") {
-                                var alreadyExists = false;
-                                for (var i = 0; i < comboBox3.model.count; i++) {
-                                    if (comboBox3.model.get(i).value === "Relay2") {
-                                        alreadyExists = true;
-                                        break;
-                                    }
-                                }
-                                if (!alreadyExists) {
-                                    comboBox3.model.append({"key": "0V", "value": "Relay2"});
-                                }
-                            }
-                        }
                     }
+
+    function checkForNewElement() {
+        if (comboBox1.currentText === "+15" && comboBox2.currentText === "-15") {
+            var alreadyExists = false;
+            for (var i = 0; i < comboBox3.model.count; i++) {
+                if (comboBox3.model.get(i).value === "Relay2") {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+            if (!alreadyExists) {
+                comboBox3.model.append({"key": "0V", "value": "Relay2"});
+            }
+        }
+    }
 
                     RowLayout {
                         spacing: 10
