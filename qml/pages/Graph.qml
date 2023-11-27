@@ -217,7 +217,7 @@ Page {
                 Button {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
-                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked)
+                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) && customerField != null
                     background: Rectangle {
                         color: control.pressed ? "#333" : "#444"
                         radius: 5
