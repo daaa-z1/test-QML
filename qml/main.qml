@@ -335,7 +335,6 @@ ApplicationWindow {
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState10(model.get(currentIndex).value, 1)
-                                }
                             }
                         }
 
