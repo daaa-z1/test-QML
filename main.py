@@ -311,7 +311,7 @@ class MainApp(QObject):
     def setDOStateForComboBox(self, relayKey, state, comboBoxRelays):
         # Matikan relay yang terdaftar di ComboBox
         for key in comboBoxRelays:
-            if key != relayKey & len(comboBoxRelays) > 0 :
+            if key != relayKey and len(comboBoxRelays) > 0 :
                 relay = self.relays[key]
                 relay['state'] = 0
                 self.d.setDOState(relay['pin'], relay['state'])
