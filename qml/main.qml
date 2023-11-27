@@ -379,7 +379,9 @@ ApplicationWindow {
                             }
 
                             onClicked: {
-                                mainApp.resetSwitch()
+                                for (var i = 0; i < 11; i++) {
+                                    comboBox[i].currentIndex = 0
+                                }
                             }
                         }
                     }
