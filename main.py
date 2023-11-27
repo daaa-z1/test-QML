@@ -50,7 +50,7 @@ class MainApp(QObject):
         
         # Setup Relay
         self.relayKeys = ['Relay1', 'Relay2', 'Relay3', 'Relay4', 'Relay5', 'Relay6', 'Relay7', 'Relay8', 'Relay9', 'Relay10', 'Relay11', 'Relay12', 'Relay13', 'Relay14', 'Relay15', 'Relay16', 'Relay17', 'Relay18', 'Relay19', 'Relay20', 'Relay21', 'Relay22', 'Relay23']
-        self.relay = {key: {'pin': self.daftar_switch[0][i], 'state': self.daftar_state[0][i]} for i, key in enumerate(self.relayKeys)}
+        self.relays = {key: {'pin': self.daftar_switch[0][i], 'state': self.daftar_state[0][i]} for i, key in enumerate(self.relayKeys)}
         
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
