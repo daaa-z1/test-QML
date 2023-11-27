@@ -370,8 +370,7 @@ ApplicationWindow {
                                 ListElement{key: "OUT 24V"; value: 'Relay23'}
                             }
                             onCurrentIndexChanged: {
-                                    mainApp.setDOState11(model.get(currentIndex).value, 1)
-                                }
+                                mainApp.setDOState11(model.get(currentIndex).value, 1)
                             }
                         }
 
