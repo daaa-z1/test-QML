@@ -152,6 +152,7 @@ ApplicationWindow {
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState1(model.get(currentIndex).value, 1)
+                                checkForNewElement()
                             }
                         }
 
@@ -169,6 +170,7 @@ ApplicationWindow {
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState2(model.get(currentIndex).value, 1)
+                                checkForNewElement()
                             }
                         }
 
@@ -186,6 +188,7 @@ ApplicationWindow {
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState3(model.get(currentIndex).value, 1)
+                                checkForNewElement()
                             }
                         }
 
@@ -401,7 +404,7 @@ ApplicationWindow {
             Layout.alignment: Qt.AlignBottom
         }
     }
-    
+
     Connections{
         target: mainApp
     }
