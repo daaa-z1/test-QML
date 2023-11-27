@@ -130,7 +130,268 @@ ApplicationWindow {
                 color: "lightgray"
                 border.color: "black"
                 border.width: 1
-                // Tambahkan komponen dari item controls di sini
+                ColumnLayout{
+                    spacing: 10
+
+                    RowLayout {
+                        spacing: 10
+
+                        Label {
+                            text: "Pin 1"
+                        }
+                        
+                        ComboBox {
+                            id: comboBox1
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "+24"; value: 'Relay1'}
+                                ListElement{key: "+15"; value: 'Relay2'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState1(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        Label {
+                            text: "Pin 2"
+                        }
+
+                        ComboBox {
+                            id: comboBox2
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "0V"; value: 'Relay1'}
+                                ListElement{key: "-15"; value: 'Relay2'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState2(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        Label {
+                            text: "Pin 3"
+                        }
+
+                        ComboBox {
+                            id: comboBox3
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "Enable"; value: 'Relay3'}
+                                ListElement{key: "GND"; value: 'Relay4'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState3(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        function checkForNewElement() {
+                            if (comboBox1.currentIndex === 3 && comboBox2.currentIndex === 3) {
+                                var alreadyExists = false;
+                                for (var i = 0; i < comboBox3.model.count; i++) {
+                                    if (comboBox3.model.get(i).value === "Relay2") {
+                                        alreadyExists = true;
+                                        break;
+                                    }
+                                }
+                                if (!alreadyExists) {
+                                    comboBox3.model.append({"key": "0V", "value": "Relay2"});
+                                }
+                            }
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 10
+
+                        Label {
+                            text: "Pin 4"
+                        }
+                        
+                        ComboBox {
+                            id: comboBox4
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "Reff +"; value: 'Relay5'}
+                                ListElement{key: "Act Press"; value: 'Relay6'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState4(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        Label {
+                            text: "Pin 5"
+                        }
+
+                        ComboBox {
+                            id: comboBox5
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "Reff -"; value: 'Relay7'}
+                                ListElement{key: "+24"; value: 'Relay8'}
+                                ListElement{key: "Reff Q"; value: 'Relay9'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState5(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        Label {
+                            text: "Pin 6"
+                        }
+
+                        ComboBox {
+                            id: comboBox6
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "Actual Valve"; value: 'Relay10'}
+                                ListElement{key: "Reff Pressure"; value: 'Relay11'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState6(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                    }
+                    RowLayout {
+                        spacing: 10
+
+                        Label {
+                            text: "Pin 7"
+                        }
+                        
+                        ComboBox {
+                            id: comboBox7
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "0V"; value: 'Relay12'}
+                                ListElement{key: "GND"; value: 'Relay13'}
+                                ListElement{key: "Reff"; value: 'Relay14'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState7(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        Label {
+                            text: "Pin 8"
+                        }
+
+                        ComboBox {
+                            id: comboBox8
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "Ready Signal"; value: 'Relay15'}
+                                ListElement{key: "Actual Pressure"; value: 'Relay16'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState8(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        Label {
+                            text: "Pin 9"
+                        }
+
+                        ComboBox {
+                            id: comboBox9
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "Signal Window"; value: 'Relay17'}
+                                ListElement{key: "Reff Pressure"; value: 'Relay18'}
+                                ListElement{key: "+24"; value: 'Relay19'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState9(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                    }
+                    RowLayout {
+                        spacing: 10
+
+                        Label {
+                            text: "Pin 10"
+                        }
+                        
+                        ComboBox {
+                            id: comboBox10
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "GND"; value: 'Relay20'}
+                                ListElement{key: "Actual Pressure"; value: 'Relay21'}
+                                ListElement{key: "+24"; value: 'Relay22'}
+                            }
+                            onCurrentIndexChanged: {
+                                if (model.get(currentIndex).value !== "nothing"){
+                                    mainApp.setDOState10(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        Label {
+                            text: "Pin 11"
+                        }
+
+                        ComboBox {
+                            id: comboBox11
+                            textRole: "key"
+                            model: ListModel {
+                                ListElement{key: "Nothing"; value: 'nothing'}
+                                ListElement{key: "OUT 24V"; value: 'Relay23'}
+                            }
+                            onCurrentIndexChanged: {
+                                    mainApp.setDOState11(model.get(currentIndex).value, 1)
+                                }
+                            }
+                        }
+                        Label {
+                            text: "Reset All"
+                        }
+
+                        Button {
+                            text: "Reset"
+                            background: Rectangle {
+                                color: control.pressed ? "#333" : "#444"
+                                radius: 5
+                                border.color: "#555"
+                                border.width: 1
+                                opacity: 1
+
+                                DropShadow {
+                                    horizontalOffset: 5
+                                    verticalOffset: 5
+                                    radius: 5
+                                    samples: 5
+                                    color: "#aa000000"
+                                    source: parent
+                                }
+                            }
+
+                            onClicked: {
+                                mainApp.resetSwitch()
+                            }
+                        }
+                    }
+                }
             }
         }
         Footer {

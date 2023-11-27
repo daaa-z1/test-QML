@@ -48,6 +48,10 @@ class MainApp(QObject):
         self._parameter = {key: {'minValue': self.daftar_min[0][i], 'maxValue': self.daftar_max[0][i], 'minScale': self.daftar_min_scale[0][i], 'maxScale': self.daftar_max_scale[0][i]} for i, key in enumerate(self.keys)}
         self._value = {}
         
+        # Setup Relay
+        self.relayKeys = ['Relay1', 'Relay2', 'Relay3', 'Relay4', 'Relay5', 'Relay6', 'Relay7', 'Relay8', 'Relay9', 'Relay10', 'Relay11', 'Relay12', 'Relay13', 'Relay14', 'Relay15', 'Relay16', 'Relay17', 'Relay18', 'Relay19', 'Relay20', 'Relay21', 'Relay22', 'Relay23']
+        self.relay = {key: {'pin': self.daftar_switch[0][i], 'state': self.daftar_state[0][i]} for i, key in enumerate(self.relayKeys)}
+        
         self.timer = QTimer()
         self.timer.timeout.connect(self.readValues)
         self.timer.start(100)
@@ -235,37 +239,89 @@ class MainApp(QObject):
         calculated_values = [int(value) for value in calculated_values]
         self.value = {key: calculated_values[i] for i, key in enumerate(self.keys)}
         
-    @pyqtSlot()
-    def takeScreenshot(self):
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        screenshot_path = f"screenshots/{timestamp}_TestResult.png"
+    relaychanged = pyqtSignal()
+    @pyqtSlot(str, bool)
+    def setDOState1(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox1
+        comboBox1Relays = []
+        self.setDOStateForComboBox(relayKey, state, comboBox1Relays)
 
-        # Pastikan folder 'screenshots' sudah ada
-        os.makedirs("screenshots", exist_ok=True)
+    @pyqtSlot(str, bool)
+    def setDOState2(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox2
+        comboBox2Relays = []
+        self.setDOStateForComboBox(relayKey, state, comboBox2Relays)
 
-        # Ambil screenshot grafik pengujian
-        root_object = engine.rootObjects()[0]
-        if root_object:
-            content_area = root_object.findChild(QObject, "contentArea")
-            if content_area:
-                page_loader = content_area.findChild(QObject, "pageLoader")
-                if page_loader:
-                    chart_view_item = page_loader.item
-                    if chart_view_item:
-                        screenshot = QApplication.primaryScreen().grabWindow(chart_view_item.winId())
+    @pyqtSlot(str, bool)
+    def setDOState3(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox3
+        comboBox3Relays = ["nothing","Relay3", "Relay4"]
+        if relayKey == 'Relay2':
+            comboBox3Relays = ["nothing","Relay2", "Relay3", "Relay4"]
+        self.setDOStateForComboBox(relayKey, state, comboBox3Relays)
 
-                        # Simpan screenshot dengan format tertentu
-                        screenshot.save(screenshot_path)
+    @pyqtSlot(str, bool)
+    def setDOState4(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox4
+        comboBox4Relays = ["nothing","Relay5", "Relay6"]
+        self.setDOStateForComboBox(relayKey, state, comboBox4Relays)
 
-                        print(f"Screenshot saved: {screenshot_path}")
-                    else:
-                        print("Error: Unable to find 'pageLoader.item' in QML.")
-                else:
-                    print("Error: Unable to find 'pageLoader' in QML.")
-            else:
-                print("Error: Unable to find 'contentArea' in QML.")
-        else:
-            print("Error: Unable to find root object in QML.")
+    @pyqtSlot(str, bool)
+    def setDOState5(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox4
+        comboBox5Relays = ["nothing","Relay7", "Relay8", "Relay9"]
+        self.setDOStateForComboBox(relayKey, state, comboBox5Relays)
+
+    @pyqtSlot(str, bool)
+    def setDOState6(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox4
+        comboBox6Relays = ["nothing","Relay10", "Relay11"]
+        self.setDOStateForComboBox(relayKey, state, comboBox6Relays)
+
+    @pyqtSlot(str, bool)
+    def setDOState7(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox4
+        comboBox7Relays = ["nothing","Relay12", "Relay13", "Relay14"]
+        self.setDOStateForComboBox(relayKey, state, comboBox7Relays)
+
+    @pyqtSlot(str, bool)
+    def setDOState8(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox4
+        comboBox8Relays = ["nothing","Relay15", "Relay16"]
+        self.setDOStateForComboBox(relayKey, state, comboBox8Relays)
+
+    @pyqtSlot(str, bool)
+    def setDOState9(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox4
+        comboBox9Relays = ["nothing","Relay17", "Relay18", "Relay19"]
+        self.setDOStateForComboBox(relayKey, state, comboBox9Relays)
+
+    @pyqtSlot(str, bool)
+    def setDOState10(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox4
+        comboBox10Relays = ["nothing","Relay20", "Relay21", "Relay22"]
+        self.setDOStateForComboBox(relayKey, state, comboBox10Relays)
+
+    @pyqtSlot(str, bool)
+    def setDOState11(self, relayKey, state):
+        # Daftar relay yang terdaftar di ComboBox4
+        comboBox11Relays = ["nothing","Relay23"]
+        self.setDOStateForComboBox(relayKey, state, comboBox11Relays)
+
+    def setDOStateForComboBox(self, relayKey, state, comboBoxRelays):
+        # Matikan relay yang terdaftar di ComboBox
+        for key in comboBoxRelays:
+            if key != relayKey & len(comboBoxRelays) > 0 :
+                relay = self.relays[key]
+                relay['state'] = 0
+                self.d.setDOState(relay['pin'], relay['state'])
+
+        # Hidupkan relay yang dipilih
+        if relayKey != "Nothing":
+            relay = self.relays[relayKey]
+            relay['state'] = state
+            self.d.setDOState(relay['pin'], relay['state'])
+            self.relaychanged.emit()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
