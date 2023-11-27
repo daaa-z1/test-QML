@@ -317,7 +317,7 @@ class MainApp(QObject):
                 self.d.setDOState(relay['pin'], relay['state'])
 
         # Hidupkan relay yang dipilih
-        if relayKey != "Nothing":
+        if relayKey != "nothing":
             relay = self.relays[relayKey]
             relay['state'] = state
             self.d.setDOState(relay['pin'], relay['state'])
