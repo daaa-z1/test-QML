@@ -132,6 +132,7 @@ ApplicationWindow {
                 border.width: 1
 
                 ColumnLayout {
+                    id: dataLayout
                     spacing: 10
 
                     RowLayout {
@@ -189,7 +190,7 @@ ApplicationWindow {
                         }
 
                         function checkForNewElement() {
-                            if (comboBox1.currentIndex === 3 && comboBox2.currentIndex === 3) {
+                            if (comboBox1.currentIndex === 2 && comboBox2.currentIndex === 2) {
                                 var alreadyExists = false;
                                 for (var i = 0; i < comboBox3.model.count; i++) {
                                     if (comboBox3.model.get(i).value === "Relay2") {
@@ -378,16 +379,21 @@ ApplicationWindow {
                             }
 
                             onClicked: {
-                                for (var i = 0; i < 11; i++) {
-                                    comboBox[i].currentIndex = 0
+                                for (var i = 0; i < dataLayout.children.length; i++) {
+                                    var rowLayout = dataLayout.children[i];
+                                    for (var j = 0; j < rowLayout.children.length; j++) {
+                                        if (rowLayout.children[j] instanceof ComboBox) {
+                                            rowLayout.children[j].currentIndex = 0
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-
         }
+
         Footer {
             id: appFooter
             Layout.preferredHeight: 30
@@ -395,6 +401,7 @@ ApplicationWindow {
             Layout.alignment: Qt.AlignBottom
         }
     }
+    
     Connections{
         target: mainApp
     }
