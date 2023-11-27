@@ -134,6 +134,7 @@ ApplicationWindow {
                 ColumnLayout {
                     id: dataLayout
                     anchors.fill: parent
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: 10
 
                     RowLayout {
