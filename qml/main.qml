@@ -133,12 +133,12 @@ ApplicationWindow {
 
                 ColumnLayout {
                     id: dataLayout
-                    Layout.fillHeight: true
                     Layout.fillWidth: true
                     spacing: 10
 
                     RowLayout {
                         id: dataRow1
+                        Layout.fillWidth: true
                         spacing: 10
 
                         Label {
@@ -212,6 +212,7 @@ ApplicationWindow {
                     }
 
                     RowLayout {
+                        Layout.fillWidth: true
                         spacing: 10
 
                         Label {
@@ -268,6 +269,7 @@ ApplicationWindow {
                     }
 
                     RowLayout {
+                        Layout.fillWidth: true
                         spacing: 10
 
                         Label {
@@ -325,6 +327,7 @@ ApplicationWindow {
                     }
 
                     RowLayout {
+                        Layout.fillWidth: true
                         spacing: 10
 
                         Label {
