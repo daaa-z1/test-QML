@@ -155,6 +155,16 @@ ApplicationWindow {
                                 ListElement{key: "+24"; value: 'Relay1'}
                                 ListElement{key: "+15"; value: 'Relay2'}
                             }
+                            contentItem: Text {
+                                leftPadding: 0
+                                rightPadding: comboBox1.indicator.width + comboBox1.spacing
+
+                                text: comboBox1.displayText
+                                font: comboBox1.font
+                                color: comboBox1.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
+                            }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState1(model.get(currentIndex).value, 1)
                                 dataRow1.checkForNewElement()
