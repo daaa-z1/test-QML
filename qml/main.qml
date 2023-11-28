@@ -123,12 +123,13 @@ ApplicationWindow {
                             spacing: 10
 
                             Label {
-                                text: "'Pressure In' Min Value:"
+                                text: "Min Value:"
                             }
 
                             TextField {
                                 id: pressInMinValueField
-                                placeholderText: ""+mainApp.parameters['press_in'].minValue
+                                placeholderText: ""+mainApp.parameter['press_in'].minValue
+                                text: mainApp.parameter['press_in'].minValue
                                 onTextChanged: mainApp.updateParameter('press_in', 'minValue', parseFloat(text))
                             }
                         }
