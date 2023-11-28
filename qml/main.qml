@@ -121,7 +121,7 @@ ApplicationWindow {
 
                         Row {
                             Label {
-                                Layout.fillWidth: true
+                                anchors.horizontalCenter: parent.horizontalCenter
                                 text: "<b>Pressure In</b>"
                             }
                         }
@@ -143,6 +143,57 @@ ApplicationWindow {
                                         text = '0'
                                     }
                                     mainApp.updateParameter('press_in', 'minValue', parseFloat(text))
+                                }
+                            }
+
+                            Label {
+                                text: "Max Value:"
+                            }
+
+                            TextField {
+                                id: pressInMinValueField
+                                width: 50
+                                validator: IntValidator {bottom: 0}
+                                text: mainApp.parameter('press_in', 'maxValue')
+                                onTextChanged: {
+                                    if (text === ''){
+                                        text = '0'
+                                    }
+                                    mainApp.updateParameter('press_in', 'maxValue', parseFloat(text))
+                                }
+                            }
+
+                            Label {
+                                text: "Min Scale:"
+                            }
+
+                            TextField {
+                                id: pressInMinValueField
+                                width: 50
+                                validator: IntValidator {bottom: 0}
+                                text: mainApp.parameter('press_in', 'minScale')
+                                onTextChanged: {
+                                    if (text === ''){
+                                        text = '0'
+                                    }
+                                    mainApp.updateParameter('press_in', 'minScale', parseFloat(text))
+                                }
+                            }
+
+                            Label {
+                                text: "Max Scale:"
+                            }
+
+                            TextField {
+                                id: pressInMinValueField
+                                width: 50
+                                validator: IntValidator {bottom: 0}
+                                text: mainApp.parameter('press_in', 'maxScale')
+                                onTextChanged: {
+                                    if (text === ''){
+                                        text = '0'
+                                    }
+                                    mainApp.updateParameter('press_in', 'maxScale', parseFloat(text))
                                 }
                             }
                         }
