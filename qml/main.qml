@@ -145,7 +145,6 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 1"
-                            color: "black"
                             font.bold: true
                         }
 
@@ -174,6 +173,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 2"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -201,6 +201,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 3"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -248,6 +249,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 4"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -274,6 +276,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 5"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -301,6 +304,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 6"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -332,6 +336,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 7"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -359,6 +364,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 8"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -385,6 +391,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 9"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -417,6 +424,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 10"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -444,6 +452,7 @@ ApplicationWindow {
 
                         Label {
                             text: "Pin 11"
+                            font.bold: true
                         }
 
                         ComboBox {
@@ -465,10 +474,6 @@ ApplicationWindow {
                             onCurrentIndexChanged: {
                                 mainApp.setDOState11(model.get(currentIndex).value, 1)
                             }
-                        }
-
-                        Label {
-                            text: "Reset All"
                         }
 
                         Button {
