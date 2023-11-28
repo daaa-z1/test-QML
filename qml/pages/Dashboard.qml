@@ -65,7 +65,7 @@ Page {
                     
                     Connections {
                         target: mainApp
-                        onParameterChanged:{
+                        function onParameterChanged() {
                             for (var i = 0; i < repeater.children.length; i++){
                                 var rect = repeater.children[i]
                                 for (var j = 0; j < rect.children.length; j++){
