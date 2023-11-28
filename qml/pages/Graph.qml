@@ -318,7 +318,7 @@ Page {
             }
 
             // Panggil fungsi save_test_data di MainApp
-            mainApp.save_test_data(customerField.text.trim(), timeField.text.trim(), currentTest, data);
+            mainApp.save_test_data(customerField.text.trim(), timeField.text, currentTest, data);
             
             console.log("Test data saved.");
         }
