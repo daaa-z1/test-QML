@@ -275,42 +275,39 @@ Page {
 
             testTimer.triggered.connect(function() {
                 Qt.callLater(function() {
-                    var data = [];
-                    for (var i = 0; i < axisX.max; i++) {
-                        var row = [i];
-                        if (current_keys.length > 0) {
-                            row.push(mainApp.value[current_keys[0]].toFixed(2));
-                        }
-                        if (current_keys.length > 1) {
-                            row.push(mainApp.value[current_keys[1]].toFixed(2));
-                        }
-                        if (current_keys.length > 2) {
-                            row.push(mainApp.value[current_keys[2]].toFixed(2));
-                        }
-                        if (current_keys.length > 3) {
-                            row.push(mainApp.value[current_keys[3]].toFixed(2));
-                        }
-                        data.push(row.join(','));
-                    }
+                    chartView.grabToImage(function(result) {
+                        // Membuat nama file unik dengan informasi pelanggan, waktu, dan jenis pengujian
+                        var fileName = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
 
-                    var csvData = data.join('\n');
-                    var fileName = customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
-                    var filePath = "./data/" + fileName;
+                        // Membuka file CSV untuk ditulis
+                        var file = new QFile(fileName);
+                        if (file.open(QIODevice.WriteOnly | QIODevice.Text)) {
+                            var stream = new QTextStream(file);
 
-                    // Menyimpan data ke file CSV
-                    Qt.labs.platform.writeFile(filePath, csvData, function(success) {
-                        if (success) {
-                            console.log("File berhasil disimpan di " + filePath);
+                            // Menulis header CSV
+                            stream.writeString("Time,");
+                            for (var i = 0; i < current_keys.length; ++i) {
+                                stream.writeString(current_keys[i] + ",");
+                            }
+                            stream.writeString("\n");
 
-                            // Lanjutkan dengan langkah selanjutnya setelah menyimpan CSV
-                            testTimer.destroy();
-                            resetTest();
-                            testQueue.shift();
-                            startNextTest();
-                        } else {
-                            console.error("Gagal menyimpan file");
-                            // Tambahkan penanganan kesalahan sesuai kebutuhan
+                            // Menulis data CSV
+                            for (var j = 0; j < lineSeries1.count; ++j) {
+                                stream.writeString(j + ",");
+                                stream.writeString(lineSeries1.at(j).y + ",");
+                                stream.writeString(lineSeries2.at(j).y + ",");
+                                stream.writeString(lineSeries3.at(j).y + ",");
+                                stream.writeString(lineSeries4.at(j).y + "\n");
+                            }
+
+                            // Menutup file setelah menulis
+                            file.close();
                         }
+
+                        testTimer.destroy();
+                        resetTest();
+                        testQueue.shift();
+                        startNextTest();
                     });
                 }, 500);
             });
