@@ -129,7 +129,9 @@ ApplicationWindow {
                             TextField {
                                 id: pressInMinValueField
                                 placeholderText: ""+mainApp.parameter['press_in'].minValue
-                                onTextChanged: mainApp.updateParameter('press_in', 'minValue', parseFloat(text))
+                                onTextChanged: {
+                                    mainApp.updateParameter('press_in', 'minValue', parseFloat(text))}
+                                    placeholderText: ""+mainApp.parameter['press_in'].
                             }
                         }
 
