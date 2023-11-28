@@ -301,30 +301,42 @@ Page {
 
     function saveTestDataToCSV(currentTest) {
         var fileName = customerField.text.trim() + "_" + timeField.text + "_" + currentTest + ".csv";
-        var filePath = "./" + fileName;
+        var filePath = csvDirectory + "/" + fileName;
 
-        var file = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.1; File { fileName: "' + filePath + '" }', graphPage);
+        var fileComponent = Qt.createComponent("File.qml"); // File.qml berisi definisi objek File
 
-        if (file.open(File.WriteOnly | File.Text)) {
-            var stream = QTextStream(file);
-            
-            // Tulis header CSV
-            stream.write("Time,");
-            for (var i = 0; i < current_keys.length; ++i) {
-                stream.write(current_keys[i] + ",");
+        if (fileComponent.status === Component.Ready) {
+            var file = fileComponent.createObject(graphPage, {"fileName": filePath});
+
+            if (file) {
+                if (file.open(File.WriteOnly | File.Text)) {
+                    var stream = QTextStream(file);
+
+                    // Tulis header CSV
+                    stream.write("Time,");
+                    for (var i = 0; i < current_keys.length; ++i) {
+                        stream.write(current_keys[i] + ",");
+                    }
+                    stream.write("\n");
+
+                    // Tulis data CSV
+                    for (var j = 0; j < lineSeries1.count; ++j) {
+                        stream.write(j + ",");
+                        stream.write(lineSeries1.at(j) + ",");
+                        stream.write(lineSeries2.at(j) + ",");
+                        stream.write(lineSeries3.at(j) + ",");
+                        stream.write(lineSeries4.at(j) + "\n");
+                    }
+
+                    file.close();
+                } else {
+                    console.error("Failed to open file for writing:", file.errorString());
+                }
+            } else {
+                console.error("Failed to create File object:", fileComponent.errorString());
             }
-            stream.write("\n");
-
-            // Tulis data CSV
-            for (var j = 0; j < lineSeries1.count; ++j) {
-                stream.write(j + ",");
-                stream.write(lineSeries1.at(j) + ",");
-                stream.write(lineSeries2.at(j) + ",");
-                stream.write(lineSeries3.at(j) + ",");
-                stream.write(lineSeries4.at(j) + "\n");
-            }
-
-            file.close();
+        } else {
+            console.error("Failed to load File.qml:", fileComponent.errorString());
         }
     }
 
