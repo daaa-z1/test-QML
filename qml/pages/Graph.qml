@@ -272,13 +272,43 @@ Page {
 
             testTimer.triggered.connect(function() {
                 Qt.callLater(function() {
-                    chartView.grabToImage(function(result) {
-                        var path = "./screenshots/"+customerField.text+"_"+timeField.text+"_"+currentTest+".png";
-                        result.saveToFile(path);
-                    testTimer.destroy();
-                    resetTest();
-                    testQueue.shift();
-                    startNextTest();
+                    var data = [];
+                    for (var i = 0; i < axisX.max; i++) {
+                        var row = [i];
+                        if (current_keys.length > 0) {
+                            row.push(mainApp.value[current_keys[0]].toFixed(2));
+                        }
+                        if (current_keys.length > 1) {
+                            row.push(mainApp.value[current_keys[1]].toFixed(2));
+                        }
+                        if (current_keys.length > 2) {
+                            row.push(mainApp.value[current_keys[2]].toFixed(2));
+                        }
+                        if (current_keys.length > 3) {
+                            row.push(mainApp.value[current_keys[3]].toFixed(2));
+                        }
+                        data.push(row.join(','));
+                    }
+
+                    var csvData = data.join('\n');
+                    var path = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
+
+                    // Menyimpan data ke file CSV
+                    var file = Qt.createQmlObject('import QtQuick 2.15; FileDialog { visible: false }', graphPage);
+                    file.setFolder(path);
+                    file.showSaveDialog();
+                    file.onAccepted.connect(function () {
+                        var filePath = file.fileUrls()[0].toString().replace("file:///", "");
+                        var file = Qt.createQmlObject('import QtQuick 2.15; File { }', graphPage);
+                        file.open(filePath, 2);
+                        file.write(csvData);
+                        file.close();
+
+                        // Lanjutkan dengan langkah selanjutnya setelah menyimpan CSV
+                        testTimer.destroy();
+                        resetTest();
+                        testQueue.shift();
+                        startNextTest();
                     });
                 },500);
             });
