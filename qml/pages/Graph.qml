@@ -310,13 +310,11 @@ Page {
                         var fileName = customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
                         var filePath = "./data/" + fileName;
 
-                        // Menggunakan FolderListModel untuk menulis data CSV ke file
-                        var folderListModel = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.15; FolderListModel {}', graphPage);
-                        folderListModel.folder = "./data/";
-
-                        // Membuat file dan menulis data CSV
-                        folderListModel.createFile(fileName);
-                        folderListModel.write(fileName, csvData);
+                        // Menggunakan File untuk membuat file dan menulis data CSV
+                        var file = Qt.createQmlObject('import QtQuick 2.15; File {}', graphPage);
+                        file.open(filePath, 2); // Mode 2 untuk menulis
+                        file.write(csvData);
+                        file.close();
 
                         // Lanjutkan dengan langkah selanjutnya setelah menyimpan CSV
                         testTimer.destroy();
