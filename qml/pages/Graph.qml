@@ -5,6 +5,7 @@ import QtCharts 2.15
 import QtGraphicalEffects 1.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
+import Qt.labs.folderlistmodel 2.15
 
 Page {
     id: graphPage
@@ -306,10 +307,15 @@ Page {
 
                     fileDialog.onAccepted.connect(function () {
                         var filePath = fileDialog.fileUrl.toString().replace("file:///", "");
-                        var file = Qt.createQmlObject('import QtQuick 2.15; File { }', graphPage);
-                        file.open(filePath, 2);
-                        file.write(csvData);
-                        file.close();
+                        
+                        // Use FolderListModel to write the CSV data to the file
+                        var folderListModel = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.15; FolderListModel {}', graphPage);
+                        folderListModel.folder = filePath;
+
+                        // Create the file and write the CSV data
+                        var fileName = customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
+                        folderListModel.createFile(fileName);
+                        folderListModel.write(fileName, csvData);
 
                         // Continue with the next steps after saving the CSV
                         testTimer.destroy();
@@ -317,7 +323,6 @@ Page {
                         testQueue.shift();
                         startNextTest();
                     });
-
                 },500);
             });
         } else {
