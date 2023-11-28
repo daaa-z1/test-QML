@@ -128,82 +128,86 @@ ApplicationWindow {
                         Repeater {
                             model: paramLayout.keys
 
-                            Row{
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                
-                                Label {
-                                    text: "<b>" + paramLayout.parameters[index]
-                                }
-                            }
+                            Rectangle {
+                                width: parent.width
+                                height: childrenRect.height
 
-                            Row {
-                                spacing: 10
-
-                                Label {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    text: "Min Value:"
-                                }
-
-                                TextField {
-                                    width: 50
-                                    validator: IntValidator {bottom: 0}
-                                    text: mainApp.parameter(modelData, 'minValue')
-                                    onTextChanged: {
-                                        if (text === ''){
-                                            text = '0'
-                                        }
-                                        mainApp.updateParameter(modelData, 'minValue', parseFloat(text))
+                                Row{
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    Label {
+                                        text: "<b>" + paramLayout.parameters[index]
                                     }
                                 }
 
-                                Label {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    text: "Max Value:"
-                                }
+                                Row {
+                                    spacing: 10
 
-                                TextField {
-                                    width: 50
-                                    validator: IntValidator {bottom: 0}
-                                    text: mainApp.parameter(modelData, 'maxValue')
-                                    onTextChanged: {
-                                        if (text === ''){
-                                            text = '0'
-                                        }
-                                        mainApp.updateParameter(modelData, 'maxValue', parseFloat(text))
+                                    Label {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: "Min Value:"
                                     }
-                                }
 
-                                Label {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    text: "Min Scale:"
-                                }
-
-                                TextField {
-                                    width: 50
-                                    validator: IntValidator {bottom: 0}
-                                    text: mainApp.parameter(modelData, 'minScale')
-                                    onTextChanged: {
-                                        if (text === ''){
-                                            text = '0'
+                                    TextField {
+                                        width: 50
+                                        validator: IntValidator {bottom: 0}
+                                        text: mainApp.parameter(modelData, 'minValue')
+                                        onTextChanged: {
+                                            if (text === ''){
+                                                text = '0'
+                                            }
+                                            mainApp.updateParameter(modelData, 'minValue', parseFloat(text))
                                         }
-                                        mainApp.updateParameter(modelData, 'minScale', parseFloat(text))
                                     }
-                                }
 
-                                Label {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    text: "Max Scale:"
-                                }
+                                    Label {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: "Max Value:"
+                                    }
 
-                                TextField {
-                                    width: 50
-                                    validator: IntValidator {bottom: 0}
-                                    text: mainApp.parameter(modelData, 'maxScale')
-                                    onTextChanged: {
-                                        if (text === ''){
-                                            text = '0'
+                                    TextField {
+                                        width: 50
+                                        validator: IntValidator {bottom: 0}
+                                        text: mainApp.parameter(modelData, 'maxValue')
+                                        onTextChanged: {
+                                            if (text === ''){
+                                                text = '0'
+                                            }
+                                            mainApp.updateParameter(modelData, 'maxValue', parseFloat(text))
                                         }
-                                        mainApp.updateParameter(modelData, 'maxScale', parseFloat(text))
+                                    }
+
+                                    Label {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: "Min Scale:"
+                                    }
+
+                                    TextField {
+                                        width: 50
+                                        validator: IntValidator {bottom: 0}
+                                        text: mainApp.parameter(modelData, 'minScale')
+                                        onTextChanged: {
+                                            if (text === ''){
+                                                text = '0'
+                                            }
+                                            mainApp.updateParameter(modelData, 'minScale', parseFloat(text))
+                                        }
+                                    }
+
+                                    Label {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: "Max Scale:"
+                                    }
+
+                                    TextField {
+                                        width: 50
+                                        validator: IntValidator {bottom: 0}
+                                        text: mainApp.parameter(modelData, 'maxScale')
+                                        onTextChanged: {
+                                            if (text === ''){
+                                                text = '0'
+                                            }
+                                            mainApp.updateParameter(modelData, 'maxScale', parseFloat(text))
+                                        }
                                     }
                                 }
                             }
