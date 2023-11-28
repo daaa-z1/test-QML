@@ -300,43 +300,20 @@ Page {
     }
 
     function saveTestData(currentTest) {
-        if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
-            var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
+        var timestamp = Qt.formatDateTime(new Date(), "yyyyMMdd_hhmmss");
+        var fileName = customerField.text + "_" + timeField.text + "_" + currentTest + "_" + timestamp + ".csv";
+        var file = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.15; File { fileName: "' + fileName + '" }', graphPage);
 
-            var file = Qt.createQmlObject('import Qt.labs.platform 1.1; FileDialog { }', graphPage);
-            file.title = "Save Test Data";
-            file.folder = StandardPaths.writableLocation(StandardPaths.DocumentsLocation);
-            file.nameFilters = ["CSV Files (*.csv)"];
-            file.onAccepted.connect(function() {
-                var filePath = file.fileUrl.toString().replace("file:///", "");
-                var data = "Time," + current_keys.join(",") + "\n";
-
-                for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
-                    var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
-                    data += timeValue + ",";
-                    data += i < lineSeries1.count ? lineSeries1.at(i).y : "";
-                    data += ",";
-                    data += i < lineSeries2.count ? lineSeries2.at(i).y : "";
-                    data += ",";
-                    data += i < lineSeries3.count ? lineSeries3.at(i).y : "";
-                    data += ",";
-                    data += i < lineSeries4.count ? lineSeries4.at(i).y : "";
-                    data += "\n";
-                }
-
-                var file = new File(filePath);
-                file.open(File.WriteOnly);
-                file.write(data);
-                file.close();
-
-                console.log("Test data saved to:", filePath);
-            });
-
-            file.onRejected.connect(function() {
-                console.log("Save operation canceled.");
-            });
-
-            file.visible = true;
+        if (file.open(File.WriteOnly)) {
+            var data = "Timestamp," + current_keys.join(",") + "\n";
+            for (var i = 0; i < lineSeries1.count; ++i) {
+                data += i + "," + lineSeries1.at(i).y + "," + (lineSeries2.count > i ? lineSeries2.at(i).y : "") +
+                        "," + (lineSeries3.count > i ? lineSeries3.at(i).y : "") + "," + (lineSeries4.count > i ? lineSeries4.at(i).y : "") + "\n";
+            }
+            file.write(data);
+            file.close();
+        } else {
+            console.log("Failed to open file for writing:", fileName);
         }
     }
 
