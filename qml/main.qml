@@ -128,9 +128,8 @@ ApplicationWindow {
                         Repeater {
                             model: paramLayout.keys
 
-                            Rectangle {
-                                anchors.fill: parent
-                                
+                            Column {
+                                spacing: 10
 
                                 Row{
                                     anchors.horizontalCenter: parent.horizontalCenter
