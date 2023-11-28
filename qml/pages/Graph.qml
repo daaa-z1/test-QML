@@ -5,7 +5,7 @@ import QtCharts 2.15
 import QtGraphicalEffects 1.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
-import Qt.labs.folderlistmodel 2.15
+import Qt.labs.folderlistmodel 2.1
 import Qt.labs.platform 1.0
 
 Page {
@@ -299,21 +299,32 @@ Page {
         }
     }
 
-    function saveTestData(currentTest) {
-        var timestamp = Qt.formatDateTime(new Date(), "yyyyMMdd_hhmmss");
-        var fileName = customerField.text + "_" + timeField.text + "_" + currentTest + "_" + timestamp + ".csv";
-        var file = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.15; File { fileName: "' + fileName + '" }', graphPage);
+    function saveTestDataToCSV(currentTest) {
+        var fileName = customerField.text.trim() + "_" + timeField.text + "_" + currentTest + ".csv";
+        var filePath = "./" + fileName;
 
-        if (file.open(File.WriteOnly)) {
-            var data = "Timestamp," + current_keys.join(",") + "\n";
-            for (var i = 0; i < lineSeries1.count; ++i) {
-                data += i + "," + lineSeries1.at(i).y + "," + (lineSeries2.count > i ? lineSeries2.at(i).y : "") +
-                        "," + (lineSeries3.count > i ? lineSeries3.at(i).y : "") + "," + (lineSeries4.count > i ? lineSeries4.at(i).y : "") + "\n";
+        var file = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.1; File { fileName: "' + filePath + '" }', graphPage);
+
+        if (file.open(File.WriteOnly | File.Text)) {
+            var stream = QTextStream(file);
+            
+            // Tulis header CSV
+            stream.write("Time,");
+            for (var i = 0; i < current_keys.length; ++i) {
+                stream.write(current_keys[i] + ",");
             }
-            file.write(data);
+            stream.write("\n");
+
+            // Tulis data CSV
+            for (var j = 0; j < lineSeries1.count; ++j) {
+                stream.write(j + ",");
+                stream.write(lineSeries1.at(j) + ",");
+                stream.write(lineSeries2.at(j) + ",");
+                stream.write(lineSeries3.at(j) + ",");
+                stream.write(lineSeries4.at(j) + "\n");
+            }
+
             file.close();
-        } else {
-            console.log("Failed to open file for writing:", fileName);
         }
     }
 
