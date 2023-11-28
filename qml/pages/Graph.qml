@@ -296,10 +296,14 @@ Page {
 
                     // Menyimpan data ke file CSV
                     var fileDialog = Qt.createQmlObject('import QtQuick.Dialogs 1.3; FileDialog { visible: false }', graphPage);
-                    fileDialog.selectExisting = false;
-                    fileDialog.title = "Save As";
-                    fileDialog.folder = "./data/";
-                    fileDialog.nameFilters = ["CSV Files (*.csv)"];
+
+                    // Set initial folder and file name
+                    fileDialog.folder = "file://" + "./data/";
+                    fileDialog.selectExisting = false; // Set this to false to ensure a new file is created
+                    fileDialog.title = "Save CSV File";
+
+                    fileDialog.open();
+
                     fileDialog.onAccepted.connect(function () {
                         var filePath = fileDialog.fileUrl.toString().replace("file:///", "");
                         var file = Qt.createQmlObject('import QtQuick 2.15; File { }', graphPage);
