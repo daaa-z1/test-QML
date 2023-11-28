@@ -131,7 +131,6 @@ ApplicationWindow {
                                 placeholderText: ""+mainApp.parameter['press_in'].minValue
                                 onTextChanged: {
                                     mainApp.updateParameter('press_in', 'minValue', parseFloat(text))
-                                    text: ""+mainApp.parameter['press_in'].minValue
                                 }
                             }
                         }
