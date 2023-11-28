@@ -276,10 +276,9 @@ Page {
             testTimer.triggered.connect(function() {
                     Qt.callLater(function() {
                     // Menyimpan data pengujian dalam bentuk CSV
-                    saveTestResults();
-
                     testTimer.destroy();
                     resetTest();
+                    saveTestData();
                     testQueue.shift();
                     startNextTest();
                 }, 500);
@@ -300,28 +299,45 @@ Page {
         }
     }
 
-   function saveTestResults() {
-        // Persiapkan data yang akan disimpan
-        var testData = []
+    function saveTestData() {
+        if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
+            var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
 
-        // Tambahkan data untuk setiap series
-        for (var i = 0; i < lineSeries1.count; i++) {
-            var dataRow = [lineSeries1.at(i).x, lineSeries1.at(i).y]
-            if (lineSeries2.count > i) dataRow.push(lineSeries2.at(i).y)
-            if (lineSeries3.count > i) dataRow.push(lineSeries3.at(i).y)
-            if (lineSeries4.count > i) dataRow.push(lineSeries4.at(i).y)
-            testData.push(dataRow.join(','))
+            var file = Qt.createQmlObject('import Qt.labs.platform 1.1; FileDialog { }', graphPage);
+            file.title = "Save Test Data";
+            file.folder = StandardPaths.writableLocation(StandardPaths.DocumentsLocation);
+            file.nameFilters = ["CSV Files (*.csv)"];
+            file.onAccepted.connect(function() {
+                var filePath = file.fileUrl.toString().replace("file:///", "");
+                var data = "Time," + current_keys.join(",") + "\n";
+
+                for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
+                    var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
+                    data += timeValue + ",";
+                    data += i < lineSeries1.count ? lineSeries1.at(i).y : "";
+                    data += ",";
+                    data += i < lineSeries2.count ? lineSeries2.at(i).y : "";
+                    data += ",";
+                    data += i < lineSeries3.count ? lineSeries3.at(i).y : "";
+                    data += ",";
+                    data += i < lineSeries4.count ? lineSeries4.at(i).y : "";
+                    data += "\n";
+                }
+
+                var file = new File(filePath);
+                file.open(File.WriteOnly);
+                file.write(data);
+                file.close();
+
+                console.log("Test data saved to:", filePath);
+            });
+
+            file.onRejected.connect(function() {
+                console.log("Save operation canceled.");
+            });
+
+            file.visible = true;
         }
-
-        // Gabungkan data menjadi satu string
-        var csvData = testData.join('\n')
-
-        // Simpan data ke dalam file CSV
-        var fileName = "TestResults_" + Qt.formatDateTime(new Date(), "yyyyMMdd_HHmmss") + ".csv"
-        var file = Qt.createQmlObject('import QtQuick.LocalStorage 2.0; Storage { id: storage }', chartView)
-        file.open()
-        file.write(fileName, csvData)
-        file.close()
     }
 
     function resetTest() {
