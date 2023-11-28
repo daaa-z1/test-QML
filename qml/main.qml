@@ -120,8 +120,8 @@ ApplicationWindow {
                         padding: 10
 
                         Row {
+                            anchors.horizontalCenter: parent.horizontalCenter
                             Label {
-                                anchors.horizontalCenter: parent.horizontalCenter
                                 text: "<b>Pressure In</b>"
                             }
                         }
