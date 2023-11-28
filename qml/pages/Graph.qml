@@ -306,18 +306,19 @@ Page {
                     fileDialog.open();
 
                     fileDialog.onAccepted.connect(function () {
-                        var filePath = fileDialog.fileUrl.toString().replace("file:///", "");
-                        
-                        // Use FolderListModel to write the CSV data to the file
-                        var folderListModel = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.15; FolderListModel {}', graphPage);
-                        folderListModel.folder = filePath;
-
-                        // Create the file and write the CSV data
+                        // Mendapatkan jalur file
                         var fileName = customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
+                        var filePath = "./data/" + fileName;
+
+                        // Menggunakan FolderListModel untuk menulis data CSV ke file
+                        var folderListModel = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.15; FolderListModel {}', graphPage);
+                        folderListModel.folder = "./data/";
+
+                        // Membuat file dan menulis data CSV
                         folderListModel.createFile(fileName);
                         folderListModel.write(fileName, csvData);
 
-                        // Continue with the next steps after saving the CSV
+                        // Lanjutkan dengan langkah selanjutnya setelah menyimpan CSV
                         testTimer.destroy();
                         resetTest();
                         testQueue.shift();
