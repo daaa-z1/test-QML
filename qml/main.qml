@@ -112,8 +112,8 @@ ApplicationWindow {
                 border.width: 1
 
                 ScrollView {
-                    height: updateParameter.height - 5
                     anchors.fill: parent
+                    anchors.margins: 10
                     clip: true
                     ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
