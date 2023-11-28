@@ -66,8 +66,8 @@ Page {
                     Connections {
                         target: mainApp
                         onParameterChanged:{
-                            minValue: mainApp.parameter(keys[index], 'minValue')
-                            maxValue: mainApp.parameter(keys[index], 'maxValue')
+                            gauge.minValue: mainApp.parameter(keys[index], 'minValue')
+                            gauge.maxValue: mainApp.parameter(keys[index], 'maxValue')
                         } 
                     }
                     
