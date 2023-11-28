@@ -161,6 +161,7 @@ ApplicationWindow {
                                 font: comboBox1.font
                                 color: comboBox1.pressed ? "grey" : "black"
                                 verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
