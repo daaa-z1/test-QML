@@ -8,7 +8,7 @@ import QtQuick.Dialogs 1.3
 import Qt.labs.folderlistmodel 2.1
 import Qt.labs.platform 1.0
 
-import "pages"
+import "/pages"
 
 Page {
     id: graphPage
