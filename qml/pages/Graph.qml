@@ -278,7 +278,7 @@ Page {
                     // Menyimpan data pengujian dalam bentuk CSV
                     testTimer.destroy();
                     resetTest();
-                    saveTestData(currentTest);
+                    saveTestDataToCSV(currentTest);
                     testQueue.shift();
                     startNextTest();
                 }, 500);
