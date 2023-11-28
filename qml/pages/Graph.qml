@@ -297,8 +297,7 @@ Page {
                     // Menyimpan data ke file CSV
                     var fileDialog = Qt.createQmlObject('import QtQuick.Dialogs 1.3; FileDialog { visible: false }', graphPage);
                     fileDialog.folder = "file://" + "./data/";
-                    fileDialog.file = customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
-
+                    fileDialog.selectExisting = false; // Set this to false to ensure a new file is created
                     fileDialog.showSaveDialog();
 
                     fileDialog.onAccepted.connect(function () {
@@ -314,6 +313,7 @@ Page {
                         testQueue.shift();
                         startNextTest();
                     });
+
                 },500);
             });
         } else {
