@@ -311,7 +311,7 @@ Page {
                         var filePath = "./data/" + fileName;
 
                         // Menggunakan File untuk membuat file dan menulis data CSV
-                        var file = Qt.createQmlObject('import QtQuick 2.15; File {}', graphPage);
+                        var file = Qt.createQmlObject('import Qt.labs.folderlistmodel 2.15; FolderListModel {}', graphPage);
                         file.open(filePath, 2); // Mode 2 untuk menulis
                         file.write(csvData);
                         file.close();
