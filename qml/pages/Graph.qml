@@ -295,12 +295,12 @@ Page {
                     var path = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
 
                     // Menyimpan data ke file CSV
-                    var file = Qt.createQmlObject('import QtQuick 2.15; FileDialog { visible: false }', graphPage);
+                    var file = Qt.createQmlObject('import QtQuick 2.15; import QtQuick.Dialogs 1.3; FileDialog { visible: false }', graphPage);
                     file.setFolder(path);
                     file.showSaveDialog();
                     file.onAccepted.connect(function () {
                         var filePath = file.fileUrls()[0].toString().replace("file:///", "");
-                        var file = Qt.createQmlObject('import QtQuick 2.15; File { }', graphPage);
+                        var file = Qt.createQmlObject('import QtQuick 2.15; import QtQuick.Dialogs 1.3; File { }', graphPage);
                         file.open(filePath, 2);
                         file.write(csvData);
                         file.close();
