@@ -270,16 +270,14 @@ Page {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
             chartView.title = "" + currentTest;
-            // var cust = customerField.text
 
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
                     Qt.callLater(function() {
-                    // Menyimpan data pengujian dalam bentuk CSV
                     testTimer.destroy();
                     resetTest();
-                    saveTestDataToCSV(currentTest);
+                    saveTestData(currentTest);
                     testQueue.shift();
                     startNextTest();
                 }, 500);
@@ -300,44 +298,44 @@ Page {
         }
     }
 
-    function saveTestDataToCSV(currentTest) {
-        var fileName = customerField.text.trim() + "_" + timeField.text + "_" + currentTest + ".csv";
-        var filePath = "./" + fileName;
+    function saveTestData(currentTest) {
+        if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
+            var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
 
-        var fileComponent = Qt.createComponent("File.qml"); // File.qml berisi definisi objek File
+            var file = Qt.createQmlObject('import Qt.labs.platform 1.1; FileDialog { }', graphPage);
+            file.title = "Save Test Data";
+            file.folder = StandardPaths.writableLocation(StandardPaths.DocumentsLocation);
+            file.nameFilters = ["CSV Files (*.csv)"];
+            file.onAccepted.connect(function() {
+                var filePath = file.fileUrl.toString().replace("file:///", "");
+                var data = "Time," + current_keys.join(",") + "\n";
 
-        if (fileComponent.status === Component.Ready) {
-            var file = fileComponent.createObject(graphPage, {"fileName": filePath});
-
-            if (file) {
-                if (file.open(File.WriteOnly | File.Text)) {
-                    var stream = QTextStream(file);
-
-                    // Tulis header CSV
-                    stream.write("Time,");
-                    for (var i = 0; i < current_keys.length; ++i) {
-                        stream.write(current_keys[i] + ",");
-                    }
-                    stream.write("\n");
-
-                    // Tulis data CSV
-                    for (var j = 0; j < lineSeries1.count; ++j) {
-                        stream.write(j + ",");
-                        stream.write(lineSeries1.at(j) + ",");
-                        stream.write(lineSeries2.at(j) + ",");
-                        stream.write(lineSeries3.at(j) + ",");
-                        stream.write(lineSeries4.at(j) + "\n");
-                    }
-
-                    file.close();
-                } else {
-                    console.error("Failed to open file for writing:", file.errorString());
+                for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
+                    var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
+                    data += timeValue + ",";
+                    data += i < lineSeries1.count ? lineSeries1.at(i).y : "";
+                    data += ",";
+                    data += i < lineSeries2.count ? lineSeries2.at(i).y : "";
+                    data += ",";
+                    data += i < lineSeries3.count ? lineSeries3.at(i).y : "";
+                    data += ",";
+                    data += i < lineSeries4.count ? lineSeries4.at(i).y : "";
+                    data += "\n";
                 }
-            } else {
-                console.error("Failed to create File object:", fileComponent.errorString());
-            }
-        } else {
-            console.error("Failed to load File.qml:", fileComponent.errorString());
+
+                var file = new File(filePath);
+                file.open(File.WriteOnly);
+                file.write(data);
+                file.close();
+
+                console.log("Test data saved to:", filePath);
+            });
+
+            file.onRejected.connect(function() {
+                console.log("Save operation canceled.");
+            });
+
+            file.visible = true;
         }
     }
 
