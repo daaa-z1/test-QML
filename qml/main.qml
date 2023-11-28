@@ -128,9 +128,13 @@ ApplicationWindow {
 
                             TextField {
                                 id: pressInMinValueField
-                                placeholderText: mainApp.parameter('press_in', 'minValue')
-                                text: mainApp.parameter('press', 'minValue')
+                                width: 50
+                                validator: IntValidator {bottom: 0}
+                                text: mainApp.parameter('press_in', 'minValue')
                                 onTextChanged: {
+                                    if (text === ''){
+                                        text = '0'
+                                    }
                                     mainApp.updateParameter('press_in', 'minValue', parseFloat(text))
                                 }
                             }
