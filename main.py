@@ -223,7 +223,7 @@ class MainApp(QObject):
         self._value = val
         self.valueChanged.emit()
 
-    @pyqtProperty('QVariantMap', constant=True)
+    @pyqtProperty('QVariantMap', constant=False)
     def parameter(self):
         return self._parameter
     
