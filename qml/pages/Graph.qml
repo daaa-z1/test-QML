@@ -275,40 +275,11 @@ Page {
 
             testTimer.triggered.connect(function() {
                 Qt.callLater(function() {
-                    chartView.grabToImage(function(result) {
-                        // Membuat nama file unik dengan informasi pelanggan, waktu, dan jenis pengujian
-                        var fileName = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
-
-                        // Membuka file CSV untuk ditulis
-                        var file = new QFile(fileName);
-                        if (file.open(QIODevice.WriteOnly | QIODevice.Text)) {
-                            var stream = new QTextStream(file);
-
-                            // Menulis header CSV
-                            stream.writeString("Time,");
-                            for (var i = 0; i < current_keys.length; ++i) {
-                                stream.writeString(current_keys[i] + ",");
-                            }
-                            stream.writeString("\n");
-
-                            // Menulis data CSV
-                            for (var j = 0; j < lineSeries1.count; ++j) {
-                                stream.writeString(j + ",");
-                                stream.writeString(lineSeries1.at(j).y + ",");
-                                stream.writeString(lineSeries2.at(j).y + ",");
-                                stream.writeString(lineSeries3.at(j).y + ",");
-                                stream.writeString(lineSeries4.at(j).y + "\n");
-                            }
-
-                            // Menutup file setelah menulis
-                            file.close();
-                        }
-
-                        testTimer.destroy();
-                        resetTest();
-                        testQueue.shift();
-                        startNextTest();
-                    });
+                    saveTestDataToCSV(currentTest);
+                    testTimer.destroy();
+                    resetTest();
+                    testQueue.shift();
+                    startNextTest();
                 }, 500);
             });
         } else {
@@ -324,6 +295,38 @@ Page {
                 chartView.title = "Test Completed";
                 current_keys = [];
             }
+        }
+    }
+
+    function saveTestDataToCSV(testName) {
+        var filePath = "./data/" + customerField.text + "_" + timeField.text + "_" + testName + ".csv";
+        var file = new QFile(filePath);
+
+        if (file.open(QIODevice.WriteOnly | QIODevice.Text)) {
+            var stream = new QTextStream(file);
+            
+            // Menulis header kolom
+            stream << "Time," << current_keys.join(",") << "\n";
+
+            // Menulis data pengujian
+            for (var i = 0; i < lineSeries1.count; ++i) {
+                stream << i << ",";
+                if (current_keys.length > 0) {
+                    stream << lineSeries1.at(i).y + ",";
+                }
+                if (current_keys.length > 1) {
+                    stream << lineSeries2.at(i).y + ",";
+                }
+                if (current_keys.length > 2) {
+                    stream << lineSeries3.at(i).y + ",";
+                }
+                if (current_keys.length > 3) {
+                    stream << lineSeries4.at(i).y;
+                }
+                stream << "\n";
+            }
+
+            file.close();
         }
     }
 
