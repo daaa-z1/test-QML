@@ -300,7 +300,7 @@ Page {
 
     function saveTestData(currentTest) {
         if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
-            var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
+            var fileName = "./" + customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
 
             var file = Qt.createQmlObject('import Qt.labs.platform 1.1; FileDialog { }', graphPage);
             file.title = "Save Test Data";
@@ -323,7 +323,7 @@ Page {
                     data += "\n";
                 }
 
-                var file = new File(filePath);
+                var file = new File(fileName);
                 if (file.open(File.WriteOnly)) {
                     file.write(data);
                     file.close();
