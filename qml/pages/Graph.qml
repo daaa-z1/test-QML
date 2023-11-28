@@ -300,44 +300,28 @@ Page {
         }
     }
 
-    function saveTestDataToCSV(testName) {
-        var filePath = "/home/pi/test-QML/data/" + customerField.text + "_" + timeField.text + "_" + testName + ".csv";
+   function saveTestResults() {
+        // Persiapkan data yang akan disimpan
+        var testData = []
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", filePath, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    console.log("Data saved successfully!");
-                } else {
-                    console.error("Error saving data:", xhr.statusText);
-                }
-            }
-        };
-
-        // Menulis header kolom
-        var header = "Time," + current_keys.join(",") + "\n";
-        xhr.send(header);
-
-        // Menulis data pengujian
-        for (var i = 0; i < lineSeries1.count; ++i) {
-            var dataRow = i + ",";
-            if (current_keys.length > 0) {
-                dataRow += lineSeries1.at(i).y + ",";
-            }
-            if (current_keys.length > 1) {
-                dataRow += lineSeries2.at(i).y + ",";
-            }
-            if (current_keys.length > 2) {
-                dataRow += lineSeries3.at(i).y + ",";
-            }
-            if (current_keys.length > 3) {
-                dataRow += lineSeries4.at(i).y;
-            }
-            dataRow += "\n";
-
-            xhr.send(dataRow);
+        // Tambahkan data untuk setiap series
+        for (var i = 0; i < lineSeries1.count; i++) {
+            var dataRow = [lineSeries1.at(i).x, lineSeries1.at(i).y]
+            if (lineSeries2.count > i) dataRow.push(lineSeries2.at(i).y)
+            if (lineSeries3.count > i) dataRow.push(lineSeries3.at(i).y)
+            if (lineSeries4.count > i) dataRow.push(lineSeries4.at(i).y)
+            testData.push(dataRow.join(','))
         }
+
+        // Gabungkan data menjadi satu string
+        var csvData = testData.join('\n')
+
+        // Simpan data ke dalam file CSV
+        var fileName = "TestResults_" + Qt.formatDateTime(new Date(), "yyyyMMdd_HHmmss") + ".csv"
+        var file = Qt.createQmlObject('import QtQuick.LocalStorage 2.0; Storage { id: storage }', chartView)
+        file.open()
+        file.write(fileName, csvData)
+        file.close()
     }
 
     function resetTest() {
