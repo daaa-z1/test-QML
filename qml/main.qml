@@ -130,7 +130,6 @@ ApplicationWindow {
 
                             Rectangle {
                                 width: parent.width
-                                height: childrenRect.height
 
                                 Row{
                                     anchors.horizontalCenter: parent.horizontalCenter
