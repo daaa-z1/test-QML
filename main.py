@@ -247,8 +247,8 @@ class MainApp(QObject):
     def save_test_data(self, customer_name, test_time, current_test, data):
         file_name = f"{customer_name}_{test_time}_{current_test}.csv"
         file_path = f"./{file_name}"  # Gantilah lokasi_folder sesuai kebutuhan
-        with open(file_path, 'w') as file:
-            file.write(data)
+        with open(file_path, 'a') as file:
+            file.write(f"{test_time},{curr_v},{aktual}\n")
         print(f"Test data saved to: {file_path}")
     
     # UPDATE _parameter dari TextField
