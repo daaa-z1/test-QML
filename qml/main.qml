@@ -136,7 +136,7 @@ ApplicationWindow {
                     anchors.fill: parent
                     leftPadding: 10
                     topPadding: 30
-                    spacing: 0
+                    spacing: parent.height * 0.2
 
                     RowLayout {
                         id: dataRow1
