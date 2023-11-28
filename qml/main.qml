@@ -128,7 +128,7 @@ ApplicationWindow {
 
                             Label {
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                text: "<b>" paramLayout.parameters[index]
+                                text: "<b>" + paramLayout.parameters[index]
                             }
 
                             Row {
