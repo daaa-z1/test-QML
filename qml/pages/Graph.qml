@@ -274,23 +274,9 @@ Page {
             testTimer.running = true;
 
             testTimer.triggered.connect(function() {
-                Qt.callLater(function() {
-                    var csv = "";
-
-                    // Tambahkan header CSV
-                    csv += "Timestamp," + current_keys.join(",") + "\n";
-
-                    // Tambahkan data pengujian ke dalam CSV
-                    var timestamp = Qt.formatDateTime(new Date(), "yyyy-MM-ddTHH:mm:ss");
-                    var values = current_keys.map(function(key) {
-                        return mainApp.value[key];
-                    });
-                    csv += timestamp + "," + values.join(",") + "\n";
-
-                    // Simpan CSV ke file
-                    var path = "./data/"+customerField.text+"_"+timeField.text+"_"+currentTest+".csv";
-                    var file = Qt.createQmlObject('import QtQuick.LocalStorage 2.15; Storage { id: storage; }', graphPage);
-                    file.write(path, csv);
+                    Qt.callLater(function() {
+                    // Menyimpan data pengujian dalam bentuk CSV
+                    saveTestDataToCSV(currentTest);
 
                     testTimer.destroy();
                     resetTest();
@@ -315,34 +301,42 @@ Page {
     }
 
     function saveTestDataToCSV(testName) {
-        var filePath = "./data/" + customerField.text + "_" + timeField.text + "_" + testName + ".csv";
-        var file = new QFile(filePath);
+        var filePath = "/home/pi/test-QML/data/" + customerField.text + "_" + timeField.text + "_" + testName + ".csv";
 
-        if (file.open(QIODevice.WriteOnly | QIODevice.Text)) {
-            var stream = new QTextStream(file);
-            
-            // Menulis header kolom
-            stream << "Time," << current_keys.join(",") << "\n";
-
-            // Menulis data pengujian
-            for (var i = 0; i < lineSeries1.count; ++i) {
-                stream << i << ",";
-                if (current_keys.length > 0) {
-                    stream << lineSeries1.at(i).y + ",";
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", filePath, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log("Data saved successfully!");
+                } else {
+                    console.error("Error saving data:", xhr.statusText);
                 }
-                if (current_keys.length > 1) {
-                    stream << lineSeries2.at(i).y + ",";
-                }
-                if (current_keys.length > 2) {
-                    stream << lineSeries3.at(i).y + ",";
-                }
-                if (current_keys.length > 3) {
-                    stream << lineSeries4.at(i).y;
-                }
-                stream << "\n";
             }
+        };
 
-            file.close();
+        // Menulis header kolom
+        var header = "Time," + current_keys.join(",") + "\n";
+        xhr.send(header);
+
+        // Menulis data pengujian
+        for (var i = 0; i < lineSeries1.count; ++i) {
+            var dataRow = i + ",";
+            if (current_keys.length > 0) {
+                dataRow += lineSeries1.at(i).y + ",";
+            }
+            if (current_keys.length > 1) {
+                dataRow += lineSeries2.at(i).y + ",";
+            }
+            if (current_keys.length > 2) {
+                dataRow += lineSeries3.at(i).y + ",";
+            }
+            if (current_keys.length > 3) {
+                dataRow += lineSeries4.at(i).y;
+            }
+            dataRow += "\n";
+
+            xhr.send(dataRow);
         }
     }
 
