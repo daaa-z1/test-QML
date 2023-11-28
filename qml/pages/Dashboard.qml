@@ -46,7 +46,7 @@ Page {
                 Text {
                     text: container.parameters[index]
                     anchors.horizontalAlignment: parent.alignmentHCenter
-                    fontPixelSize: paren.height * 0.1
+                    font.pixelSize: paren.height * 0.1
                 }
 
                 CircleGauge {
