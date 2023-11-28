@@ -295,24 +295,25 @@ Page {
                     var filePath = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
 
                     // Menyimpan data ke file CSV
-                    var fileDialog = Qt.createQmlObject('import QtQuick.Dialogs 1.3; FileDialog { }', graphPage);
-                    fileDialog.title = "Save CSV File";
-                    fileDialog.selectExisting = false;
-                    fileDialog.fileUrl = filePath;
+                    var fileDialog = Qt.createQmlObject('import QtQuick.Dialogs 1.3; FileDialog { visible: false }', graphPage);
+                    fileDialog.folder = "file://" + "./data/";
+                    fileDialog.file = customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
+
+                    fileDialog.showSaveDialog();
 
                     fileDialog.onAccepted.connect(function () {
+                        var filePath = fileDialog.fileUrl.toString().replace("file:///", "");
                         var file = Qt.createQmlObject('import QtQuick 2.15; File { }', graphPage);
-                        file.open(fileDialog.fileUrl, 2);
+                        file.open(filePath, 2);
                         file.write(csvData);
                         file.close();
 
-                        // Lanjutkan dengan langkah selanjutnya setelah menyimpan CSV
+                        // Continue with the next steps after saving the CSV
                         testTimer.destroy();
                         resetTest();
                         testQueue.shift();
                         startNextTest();
                     });
-                    fileDialog.show();
                 },500);
             });
         } else {
