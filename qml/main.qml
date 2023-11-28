@@ -134,7 +134,6 @@ ApplicationWindow {
                             }
 
                             TextField {
-                                id: pressInMinValueField
                                 width: 50
                                 validator: IntValidator {bottom: 0}
                                 text: mainApp.parameter('press_in', 'minValue')
@@ -151,7 +150,6 @@ ApplicationWindow {
                             }
 
                             TextField {
-                                id: pressInMinValueField
                                 width: 50
                                 validator: IntValidator {bottom: 0}
                                 text: mainApp.parameter('press_in', 'maxValue')
@@ -168,7 +166,6 @@ ApplicationWindow {
                             }
 
                             TextField {
-                                id: pressInMinValueField
                                 width: 50
                                 validator: IntValidator {bottom: 0}
                                 text: mainApp.parameter('press_in', 'minScale')
@@ -185,7 +182,6 @@ ApplicationWindow {
                             }
 
                             TextField {
-                                id: pressInMinValueField
                                 width: 50
                                 validator: IntValidator {bottom: 0}
                                 text: mainApp.parameter('press_in', 'maxScale')
