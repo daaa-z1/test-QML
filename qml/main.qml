@@ -113,6 +113,7 @@ ApplicationWindow {
 
                 ScrollView {
                     anchors.fill: parent
+                    clip: true
                     ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
                     Column {
@@ -126,9 +127,12 @@ ApplicationWindow {
                         Repeater {
                             model: paramLayout.keys
 
-                            Label {
+                            Row{
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                text: "<b>" + paramLayout.parameters[index]
+                                
+                                Label {
+                                    text: "<b>" + paramLayout.parameters[index]
+                                }
                             }
 
                             Row {
