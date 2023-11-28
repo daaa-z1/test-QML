@@ -275,7 +275,23 @@ Page {
 
             testTimer.triggered.connect(function() {
                 Qt.callLater(function() {
-                    saveTestDataToCSV(currentTest);
+                    var csv = "";
+
+                    // Tambahkan header CSV
+                    csv += "Timestamp," + current_keys.join(",") + "\n";
+
+                    // Tambahkan data pengujian ke dalam CSV
+                    var timestamp = Qt.formatDateTime(new Date(), "yyyy-MM-ddTHH:mm:ss");
+                    var values = current_keys.map(function(key) {
+                        return mainApp.value[key];
+                    });
+                    csv += timestamp + "," + values.join(",") + "\n";
+
+                    // Simpan CSV ke file
+                    var path = "./data/"+customerField.text+"_"+timeField.text+"_"+currentTest+".csv";
+                    var file = Qt.createQmlObject('import QtQuick.LocalStorage 2.15; Storage { id: storage; }', graphPage);
+                    file.write(path, csv);
+
                     testTimer.destroy();
                     resetTest();
                     testQueue.shift();
