@@ -129,7 +129,9 @@ ApplicationWindow {
                             model: paramLayout.keys
 
                             Rectangle {
-                                width: parent.width
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                
 
                                 Row{
                                     anchors.horizontalCenter: parent.horizontalCenter
