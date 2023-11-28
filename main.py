@@ -247,7 +247,7 @@ class MainApp(QObject):
     def save_test_data(self, customer_name, test_time, current_test, data):
         file_name = f"{customer_name}_{test_time}_{current_test}.csv"
         file_path = f"./{file_name}"  # Gantilah lokasi_folder sesuai kebutuhan
-        with open(file_path, 'w') as file:
+        with open(file_path, 'a') as file:
             file.write(data)
         print(f"Test data saved to: {file_path}")
     
