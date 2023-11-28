@@ -276,7 +276,7 @@ Page {
             testTimer.triggered.connect(function() {
                     Qt.callLater(function() {
                     // Menyimpan data pengujian dalam bentuk CSV
-                    saveTestDataToCSV(currentTest);
+                    saveTestResults();
 
                     testTimer.destroy();
                     resetTest();
