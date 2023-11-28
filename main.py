@@ -243,10 +243,12 @@ class MainApp(QObject):
         self.value = {key: calculated_values[i] for i, key in enumerate(keys)}
         
     # UPDATE _parameter dari TextField
+    parameterChanged = pyqtSignal()
     @pyqtSlot(str, str, float)
     def updateParameter(self, key, param, value):
         if key in self._parameter and param in self._parameter[key]:
             self._parameter[key][param] = value
+            self.parameterChanged.emit()
     
     relaychanged = pyqtSignal()
     @pyqtSlot(str, bool)

@@ -61,6 +61,16 @@ Page {
                     maxValue: mainApp.parameter(keys[index], 'maxValue')
                     value: !enabled ? mainApp.value[keys[index]] : 0
                     enabled: gaugeEnabled
+
+                    
+                    Connections {
+                        target: mainApp
+                        onParameterChanged:{
+                            minValue: mainApp.parameter(keys[index], 'minValue')
+                            maxValue: mainApp.parameter(keys[index], 'maxValue')
+                        } 
+                    }
+                    
                 }
             }
         }
