@@ -46,7 +46,7 @@ Page {
                 Text {
                     text: container.parameters[index]
                     horizontalAlignment: Text.alignmentHCenter
-                    anchors.centerIn: parent
+                    anchors.centerIn: parent.top
                     font.pixelSize: parent.height * 0.1
                 }
 
