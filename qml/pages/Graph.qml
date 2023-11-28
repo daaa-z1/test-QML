@@ -292,16 +292,17 @@ Page {
                     }
 
                     var csvData = data.join('\n');
-                    var path = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
+                    var filePath = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
 
                     // Menyimpan data ke file CSV
-                    var file = Qt.createQmlObject('import QtQuick.Dialogs 1.3; FileDialog { visible: false }', graphPage);
-                    file.setFolder(path);
-                    file.showSaveDialog();
-                    file.onAccepted.connect(function () {
-                        var filePath = file.fileUrls()[0].toString().replace("file:///", "");
+                    var fileDialog = Qt.createQmlObject('import QtQuick.Dialogs 1.3; FileDialog { }', graphPage);
+                    fileDialog.title = "Save CSV File";
+                    fileDialog.selectExisting = false;
+                    fileDialog.fileUrl = filePath;
+
+                    fileDialog.onAccepted.connect(function () {
                         var file = Qt.createQmlObject('import QtQuick 2.15; File { }', graphPage);
-                        file.open(filePath, 2);
+                        file.open(fileDialog.fileUrl, 2);
                         file.write(csvData);
                         file.close();
 
@@ -311,6 +312,7 @@ Page {
                         testQueue.shift();
                         startNextTest();
                     });
+                    fileDialog.show();
                 },500);
             });
         } else {
