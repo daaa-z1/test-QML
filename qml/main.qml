@@ -130,6 +130,7 @@ ApplicationWindow {
                             spacing: 10
 
                             Label {
+                                anchors.verticalCenter: parent.verticalCenter
                                 text: "Min Value:"
                             }
 
