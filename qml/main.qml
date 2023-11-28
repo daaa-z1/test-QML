@@ -144,7 +144,8 @@ ApplicationWindow {
                         spacing: 10
 
                         Label {
-                            text: "Pin 1"
+                            text: "<b>Pin 1"
+                            color: "black"
                         }
 
                         ComboBox {
