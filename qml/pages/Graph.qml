@@ -78,6 +78,10 @@ Page {
             lineSeries2.visible = false;
             lineSeries3.visible = false;
             lineSeries4.visible = false;
+            lineSeries1.valueChanged.connect(updatePlot);
+            lineSeries2.valueChanged.connect(updatePlot);
+            lineSeries3.valueChanged.connect(updatePlot);
+            lineSeries4.valueChanged.connect(updatePlot);
             mainApp.valueChanged.connect(updatePlot);
         }
 
