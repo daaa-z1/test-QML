@@ -104,14 +104,40 @@ ApplicationWindow {
             spacing: 10
 
             Rectangle {
-                id: controlAmplifier
+                id: updateParameter
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 color: "lightgray"
                 border.color: "black"
                 border.width: 1
-                // Tambahkan komponen dari item controls di sini
+
+                ScrollView {
+                    anchors.fill: parent
+                    ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+
+                    Column {
+                        spacing: 10
+                        padding: 10
+
+                        Row {
+                            spacing: 10
+
+                            Label {
+                                text: "'Pressure In' Min Value:"
+                            }
+
+                            TextField {
+                                id: pressInMinValueField
+                                placeholderText: ""+mainApp.parameters['press_in'].minValue
+                                onTextChanged: mainApp.updateParameter('press_in', 'minValue', parseFloat(text))
+                            }
+                        }
+
+                        // Tambahkan Row lainnya untuk parameter lainnya di sini.
+                    }
+                }
             }
+
 
             Rectangle {
                 id: config

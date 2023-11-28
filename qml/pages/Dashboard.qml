@@ -43,14 +43,19 @@ Page {
                     onClicked: gauge.enabled = !gauge.enabled
                 }
 
+                Label {
+                    text: container.parameters[index]
+                    horizontalAlignment: parent.alignmentHCenter
+                }
+
                 CircleGauge {
                     id: gauge
                     objectName: "gauge" + index
                     anchors.centerIn: parent
                     width: container.width * 0.8
                     height: width
-                    label: container.parameters[index]
                     unit: container.units[index]
+                    label: ""
 
                     minValue: mainApp.parameter[keys[index]].minValue
                     maxValue: mainApp.parameter[keys[index]].maxValue
