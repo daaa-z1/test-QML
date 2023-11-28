@@ -324,7 +324,6 @@ Page {
                 }
 
                 var file = new File(filePath);
-                file.open(File.WriteOnly);
                 file.write(data);
                 file.close();
 
