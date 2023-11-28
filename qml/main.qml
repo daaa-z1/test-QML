@@ -120,6 +120,12 @@ ApplicationWindow {
                         padding: 10
 
                         Row {
+                            Label {
+                                text: "<H1>Pressure In</H1>"
+                            }
+                        }
+
+                        Row {
                             spacing: 10
 
                             Label {
@@ -553,7 +559,7 @@ ApplicationWindow {
 
     Connections{
         target: mainApp
-        onParameterChanged: {
+        function onParameterChanged() {
             pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
             for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                 var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
