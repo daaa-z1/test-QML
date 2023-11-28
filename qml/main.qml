@@ -121,7 +121,8 @@ ApplicationWindow {
 
                         Row {
                             Label {
-                                text: "<H1>Pressure In</H1>"
+                                Layout.fillWidth: true
+                                text: "<b>Pressure In</b>"
                             }
                         }
 
