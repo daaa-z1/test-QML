@@ -129,8 +129,7 @@ ApplicationWindow {
                             model: paramLayout.keys
 
                             Rectangle {
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
+                                anchors.fill: parent
                                 
 
                                 Row{
