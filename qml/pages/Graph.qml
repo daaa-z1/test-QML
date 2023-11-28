@@ -295,7 +295,7 @@ Page {
                     var path = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
 
                     // Menyimpan data ke file CSV
-                    var file = FileDialog { visible: false };
+                    var file = Qt.createQmlObject('import QtQuick.Dialogs 1.3; FileDialog { visible: false }', graphPage);
                     file.setFolder(path);
                     file.showSaveDialog();
                     file.onAccepted.connect(function () {
