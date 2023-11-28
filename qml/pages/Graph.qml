@@ -301,32 +301,26 @@ Page {
     function saveTestData(currentTest) {
         if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
             var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
+            
+            var data = "Time," + current_keys.join(",") + "\n";
 
-            var localStorage = LocalStorage.openDatabaseSync("TestApp", "1.0", "Test data storage", 1000000);
+            for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
+                var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
+                data += timeValue + ",";
+                data += i < lineSeries1.count ? lineSeries1.at(i).y : "";
+                data += ",";
+                data += i < lineSeries2.count ? lineSeries2.at(i).y : "";
+                data += ",";
+                data += i < lineSeries3.count ? lineSeries3.at(i).y : "";
+                data += ",";
+                data += i < lineSeries4.count ? lineSeries4.at(i).y : "";
+                data += "\n";
+            }
 
-            localStorage.transaction(function(tx) {
-                // Create or open the table
-                tx.executeSql('CREATE TABLE IF NOT EXISTS TestData (id INTEGER PRIMARY KEY AUTOINCREMENT, filename TEXT, data TEXT)');
-
-                // Save the data to the table
-                var data = "Time," + current_keys.join(",") + "\n";
-                for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
-                    var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
-                    data += timeValue + ",";
-                    data += i < lineSeries1.count ? lineSeries1.at(i).y : "";
-                    data += ",";
-                    data += i < lineSeries2.count ? lineSeries2.at(i).y : "";
-                    data += ",";
-                    data += i < lineSeries3.count ? lineSeries3.at(i).y : "";
-                    data += ",";
-                    data += i < lineSeries4.count ? lineSeries4.at(i).y : "";
-                    data += "\n";
-                }
-
-                tx.executeSql('INSERT INTO TestData (filename, data) VALUES (?, ?)', [fileName, data]);
-            });
-
-            console.log("Test data saved:", fileName);
+            // Panggil fungsi save_test_data di MainApp
+            mainApp.save_test_data(customerField.text.trim(), timeField.text.trim(), currentTest, data);
+            
+            console.log("Test data saved.");
         }
     }
 

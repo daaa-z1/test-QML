@@ -242,6 +242,14 @@ class MainApp(QObject):
         calculated_values = [int(value) for value in calculated_values]
         self.value = {key: calculated_values[i] for i, key in enumerate(keys)}
         
+    # Save CSV file
+    def save_test_data(self, customer_name, test_time, current_test, data):
+        file_name = f"{customer_name}_{test_time}_{current_test}.csv"
+        file_path = f"./{file_name}"  # Gantilah lokasi_folder sesuai kebutuhan
+        with open(file_path, 'w') as file:
+            file.write(data)
+        print(f"Test data saved to: {file_path}")
+    
     # UPDATE _parameter dari TextField
     parameterChanged = pyqtSignal()
     @pyqtSlot(str, str, float)
