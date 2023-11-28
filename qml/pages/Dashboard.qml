@@ -46,7 +46,7 @@ Page {
                 Text {
                     text: container.parameters[index]
                     horizontalAlignment: Text.alignmentHCenter
-                    anchors.bottom: parent.horizontalCenter
+                    anchors.centerIn: parent
                     font.pixelSize: parent.height * 0.1
                 }
 
@@ -57,8 +57,8 @@ Page {
                     width: container.width * 0.8
                     height: width
                     unit: container.units[index]
-                    minValue: mainApp.parameter[keys[index]].minValue
-                    maxValue: mainApp.parameter[keys[index]].maxValue
+                    minValue: mainApp.parameter(keys[index], 'minValue')
+                    maxValue: mainApp.parameter(keys[index], 'maxValue')
                     value: !enabled ? mainApp.value[keys[index]] : 0
                     enabled: gaugeEnabled
                 }

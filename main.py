@@ -223,9 +223,11 @@ class MainApp(QObject):
         self._value = val
         self.valueChanged.emit()
 
-    @pyqtProperty('QVariantMap', constant=False)
-    def parameter(self):
-        return self._parameter
+    @pyqtSlot(str, str, result=float)
+    def parameter(self, key, param):
+        if key in self._parameter and param in self._parameter[key]:
+            return self._parameter[key][param]
+        return 0.0
     
     @pyqtSlot()
     def readValues(self):
