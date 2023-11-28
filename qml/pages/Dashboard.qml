@@ -61,23 +61,6 @@ Page {
                     maxValue: mainApp.parameter(keys[index], 'maxValue')
                     value: !enabled ? mainApp.value[keys[index]] : 0
                     enabled: gaugeEnabled
-
-                    
-                    Connections {
-                        target: mainApp
-                        function onParameterChanged() {
-                            for (var i = 0; i < repeater.children.length; i++){
-                                var rect = repeater.children[i]
-                                for (var j = 0; j < rect.children.length; j++){
-                                    if (rect.children[j] instanceof CircleGauge){
-                                        rect.children[j].minValue = mainApp.parameter(keys[index], 'minValue')
-                                        rect.children[j].maxValue = mainApp.parameter(keys[index], 'maxValue')
-                                    }
-                                }
-                            }
-                        } 
-                    }
-                    
                 }
             }
         }
