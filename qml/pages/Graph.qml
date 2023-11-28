@@ -293,40 +293,25 @@ Page {
                     }
 
                     var csvData = data.join('\n');
-                    var filePath = "./data/" + customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
+                    var fileName = customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
+                    var filePath = "./data/" + fileName;
 
                     // Menyimpan data ke file CSV
-                    var fileDialog = Qt.createQmlObject('import QtQuick.Dialogs 1.3; FileDialog { visible: false }', graphPage);
+                    Qt.labs.platform.writeFile(filePath, csvData, function(success) {
+                        if (success) {
+                            console.log("File berhasil disimpan di " + filePath);
 
-                    // Set initial folder and file name
-                    fileDialog.folder = "file://" + "./data/";
-                    fileDialog.selectExisting = false; // Set this to false to ensure a new file is created
-                    fileDialog.title = "Save CSV File";
-
-                    fileDialog.open();
-
-                    fileDialog.onAccepted.connect(function () {
-                        // Mendapatkan jalur file
-                        var fileName = customerField.text + "_" + timeField.text + "_" + currentTest + ".csv";
-                        var filePath = "./data/" + fileName;
-
-                        // Menulis data CSV ke file menggunakan Qt.labs.platform
-                        Qt.labs.platform.writeFile(filePath, csvData, function(success) {
-                            if (success) {
-                                console.log("File berhasil disimpan di " + filePath);
-
-                                // Lanjutkan dengan langkah selanjutnya setelah menyimpan CSV
-                                testTimer.destroy();
-                                resetTest();
-                                testQueue.shift();
-                                startNextTest();
-                            } else {
-                                console.error("Gagal menyimpan file");
-                                // Tambahkan penanganan kesalahan sesuai kebutuhan
-                            }
-                        });
+                            // Lanjutkan dengan langkah selanjutnya setelah menyimpan CSV
+                            testTimer.destroy();
+                            resetTest();
+                            testQueue.shift();
+                            startNextTest();
+                        } else {
+                            console.error("Gagal menyimpan file");
+                            // Tambahkan penanganan kesalahan sesuai kebutuhan
+                        }
                     });
-                },500);
+                }, 500);
             });
         } else {
             testing = false;
