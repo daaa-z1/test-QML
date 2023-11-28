@@ -131,10 +131,10 @@ ApplicationWindow {
                 border.color: "black"
                 border.width: 1
 
-                ColumnLayout {
+                Column {
                     id: dataLayout
                     anchors.fill: parent
-                    Layout.leftMargin: 5
+                    leftPadding: 10
                     spacing: 10
 
                     RowLayout {
