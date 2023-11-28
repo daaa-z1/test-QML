@@ -300,16 +300,16 @@ Page {
 
     function saveTestData(currentTest) {
         if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
-            var fileName = "./" + customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
+            var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
 
-            var file = Qt.createQmlObject('import Qt.labs.platform 1.1; FileDialog { visible: false }', graphPage);
-            file.title = "Save Test Data";
-            file.folder = StandardPaths.writableLocation(StandardPaths.DocumentsLocation);
-            file.nameFilters = ["CSV Files (*.csv)"];
-            file.onAccepted.connect(function() {
-                var filePath = file.fileUrl.toString().replace("file:///", "");
+            var localStorage = LocalStorage.openDatabaseSync("TestApp", "1.0", "Test data storage", 1000000);
+
+            localStorage.transaction(function(tx) {
+                // Create or open the table
+                tx.executeSql('CREATE TABLE IF NOT EXISTS TestData (id INTEGER PRIMARY KEY AUTOINCREMENT, filename TEXT, data TEXT)');
+
+                // Save the data to the table
                 var data = "Time," + current_keys.join(",") + "\n";
-
                 for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
                     var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
                     data += timeValue + ",";
@@ -323,23 +323,13 @@ Page {
                     data += "\n";
                 }
 
-                var file = new File(fileName);
-                if (file.open(File.WriteOnly)) {
-                    file.write(data);
-                    file.close();
-                    console.log("File successfully written.");
-                } else {
-                    console.error("Failed to open the file for writing.");
-                }
+                tx.executeSql('INSERT INTO TestData (filename, data) VALUES (?, ?)', [fileName, data]);
             });
 
-            file.onRejected.connect(function() {
-                console.log("Save operation canceled.");
-            });
-
-            file.visible = true;
+            console.log("Test data saved:", fileName);
         }
     }
+
 
     function resetTest() {
         positionTestCheckBox.checked = false;
