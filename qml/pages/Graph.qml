@@ -304,17 +304,26 @@ Page {
             
             var data = "Time," + current_keys.join(",") + "\n";
 
+            var seriesData = [];
             for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
                 var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
-                data += timeValue + ",";
-                data += i < lineSeries1.count ? lineSeries1.at(i).y : "";
-                data += ",";
-                data += i < lineSeries2.count ? lineSeries2.at(i).y : "";
-                data += ",";
-                data += i < lineSeries3.count ? lineSeries3.at(i).y : "";
-                data += ",";
-                data += i < lineSeries4.count ? lineSeries4.at(i).y : "";
-                data += "\n";
+                seriesData.push(timeValue);
+
+                if (current_keys.length > 0) {
+                    seriesData.push(i < lineSeries1.count ? lineSeries1.at(i).y : "");
+                }
+                if (current_keys.length > 1) {
+                    seriesData.push(i < lineSeries2.count ? lineSeries2.at(i).y : "");
+                }
+                if (current_keys.length > 2) {
+                    seriesData.push(i < lineSeries3.count ? lineSeries3.at(i).y : "");
+                }
+                if (current_keys.length > 3) {
+                    seriesData.push(i < lineSeries4.count ? lineSeries4.at(i).y : "");
+                }
+
+                data += seriesData.join(",") + "\n";
+                seriesData = [];
             }
 
             // Panggil fungsi save_test_data di MainApp
@@ -323,6 +332,7 @@ Page {
             console.log("Test data saved.");
         }
     }
+
 
     function resetTest() {
         positionTestCheckBox.checked = false;
