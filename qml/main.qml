@@ -182,6 +182,15 @@ ApplicationWindow {
                                 ListElement{key: "0V"; value: 'Relay1'}
                                 ListElement{key: "-15"; value: 'Relay2'}
                             }
+                            contentItem: Text {
+                                rightPadding: comboBox2.indicator.width + comboBox2.spacing
+
+                                text: "<b>"+comboBox2.displayText
+                                font: comboBox2.font
+                                color: comboBox2.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
+                            }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState2(model.get(currentIndex).value, 1)
                                 dataRow1.checkForNewElement()
@@ -199,6 +208,15 @@ ApplicationWindow {
                                 ListElement{key: "Nothing"; value: 'nothing'}
                                 ListElement{key: "Enable"; value: 'Relay3'}
                                 ListElement{key: "GND"; value: 'Relay4'}
+                            }
+                            contentItem: Text {
+                                rightPadding: comboBox3.indicator.width + comboBox3.spacing
+
+                                text: "<b>"+comboBox3.displayText
+                                font: comboBox3.font
+                                color: comboBox3.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState3(model.get(currentIndex).value, 1)
@@ -238,6 +256,15 @@ ApplicationWindow {
                                 ListElement{key: "Reff +"; value: 'Relay5'}
                                 ListElement{key: "Act Press"; value: 'Relay6'}
                             }
+                            contentItem: Text {
+                                rightPadding: comboBox4.indicator.width + comboBox4.spacing
+
+                                text: "<b>"+comboBox4.displayText
+                                font: comboBox4.font
+                                color: comboBox4.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
+                            }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState4(model.get(currentIndex).value, 1)
                             }
@@ -256,6 +283,15 @@ ApplicationWindow {
                                 ListElement{key: "+24"; value: 'Relay8'}
                                 ListElement{key: "Reff Q"; value: 'Relay9'}
                             }
+                            contentItem: Text {
+                                rightPadding: comboBox5.indicator.width + comboBox5.spacing
+
+                                text: "<b>"+comboBox5.displayText
+                                font: comboBox5.font
+                                color: comboBox5.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
+                            }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState5(model.get(currentIndex).value, 1)
                             }
@@ -272,6 +308,15 @@ ApplicationWindow {
                                 ListElement{key: "Nothing"; value: 'nothing'}
                                 ListElement{key: "Actual Valve"; value: 'Relay10'}
                                 ListElement{key: "Reff Pressure"; value: 'Relay11'}
+                            }
+                            contentItem: Text {
+                                rightPadding: comboBox6.indicator.width + comboBox6.spacing
+
+                                text: "<b>"+comboBox6.displayText
+                                font: comboBox6.font
+                                color: comboBox6.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState6(model.get(currentIndex).value, 1)
@@ -296,6 +341,15 @@ ApplicationWindow {
                                 ListElement{key: "GND"; value: 'Relay13'}
                                 ListElement{key: "Reff"; value: 'Relay14'}
                             }
+                            contentItem: Text {
+                                rightPadding: comboBox7.indicator.width + comboBox7.spacing
+
+                                text: "<b>"+comboBox7.displayText
+                                font: comboBox7.font
+                                color: comboBox7.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
+                            }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState7(model.get(currentIndex).value, 1)
                             }
@@ -312,6 +366,15 @@ ApplicationWindow {
                                 ListElement{key: "Nothing"; value: 'nothing'}
                                 ListElement{key: "Ready Signal"; value: 'Relay15'}
                                 ListElement{key: "Actual Pressure"; value: 'Relay16'}
+                            }
+                            contentItem: Text {
+                                rightPadding: comboBox8.indicator.width + comboBox8.spacing
+
+                                text: "<b>"+comboBox8.displayText
+                                font: comboBox8.font
+                                color: comboBox8.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState8(model.get(currentIndex).value, 1)
@@ -330,6 +393,15 @@ ApplicationWindow {
                                 ListElement{key: "Signal Window"; value: 'Relay17'}
                                 ListElement{key: "Reff Pressure"; value: 'Relay18'}
                                 ListElement{key: "+24"; value: 'Relay19'}
+                            }
+                            contentItem: Text {
+                                rightPadding: comboBox9.indicator.width + comboBox9.spacing
+
+                                text: "<b>"+comboBox9.displayText
+                                font: comboBox9.font
+                                color: comboBox9.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState9(model.get(currentIndex).value, 1)
@@ -354,6 +426,15 @@ ApplicationWindow {
                                 ListElement{key: "Actual Pressure"; value: 'Relay21'}
                                 ListElement{key: "+24"; value: 'Relay22'}
                             }
+                            contentItem: Text {
+                                rightPadding: comboBox10.indicator.width + comboBox10.spacing
+
+                                text: "<b>"+comboBox10.displayText
+                                font: comboBox10.font
+                                color: comboBox10.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
+                            }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState10(model.get(currentIndex).value, 1)
                             }
@@ -369,6 +450,15 @@ ApplicationWindow {
                             model: ListModel {
                                 ListElement{key: "Nothing"; value: 'nothing'}
                                 ListElement{key: "OUT 24V"; value: 'Relay23'}
+                            }
+                            contentItem: Text {
+                                rightPadding: comboBox11.indicator.width + comboBox11.spacing
+
+                                text: "<b>"+comboBox11.displayText
+                                font: comboBox11.font
+                                color: comboBox11.pressed ? "grey" : "black"
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
                                 mainApp.setDOState11(model.get(currentIndex).value, 1)
