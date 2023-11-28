@@ -43,9 +43,10 @@ Page {
                     onClicked: gauge.enabled = !gauge.enabled
                 }
 
-                Label {
+                Text {
                     text: container.parameters[index]
-                    horizontalAlignment: parent.alignmentHCenter
+                    anchors.horizontalAlignment: parent.alignmentHCenter
+                    fontPixelSize: paren.height * 0.1
                 }
 
                 CircleGauge {
@@ -55,8 +56,6 @@ Page {
                     width: container.width * 0.8
                     height: width
                     unit: container.units[index]
-                    label: ""
-
                     minValue: mainApp.parameter[keys[index]].minValue
                     maxValue: mainApp.parameter[keys[index]].maxValue
                     value: !enabled ? mainApp.value[keys[index]] : 0

@@ -4,7 +4,6 @@ Item {
     property alias value: valueItem.value
     property real minValue: 0
     property real maxValue: 100
-    property string label: ""
     property string unit: ""
 
     width: width
@@ -80,14 +79,6 @@ Item {
             ctx.fillStyle = "red";
             ctx.fill();
         }
-    }
-
-    Text {
-        id: labelText
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: label
-        font.pixelSize: parent.height * 0.1
     }
 
     Text {
