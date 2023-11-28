@@ -157,8 +157,6 @@ ApplicationWindow {
                                 ListElement{key: "+15"; value: 'Relay2'}
                             }
                             contentItem: Text {
-                                rightPadding: comboBox1.indicator.width + comboBox1.spacing
-
                                 text: "<b>"+comboBox1.displayText
                                 font: comboBox1.font
                                 color: comboBox1.pressed ? "grey" : "black"
