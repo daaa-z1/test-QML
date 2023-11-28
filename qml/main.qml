@@ -158,8 +158,6 @@ ApplicationWindow {
                             contentItem: Text {
                                 rightPadding: comboBox1.indicator.width + comboBox1.spacing
                                 font.bold: true
-
-                                text: comboBox1.displayText
                                 font: comboBox1.font
                                 color: comboBox1.pressed ? "grey" : "black"
                                 verticalAlignment: Text.AlignVCenter
