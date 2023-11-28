@@ -324,10 +324,13 @@ Page {
                 }
 
                 var file = new File(filePath);
-                file.write(data);
-                file.close();
-
-                console.log("Test data saved to:", filePath);
+                if (file.open(File.WriteOnly)) {
+                    file.write(data);
+                    file.close();
+                    console.log("File successfully written.");
+                } else {
+                    console.error("Failed to open the file for writing.");
+                }
             });
 
             file.onRejected.connect(function() {
