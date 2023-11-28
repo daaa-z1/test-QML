@@ -278,7 +278,7 @@ Page {
                     // Menyimpan data pengujian dalam bentuk CSV
                     testTimer.destroy();
                     resetTest();
-                    saveTestData();
+                    saveTestData(currentTest);
                     testQueue.shift();
                     startNextTest();
                 }, 500);
@@ -299,7 +299,7 @@ Page {
         }
     }
 
-    function saveTestData() {
+    function saveTestData(currentTest) {
         if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
             var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
 
