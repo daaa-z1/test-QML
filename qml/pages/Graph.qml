@@ -301,7 +301,7 @@ Page {
 
     function saveTestDataToCSV(currentTest) {
         var fileName = customerField.text.trim() + "_" + timeField.text + "_" + currentTest + ".csv";
-        var filePath = csvDirectory + "/" + fileName;
+        var filePath = "./" + fileName;
 
         var fileComponent = Qt.createComponent("File.qml"); // File.qml berisi definisi objek File
 
