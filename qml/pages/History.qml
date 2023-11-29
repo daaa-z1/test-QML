@@ -45,6 +45,7 @@ Page {
             axisY: axisY
             visible: false
             name: seriesNames[1]
+            useOpenGL: true
             
         }
 
@@ -54,6 +55,7 @@ Page {
             axisY: axisY
             visible: false
             name: seriesNames[2]
+            useOpenGL: true
         }
 
         LineSeries {
@@ -62,6 +64,7 @@ Page {
             axisY: axisY
             visible: false
             name: seriesNames[3]
+            useOpenGL: true
         }
 
         LineSeries {
@@ -70,6 +73,7 @@ Page {
             axisY: axisY
             visible: false
             name: seriesNames[4]
+            useOpenGL: true
         }
 
         Component.onCompleted: {
@@ -104,16 +108,6 @@ Page {
                 });
                 updateChart();
             }
-        }
-        if (chartView.title === "Position Test") {
-            axisY.min = mainApp.parameter('aktual', 'minValue') - 2;
-            axisY.max = mainApp.parameter('aktual', 'maxValue') + 2;
-        } else if (chartView.title === "Flow Test") {
-            axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
-            axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
-        } else if (chartView.title === "Leakage Test") {
-            axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
-            axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
         }
         xhr.open("GET", csvFile);
         xhr.send();
