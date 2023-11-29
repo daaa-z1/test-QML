@@ -106,6 +106,16 @@ Page {
                 updateChart();
             }
         }
+        xhr.open("GET", csvFile);
+        xhr.send();
+    }
+
+    function updateChart() {
+        lineSeries1.clear();
+        lineSeries2.clear();
+        lineSeries3.clear();
+        lineSeries4.clear();
+
         if (chartView.title === "Position Test") {
             axisY.min = mainApp.parameter('aktual', 'minValue') - 2;
             axisY.max = mainApp.parameter('aktual', 'maxValue') + 2;
@@ -116,15 +126,6 @@ Page {
             axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
             axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
         }
-        xhr.open("GET", csvFile);
-        xhr.send();
-    }
-
-    function updateChart() {
-        lineSeries1.clear();
-        lineSeries2.clear();
-        lineSeries3.clear();
-        lineSeries4.clear();
 
         lineSeries1.visible = seriesNames.length > 1 ? true : false;
         lineSeries2.visible = seriesNames.length > 2 ? true : false;
