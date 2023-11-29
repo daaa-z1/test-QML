@@ -74,7 +74,6 @@ Page {
         text: "Open CSV"
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
         onClicked: fileDialog.open()
     }
 
