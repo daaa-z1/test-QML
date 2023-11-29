@@ -246,13 +246,14 @@ class MainApp(QObject):
     # Save CSV file
     @pyqtSlot(str, str)
     def save_test_data(self, file_name, data):
-        file_path = os.path.join(os.getcwd(), file_name)
+        os.makedirs(os.path.join(os.getcwd(), 'log'), exist_ok=True)
+        file_path = os.path.join(os.getcwd(), 'log', file_name)
         data = [row.split(',') for row in data.split('\n') if row]
         try:
             with open(file_path, 'w', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerows(data)
-            print("Data tes berhasil disimpan.")
+            print(f"Data tersimpan dalam {file_path}")
         except Exception as e:
             print(f"Error saving test data: {e}")
     
