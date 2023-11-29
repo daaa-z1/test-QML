@@ -83,6 +83,8 @@ Page {
 
     function loadCsvData() {
         var xhr = new XMLHttpRequest();
+        seriesNames = [];
+        currentTest = ""
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 var lines = xhr.responseText.split('\n');
