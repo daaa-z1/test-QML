@@ -81,6 +81,38 @@ Page {
             mainApp.valueChanged.connect(updatePlot);
         }
 
+        function saveTestData(currentTest) {
+            if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
+                var data = "Time," + current_keys.join(",") + "\n";
+
+                // Simpan data dari semua LineSeries
+                for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
+                    var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
+                    var rowData = [timeValue];
+
+                    if (current_keys.length > 0) {
+                        rowData.push(i < lineSeries1.count ? lineSeries1.at(i).y : "");
+                    }
+                    if (current_keys.length > 1) {
+                        rowData.push(i < lineSeries2.count ? lineSeries2.at(i).y : "");
+                    }
+                    if (current_keys.length > 2) {
+                        rowData.push(i < lineSeries3.count ? lineSeries3.at(i).y : "");
+                    }
+                    if (current_keys.length > 3) {
+                        rowData.push(i < lineSeries4.count ? lineSeries4.at(i).y : "");
+                    }
+
+                    data += rowData.join(",") + "\n";
+                }
+
+                // Panggil fungsi save_test_data di MainApp
+                mainApp.save_test_data(customerField.text.trim(), timeField.text.trim(), currentTest, data);
+                
+                console.log("Test data saved.");
+            }
+        }
+
         function updatePlot(currentTest) {
             if (currentTest === "Position Test") {
                 current_keys = position_keys;
@@ -99,6 +131,10 @@ Page {
                 timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
             }
 
+            var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
+                
+            var data = "Time," + current_keys.join(",") + "\n";
+
             if (current_keys.length > 0) {
                 var value1 = mainApp.value[current_keys[0]];
                 lineSeries1.append(lineSeries1.count, value1);
@@ -115,6 +151,27 @@ Page {
                 var value4 = mainApp.value[current_keys[3]];
                 lineSeries4.append(lineSeries4.count, value4);
             }
+
+            for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
+                var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
+                var rowData = [timeValue];
+
+                if (current_keys.length > 0) {
+                    rowData.push(i < lineSeries1.count ? lineSeries1.at(i).y : "");
+                }
+                if (current_keys.length > 1) {
+                    rowData.push(i < lineSeries2.count ? lineSeries2.at(i).y : "");
+                }
+                if (current_keys.length > 2) {
+                    rowData.push(i < lineSeries3.count ? lineSeries3.at(i).y : "");
+                }
+                if (current_keys.length > 3) {
+                    rowData.push(i < lineSeries4.count ? lineSeries4.at(i).y : "");
+                }
+
+                data += rowData.join(",") + "\n";
+            }
+            mainApp.save_test_data(customerField.text.trim(), timeField.text.trim(), currentTest, data);
 
             lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
             lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
@@ -269,7 +326,7 @@ Page {
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
-            saveTestData(currentTest);
+            // chartView.saveTestData(currentTest);
             chartView.title = "" + currentTest;
 
             testTimer.running = true;
@@ -295,40 +352,6 @@ Page {
                 chartView.title = "Test Completed";
                 current_keys = [];
             }
-        }
-    }
-
-    function saveTestData(currentTest) {
-        if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
-            var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
-            
-            var data = "Time," + current_keys.join(",") + "\n";
-
-            // Simpan data dari semua LineSeries
-            for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
-                var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
-                var rowData = [timeValue];
-
-                if (current_keys.length > 0) {
-                    rowData.push(i < lineSeries1.count ? lineSeries1.at(i).y : "");
-                }
-                if (current_keys.length > 1) {
-                    rowData.push(i < lineSeries2.count ? lineSeries2.at(i).y : "");
-                }
-                if (current_keys.length > 2) {
-                    rowData.push(i < lineSeries3.count ? lineSeries3.at(i).y : "");
-                }
-                if (current_keys.length > 3) {
-                    rowData.push(i < lineSeries4.count ? lineSeries4.at(i).y : "");
-                }
-
-                data += rowData.join(",") + "\n";
-            }
-
-            // Panggil fungsi save_test_data di MainApp
-            mainApp.save_test_data(customerField.text.trim(), timeField.text.trim(), currentTest, data);
-            
-            console.log("Test data saved.");
         }
     }
 
