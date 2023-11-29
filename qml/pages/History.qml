@@ -8,7 +8,7 @@ Page {
 
     property string csvFile: ""
     property var csvData: []
-    property var seriesNames: []
+    property string currentTest: ""
 
     FileDialog {
         id: fileDialog
@@ -23,9 +23,10 @@ Page {
     ChartView {
         id: chartView
         anchors.fill: parent
-        title: "CSV Data"
+        title: csvPage.currentTest
         legend.visible: true
         antialiasing: true
+        theme: ChartView.ChartThemeDark
 
         ValueAxis {
             id: axisX
@@ -41,28 +42,24 @@ Page {
             id: lineSeries1
             axisX: axisX
             axisY: axisY
-            name: csvPage.seriesNames[1]
         }
 
         LineSeries {
             id: lineSeries2
             axisX: axisX
             axisY: axisY
-            name: csvPage.seriesNames[2]
         }
 
         LineSeries {
             id: lineSeries3
             axisX: axisX
             axisY: axisY
-            name: csvPage.seriesNames[3]
         }
 
         LineSeries {
             id: lineSeries4
             axisX: axisX
             axisY: axisY
-            name: csvPage.seriesNames[4]
         }
     }
 
@@ -79,7 +76,7 @@ Page {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 var lines = xhr.responseText.split('\n');
-                seriesNames = lines[0].split(',');
+                csvPage.currentTest = lines[1];
                 csvData = lines.slice(1).map(function(line) {
                     return line.split(',').map(function(value) { return parseFloat(value) });
                 });
