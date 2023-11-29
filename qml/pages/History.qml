@@ -116,10 +116,10 @@ Page {
             axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
         }
 
-        lineSeries1.visible = currentTest.length > 1 ? : true;
-        lineSeries2.visible = currentTest.length > 2 ? : true;
-        lineSeries3.visible = currentTest.length > 3 ? : true;
-        lineSeries4.visible = currentTest.length > 4 ? : true;
+        lineSeries1.visible = currentTest.length > 1 ? true : false;
+        lineSeries2.visible = currentTest.length > 2 ? true : false;
+        lineSeries3.visible = currentTest.length > 3 ? true : false;
+        lineSeries4.visible = currentTest.length > 4 ? true : false;
 
         for (var i = 0; i < csvData.length; i++) {
             lineSeries1.append(csvData[i][0], csvData[i][1]);
