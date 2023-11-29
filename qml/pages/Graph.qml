@@ -79,7 +79,6 @@ Page {
             lineSeries3.visible = false;
             lineSeries4.visible = false;
             mainApp.valueChanged.connect(updatePlot);
-            mainApp.valueChanged.connect(saveTestData);
         }
 
         function updatePlot(currentTest) {
