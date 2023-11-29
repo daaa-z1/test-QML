@@ -101,27 +101,27 @@ Page {
         lineSeries4.clear();
         var minY = Infinity;
         var maxY = -Infinity;
+        if (currentTest === "Position Test") {
+            axisY.min = mainApp.parameter('aktual', 'minValue') - 2;
+            axisY.max = mainApp.parameter('aktual', 'maxValue') + 2;
+        } else if (currentTest === "Flow Test") {
+            axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
+            axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
+        } else if (currentTest === "Leakage Test") {
+            axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
+            axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
+        }
         for (var i = 0; i < csvData.length; i++) {
             lineSeries1.append(csvData[i][0], csvData[i][1]);
-            minY = Math.min(minY, csvData[i][1]);
-            maxY = Math.max(maxY, csvData[i][1]);
             if (csvData[i].length > 2) {
                 lineSeries2.append(csvData[i][0], csvData[i][2]);
-                minY = Math.min(minY, csvData[i][2]);
-                maxY = Math.max(maxY, csvData[i][2]);
             }
             if (csvData[i].length > 3) {
                 lineSeries3.append(csvData[i][0], csvData[i][3]);
-                minY = Math.min(minY, csvData[i][3]);
-                maxY = Math.max(maxY, csvData[i][3]);
             }
             if (csvData[i].length > 4) {
                 lineSeries4.append(csvData[i][0], csvData[i][4]);
-                minY = Math.min(minY, csvData[i][4]);
-                maxY = Math.max(maxY, csvData[i][4]);
             }
         }
-        axisY.min = minY;
-        axisY.max = maxY;
     }
 }
