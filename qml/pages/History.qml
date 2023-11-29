@@ -106,10 +106,10 @@ Page {
             }
         }
 
-        lineSeries1.visible = true && currentTest.length > 0;
-        lineSeries2.visible = true && currentTest.length > 1;
-        lineSeries3.visible = true && currentTest.length > 2;
-        lineSeries4.visible = true && currentTest.length > 3;
+        lineSeries1.visible = currentTest.length > 0 ? true : false;
+        lineSeries2.visible = currentTest.length > 1 ? true : false;
+        lineSeries3.visible = currentTest.length > 2 ? true : false;
+        lineSeries4.visible = currentTest.length > 3 ? true : false;
 
         xhr.open("GET", csvFile);
         xhr.send();
