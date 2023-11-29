@@ -84,6 +84,19 @@ Page {
 
         function saveTestData(currentTest) {
             if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
+                var maxCount = Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count);
+                var lineSeries = [lineSeries1, lineSeries2, lineSeries3, lineSeries4];
+
+                for (var i = 0; i < maxCount; i++) {
+                    var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
+                    var rowData = [timeValue];
+
+                    for (var j = 0; j < current_keys.length; j++) {
+                        rowData.push(i < lineSeries[j].count ? lineSeries[j].at(i).y : "");
+                    }
+
+                    lineSeriesData.push(rowData);
+                }
                 var fileName = `${customerField.text.trim()}_${timeField.text.trim()}_${currentTest}.csv`;
                 var data = `Time,${current_keys.join(",")}\n`;
 
@@ -134,20 +147,6 @@ Page {
                 lineSeries4.append(lineSeries4.count, value4);
             }
 
-            var maxCount = Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count);
-            var lineSeries = [lineSeries1, lineSeries2, lineSeries3, lineSeries4];
-
-            for (var i = 0; i < maxCount; i++) {
-                var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
-                var rowData = [timeValue];
-
-                for (var j = 0; j < current_keys.length; j++) {
-                    rowData.push(i < lineSeries[j].count ? lineSeries[j].at(i).y : "");
-                }
-
-                lineSeriesData.push(rowData);
-            }
-
             lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
             lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
             lineSeries3.name = current_keys.length > 2 ? current_keys[2] : "";
@@ -159,7 +158,7 @@ Page {
             lineSeries4.visible = testing && current_keys.length > 3;
 
             if (lineSeries1.count > axisX.max - axisX.min) {
-                axisX.min;
+                axisX.min++;
                 axisX.max++;
             }
 
