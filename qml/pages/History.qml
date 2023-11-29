@@ -8,6 +8,7 @@ Page {
 
     property string csvFile: ""
     property var csvData: []
+    property var seriesNames: []
     property string currentTest: ""
 
     FileDialog {
@@ -42,31 +43,37 @@ Page {
             id: lineSeries1
             axisX: axisX
             axisY: axisY
+            name: seriesNames[1]
+            
         }
 
         LineSeries {
             id: lineSeries2
             axisX: axisX
             axisY: axisY
+            name: seriesNames[2]
         }
 
         LineSeries {
             id: lineSeries3
             axisX: axisX
             axisY: axisY
+            name: seriesNames[3]
         }
 
         LineSeries {
             id: lineSeries4
             axisX: axisX
             axisY: axisY
+            name: seriesNames[4]
         }
     }
 
     Button {
         id: openButton
         text: "Open CSV"
-        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         onClicked: fileDialog.open()
     }
@@ -76,6 +83,7 @@ Page {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 var lines = xhr.responseText.split('\n');
+                seriesNames = lines[0].split(',');
                 csvPage.currentTest = lines[1];
                 csvData = lines.slice(1).map(function(line) {
                     return line.split(',').map(function(value) { return parseFloat(value) });
