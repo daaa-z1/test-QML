@@ -24,7 +24,7 @@ Page {
     ChartView {
         id: chartView
         anchors.fill: parent
-        title: csvPage.currentTest
+        title: "Upload a CSV file"
         legend.visible: true
         antialiasing: true
         theme: ChartView.ChartThemeDark
@@ -124,6 +124,7 @@ Page {
         lineSeries2.clear();
         lineSeries3.clear();
         lineSeries4.clear();
+        chartView.title = currentTest
 
         lineSeries1.visible = seriesNames.length > 1 ? true : false;
         lineSeries2.visible = seriesNames.length > 2 ? true : false;
