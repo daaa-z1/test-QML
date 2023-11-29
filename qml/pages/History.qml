@@ -103,8 +103,6 @@ Page {
         lineSeries2.clear();
         lineSeries3.clear();
         lineSeries4.clear();
-        var minY = Infinity;
-        var maxY = -Infinity;
         if (currentTest === "Position Test") {
             axisY.min = mainApp.parameter('aktual', 'minValue') - 2;
             axisY.max = mainApp.parameter('aktual', 'maxValue') + 2;
