@@ -43,6 +43,7 @@ Page {
             id: lineSeries1
             axisX: axisX
             axisY: axisY
+            visible: false
             name: seriesNames[1]
             
         }
@@ -51,6 +52,7 @@ Page {
             id: lineSeries2
             axisX: axisX
             axisY: axisY
+            visible: false
             name: seriesNames[2]
         }
 
@@ -58,6 +60,7 @@ Page {
             id: lineSeries3
             axisX: axisX
             axisY: axisY
+            visible: false
             name: seriesNames[3]
         }
 
@@ -65,6 +68,7 @@ Page {
             id: lineSeries4
             axisX: axisX
             axisY: axisY
+            visible: false
             name: seriesNames[4]
         }
     }
@@ -111,6 +115,12 @@ Page {
             axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
             axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
         }
+
+        lineSeries1.visible = currentTest.length > 1 ? : true;
+        lineSeries2.visible = currentTest.length > 2 ? : true;
+        lineSeries3.visible = currentTest.length > 3 ? : true;
+        lineSeries4.visible = currentTest.length > 4 ? : true;
+
         for (var i = 0; i < csvData.length; i++) {
             lineSeries1.append(csvData[i][0], csvData[i][1]);
             if (csvData[i].length > 2) {
