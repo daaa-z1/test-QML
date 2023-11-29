@@ -105,12 +105,6 @@ Page {
                 updateChart();
             }
         }
-
-        lineSeries1.visible = currentTest.length > 0 ? true : false;
-        lineSeries2.visible = currentTest.length > 1 ? true : false;
-        lineSeries3.visible = currentTest.length > 2 ? true : false;
-        lineSeries4.visible = currentTest.length > 3 ? true : false;
-
         xhr.open("GET", csvFile);
         xhr.send();
     }
@@ -130,6 +124,11 @@ Page {
             axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
             axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
         }
+
+        lineSeries1.visible = seriesNames.length > 0 ? true : false;
+        lineSeries2.visible = seriesNames.length > 1 ? true : false;
+        lineSeries3.visible = seriesNames.length > 2 ? true : false;
+        lineSeries4.visible = seriesNames.length > 3 ? true : false;
 
         for (var i = 0; i < csvData.length; i++) {
             lineSeries1.append(csvData[i][0], csvData[i][1]);
