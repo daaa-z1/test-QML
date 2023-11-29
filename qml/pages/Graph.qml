@@ -269,6 +269,7 @@ Page {
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
+            saveTestData(currentTest);
             chartView.title = "" + currentTest;
 
             testTimer.running = true;
@@ -277,7 +278,6 @@ Page {
                     Qt.callLater(function() {
                     testTimer.destroy();
                     resetTest();
-                    saveTestData(currentTest);
                     testQueue.shift();
                     startNextTest();
                 }, 500);
