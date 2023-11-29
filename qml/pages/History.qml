@@ -9,7 +9,7 @@ Page {
     property string csvFile: ""
     property var csvData: []
     property var seriesNames: []
-    property string currentTest: ""
+    property var currentTest: ""
 
     FileDialog {
         id: fileDialog
