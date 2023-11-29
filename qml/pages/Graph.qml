@@ -344,4 +344,13 @@ Page {
         lineSeries3.clear();
         lineSeries4.clear();
     }
+
+    
+    Connections {
+        target: mainApp
+        onValueChanged: {
+            
+        } 
+    }
+    
 }

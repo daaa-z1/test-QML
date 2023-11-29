@@ -1,5 +1,6 @@
 import sys
 import os
+import csv
 from datetime import datetime
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
@@ -246,9 +247,11 @@ class MainApp(QObject):
     @pyqtSlot(str, str, str, str)
     def save_test_data(self, customer_name, test_time, current_test, data):
         file_name = f"{customer_name}_{test_time}_{current_test}.csv"
-        file_path = f"./{file_name}"  # Gantilah lokasi_folder sesuai kebutuhan
-        with open(file_path, 'a') as file:
-            file.write(data)
+        file_path = os.path.join(os.getcwd(), file_name)
+        data = [row.split(',') for row in data.split('\n') if row]
+        with open(file_path, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(data)
         print(f"Test data saved to: {file_path}")
     
     # UPDATE _parameter dari TextField
