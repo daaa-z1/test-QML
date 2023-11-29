@@ -171,7 +171,7 @@ Page {
 
                 data += rowData.join(",") + "\n";
             }
-            mainApp.save_test_data(customerField.text.trim(), timeField.text.trim(), currentTest, data);
+            mainApp.save_test_data(fileName, data);
 
             lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
             lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";

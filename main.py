@@ -244,9 +244,8 @@ class MainApp(QObject):
         self.value = {key: calculated_values[i] for i, key in enumerate(keys)}
         
     # Save CSV file
-    @pyqtSlot(str, str, str, str)
-    def save_test_data(self, customer_name, test_time, current_test, data):
-        file_name = f"{customer_name}_{test_time}_{current_test}.csv"
+    @pyqtSlot(str, str)
+    def save_test_data(self, file_name, data):
         file_path = os.path.join(os.getcwd(), file_name)
         data = [row.split(',') for row in data.split('\n') if row]
         try:
