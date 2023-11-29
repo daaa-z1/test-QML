@@ -8,6 +8,7 @@ Page {
 
     property string csvFile: ""
     property var csvData: []
+    property var seriesNames: []
 
     FileDialog {
         id: fileDialog
@@ -40,24 +41,28 @@ Page {
             id: lineSeries1
             axisX: axisX
             axisY: axisY
+            name: csvPage.seriesNames[1]
         }
 
         LineSeries {
             id: lineSeries2
             axisX: axisX
             axisY: axisY
+            name: csvPage.seriesNames[2]
         }
 
         LineSeries {
             id: lineSeries3
             axisX: axisX
             axisY: axisY
+            name: csvPage.seriesNames[3]
         }
 
         LineSeries {
             id: lineSeries4
             axisX: axisX
             axisY: axisY
+            name: csvPage.seriesNames[4]
         }
     }
 
@@ -73,7 +78,9 @@ Page {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                csvData = xhr.responseText.split('\n').map(function(line) {
+                var lines = xhr.responseText.split('\n');
+                seriesNames = lines[0].split(',');
+                csvData = lines.slice(1).map(function(line) {
                     return line.split(',').map(function(value) { return parseFloat(value) });
                 });
                 updateChart();
@@ -88,17 +95,29 @@ Page {
         lineSeries2.clear();
         lineSeries3.clear();
         lineSeries4.clear();
+        var minY = Infinity;
+        var maxY = -Infinity;
         for (var i = 0; i < csvData.length; i++) {
             lineSeries1.append(csvData[i][0], csvData[i][1]);
+            minY = Math.min(minY, csvData[i][1]);
+            maxY = Math.max(maxY, csvData[i][1]);
             if (csvData[i].length > 2) {
                 lineSeries2.append(csvData[i][0], csvData[i][2]);
+                minY = Math.min(minY, csvData[i][2]);
+                maxY = Math.max(maxY, csvData[i][2]);
             }
             if (csvData[i].length > 3) {
                 lineSeries3.append(csvData[i][0], csvData[i][3]);
+                minY = Math.min(minY, csvData[i][3]);
+                maxY = Math.max(maxY, csvData[i][3]);
             }
             if (csvData[i].length > 4) {
                 lineSeries4.append(csvData[i][0], csvData[i][4]);
+                minY = Math.min(minY, csvData[i][4]);
+                maxY = Math.max(maxY, csvData[i][4]);
             }
         }
+        axisY.min = minY;
+        axisY.max = maxY;
     }
 }
