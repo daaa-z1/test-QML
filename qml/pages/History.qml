@@ -71,6 +71,15 @@ Page {
             visible: false
             name: seriesNames[4]
         }
+
+        Component.onCompleted: {
+            csvData = [];
+            currentTest = "";
+            lineSeries1.visible = false;
+            lineSeries2.visible = false;
+            lineSeries3.visible = false;
+            lineSeries4.visible = false;
+        }
     }
 
     Button {
