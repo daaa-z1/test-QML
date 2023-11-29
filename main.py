@@ -249,10 +249,13 @@ class MainApp(QObject):
         file_name = f"{customer_name}_{test_time}_{current_test}.csv"
         file_path = os.path.join(os.getcwd(), file_name)
         data = [row.split(',') for row in data.split('\n') if row]
-        with open(file_path, 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows(data)
-        print(f"Test data saved to: {file_path}")
+        try:
+            with open(file_path, 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(data)
+            print("Data tes berhasil disimpan.")
+        except Exception as e:
+            print(f"Error saving test data: {e}")
     
     # UPDATE _parameter dari TextField
     parameterChanged = pyqtSignal()

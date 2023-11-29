@@ -300,34 +300,27 @@ Page {
 
     function saveTestData(currentTest) {
         if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
-            var fileName = customerField.text.trim() + "_" + timeField.text.trim() + "_" + currentTest + ".csv";
-            
-            var data = "Time," + current_keys.join(",") + "\n";
+            var fileName = `${customerField.text.trim()}_${timeField.text.trim()}_${currentTest}.csv`;
+
+            var data = `Time,${current_keys.join(",")}\n`;
 
             // Simpan data dari semua LineSeries
-            for (var i = 0; i < Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count); i++) {
+            var maxCount = Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count);
+            var lineSeries = [lineSeries1, lineSeries2, lineSeries3, lineSeries4];
+            console.log(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count);
+
+            for (var i = 0; i < maxCount; i++) {
                 var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
                 var rowData = [timeValue];
 
-                if (current_keys.length > 0) {
-                    rowData.push(i < lineSeries1.count ? lineSeries1.at(i).y : "");
-                }
-                if (current_keys.length > 1) {
-                    rowData.push(i < lineSeries2.count ? lineSeries2.at(i).y : "");
-                }
-                if (current_keys.length > 2) {
-                    rowData.push(i < lineSeries3.count ? lineSeries3.at(i).y : "");
-                }
-                if (current_keys.length > 3) {
-                    rowData.push(i < lineSeries4.count ? lineSeries4.at(i).y : "");
-                }
+                rowData.push(...lineSeries.map(series => i < series.count ? series.at(i).y : ""));
 
-                data += rowData.join(",") + "\n";
+                data += `${rowData.join(",")}\n`;
             }
 
             // Panggil fungsi save_test_data di MainApp
             mainApp.save_test_data(customerField.text.trim(), timeField.text.trim(), currentTest, data);
-            
+
             console.log("Test data saved.");
         }
     }
@@ -344,13 +337,9 @@ Page {
         lineSeries3.clear();
         lineSeries4.clear();
     }
-
     
     Connections {
         target: mainApp
-        onValueChanged: {
-            
-        } 
     }
     
 }
