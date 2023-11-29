@@ -138,4 +138,8 @@ Page {
             }
         }
     }
+    
+    Connections {
+        target: mainApp
+    }
 }
