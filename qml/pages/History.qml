@@ -105,13 +105,13 @@ Page {
                 updateChart();
             }
         }
-        if (currentTest === "Position Test") {
+        if (chartView.title === "Position Test") {
             axisY.min = mainApp.parameter('aktual', 'minValue') - 2;
             axisY.max = mainApp.parameter('aktual', 'maxValue') + 2;
-        } else if (currentTest === "Flow Test") {
+        } else if (chartView.title === "Flow Test") {
             axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
             axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
-        } else if (currentTest === "Leakage Test") {
+        } else if (chartView.title === "Leakage Test") {
             axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
             axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
         }
