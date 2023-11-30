@@ -151,7 +151,7 @@ ApplicationWindow {
                                         validator: IntValidator {bottom: -100}
                                         text: mainApp.parameter(modelData, 'minValue')
                                         onTextChanged: {
-                                            if (text === ''){
+                                            if (text === '' || text === '-'){
                                                 text = '0'
                                             }
                                             mainApp.updateParameter(modelData, 'minValue', parseFloat(text))
@@ -168,7 +168,7 @@ ApplicationWindow {
                                         validator: IntValidator {bottom: -100}
                                         text: mainApp.parameter(modelData, 'maxValue')
                                         onTextChanged: {
-                                            if (text === ''){
+                                            if (text === '' || text === '-'){
                                                 text = '1'
                                             }
                                             mainApp.updateParameter(modelData, 'maxValue', parseFloat(text))
@@ -185,7 +185,7 @@ ApplicationWindow {
                                         validator: IntValidator {bottom: -100}
                                         text: mainApp.parameter(modelData, 'minScale')
                                         onTextChanged: {
-                                            if (text === ''){
+                                            if (text === '' || text === '-'){
                                                 text = '0'
                                             }
                                             mainApp.updateParameter(modelData, 'minScale', parseFloat(text))
@@ -202,7 +202,7 @@ ApplicationWindow {
                                         validator: IntValidator {bottom: -100}
                                         text: mainApp.parameter(modelData, 'maxScale')
                                         onTextChanged: {
-                                            if (text === ''){
+                                            if (text === '' || text === '-'){
                                                 text = '1'
                                             }
                                             mainApp.updateParameter(modelData, 'maxScale', parseFloat(text))
@@ -265,7 +265,6 @@ ApplicationWindow {
                                 color: comboBox1.pressed ? "grey" : "black"
                                 anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
@@ -293,6 +292,7 @@ ApplicationWindow {
                                 font: comboBox2.font
                                 color: comboBox2.pressed ? "grey" : "black"
                                 anchors.centerIn: parent
+                                verticalAlignment: Text.AlignVCenter
                                 elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
