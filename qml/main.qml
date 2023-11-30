@@ -221,7 +221,7 @@ ApplicationWindow {
             }
 
 
-            /* Rectangle {
+            Rectangle {
                 id: config
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -229,7 +229,7 @@ ApplicationWindow {
                 border.color: "black"
                 border.width: 1
                 // Tambahkan komponen dari item controls di sini
-            } */
+            }
 
             Rectangle {
                 id: dataSection
