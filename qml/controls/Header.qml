@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.15
 
 Rectangle {
     id: appHeader
-    color: "#3498db"
+    color: "#2c3e50"
     height: 30
 
     RowLayout {
@@ -16,6 +16,7 @@ Rectangle {
             font.pixelSize: 16
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             leftPadding: 10
+            color: "white"
         }
 
         Text {
@@ -24,30 +25,6 @@ Rectangle {
             font.pixelSize: 14
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             leftPadding: 10
-        }
-
-        // Dropdown untuk memilih konfigurasi
-        ComboBox {
-            id: configDropdown
-            height: 30
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            model: parameterModel
-            textRole: "display"
-
-            onActivated: {
-                var selectedParameter = configDropdown.model.get(currentIndex).display
-                mainApp.parameterSelected(selectedParameter)
-            }
-        }
-
-        Button {
-            height: 30
-            text: "Apply"
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            onClicked: {
-                var selectedParameter = configDropdown.model.get(configDropdown.currentIndex).display
-                mainApp.parameterSelected(selectedParameter)
-            }
         }
 
         // Tombol untuk menutup aplikasi
@@ -63,7 +40,7 @@ Rectangle {
                 width: 30
                 height: 30
                 radius: width / 2
-                color: "#e74c3c" // Warna merah
+                color: "#e74c3c"
                 border.color: "#c0392b"
                 border.width: 1
             }
