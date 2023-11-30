@@ -11,18 +11,18 @@ Rectangle {
         anchors.fill: parent
 
         Text {
-            id: titleHeader
-            text: "Test Bench Expert"
-            font.pixelSize: 16
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            color: "white"
-        }
-
-        Text {
             id: versionLabel
             text: "V 1.0.1"
             font.pixelSize: 14
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+            color: "white"
+        }
+
+        Text {
+            id: titleHeader
+            text: "Test Bench Expert"
+            font.pixelSize: 16
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             color: "white"
         }
 
