@@ -23,6 +23,7 @@ Rectangle {
             text: "V 1.0.1"
             font.pixelSize: 14
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+            color: "white"
         }
 
         // Tombol untuk menutup aplikasi
@@ -30,6 +31,7 @@ Rectangle {
             id: closeButtonArea
             width: 30
             height: 30
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             onClicked: {
                 Qt.quit();
             }
@@ -37,7 +39,6 @@ Rectangle {
             Rectangle {
                 width: 30
                 height: 30
-                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 radius: width / 2
                 color: "#e74c3c"
                 border.color: "#c0392b"
