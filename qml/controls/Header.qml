@@ -15,7 +15,6 @@ Rectangle {
             text: "Test Bench Expert"
             font.pixelSize: 16
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            leftPadding: 10
             color: "white"
         }
 
@@ -24,7 +23,6 @@ Rectangle {
             text: "V 1.0.1"
             font.pixelSize: 14
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            leftPadding: 10
         }
 
         // Tombol untuk menutup aplikasi
@@ -39,6 +37,7 @@ Rectangle {
             Rectangle {
                 width: 30
                 height: 30
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 radius: width / 2
                 color: "#e74c3c"
                 border.color: "#c0392b"
