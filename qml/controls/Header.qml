@@ -14,7 +14,7 @@ Rectangle {
             id: titleHeader
             text: "Test Bench Expert"
             font.pixelSize: 16
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             color: "white"
         }
 
