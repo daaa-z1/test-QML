@@ -27,6 +27,8 @@ Page {
                 Layout.fillHeight: true
                 color: "dark grey"
                 radius: width * 0.1
+                gradient: Gradient.RiskyConcrete
+                layer.enabled: true
                 layer.effect: InnerShadow {
                     samples: 24
                     color: "#000000"
@@ -34,11 +36,6 @@ Page {
                     spread: 0
                     horizontalOffset: -5
                     verticalOffset: -5
-                }
-
-                gradient: Gradient {
-                    GradientStop { position: 0.0; color: "#f0f0f0" }
-                    GradientStop { position: 1.0; color: "#d3d3d3" }
                 }
 
                 property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA", "Pressure Com", "Pressure Aktual"]
