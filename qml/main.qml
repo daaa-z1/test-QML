@@ -48,8 +48,6 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        graphBtn.width = 15;
-                        width = 30;
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
                         for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
@@ -62,7 +60,7 @@ ApplicationWindow {
 
                 Button {
                     id: graphBtn
-                    width: 15
+                    width: 30
                     height: 10
                     background: Rectangle {
                         radius: 8
@@ -71,8 +69,6 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        dashboardBtn.width = 15;
-                        width = 30;
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
                         for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
