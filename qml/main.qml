@@ -148,7 +148,7 @@ ApplicationWindow {
 
                                     TextField {
                                         width: 50
-                                        validator: IntValidator {bottom: 0}
+                                        validator: IntValidator {bottom: -100}
                                         text: mainApp.parameter(modelData, 'minValue')
                                         onTextChanged: {
                                             if (text === ''){
@@ -165,7 +165,7 @@ ApplicationWindow {
 
                                     TextField {
                                         width: 50
-                                        validator: IntValidator {bottom: 0}
+                                        validator: IntValidator {bottom: -100}
                                         text: mainApp.parameter(modelData, 'maxValue')
                                         onTextChanged: {
                                             if (text === ''){
@@ -182,7 +182,7 @@ ApplicationWindow {
 
                                     TextField {
                                         width: 50
-                                        validator: IntValidator {bottom: 0}
+                                        validator: IntValidator {bottom: -100}
                                         text: mainApp.parameter(modelData, 'minScale')
                                         onTextChanged: {
                                             if (text === ''){
@@ -199,7 +199,7 @@ ApplicationWindow {
 
                                     TextField {
                                         width: 50
-                                        validator: IntValidator {bottom: 0}
+                                        validator: IntValidator {bottom: -100}
                                         text: mainApp.parameter(modelData, 'maxScale')
                                         onTextChanged: {
                                             if (text === ''){
