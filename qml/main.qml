@@ -23,6 +23,7 @@ ApplicationWindow {
             Layout.preferredHeight: (parent.height - appHeader.height - appFooter.height) * 0.7
             color: "transparent"
             Layout.fillWidth: true
+            anchors.margins: 10
 
             Loader {
                 id: pageLoader
@@ -36,9 +37,9 @@ ApplicationWindow {
                     horizontalCenter: parent.horizontalCenter
                 }
                 spacing: 10
-
                 Button {
-                    text: "Dashboard"
+                    id: dashboardBtn
+                    width: 10
                     background: Rectangle {
                         radius: 8
                         color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "#EDEDED")
@@ -46,6 +47,7 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
+                        width = 10
                         pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
                         for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
@@ -57,7 +59,8 @@ ApplicationWindow {
                 }
 
                 Button {
-                    text: "Graph"
+                    id: graphBtn
+                    width: 5
                     background: Rectangle {
                         radius: 8
                         color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "#EDEDED")
@@ -65,6 +68,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
+                        dashboardBtn.width = 5
+                        width = 10
                         pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
                         for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                             var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
@@ -237,8 +242,7 @@ ApplicationWindow {
                 Column {
                     id: dataLayout
                     anchors.fill: parent
-                    leftPadding: 10
-                    topPadding: 30
+                    anchors.margins: 10
                     spacing: parent.height * 0.1
 
                     RowLayout {
@@ -319,8 +323,8 @@ ApplicationWindow {
                                 text: "<b>"+comboBox3.displayText
                                 font: comboBox3.font
                                 color: comboBox3.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
@@ -361,15 +365,15 @@ ApplicationWindow {
                             model: ListModel {
                                 ListElement{key: "Nothing"; value: 'nothing'}
                                 ListElement{key: "Reff +"; value: 'Relay5'}
-                                ListElement{key: "Act Press"; value: 'Relay6'}
+                                ListElement{key: "Act P"; value: 'Relay6'}
                             }
                             contentItem: Text {
                                 rightPadding: comboBox4.indicator.width + comboBox4.spacing
                                 text: "<b>"+comboBox4.displayText
                                 font: comboBox4.font
                                 color: comboBox4.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
@@ -397,8 +401,8 @@ ApplicationWindow {
                                 text: "<b>"+comboBox5.displayText
                                 font: comboBox5.font
                                 color: comboBox5.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
@@ -417,16 +421,16 @@ ApplicationWindow {
                             textRole: "key"
                             model: ListModel {
                                 ListElement{key: "Nothing"; value: 'nothing'}
-                                ListElement{key: "Actual Valve"; value: 'Relay10'}
-                                ListElement{key: "Reff Pressure"; value: 'Relay11'}
+                                ListElement{key: "Act V"; value: 'Relay10'}
+                                ListElement{key: "Reff P"; value: 'Relay11'}
                             }
                             contentItem: Text {
                                 rightPadding: comboBox6.indicator.width + comboBox6.spacing
                                 text: "<b>"+comboBox6.displayText
                                 font: comboBox6.font
                                 color: comboBox6.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
@@ -459,8 +463,8 @@ ApplicationWindow {
                                 text: "<b>"+comboBox7.displayText
                                 font: comboBox7.font
                                 color: comboBox7.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
@@ -479,16 +483,16 @@ ApplicationWindow {
                             textRole: "key"
                             model: ListModel {
                                 ListElement{key: "Nothing"; value: 'nothing'}
-                                ListElement{key: "Ready Signal"; value: 'Relay15'}
-                                ListElement{key: "Actual Pressure"; value: 'Relay16'}
+                                ListElement{key: "Ready"; value: 'Relay15'}
+                                ListElement{key: "Act P"; value: 'Relay16'}
                             }
                             contentItem: Text {
                                 rightPadding: comboBox8.indicator.width + comboBox8.spacing
                                 text: "<b>"+comboBox8.displayText
                                 font: comboBox8.font
                                 color: comboBox8.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
@@ -507,8 +511,8 @@ ApplicationWindow {
                             textRole: "key"
                             model: ListModel {
                                 ListElement{key: "Nothing"; value: 'nothing'}
-                                ListElement{key: "Signal Window"; value: 'Relay17'}
-                                ListElement{key: "Reff Pressure"; value: 'Relay18'}
+                                ListElement{key: "Window"; value: 'Relay17'}
+                                ListElement{key: "Reff P"; value: 'Relay18'}
                                 ListElement{key: "+24"; value: 'Relay19'}
                             }
                             contentItem: Text {
@@ -516,8 +520,8 @@ ApplicationWindow {
                                 text: "<b>"+comboBox9.displayText
                                 font: comboBox9.font
                                 color: comboBox9.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
@@ -542,7 +546,7 @@ ApplicationWindow {
                             model: ListModel {
                                 ListElement{key: "Nothing"; value: 'nothing'}
                                 ListElement{key: "GND"; value: 'Relay20'}
-                                ListElement{key: "Actual Pressure"; value: 'Relay21'}
+                                ListElement{key: "Act P"; value: 'Relay21'}
                                 ListElement{key: "+24"; value: 'Relay22'}
                             }
                             contentItem: Text {
@@ -550,8 +554,8 @@ ApplicationWindow {
                                 text: "<b>"+comboBox10.displayText
                                 font: comboBox10.font
                                 color: comboBox10.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
@@ -577,8 +581,8 @@ ApplicationWindow {
                                 text: "<b>"+comboBox11.displayText
                                 font: comboBox11.font
                                 color: comboBox11.pressed ? "grey" : "black"
+                                anchors.centerIn: parent
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
                                 elide: Text.ElideRight
 
                             }
