@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.15
 import QtQuick.Extras 1.4
 import QtGraphicalEffects 1.15
@@ -26,6 +27,14 @@ Page {
                 Layout.fillHeight: true
                 color: "dark grey"
                 radius: width * 0.1
+                layer.effect: InnerShadow {
+                    samples: 24
+                    color: "#000000"
+                    radius: 16
+                    spread: 0
+                    horizontalOffset: -5
+                    verticalOffset: -5
+                }
 
                 gradient: Gradient {
                     GradientStop { position: 0.0; color: "#f0f0f0" }

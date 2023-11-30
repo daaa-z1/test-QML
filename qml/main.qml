@@ -75,7 +75,7 @@ ApplicationWindow {
                     }
                 }
 
-                Button {
+                /* Button {
                     text: "Setting"
                     background: Rectangle {
                         radius: 8
@@ -92,7 +92,7 @@ ApplicationWindow {
                             }
                         }
                     }
-                }
+                } */
 
             }
         }
