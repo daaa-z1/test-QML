@@ -7,6 +7,7 @@ import "controls"
 ApplicationWindow {
     visible: true
     visibility: "FullScreen"
+    padding: 10
 
     ColumnLayout {
         anchors.fill: parent
