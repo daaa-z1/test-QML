@@ -7,7 +7,6 @@ import "controls"
 ApplicationWindow {
     visible: true
     visibility: "FullScreen"
-    padding: 10
 
     ColumnLayout {
         anchors.fill: parent
@@ -24,7 +23,7 @@ ApplicationWindow {
             Layout.preferredHeight: (parent.height - appHeader.height - appFooter.height) * 0.7
             color: "transparent"
             Layout.fillWidth: true
-            anchors.margins: 10
+            Layout.margins: 10
 
             Loader {
                 id: pageLoader
@@ -110,6 +109,7 @@ ApplicationWindow {
             id: controlArea
             Layout.preferredHeight: contentArea.height - appFooter.height
             Layout.fillWidth: true
+            Layout.margins: 10
             spacing: 10
 
             Rectangle {
