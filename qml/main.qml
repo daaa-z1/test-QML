@@ -169,7 +169,7 @@ ApplicationWindow {
                                         text: mainApp.parameter(modelData, 'maxValue')
                                         onTextChanged: {
                                             if (text === ''){
-                                                text = '0'
+                                                text = '1'
                                             }
                                             mainApp.updateParameter(modelData, 'maxValue', parseFloat(text))
                                         }
@@ -203,7 +203,7 @@ ApplicationWindow {
                                         text: mainApp.parameter(modelData, 'maxScale')
                                         onTextChanged: {
                                             if (text === ''){
-                                                text = '0'
+                                                text = '1'
                                             }
                                             mainApp.updateParameter(modelData, 'maxScale', parseFloat(text))
                                         }
