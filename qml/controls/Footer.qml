@@ -12,7 +12,7 @@ Item {
     }
 
     Text {
-        text: "© 2023 Nama Anda"
+        text: "© 2023 Daaa-z1"
         color: "white" // Ganti dengan warna teks yang sesuai
         anchors.centerIn: parent
     }
