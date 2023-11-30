@@ -263,8 +263,7 @@ ApplicationWindow {
                                 text: "<b>"+comboBox1.displayText
                                 font: comboBox1.font
                                 color: comboBox1.pressed ? "grey" : "black"
-                                verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
+                                anchors.centerIn: parent
                                 elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
@@ -291,8 +290,7 @@ ApplicationWindow {
                                 text: "<b>"+comboBox2.displayText
                                 font: comboBox2.font
                                 color: comboBox2.pressed ? "grey" : "black"
-                                verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
+                                anchors.centerIn: parent
                                 elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
