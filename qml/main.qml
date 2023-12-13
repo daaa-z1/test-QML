@@ -78,26 +78,6 @@ ApplicationWindow {
                         }
                     }
                 }
-
-                /* Button {
-                    text: "Setting"
-                    background: Rectangle {
-                        radius: 8
-                        color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "#EDEDED")
-                        border.color: "black"
-                        border.width: 1
-                    }
-                    onClicked: {
-                        pageLoader.sourceComponent = Qt.createComponent("pages/History.qml")
-                        for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
-                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) {
-                                gauge.enabled = false;
-                            }
-                        }
-                    }
-                } */
-
             }
         }
 
@@ -115,6 +95,28 @@ ApplicationWindow {
                 color: "lightgray"
                 border.color: "black"
                 border.width: 1
+
+                Button {
+                    id: dashboardBtn
+                    width: 30
+                    height: 10
+                    anchors.right: parent.left
+                    background: Rectangle {
+                        radius: 8
+                        color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "#EDEDED")
+                        border.color: "black"
+                        border.width: 1
+                    }
+                    onClicked: {
+                        pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
+                        for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
+                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
+                            if (gauge) {
+                                gauge.enabled = true;
+                            }
+                        }
+                    }
+                }
 
                 ScrollView {
                     anchors.fill: parent
@@ -636,14 +638,5 @@ ApplicationWindow {
 
     Connections{
         target: mainApp
-        function onParameterChanged() {
-            pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
-            for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
-                var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                if (gauge) {
-                    gauge.enabled = true;
-                }
-            }
-        }
     }
 }
