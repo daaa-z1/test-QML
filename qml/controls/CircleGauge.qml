@@ -103,7 +103,7 @@ Item {
 
         onValueChanged: {
             canvas.requestPaint();
-            valueText.text = value.toFixed(0);
+            valueText.text = value.toFixed(2);
         }
     }
 }

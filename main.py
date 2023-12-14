@@ -240,7 +240,7 @@ class MainApp(QObject):
         max_values = [self._parameter[key]['maxValue'] for key in keys]
         calculated_values = [(max_values[i] - min_values[i]) / (max_scale[i] - min_scale[i]) * (value[i] - min_scale[i] + min_values[i]) for i in range(len(value))]
         calculated_values = [max(min(value, max_val), min_val) for value, max_val, min_val in zip(calculated_values, max_values, min_values)]
-        calculated_values = [int(value) for value in calculated_values]
+        # calculated_values = [int(value) for value in calculated_values]
         self.value = {key: calculated_values[i] for i, key in enumerate(keys)}
         
     # Save CSV file
