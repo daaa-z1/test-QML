@@ -88,11 +88,10 @@ Page {
                 var lineSeries = [lineSeries1, lineSeries2, lineSeries3, lineSeries4];
 
                 var lineSeriesData = [];
+                lineSeriesData.push([currentTest]);  // Add this line
 
                 for (var i = 0; i < maxCount; i++) {
-                    lineSeriesData.push([currentTest]);
                     var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
-                    var rowData = [timeValue];
 
                     for (var j = 0; j < current_keys.length; j++) {
                         rowData.push(i < lineSeries[j].count ? lineSeries[j].at(i).y : "");
@@ -101,7 +100,7 @@ Page {
                     lineSeriesData.push(rowData);
                 }
                 var fileName = `${customerField.text.trim()}_${timeField.text.trim()}_${currentTest}.csv`;
-                var data = `Time,${current_keys.join(",")}\n`;
+                var data = `${currentTest}\nTime,${current_keys.join(",")}\n`;
 
                 for (var i = 0; i < lineSeriesData.length; i++) {
                     data += `${lineSeriesData[i].join(",")}\n`;
