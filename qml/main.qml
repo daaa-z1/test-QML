@@ -99,11 +99,11 @@ ApplicationWindow {
                 Button {
                     id: refreshBtn
                     width: 30
-                    height: 10
-                    anchors.right: parent.left
+                    height: 30
+                    anchors.right: parent.right
                     background: Rectangle {
                         radius: 8
-                        color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "#EDEDED")
+                        color: pageLoader.sourceComponent.pressed ? "#C0C0C0" : (pageLoader.sourceComponent.hovered ? "#D3D3D3" : "cyan")
                         border.color: "black"
                         border.width: 1
                     }
