@@ -97,7 +97,7 @@ ApplicationWindow {
                 border.width: 1
 
                 Button {
-                    id: dashboardBtn
+                    id: refreshBtn
                     width: 30
                     height: 10
                     anchors.right: parent.left
