@@ -88,9 +88,9 @@ Page {
                 var lineSeries = [lineSeries1, lineSeries2, lineSeries3, lineSeries4];
 
                 var lineSeriesData = [];
-                lineSeriesData.push([currentTest]);  // Add this line
 
                 for (var i = 0; i < maxCount; i++) {
+                    lineSeriesData.push([currentTest]);
                     var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
                     var rowData = [timeValue];
 
