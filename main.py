@@ -3,8 +3,8 @@ import os
 import csv
 from datetime import datetime
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime
+from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QUrl
 from koneksi import *
 
 try:
