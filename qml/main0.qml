@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 Rectangle {
     width: parent.width
     height: parent.height
-    color: "lightblue"
+    color: "#2c3e50"
 
     Image {
         id: image1
@@ -44,7 +44,7 @@ Rectangle {
         from: 0
         to: 100
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenterOffset: 100  // Ganti dengan jarak yang Anda inginkan dari pusat
+        anchors.verticalCenterOffset: 50  // Ganti dengan jarak yang Anda inginkan dari pusat
 
         Timer {
             interval: 50; running: true; repeat: true
