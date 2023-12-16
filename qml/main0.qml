@@ -2,8 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 2.15
 
 Rectangle {
-    width: 360
-    height: 360
+    width: parent.width
+    height: parent.height
     color: "lightblue"
 
     ProgressBar {

@@ -8,7 +8,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: "splash.qml"
+        initialItem: "main0.qml"
         anchors.fill: parent
     }
 
