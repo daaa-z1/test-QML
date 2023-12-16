@@ -366,7 +366,11 @@ if __name__ == "__main__":
     mainApp = MainApp()
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
-    engine.load("qml/main.qml")
+    engine.load("qml/main0.qml")
+    
+    screenTimer = QTimer()
+    screenTimer.timeout.connect(lambda: engine.load("qml/main.qml"))
+    screenTimer.start(5000)
 
     if not engine.rootObjects():
         sys.exit(-1)
