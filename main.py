@@ -3,8 +3,8 @@ import os
 import csv
 from datetime import datetime
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtQml import QQmlApplicationEngine, QQmlComponent
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QUrl
+from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime
 from koneksi import *
 
 try:
@@ -366,15 +366,7 @@ if __name__ == "__main__":
     mainApp = MainApp()
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
-    # Muat splash.qml sebagai splash screen
-    engine.load(QUrl.fromLocalFile('qml/main0.qml'))
-
-    # Muat main.qml setelah 5 detik
-    def load_main_app():
-        engine.clearComponentCache()
-        engine.load(QUrl.fromLocalFile('qml/main.qml'))
-
-    QTimer.singleShot(5000, load_main_app)
+    engine.load("qml/mainView.qml")
 
     if not engine.rootObjects():
         sys.exit(-1)
