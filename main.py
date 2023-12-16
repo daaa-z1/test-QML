@@ -367,7 +367,7 @@ if __name__ == "__main__":
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
     # Muat splash.qml sebagai splash screen
-    engine.load(QUrl.fromLocalFile('qml/splash.qml'))
+    engine.load(QUrl.fromLocalFile('qml/main0.qml'))
 
     # Muat main.qml setelah 5 detik
     def load_main_app():
