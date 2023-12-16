@@ -595,6 +595,7 @@ ApplicationWindow {
                         }
 
                         Button {
+                            id: control
                             text: "Reset"
                             background: Rectangle {
                                 color: control.pressed ? "#333" : "#444"
