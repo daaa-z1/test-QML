@@ -26,7 +26,7 @@ Rectangle {
 
     Image {
         id: image2
-        source: "src/image/TSH.svg"
+        source: "src/image/TSH.png"
         width: 200
         height: 200
         anchors.centerIn: parent
