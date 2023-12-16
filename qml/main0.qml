@@ -19,8 +19,8 @@ Rectangle {
             interval: 50; running: true; repeat: true
             onTriggered: {
                 progressBar.value += 1
-                if (progressBar.value === progressBar.maximumValue) {
-                    progressBar.value = progressBar.minimumValue
+                if (progressBar.value === progressBar.to) {
+                    progressBar.value = progressBar.from
                 }
             }
         }
