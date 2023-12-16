@@ -8,7 +8,9 @@ Rectangle {
 
     Image {
         id: image1
-        source: "src/image/Moog.svg"  // Ganti dengan path ke gambar Anda
+        source: "src/image/Moog.svg"
+        width: 200
+        height: 200
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
         opacity: 1
@@ -24,7 +26,9 @@ Rectangle {
 
     Image {
         id: image2
-        source: "src/image/TSH.svg"  // Ganti dengan path ke gambar Anda
+        source: "src/image/TSH.svg"
+        width: 200
+        height: 200
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
         opacity: 0
