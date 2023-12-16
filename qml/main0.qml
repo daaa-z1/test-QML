@@ -50,7 +50,8 @@ Rectangle {
         from: 0
         to: 100
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenterOffset: -100  // Ganti dengan jarak yang Anda inginkan dari pusat
+        anchors.top: image1.bottom
+        anchors.marginTop: 10
 
         Timer {
             interval: 50; running: true; repeat: true
