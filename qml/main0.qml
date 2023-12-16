@@ -10,6 +10,7 @@ Rectangle {
         id: image1
         source: "src/image/Moog.svg"  // Ganti dengan path ke gambar Anda
         anchors.centerIn: parent
+        fillMode: Image.PreserveAspectFit
         opacity: 1
 
         SequentialAnimation on opacity {
@@ -25,6 +26,7 @@ Rectangle {
         id: image2
         source: "src/image/TSH.gif"  // Ganti dengan path ke gambar Anda
         anchors.centerIn: parent
+        fillMode: Image.PreserveAspectFit
         opacity: 0
 
         SequentialAnimation on opacity {
@@ -44,7 +46,7 @@ Rectangle {
         from: 0
         to: 100
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenterOffset: 50  // Ganti dengan jarak yang Anda inginkan dari pusat
+        anchors.verticalCenterOffset: 500  // Ganti dengan jarak yang Anda inginkan dari pusat
 
         Timer {
             interval: 50; running: true; repeat: true
