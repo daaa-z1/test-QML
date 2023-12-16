@@ -51,7 +51,7 @@ Rectangle {
         to: 100
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: image1.bottom
-        anchors.marginTop: 10
+        anchors.topMargin: 10
 
         Timer {
             interval: 50; running: true; repeat: true
