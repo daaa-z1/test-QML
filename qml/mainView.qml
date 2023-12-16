@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 
 ApplicationWindow {
     visible: true
+    visibility: "FullScreen"
     width: 640
     height: 480
 
