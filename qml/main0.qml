@@ -11,8 +11,8 @@ Rectangle {
         width: 200
         height: 20
         value: 0
-        to: 0
-        from: 100
+        from: 0
+        to: 100
         anchors.centerIn: parent
 
         Timer {
