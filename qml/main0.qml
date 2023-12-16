@@ -50,7 +50,7 @@ Rectangle {
         from: 0
         to: 100
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenterOffset: 500  // Ganti dengan jarak yang Anda inginkan dari pusat
+        anchors.verticalCenterOffset: -100  // Ganti dengan jarak yang Anda inginkan dari pusat
 
         Timer {
             interval: 50; running: true; repeat: true
