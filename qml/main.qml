@@ -595,10 +595,10 @@ ApplicationWindow {
                         }
 
                         Button {
-                            id: control
+                            id: resetBtn
                             text: "Reset"
                             background: Rectangle {
-                                color: control.pressed ? "#333" : "#444"
+                                color: resetBtn.pressed ? "#333" : "#444"
                                 radius: 5
                                 border.color: "#555"
                                 border.width: 1
