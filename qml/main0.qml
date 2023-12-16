@@ -24,7 +24,7 @@ Rectangle {
 
     Image {
         id: image2
-        source: "src/image/TSH.png"  // Ganti dengan path ke gambar Anda
+        source: "src/image/TSH.svg"  // Ganti dengan path ke gambar Anda
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
         opacity: 0
