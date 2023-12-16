@@ -368,6 +368,9 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("mainApp", mainApp)
     engine.load("qml/main0.qml")
     
+    splash = QQmlComponent(engine, QUrl('qml/main0.qml'))
+    splash.create()
+
     screenTimer = QTimer()
     screenTimer.timeout.connect(lambda: engine.load("qml/main.qml"))
     screenTimer.start(5000)
