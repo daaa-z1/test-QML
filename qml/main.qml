@@ -22,11 +22,11 @@ ApplicationWindow {
             }
         } else {
             console.log("graph")
-            pageLoader.sourceComponent = Qt.createComponent("pages/Garph.qml")
+            pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
             for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                 var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
                 if (gauge) {
-                    gauge.enabled = true;
+                    gauge.enabled = false;
                 }
             }
         }
