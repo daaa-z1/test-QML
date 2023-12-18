@@ -123,7 +123,7 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        page();
+                        page()
                     }
                 }
 
