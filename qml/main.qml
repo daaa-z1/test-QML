@@ -9,7 +9,7 @@ ApplicationWindow {
     visible: true
     visibility: "FullScreen"
 
-    property string pages: "dashboard"
+    property var pages: "dashboard"
 
     function page(){
         if (pages === "dashboard"){
