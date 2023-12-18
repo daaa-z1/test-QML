@@ -13,6 +13,7 @@ ApplicationWindow {
 
     function page(){
         if (pages === "dashboard"){
+            console.log(pages)            
             pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
             for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                 var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
@@ -21,6 +22,7 @@ ApplicationWindow {
                 }
             }
         } else {
+            console.log(pages)
             pageLoader.sourceComponent = Qt.createComponent("pages/Garph.qml")
             for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                 var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
