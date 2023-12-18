@@ -14,6 +14,6 @@ ApplicationWindow {
     Timer {
         interval: 5010
         running: true
-        onTriggered: stackView.push("main.qml")
+        onTriggered: stackView.replace("main.qml")
     }
 }
