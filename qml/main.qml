@@ -606,7 +606,7 @@ ApplicationWindow {
                             id: resetBtn
                             text: "Reset"
                             background: Rectangle {
-                                color: resetBtn.pressed ? "#555" : "#444"
+                                color: resetBtn.pressed ? "#555" : "#ededed"
                                 radius: 5
                                 border.color: "#555"
                                 border.width: 1
