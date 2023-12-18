@@ -71,8 +71,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        root.pages: "dashboard"
-                        page(pages)
+                        root.pages: "dashboard";
+                        page(pages);
                     }
                 }
 
