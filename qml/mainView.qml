@@ -5,15 +5,16 @@ ApplicationWindow {
     visible: true
     visibility: "FullScreen"
 
-    StackView {
-        id: stackView
-        initialItem: "main0.qml"
+    Loader {
+        id: pageLoader
         anchors.fill: parent
+        sourceComponent: Qt.createComponent("main0.qml")
     }
 
     Timer {
         interval: 5010
         running: true
-        onTriggered: stackView.replace("main.qml")
+        repeat: false
+        onTriggered: pageLoader.sourceComponent = Qt.createComponent("main.qml")
     }
 }
