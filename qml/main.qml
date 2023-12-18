@@ -9,9 +9,9 @@ ApplicationWindow {
     visible: true
     visibility: "FullScreen"
 
-    property var pages: "dashboard"
+    property string pages: "dashboard"
 
-    function page(pages){
+    function page(){
         if (pages === "dashboard"){
             pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
             for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
@@ -71,8 +71,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        root.pages: "dashboard";
-                        page(pages);
+                        pages: "dashboard";
+                        page();
                     }
                 }
 
@@ -87,13 +87,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        pageLoader.sourceComponent = Qt.createComponent("pages/Graph.qml")
-                        for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
-                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) {
-                                gauge.enabled = false;
-                            }
-                        }
+                        pages: "graph";
+                        page();
                     }
                 }
             }
@@ -127,13 +122,7 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
-                        for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
-                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) {
-                                gauge.enabled = true;
-                            }
-                        }
+                        page();
                     }
                 }
 
@@ -149,7 +138,7 @@ ApplicationWindow {
                         padding: 10
 
                         property var keys: ['press_in', 'press_a', 'press_b', 'flow', 'temp', 'curr_v', 'aktual', 'curr_ma', 'press_comm', 'press_actual']
-                        property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Curr V", "Actual", "Curr MA", "Pressure Com", "Pressure Aktual"]
+                        property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Comm V", "Actual", "Comm MA", "Pressure Com", "Pressure Actual"]
 
                         Repeater {
                             model: paramLayout.keys
