@@ -5,7 +5,7 @@ import QtGraphicalEffects 1.15
 import "controls"
 
 ApplicationWindow {
-    id: root
+    // id: root
     visible: true
     visibility: "FullScreen"
 
