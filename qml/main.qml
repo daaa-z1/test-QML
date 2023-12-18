@@ -5,15 +5,14 @@ import QtGraphicalEffects 1.15
 import "controls"
 
 ApplicationWindow {
-    id: root
     visible: true
     visibility: "FullScreen"
 
-    property var pages: "dashboard"
+    property bool pages: true
 
     function page(){
-        if (pages === "dashboard"){
-            console.log(pages)            
+        if (pages === true){
+            console.log("dashboard")            
             pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
             for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                 var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
@@ -22,7 +21,7 @@ ApplicationWindow {
                 }
             }
         } else {
-            console.log(pages)
+            console.log("graph")
             pageLoader.sourceComponent = Qt.createComponent("pages/Garph.qml")
             for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
                 var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
@@ -73,8 +72,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        root.pages: "dashboard";
-                        root.page();
+                        pages = true;
+                        page();
                     }
                 }
 
@@ -89,8 +88,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        root.pages: "graph";
-                        root.page();
+                        pages: false;
+                        page();
                     }
                 }
             }
@@ -124,7 +123,7 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        root.page();
+                        page();
                     }
                 }
 
