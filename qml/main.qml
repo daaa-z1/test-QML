@@ -88,7 +88,7 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        pages: false;
+                        pages = false;
                         page();
                     }
                 }
