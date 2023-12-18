@@ -5,7 +5,7 @@ import QtGraphicalEffects 1.15
 import "controls"
 
 ApplicationWindow {
-    // id: root
+    id: root
     visible: true
     visibility: "FullScreen"
 
@@ -73,8 +73,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        pages: "dashboard";
-                        page();
+                        root.pages: "dashboard";
+                        root.page();
                     }
                 }
 
@@ -89,8 +89,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        pages: "graph";
-                        page();
+                        root.pages: "graph";
+                        root.page();
                     }
                 }
             }
@@ -124,7 +124,7 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        page();
+                        root.page();
                     }
                 }
 
