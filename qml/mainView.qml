@@ -3,9 +3,7 @@ import QtQuick.Controls 2.15
 
 ApplicationWindow {
     visible: true
-    flags: Qt.FramelessWindowHint
-    width: 640
-    height: 480
+    visibility: "FullScreen"
 
     StackView {
         id: stackView

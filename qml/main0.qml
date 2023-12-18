@@ -9,8 +9,8 @@ Rectangle {
     Image {
         id: image1
         source: "src/image/Moog.svg"
-        width: 200
-        height: 200
+        width: parent.width / 4
+        height: width
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
         opacity: 1
@@ -27,8 +27,8 @@ Rectangle {
     Image {
         id: image2
         source: "src/image/TSH.png"
-        width: 200
-        height: 200
+        width: parent.width / 4
+        height: width
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
         opacity: 0

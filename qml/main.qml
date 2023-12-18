@@ -5,8 +5,31 @@ import QtGraphicalEffects 1.15
 import "controls"
 
 ApplicationWindow {
+    id: root
     visible: true
     visibility: "FullScreen"
+
+    property var pages: "dashboard"
+
+    function page(pages){
+        if (pages === "dashboard"){
+            pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
+            for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
+                var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
+                if (gauge) {
+                    gauge.enabled = true;
+                }
+            }
+        } else {
+            pageLoader.sourceComponent = Qt.createComponent("pages/Garph.qml")
+            for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
+                var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
+                if (gauge) {
+                    gauge.enabled = true;
+                }
+            }
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -48,13 +71,8 @@ ApplicationWindow {
                         border.width: 1
                     }
                     onClicked: {
-                        pageLoader.sourceComponent = Qt.createComponent("pages/Dashboard.qml")
-                        for (var i = 0; i < pageLoader.sourceComponent.repeater.count; i++) {
-                            var gauge = pageLoader.sourceComponent.repeater.itemAt(i).findChild("gauge" + i);
-                            if (gauge) {
-                                gauge.enabled = true;
-                            }
-                        }
+                        root.pages: "dashboard"
+                        page(pages)
                     }
                 }
 
