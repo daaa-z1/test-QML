@@ -351,6 +351,7 @@ class MainApp(QObject):
             if key != relayKey and len(comboBoxRelays) > 0 :
                 relay = self.relays[key]
                 relay['state'] = 0
+                print(f"{relay} OFF")
                 self.d.setDOState(relay['pin'], relay['state'])
 
         # Hidupkan relay yang dipilih
