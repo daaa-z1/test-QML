@@ -242,7 +242,7 @@ ApplicationWindow {
                 
                 Image {
                     id: image1
-                    source: "src/image/TSH.svg"
+                    source: "src/image/TSH.png"
                     width: parent.width
                     height: parent.width
                     anchors.centerIn: parent
@@ -260,7 +260,7 @@ ApplicationWindow {
 
                 Image {
                     id: image2
-                    source: "src/image/Moog.png"
+                    source: "src/image/Moog.svg"
                     width: parent.width
                     height: parent.width
                     anchors.centerIn: parent
