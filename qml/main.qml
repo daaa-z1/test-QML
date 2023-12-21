@@ -239,7 +239,42 @@ ApplicationWindow {
                 color: "lightgray"
                 border.color: "black"
                 border.width: 1
-                // Tambahkan komponen dari item controls di sini
+                
+                Image {
+                    id: image1
+                    source: "src/image/Moog.svg"
+                    width: parent.width
+                    height: parent.width
+                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                    opacity: 1
+
+                    SequentialAnimation on opacity {
+                        loops: Animation.Infinite
+                        PauseAnimation { duration: 2000 }
+                        NumberAnimation { to: 0; duration: 1000; easing.type: Easing.InOutQuad }
+                        PauseAnimation { duration: 2000 }
+                        NumberAnimation { to: 1; duration: 1000; easing.type: Easing.InOutQuad }
+                    }
+                }
+
+                Image {
+                    id: image2
+                    source: "src/image/TSH.png"
+                    width: parent.width
+                    height: parent.width
+                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                    opacity: 0
+
+                    SequentialAnimation on opacity {
+                        loops: Animation.Infinite
+                        PauseAnimation { duration: 2000 }
+                        NumberAnimation { to: 1; duration: 1000; easing.type: Easing.InOutQuad }
+                        PauseAnimation { duration: 2000 }
+                        NumberAnimation { to: 0; duration: 1000; easing.type: Easing.InOutQuad }
+                    }
+                }
             }
 
             Rectangle {
