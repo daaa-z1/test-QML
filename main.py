@@ -269,7 +269,9 @@ class MainApp(QObject):
     @pyqtSlot(str, bool)
     def setDOState1(self, relayKey, state):
         # Daftar relay yang terdaftar di ComboBox1
-        comboBox1Relays = []
+        if relayKey != 'nothing':
+            comboBox1Relays = ["Relay1", "Relay2"]
+        else: comboBox1Relays = ["nothing","Relay1", "Relay2"]
         self.setDOStateForComboBox(relayKey, state, comboBox1Relays)
 
     @pyqtSlot(str, bool)
@@ -281,11 +283,9 @@ class MainApp(QObject):
     @pyqtSlot(str, bool)
     def setDOState3(self, relayKey, state):
         # Daftar relay yang terdaftar di ComboBox3
-        if relayKey == 'Relay2' and relayKey != 'nothing':
-            comboBox3Relays = ["Relay2", "Relay3", "Relay4"]
-        elif relayKey == 'nothing': 
-            comboBox3Relays = ["nothing","Relay3", "Relay4"]
-        else: comboBox3Relays = ["Relay3", "Relay4"]
+        if relayKey != 'nothing':
+            comboBox3Relays = ["Relay3", "Relay4"]
+        else: comboBox3Relays = ["nothing","Relay3", "Relay4"]
         self.setDOStateForComboBox(relayKey, state, comboBox3Relays)
 
     @pyqtSlot(str, bool)

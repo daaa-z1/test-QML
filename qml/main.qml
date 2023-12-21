@@ -328,34 +328,6 @@ ApplicationWindow {
                         }
 
                         ComboBox {
-                            id: comboBox2
-                            textRole: "key"
-                            model: ListModel {
-                                ListElement{key: "Nothing"; value: 'nothing'}
-                                ListElement{key: "0V"; value: 'Relay1'}
-                                ListElement{key: "-15"; value: 'Relay2'}
-                            }
-                            contentItem: Text {
-                                rightPadding: comboBox2.indicator.width + comboBox2.spacing
-                                text: "<b>"+comboBox2.displayText
-                                font: comboBox2.font
-                                color: comboBox2.pressed ? "grey" : "black"
-                                anchors.centerIn: parent
-                                verticalAlignment: Text.AlignVCenter
-                                elide: Text.ElideRight
-                            }
-                            onCurrentIndexChanged: {
-                                mainApp.setDOState2(model.get(currentIndex).value, 0)
-                                dataRow1.checkForNewElement()
-                            }
-                        }
-
-                        Label {
-                            text: "Pin 3"
-                            font.bold: true
-                        }
-
-                        ComboBox {
                             id: comboBox3
                             textRole: "key"
                             model: ListModel {
@@ -400,7 +372,7 @@ ApplicationWindow {
                         spacing: 10
 
                         Label {
-                            text: "Pin 4"
+                            text: "Pin 3"
                             font.bold: true
                         }
 
@@ -428,7 +400,7 @@ ApplicationWindow {
                         }
 
                         Label {
-                            text: "Pin 5"
+                            text: "Pin 4"
                             font.bold: true
                         }
 
@@ -457,7 +429,7 @@ ApplicationWindow {
                         }
 
                         Label {
-                            text: "Pin 6"
+                            text: "Pin 5"
                             font.bold: true
                         }
 
@@ -490,7 +462,7 @@ ApplicationWindow {
                         spacing: 10
 
                         Label {
-                            text: "Pin 7"
+                            text: "Pin 6"
                             font.bold: true
                         }
 
@@ -519,7 +491,7 @@ ApplicationWindow {
                         }
 
                         Label {
-                            text: "Pin 8"
+                            text: "Pin 7"
                             font.bold: true
                         }
 
@@ -547,7 +519,7 @@ ApplicationWindow {
                         }
 
                         Label {
-                            text: "Pin 9"
+                            text: "Pin 8"
                             font.bold: true
                         }
 
@@ -581,7 +553,7 @@ ApplicationWindow {
                         spacing: 10
 
                         Label {
-                            text: "Pin 10"
+                            text: "Pin 9"
                             font.bold: true
                         }
 
@@ -610,7 +582,7 @@ ApplicationWindow {
                         }
 
                         Label {
-                            text: "Pin 11"
+                            text: "Pin 10"
                             font.bold: true
                         }
 
