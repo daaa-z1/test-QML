@@ -42,6 +42,11 @@ Page {
                 property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "Ma", "Bar", "Bar"]
 
                 Button {
+                    anchors{
+                        top: parent.top
+                        left: parent.left
+                        margins: 10
+                    }
                     background: Rectangle {
                         radius: width / 2
                         color: gauge.enabled ? "#FF6961" : "#77DD77"
