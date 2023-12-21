@@ -252,9 +252,9 @@ ApplicationWindow {
                     SequentialAnimation on opacity {
                         loops: Animation.Infinite
                         PauseAnimation { duration: 10000 }
-                        NumberAnimation { to: 1; duration: 1000; easing.type: Easing.InOutQuad }
-                        PauseAnimation { duration: 10000 }
                         NumberAnimation { to: 0; duration: 1000; easing.type: Easing.InOutQuad }
+                        PauseAnimation { duration: 10000 }
+                        NumberAnimation { to: 1; duration: 1000; easing.type: Easing.InOutQuad }
                     }
                 }
 
