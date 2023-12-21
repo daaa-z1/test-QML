@@ -45,7 +45,7 @@ Page {
                     anchors{
                         top: parent.top
                         left: parent.left
-                        margins: 10
+                        margins: 20
                     }
                     background: Rectangle {
                         radius: width / 2
