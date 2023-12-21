@@ -212,12 +212,12 @@ ApplicationWindow {
                         }
                     }
                 }
-                
+
                 Button {
                     id: refreshBtn
                     width: 30
                     height: 30
-                    anchors.left: parent.left
+                    anchors.top: parent.top
                     anchors.topMargin: 10
                     // anchors.leftMargin: 10
                     background: Rectangle {
