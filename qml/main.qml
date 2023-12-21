@@ -247,7 +247,7 @@ ApplicationWindow {
                     source: "src/image/TSH.png"
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectFit
-                    opacity: 0
+                    opacity: 1
 
                     SequentialAnimation on opacity {
                         loops: Animation.Infinite
