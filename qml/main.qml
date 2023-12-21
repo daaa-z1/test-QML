@@ -115,8 +115,8 @@ ApplicationWindow {
                     width: 30
                     height: 30
                     anchors.left: parent.left
-                    /* anchors.topMargin: 10
-                    anchors.leftMargin: 10 */
+                    anchors.topMargin: 10
+                    // anchors.leftMargin: 10
                     background: Rectangle {
                         radius: 8
                         color: refreshBtn.pressed ? "#C0C0C0" : (refreshBtn.hovered ? "#D3D3D3" : "cyan")
