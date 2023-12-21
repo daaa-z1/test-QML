@@ -246,6 +246,7 @@ ApplicationWindow {
                     id: image1
                     source: "src/image/TSH.png"
                     anchors.fill: parent
+                    anchors.margins: 10
                     fillMode: Image.PreserveAspectFit
                     opacity: 1
 
