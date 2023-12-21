@@ -143,29 +143,29 @@ class MainApp(QObject):
             }
 
             data_state = {
-                "Btn1_State": 0,
-                "Btn2_State": 0,
-                "Btn3_State": 0,
-                "Btn4_State": 0,
-                "Btn5_State": 0,
-                "Btn6_State": 0,
-                "Btn7_State": 0,
-                "Btn8_State": 0,
-                "Btn9_State": 0,
-                "Btn10_State": 0,
-                "Btn11_State": 0,
-                "Btn12_State": 0,
-                "Btn13_State": 0,
-                "Btn14_State": 0,
-                "Btn15_State": 0,
-                "Btn16_State": 0,
-                "Btn17_State": 0,
-                "Btn18_State": 0,
-                "Btn19_State": 0,
-                "Btn20_State": 0,
-                "Btn21_State": 0,
-                "Btn22_State": 0,
-                "Btn23_State": 0
+                "Btn1_State": 1,
+                "Btn2_State": 1,
+                "Btn3_State": 1,
+                "Btn4_State": 1,
+                "Btn5_State": 1,
+                "Btn6_State": 1,
+                "Btn7_State": 1,
+                "Btn8_State": 1,
+                "Btn9_State": 1,
+                "Btn10_State": 1,
+                "Btn11_State": 1,
+                "Btn12_State": 1,
+                "Btn13_State": 1,
+                "Btn14_State": 1,
+                "Btn15_State": 1,
+                "Btn16_State": 1,
+                "Btn17_State": 1,
+                "Btn18_State": 1,
+                "Btn19_State": 1,
+                "Btn20_State": 1,
+                "Btn21_State": 1,
+                "Btn22_State": 1,
+                "Btn23_State": 1
             }
 
             tambah_batasan(self.koneksi, config_id, data_batasan)
@@ -350,7 +350,7 @@ class MainApp(QObject):
         for key in comboBoxRelays:
             if key != relayKey and len(comboBoxRelays) > 0 :
                 relay = self.relays[key]
-                relay['state'] = 0
+                relay['state'] = 1
                 print(f"{relay} OFF")
                 self.d.setDOState(relay['pin'], relay['state'])
 

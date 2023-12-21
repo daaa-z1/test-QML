@@ -317,7 +317,7 @@ ApplicationWindow {
                                 elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState1(model.get(currentIndex).value, 1)
+                                mainApp.setDOState1(model.get(currentIndex).value, 0)
                                 dataRow1.checkForNewElement()
                             }
                         }
@@ -345,7 +345,7 @@ ApplicationWindow {
                                 elide: Text.ElideRight
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState2(model.get(currentIndex).value, 1)
+                                mainApp.setDOState2(model.get(currentIndex).value, 0)
                                 dataRow1.checkForNewElement()
                             }
                         }
@@ -374,7 +374,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState3(model.get(currentIndex).value, 1)
+                                mainApp.setDOState3(model.get(currentIndex).value, 0)
                                 dataRow1.checkForNewElement()
                             }
                         }
@@ -423,7 +423,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState4(model.get(currentIndex).value, 1)
+                                mainApp.setDOState4(model.get(currentIndex).value, 0)
                             }
                         }
 
@@ -452,7 +452,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState5(model.get(currentIndex).value, 1)
+                                mainApp.setDOState5(model.get(currentIndex).value, 0)
                             }
                         }
 
@@ -480,7 +480,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState6(model.get(currentIndex).value, 1)
+                                mainApp.setDOState6(model.get(currentIndex).value, 0)
                             }
                         }
                     }
@@ -514,7 +514,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState7(model.get(currentIndex).value, 1)
+                                mainApp.setDOState7(model.get(currentIndex).value, 0)
                             }
                         }
 
@@ -542,7 +542,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState8(model.get(currentIndex).value, 1)
+                                mainApp.setDOState8(model.get(currentIndex).value, 0)
                             }
                         }
 
@@ -571,7 +571,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState9(model.get(currentIndex).value, 1)
+                                mainApp.setDOState9(model.get(currentIndex).value, 0)
                             }
                         }
                     }
@@ -605,7 +605,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState10(model.get(currentIndex).value, 1)
+                                mainApp.setDOState10(model.get(currentIndex).value, 0)
                             }
                         }
 
@@ -632,7 +632,7 @@ ApplicationWindow {
 
                             }
                             onCurrentIndexChanged: {
-                                mainApp.setDOState11(model.get(currentIndex).value, 1)
+                                mainApp.setDOState11(model.get(currentIndex).value, 0)
                             }
                         }
 
