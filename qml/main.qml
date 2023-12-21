@@ -110,24 +110,6 @@ ApplicationWindow {
                 border.color: "black"
                 border.width: 1
 
-                Button {
-                    id: refreshBtn
-                    width: 30
-                    height: 30
-                    anchors.left: parent.left
-                    anchors.topMargin: 10
-                    // anchors.leftMargin: 10
-                    background: Rectangle {
-                        radius: 8
-                        color: refreshBtn.pressed ? "#C0C0C0" : "cyan"
-                        border.color: "black"
-                        border.width: 1
-                    }
-                    onClicked: {
-                        page()
-                    }
-                }
-
                 ScrollView {
                     anchors.fill: parent
                     anchors.margins: 10
@@ -228,6 +210,24 @@ ApplicationWindow {
                                 }
                             }
                         }
+                    }
+                }
+                
+                Button {
+                    id: refreshBtn
+                    width: 30
+                    height: 30
+                    anchors.left: parent.left
+                    anchors.topMargin: 10
+                    // anchors.leftMargin: 10
+                    background: Rectangle {
+                        radius: 8
+                        color: refreshBtn.pressed ? "#C0C0C0" : "cyan"
+                        border.color: "black"
+                        border.width: 1
+                    }
+                    onClicked: {
+                        page()
                     }
                 }
             }
