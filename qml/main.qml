@@ -217,9 +217,11 @@ ApplicationWindow {
                     id: refreshBtn
                     width: 30
                     height: 30
-                    // anchors.top: parent.top
-                    anchors.topMargin: 10
-                    anchors.leftMargin: 10
+                    anchors{
+                        top: parent.top
+                        left: parent.left
+                        margins: 10
+                    }
                     background: Rectangle {
                         radius: 8
                         color: refreshBtn.pressed ? "#C0C0C0" : "cyan"
