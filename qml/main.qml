@@ -119,7 +119,7 @@ ApplicationWindow {
                     // anchors.leftMargin: 10
                     background: Rectangle {
                         radius: 8
-                        color: refreshBtn.pressed ? "#C0C0C0" : (refreshBtn.hovered ? "#D3D3D3" : "cyan")
+                        color: refreshBtn.pressed ? "#C0C0C0" : "cyan"
                         border.color: "black"
                         border.width: 1
                     }
