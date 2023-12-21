@@ -245,16 +245,14 @@ ApplicationWindow {
                 Image {
                     id: image1
                     source: "src/image/TSH.png"
-                    width: parent.width
-                    height: parent.width
-                    anchors.centerIn: parent
+                    anchors.fill: parent
                     fillMode: Image.PreserveAspectFit
-                    opacity: 1
+                    opacity: 0
 
                     SequentialAnimation on opacity {
                         loops: Animation.Infinite
                         PauseAnimation { duration: 10000 }
-                        NumberAnimation { to: 0; duration: 1000; easing.type: Easing.InOutQuad }
+                        NumberAnimation { to: 1; duration: 1000; easing.type: Easing.InOutQuad }
                         PauseAnimation { duration: 10000 }
                         NumberAnimation { to: 1; duration: 1000; easing.type: Easing.InOutQuad }
                     }
@@ -263,9 +261,7 @@ ApplicationWindow {
                 Image {
                     id: image2
                     source: "src/image/Moog.svg"
-                    width: parent.width
-                    height: parent.width
-                    anchors.centerIn: parent
+                    anchors.fil: parent
                     fillMode: Image.PreserveAspectFit
                     opacity: 0
 
