@@ -115,8 +115,8 @@ ApplicationWindow {
                     width: 30
                     height: 30
                     anchors.left: parent.left
-                    anchors.topMargin: 10
-                    anchors.leftMargin: 10
+                    /* anchors.topMargin: 10
+                    anchors.leftMargin: 10 */
                     background: Rectangle {
                         radius: 8
                         color: refreshBtn.pressed ? "#C0C0C0" : (refreshBtn.hovered ? "#D3D3D3" : "cyan")
@@ -232,7 +232,6 @@ ApplicationWindow {
                 }
             }
 
-
             Rectangle {
                 id: config
                 Layout.fillHeight: true
@@ -243,7 +242,7 @@ ApplicationWindow {
                 
                 Image {
                     id: image1
-                    source: "src/image/Moog.svg"
+                    source: "src/image/TSH.svg"
                     width: parent.width
                     height: parent.width
                     anchors.centerIn: parent
@@ -261,7 +260,7 @@ ApplicationWindow {
 
                 Image {
                     id: image2
-                    source: "src/image/TSH.png"
+                    source: "src/image/Moog.png"
                     width: parent.width
                     height: parent.width
                     anchors.centerIn: parent
