@@ -224,7 +224,7 @@ ApplicationWindow {
                     }
                     background: Rectangle {
                         radius: 8
-                        color: refreshBtn.pressed ? "#C0C0C0" : "cyan"
+                        color: refreshBtn.pressed ? "#C0C0C0" : "#77DD77"
                         border.color: "black"
                         border.width: 1
                     }
