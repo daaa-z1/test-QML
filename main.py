@@ -357,6 +357,7 @@ class MainApp(QObject):
         if relayKey != "nothing":
             relay = self.relays[relayKey]
             relay['state'] = state
+            print(f"{relay} ON")
             self.d.setDOState(relay['pin'], relay['state'])
             self.relaychanged.emit()
 
