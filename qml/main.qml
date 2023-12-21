@@ -261,7 +261,7 @@ ApplicationWindow {
                 Image {
                     id: image2
                     source: "src/image/Moog.svg"
-                    anchors.fil: parent
+                    anchors.fill: parent
                     fillMode: Image.PreserveAspectFit
                     opacity: 0
 
