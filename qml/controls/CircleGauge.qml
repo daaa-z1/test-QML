@@ -91,8 +91,8 @@ Item {
     
     Text {
         id: unitText
-        // anchors.bottom: parent.bottom
-        anchors.left: valueText.right
+        anchors.bottom: valueText.bottom
+        // anchors.left: valueText.right
         text: " " + unit
         font.pixelSize: parent.height * 0.1
     }
