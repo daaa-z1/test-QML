@@ -91,8 +91,8 @@ Item {
     
     Text {
         id: unitText
-        anchors.bottom: valueText.bottom
-        // anchors.left: valueText.right
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 10
         text: " " + unit
         font.pixelSize: parent.height * 0.1
     }
