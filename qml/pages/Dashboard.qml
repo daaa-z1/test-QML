@@ -55,7 +55,7 @@ Page {
                 }
 
                 Text {
-                    text: container.parameters[index] + " " + container.units[index]
+                    text: container.parameters[index]
                     horizontalAlignment: Text.alignmentHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: parent.height * 0.1
@@ -67,7 +67,7 @@ Page {
                     anchors.centerIn: parent
                     width: container.width * 0.8
                     height: width
-                    // unit: container.units[index]
+                    unit: container.units[index]
                     minValue: mainApp.parameter(keys[index], 'minValue')
                     maxValue: mainApp.parameter(keys[index], 'maxValue')
                     value: !enabled ? mainApp.value[keys[index]] : 0

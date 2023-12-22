@@ -4,7 +4,7 @@ Item {
     property alias value: valueItem.value
     property real minValue: 0
     property real maxValue: 100
-    // property string unit: ""
+    property string unit: ""
 
     width: width
     height: height
@@ -84,18 +84,18 @@ Item {
     Text {
         id: valueText
         anchors.bottom: parent.bottom
-        anchors.right: parent.horizontalCenter
-        text: valueItem.value.toFixed(0)
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: valueItem.value.toFixed(2)
         font.pixelSize: parent.height * 0.1
     }
     
-    // Text {
-    //     id: unitText
-    //     anchors.bottom: parent.bottom
-    //     anchors.left: valueText.right
-    //     text: " " + unit
-    //     font.pixelSize: parent.height * 0.1
-    // }
+    Text {
+        id: unitText
+        // anchors.bottom: parent.bottom
+        anchors.left: valueText.right
+        text: " " + unit
+        font.pixelSize: parent.height * 0.1
+    }
 
     Item {
         id: valueItem
