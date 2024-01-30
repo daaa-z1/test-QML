@@ -323,7 +323,7 @@ ApplicationWindow {
                         }
 
                         Label {
-                            text: "Pin 2"
+                            text: "Pin 3"
                             font.bold: true
                         }
 
@@ -365,14 +365,8 @@ ApplicationWindow {
                                 }
                             }
                         }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 10
-
                         Label {
-                            text: "Pin 3"
+                            text: "Pin 4"
                             font.bold: true
                         }
 
@@ -398,9 +392,14 @@ ApplicationWindow {
                                 mainApp.setDOState4(model.get(currentIndex).value, 0)
                             }
                         }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 10
 
                         Label {
-                            text: "Pin 4"
+                            text: "Pin 5"
                             font.bold: true
                         }
 
@@ -429,7 +428,7 @@ ApplicationWindow {
                         }
 
                         Label {
-                            text: "Pin 5"
+                            text: "Pin 6"
                             font.bold: true
                         }
 
@@ -455,14 +454,9 @@ ApplicationWindow {
                                 mainApp.setDOState6(model.get(currentIndex).value, 0)
                             }
                         }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 10
 
                         Label {
-                            text: "Pin 6"
+                            text: "Pin 7"
                             font.bold: true
                         }
 
@@ -489,9 +483,14 @@ ApplicationWindow {
                                 mainApp.setDOState7(model.get(currentIndex).value, 0)
                             }
                         }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 10
 
                         Label {
-                            text: "Pin 7"
+                            text: "Pin 8"
                             font.bold: true
                         }
 
@@ -519,7 +518,7 @@ ApplicationWindow {
                         }
 
                         Label {
-                            text: "Pin 8"
+                            text: "Pin 9"
                             font.bold: true
                         }
 
@@ -546,14 +545,9 @@ ApplicationWindow {
                                 mainApp.setDOState9(model.get(currentIndex).value, 0)
                             }
                         }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 10
-
+                        
                         Label {
-                            text: "Pin 9"
+                            text: "Pin 10"
                             font.bold: true
                         }
 
@@ -580,9 +574,14 @@ ApplicationWindow {
                                 mainApp.setDOState10(model.get(currentIndex).value, 0)
                             }
                         }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 10
 
                         Label {
-                            text: "Pin 10"
+                            text: "Pin 11"
                             font.bold: true
                         }
 
