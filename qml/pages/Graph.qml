@@ -241,7 +241,7 @@ Page {
                         placeholderText: "Waktu Pengujian"
                         validator: DoubleValidator {}
                         onTextChanged: {
-                            if (validator.validate(text) === Validator.Acceptable) {
+                            if (timerInput.acceptableInput) {
                                 testTimer.interval = text * 60000;
                             }
                         }
@@ -276,7 +276,7 @@ Page {
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) && customerField.text.trim() !== "" && timerInput.text.trim() !== ""
                     background: Rectangle {
-                        color: control.pressed ? "#333" : "#444"
+                        color: startButton.pressed ? "#333" : "#444"
                         radius: 5
                         border.color: "#555"
                         border.width: 1
