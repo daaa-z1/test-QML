@@ -21,7 +21,7 @@ Rectangle {
         Text {
             id: titleHeader
             text: "Test Bench Expert"
-            font.pixelSize: 16
+            font.pixelSize: 18
             anchors.centerIn: parent
             color: "white"
         }
