@@ -22,7 +22,7 @@ Rectangle {
             id: titleHeader
             text: "Test Bench Expert"
             font.pixelSize: 16
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            anchors.centerIn: parent
             color: "white"
         }
 
