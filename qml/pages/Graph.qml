@@ -233,6 +233,26 @@ Page {
                     placeholderText: "Deskripsi Proyek"
                 }
 
+                Row {
+                    spacing: 10
+
+                    TextField {
+                        id: timerInput
+                        placeholderText: "Waktu Pengujian"
+                        validator: DoubleValidator {}
+                        onTextChanged: {
+                            if (validator.validate(text) === Validator.Acceptable) {
+                                testTimer.interval = text * 60000;
+                            }
+                        }
+                    }
+                    
+                    Text {
+                        id: timerField
+                        text: "Menit"
+                    }
+                }
+
                 CheckBox {
                     id: positionTestCheckBox
                     text: "Position Test"
@@ -254,7 +274,7 @@ Page {
                 Button {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
-                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) && customerField.text.trim() !== ""
+                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) && customerField.text.trim() !== "" && timerInput.text.trim() !== ""
                     background: Rectangle {
                         color: control.pressed ? "#333" : "#444"
                         radius: 5
@@ -296,9 +316,9 @@ Page {
         }
     }
 
+    property var testTimer : Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; }', graphPage);
+
     function startNextTest() {
-        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; }', graphPage);
-        
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
