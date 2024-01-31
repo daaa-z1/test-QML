@@ -72,11 +72,11 @@ class MainApp(QObject):
             # Tambahkan data pengukuran dan data batasan sesuai dengan ID konfigurasi
             data_batasan = {
                 "Pressure_In_Min": 0,
-                "Pressure_In_Max": 100,
+                "Pressure_In_Max": 350,
                 "Pressure_A_Min": 0,
-                "Pressure_A_Max": 100,
+                "Pressure_A_Max": 350,
                 "Pressure_B_Min": 0,
-                "Pressure_B_Max": 100,
+                "Pressure_B_Max": 350,
                 "Flow_Min": 0,
                 "Flow_Max": 100,
                 "Temp_Min": 0,
@@ -90,7 +90,7 @@ class MainApp(QObject):
                 "Press_Com_Min": 0,
                 "Press_Com_Max": 5,
                 "Press_Aktual_Min": 0,
-                "Press_Aktual_Max": 5
+                "Press_Aktual_Max": 350
             }
             
             data_scaling = {
