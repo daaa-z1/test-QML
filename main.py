@@ -1,7 +1,6 @@
 import sys
 import os
 import csv
-from datetime import datetime
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QTimer, pyqtProperty, QDateTime
@@ -17,6 +16,8 @@ Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from ww
 class MainApp(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
+        
+        self.check_for_updates()
 
         # Buat objek LabJack
         self.d = u6.U6()
@@ -59,6 +60,10 @@ class MainApp(QObject):
         
         # Inisialisasi parameter terpilih ke None
         self.selectedParameter = None
+        
+    def check_for_updates(self):
+        os.chdir("/home/pi/test-QML")
+        os.system("git pull")
 
     # Fungsi untuk memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
     def periksa_tabel_default(self):
@@ -85,7 +90,7 @@ class MainApp(QObject):
                 "Curr_V_Max": 10,
                 "Aktual_Min": -10,
                 "Aktual_Max": 10,
-                "Curr_MA_Min": -5,
+                "Curr_MA_Min": 0,
                 "Curr_MA_Max": 5,
                 "Press_Com_Min": 0,
                 "Press_Com_Max": 5,
@@ -108,7 +113,7 @@ class MainApp(QObject):
                 "Curr_V_Scale_Max": 10,
                 "Aktual_Scale_Min": -10,
                 "Aktual_Scale_Max": 10,
-                "Curr_MA_Scale_Min": -5,
+                "Curr_MA_Scale_Min": 0,
                 "Curr_MA_Scale_Max": 5,
                 "Press_Com_Scale_Min": 0,
                 "Press_Com_Scale_Max": 5,
