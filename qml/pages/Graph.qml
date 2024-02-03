@@ -249,7 +249,9 @@ Page {
                     
                     Text {
                         id: timerField
-                        text: "Menit"
+                        anchors.verticalCenter: timerInput.verticalCenter
+                        font.pixelSize: 18
+                        text: "(Menit)"
                     }
                 }
 
