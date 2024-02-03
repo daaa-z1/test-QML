@@ -247,9 +247,11 @@ Page {
                         }
                     }
                     
-                    Text {
+                    TextField {
                         id: timerField
                         anchors.verticalCenter: timerInput.verticalCenter
+                        readOnly: true
+                        background: Rectangle { color: "lightgray"; radius: 5 }
                         font.pixelSize: 18
                         text: "(Menit)"
                     }
@@ -278,7 +280,7 @@ Page {
                     text: testing ? "Testing..." : "Start"
                     enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) && customerField.text.trim() !== "" && timerInput.text.trim() !== ""
                     background: Rectangle {
-                        color: startButton.pressed ? "#333" : "#444"
+                        color: startButton.pressed ? "#333" : "#fff"
                         radius: 5
                         border.color: "#555"
                         border.width: 1
