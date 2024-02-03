@@ -324,7 +324,7 @@ Page {
 
     function startNextTest() {
         var timer = timerInput.text * 60000;
-        var testTimer : Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 0; running: false; repeat: false; }', graphPage);
+        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 0; running: false; repeat: false; }', graphPage);
         testTimer.interval = timer;
 
         if (testQueue.length > 0) {
