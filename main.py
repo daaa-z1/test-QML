@@ -63,7 +63,7 @@ class MainApp(QObject):
         
     def check_for_updates(self):
         os.chdir("/home/pi/test-QML")
-        os.system("git pull")
+        os.system("sudo git pull")
 
     # Fungsi untuk memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
     def periksa_tabel_default(self):
