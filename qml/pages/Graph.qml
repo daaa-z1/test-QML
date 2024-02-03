@@ -19,7 +19,6 @@ Page {
     property var current_keys: []
     property bool testing: false
     property var lineSeriesData: []
-    property var timer: 0
 
     ChartView {
         id: chartView
@@ -241,12 +240,11 @@ Page {
                         id: timerInput
                         placeholderText: "Waktu Pengujian"
                         validator: DoubleValidator {}
-                        onTextChanged: {
-                            if (timerInput.acceptableInput) {
-                                timer = text * 60000;
-                                startNextTest(timer);
-                            }
-                        }
+                        // onTextChanged: {
+                        //     if (timerInput.acceptableInput) {
+                        //         testTimer.interval = text * 60000;
+                        //     }
+                        // }
                     }
                     
                     TextField {
@@ -312,7 +310,7 @@ Page {
 
                         if (testQueue.length > 0) {
                             testing = true;
-                            startNextTest(timer);
+                            startNextTest();
                         } else {
                             resetTest();
                         }
@@ -323,9 +321,12 @@ Page {
     }
 
     // property 
-    function startNextTest(timer) {
-        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 0; running: false; repeat: false; }', graphPage);
+
+    function startNextTest() {
+        var timer = timerInput.text * 60000;
+        var testTimer : Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 0; running: false; repeat: false; }', graphPage);
         testTimer.interval = timer;
+
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
