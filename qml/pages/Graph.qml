@@ -324,7 +324,7 @@ Page {
     property var testTimer : Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 0; running: false; repeat: false; }', graphPage);
 
     function startNextTest(timer) {
-        testTimer.interval = timer
+        testTimer.interval = timer;
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
