@@ -240,11 +240,11 @@ Page {
                         id: timerInput
                         placeholderText: "Waktu Pengujian"
                         validator: DoubleValidator {}
-                        onTextChanged: {
-                            if (timerInput.acceptableInput) {
-                                testTimer.interval = text * 60000;
-                            }
-                        }
+                        // onTextChanged: {
+                        //     if (timerInput.acceptableInput) {
+                        //         testTimer.interval = text * 60000;
+                        //     }
+                        // }
                     }
                     
                     TextField {
@@ -310,7 +310,7 @@ Page {
 
                         if (testQueue.length > 0) {
                             testing = true;
-                            startNextTest();
+                            startNextTest(timerInput.text);
                         } else {
                             resetTest();
                         }
@@ -320,9 +320,11 @@ Page {
         }
     }
 
-    property var testTimer : Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; }', graphPage);
+    // property 
 
-    function startNextTest() {
+    function startNextTest(timer) {
+        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 10000; running: false; repeat: false; }', graphPage);
+
         if (testQueue.length > 0) {
             var currentTest = testQueue[0];
             chartView.updatePlot(currentTest);
