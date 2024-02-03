@@ -19,6 +19,7 @@ Page {
     property var current_keys: []
     property bool testing: false
     property var lineSeriesData: []
+    property var timer: 0
 
     ChartView {
         id: chartView
