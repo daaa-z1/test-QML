@@ -147,7 +147,7 @@ ApplicationWindow {
 
                                     TextField {
                                         width: 50
-                                        validator: IntValidator {bottom: -100}
+                                        validator: DoubleValidator { bottom: -100.0; decimals: 3; notation: DoubleValidator.StandardNotation }
                                         text: mainApp.parameter(modelData, 'minValue')
                                         onTextChanged: {
                                             if (text === '' || text === '-'){
@@ -164,7 +164,7 @@ ApplicationWindow {
 
                                     TextField {
                                         width: 50
-                                        validator: IntValidator {bottom: -100}
+                                        validator: DoubleValidator { bottom: -100.0; decimals: 3; notation: DoubleValidator.StandardNotation }
                                         text: mainApp.parameter(modelData, 'maxValue')
                                         onTextChanged: {
                                             if (text === '' || text === '-'){
@@ -181,7 +181,7 @@ ApplicationWindow {
 
                                     TextField {
                                         width: 50
-                                        validator: IntValidator {bottom: -100}
+                                        validator: DoubleValidator { bottom: -100.0; decimals: 3; notation: DoubleValidator.StandardNotation }
                                         text: mainApp.parameter(modelData, 'minScale')
                                         onTextChanged: {
                                             if (text === '' || text === '-'){
@@ -198,7 +198,7 @@ ApplicationWindow {
 
                                     TextField {
                                         width: 50
-                                        validator: IntValidator {bottom: -100}
+                                        validator: DoubleValidator { bottom: -100.0; decimals: 3; notation: DoubleValidator.StandardNotation }
                                         text: mainApp.parameter(modelData, 'maxScale')
                                         onTextChanged: {
                                             if (text === '' || text === '-'){
