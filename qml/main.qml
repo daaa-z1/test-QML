@@ -149,10 +149,14 @@ ApplicationWindow {
                                         width: 50
                                         validator: RegularExpressionValidator {regularExpression: /^-?\d*(\.\d{0,3})?$/}
                                         text: mainApp.parameter(modelData, 'minValue')
-                                        onTextChanged: {
-                                            if (text === '' || text === '-'){
+                                        onEditingFinished: {
+                                            if (text === '' || text === '-') {
                                                 text = '0'
                                             }
+                                            
+                                            var parsedText = text.replace(',', '.');
+                                            mainApp.updateParameter(modelData, 'minValue', parseFloat(parsedText))
+                                        }
                                             mainApp.updateParameter(modelData, 'minValue', parseFloat(text))
                                         }
                                     }
