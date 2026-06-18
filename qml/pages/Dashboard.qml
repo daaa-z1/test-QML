@@ -38,7 +38,7 @@ Page {
                     verticalOffset: -5
                 }
 
-                property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Comm V", "Actual", "Current Valve", "Comm Press", "Actual Press"]
+                property var parameters: ["Pressure In", "Pressure A", "Pressure B", "Flow", "Temperature", "Comm V", "Actual V", "Current Valve", "Comm Press", "Actual Press"]
                 property var units: ["Bar", "Bar", "Bar", "Bar", "°C", "V", "V", "A", "Bar", "Bar"]
 
                 Button {
