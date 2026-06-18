@@ -8,17 +8,11 @@ import QtQuick.Dialogs 1.3
 import Qt.labs.folderlistmodel 2.1
 import Qt.labs.platform 1.0
 
-
 Page {
     id: graphPage
 
-    property var position_keys: ['curr_v', 'aktual']
-    property var flow_keys: ['press_in', 'flow']
-    property var leakage_keys: ['press_in', 'press_a', 'press_b', 'flow']
-    property var testQueue: []
     property var current_keys: []
     property bool testing: false
-    property var lineSeriesData: []
 
     ChartView {
         id: chartView
@@ -42,136 +36,100 @@ Page {
             max: 100
         }
 
-        LineSeries {
-            id: lineSeries1
-            name: "Test 1"
-            axisX: axisX
-            axisY: axisY
-            useOpenGL: true
-        }
-
-        LineSeries {
-            id: lineSeries2
-            name: "Test 2"
-            axisX: axisX
-            axisY: axisY
-            useOpenGL: true
-        }
-
-        LineSeries {
-            id: lineSeries3
-            name: "Test 3"
-            axisX: axisX
-            axisY: axisY
-            useOpenGL: true
-        }
-
-        LineSeries {
-            id: lineSeries4
-            name: "Test 4"
-            axisX: axisX
-            axisY: axisY
-            useOpenGL: true
-        }
+        // Ketebalan garis diatur melalui properti width
+        LineSeries { id: lineSeries1; name: "Line 1"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3 }
+        LineSeries { id: lineSeries2; name: "Line 2"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3 }
+        LineSeries { id: lineSeries3; name: "Line 3"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3 }
+        LineSeries { id: lineSeries4; name: "Line 4"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3 }
+        LineSeries { id: lineSeries5; name: "Line 5"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3 }
+        LineSeries { id: lineSeries6; name: "Line 6"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3 }
 
         Component.onCompleted: {
             lineSeries1.visible = false;
             lineSeries2.visible = false;
             lineSeries3.visible = false;
             lineSeries4.visible = false;
+            lineSeries5.visible = false;
+            lineSeries6.visible = false;
             mainApp.valueChanged.connect(updatePlot);
         }
 
-        function saveTestData(currentTest) {
-            if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && currentTest !== "") {
-                var maxCount = Math.max(lineSeries1.count, lineSeries2.count, lineSeries3.count, lineSeries4.count);
-                var lineSeries = [lineSeries1, lineSeries2, lineSeries3, lineSeries4];
+        function setupPlot() {
+            var globalMin = 999999;
+            var globalMax = -999999;
 
+            // Cari min dan max global untuk menyesuaikan sumbu Y
+            for (var i = 0; i < current_keys.length; i++) {
+                var key = current_keys[i];
+                var minV = mainApp.parameter(key, 'minValue') - 5;
+                var maxV = mainApp.parameter(key, 'maxValue') + 5;
+                if (minV < globalMin) globalMin = minV;
+                if (maxV > globalMax) globalMax = maxV;
+            }
+
+            if (globalMin === 999999) { globalMin = 0; globalMax = 100; } // Fallback
+
+            axisY.min = globalMin;
+            axisY.max = globalMax;
+            axisX.min = 0;
+            axisX.max = 10;
+        }
+
+        function saveTestData(testName) {
+            if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && current_keys.length > 0) {
+                var maxCount = lineSeries1.count; // Semua ter-append bersamaan
+                var seriesList = [lineSeries1, lineSeries2, lineSeries3, lineSeries4, lineSeries5, lineSeries6];
                 var lineSeriesData = [];
 
                 for (var i = 0; i < maxCount; i++) {
-                    var timeValue = i < lineSeries1.count ? lineSeries1.at(i).x : i;
+                    var timeValue = lineSeries1.at(i).x;
                     var rowData = [timeValue];
 
                     for (var j = 0; j < current_keys.length; j++) {
-                        rowData.push(i < lineSeries[j].count ? lineSeries[j].at(i).y : "");
+                        rowData.push(i < seriesList[j].count ? seriesList[j].at(i).y : "");
                     }
-
                     lineSeriesData.push(rowData);
                 }
-                var fileName = `${customerField.text.trim()}_${timeField.text.trim()}_${currentTest}.csv`;
-                var data = `${currentTest}\nTime,${current_keys.join(",")}\n`;
 
-                for (var i = 0; i < lineSeriesData.length; i++) {
-                    data += `${lineSeriesData[i].join(",")}\n`;
+                // Mengganti titik dua pada waktu agar tidak eror saat membuat nama file di OS tertentu
+                var safeTime = timeField.text.trim().replace(/:/g, "-");
+                var fileName = `${customerField.text.trim()}_${safeTime}_${testName}.csv`;
+                var data = `${testName}\nTime,${current_keys.join(",")}\n`;
+
+                for (var k = 0; k < lineSeriesData.length; k++) {
+                    data += `${lineSeriesData[k].join(",")}\n`;
                 }
 
                 mainApp.save_test_data(fileName, data);
-
                 console.log("Test data saved.");
-
-                lineSeriesData = [];
             }
         }
 
-        function updatePlot(currentTest) {
-            if (currentTest === "Position Test") {
-                current_keys = position_keys;
-                axisY.min = mainApp.parameter('aktual', 'minValue') - 2;
-                axisY.max = mainApp.parameter('aktual', 'maxValue') + 2;
-                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
-            } else if (currentTest === "Flow Test") {
-                current_keys = flow_keys;
-                axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
-                axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
-                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
-            } else if (currentTest === "Leakage Test") {
-                current_keys = leakage_keys;
-                axisY.min = mainApp.parameter('press_in', 'minValue') - 10;
-                axisY.max = mainApp.parameter('press_in', 'maxValue') + 10;
-                timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss")
+        function updatePlot() {
+            if (!testing || current_keys.length === 0) return;
+            
+            timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
+
+            var seriesList = [lineSeries1, lineSeries2, lineSeries3, lineSeries4, lineSeries5, lineSeries6];
+
+            for (var i = 0; i < current_keys.length; i++) {
+                var key = current_keys[i];
+                var val = mainApp.value[key];
+                
+                seriesList[i].append(seriesList[i].count, val);
+                seriesList[i].name = key;
+                seriesList[i].visible = true;
             }
 
-            if (current_keys.length > 0) {
-                var value1 = mainApp.value[current_keys[0]];
-                lineSeries1.append(lineSeries1.count, value1);
-            }
-            if (current_keys.length > 1) {
-                var value2 = mainApp.value[current_keys[1]];
-                lineSeries2.append(lineSeries2.count, value2);
-            }
-            if (current_keys.length > 2) {
-                var value3 = mainApp.value[current_keys[2]];
-                lineSeries3.append(lineSeries3.count, value3);
-            }
-            if (current_keys.length > 3) {
-                var value4 = mainApp.value[current_keys[3]];
-                lineSeries4.append(lineSeries4.count, value4);
+            // Sembunyikan series yang tidak digunakan
+            for (var j = current_keys.length; j < 6; j++) {
+                seriesList[j].visible = false;
             }
 
-            lineSeries1.name = current_keys.length > 0 ? current_keys[0] : "";
-            lineSeries2.name = current_keys.length > 1 ? current_keys[1] : "";
-            lineSeries3.name = current_keys.length > 2 ? current_keys[2] : "";
-            lineSeries4.name = current_keys.length > 3 ? current_keys[3] : "";
-
-            lineSeries1.visible = testing && current_keys.length > 0;
-            lineSeries2.visible = testing && current_keys.length > 1;
-            lineSeries3.visible = testing && current_keys.length > 2;
-            lineSeries4.visible = testing && current_keys.length > 3;
-
+            // Geser sumbu X otomatis
             if (lineSeries1.count > axisX.max - axisX.min) {
                 axisX.min++;
                 axisX.max++;
-            }
-
-            if (!testing) {
-                axisX.min = 0;
-                axisX.max = 10;
-            }
-
-            if (testQueue.length === 0) {
-                axisX.min = 0;
-                axisX.max = 10;
             }
         }
     }
@@ -201,7 +159,7 @@ Page {
             Column {
                 anchors.fill: parent
                 spacing: 10
-                padding: 5
+                padding: 10
 
                 Row {
                     spacing: 10
@@ -211,25 +169,27 @@ Page {
                         text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
                         readOnly: true
                         background: Rectangle { color: "lightgray"; radius: 5 }
+                        width: (parent.parent.width - 30) / 2
                     }
-                    
+
                     TextField {
                         id: timeField
                         text: Qt.formatDateTime(new Date(), "HH:mm:ss")
                         readOnly: true
                         background: Rectangle { color: "lightgray"; radius: 5 }
+                        width: (parent.parent.width - 30) / 2
                     }
                 }
 
                 TextField {
                     id: customerField
-                    width: parent.width
+                    width: parent.width - 20
                     placeholderText: "Nama Customer"
                 }
 
                 TextField {
                     id: projectField
-                    width: parent.width
+                    width: parent.width - 20
                     placeholderText: "Deskripsi Proyek"
                 }
 
@@ -240,45 +200,46 @@ Page {
                         id: timerInput
                         placeholderText: "Waktu Pengujian"
                         validator: DoubleValidator {}
-                        // onTextChanged: {
-                        //     if (timerInput.acceptableInput) {
-                        //         testTimer.interval = text * 60000;
-                        //     }
-                        // }
+                        width: (parent.parent.width - 30) / 2
                     }
-                    
-                    TextField {
+
+                    Text {
                         id: timerField
                         anchors.verticalCenter: timerInput.verticalCenter
-                        readOnly: true
-                        background: Rectangle { color: "lightgray"; radius: 5 }
-                        font.pixelSize: 18
+                        font.pixelSize: 16
                         text: "(Menit)"
                     }
                 }
 
-                CheckBox {
-                    id: positionTestCheckBox
-                    text: "Position Test"
-                    enabled: !testing
+                Text {
+                    text: "Pilih Parameter Uji:"
+                    font.bold: true
+                    font.pixelSize: 14
+                    color: "#333"
                 }
 
-                CheckBox {
-                    id: flowTestCheckBox
-                    text: "Flow Test"
-                    enabled: !testing
-                }
+                // Grid Layout agar checkbox rapi dan tidak terlalu panjang ke bawah
+                GridLayout {
+                    columns: 2
+                    columnSpacing: 10
+                    rowSpacing: 0
 
-                CheckBox {
-                    id: leakageTestCheckBox
-                    text: "Leakage Test"
-                    enabled: !testing
+                    CheckBox { id: cb_curr_v; text: "curr_v"; enabled: !testing }
+                    CheckBox { id: cb_aktual; text: "aktual"; enabled: !testing }
+                    CheckBox { id: cb_press_in; text: "press_in"; enabled: !testing }
+                    CheckBox { id: cb_press_a; text: "press_a"; enabled: !testing }
+                    CheckBox { id: cb_press_b; text: "press_b"; enabled: !testing }
+                    CheckBox { id: cb_flow; text: "flow"; enabled: !testing }
                 }
 
                 Button {
                     id: startButton
                     text: testing ? "Testing..." : "Start"
-                    enabled: !testing && (positionTestCheckBox.checked || flowTestCheckBox.checked || leakageTestCheckBox.checked) && customerField.text.trim() !== "" && timerInput.text.trim() !== ""
+                    width: parent.width - 20
+                    enabled: !testing && 
+                             (cb_curr_v.checked || cb_aktual.checked || cb_press_in.checked || cb_press_a.checked || cb_press_b.checked || cb_flow.checked) && 
+                             customerField.text.trim() !== "" && timerInput.text.trim() !== ""
+                    
                     background: Rectangle {
                         color: startButton.pressed ? "#333" : "#fff"
                         radius: 5
@@ -287,8 +248,8 @@ Page {
                         opacity: 1
 
                         DropShadow {
-                            horizontalOffset: 5
-                            verticalOffset: 5
+                            horizontalOffset: 3
+                            verticalOffset: 3
                             radius: 5
                             samples: 5
                             color: "#aa000000"
@@ -296,23 +257,18 @@ Page {
                         }
                     }
                     onClicked: {
-                        testQueue = [];
+                        current_keys = [];
 
-                        if (positionTestCheckBox.checked) {
-                            testQueue.push("Position Test");
-                        }
-                        if (flowTestCheckBox.checked) {
-                            testQueue.push("Flow Test");
-                        }
-                        if (leakageTestCheckBox.checked) {
-                            testQueue.push("Leakage Test");
-                        }
+                        if (cb_curr_v.checked) current_keys.push("curr_v");
+                        if (cb_aktual.checked) current_keys.push("aktual");
+                        if (cb_press_in.checked) current_keys.push("press_in");
+                        if (cb_press_a.checked) current_keys.push("press_a");
+                        if (cb_press_b.checked) current_keys.push("press_b");
+                        if (cb_flow.checked) current_keys.push("flow");
 
-                        if (testQueue.length > 0) {
+                        if (current_keys.length > 0) {
                             testing = true;
-                            startNextTest();
-                        } else {
-                            resetTest();
+                            startTest();
                         }
                     }
                 }
@@ -320,59 +276,38 @@ Page {
         }
     }
 
-    // property 
-
-    function startNextTest() {
+    function startTest() {
         var timer = timerInput.text * 60000;
         var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 0; running: false; repeat: false; }', graphPage);
         testTimer.interval = timer;
 
-        if (testQueue.length > 0) {
-            var currentTest = testQueue[0];
-            chartView.updatePlot(currentTest);
-            chartView.title = "" + currentTest;
+        chartView.setupPlot();
+        chartView.title = "Testing: " + current_keys.join(", ");
 
-            testTimer.running = true;
+        testTimer.running = true;
 
-            testTimer.triggered.connect(function() {
-                    Qt.callLater(function() {
-                    chartView.saveTestData(currentTest);
-                    testTimer.destroy();
-                    resetTest();
-                    testQueue.shift();
-                    startNextTest();
-                }, 500);
-            });
-        } else {
-            testing = false;
-            testTimer.running = false;
-            testTimer.destroy();
-
-            if (testQueue.length === 0) {
-                testTimer.running = false;
-                positionTestCheckBox.checked = false;
-                flowTestCheckBox.checked = false;
-                leakageTestCheckBox.checked = false;
+        testTimer.triggered.connect(function() {
+            Qt.callLater(function() {
+                chartView.saveTestData("Custom_Test");
+                testTimer.destroy();
+                resetTest();
+                testing = false;
                 chartView.title = "Test Completed";
-                current_keys = [];
-            }
-        }
+            }, 500);
+        });
     }
 
     function resetTest() {
-        positionTestCheckBox.checked = false;
-        flowTestCheckBox.checked = false;
-        leakageTestCheckBox.checked = false;
         axisX.min = 0;
         axisX.max = 10;
-        lineSeries1.clear();
-        lineSeries2.clear();
-        lineSeries3.clear();
-        lineSeries4.clear();
+        chartView.children.forEach(function(child) {
+            if (child.toString().indexOf("LineSeries") !== -1) {
+                child.clear();
+            }
+        });
     }
-    
+
     Connections {
         target: mainApp
     }
-    
 }
