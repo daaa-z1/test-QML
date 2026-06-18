@@ -374,7 +374,9 @@ if __name__ == "__main__":
     mainApp = MainApp()
     # Mengikat sinyal dan slot antara Python dan QML
     engine.rootContext().setContextProperty("mainApp", mainApp)
-    engine.load("qml/mainView.qml")
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    qml_file = os.path.join(base_dir, "qml", "mainView.qml") engine.load(qml_file)
+    engine.load(qml_file)
 
     if not engine.rootObjects():
         sys.exit(-1)
