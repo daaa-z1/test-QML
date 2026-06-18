@@ -157,8 +157,6 @@ ApplicationWindow {
                                             var parsedText = text.replace(',', '.');
                                             mainApp.updateParameter(modelData, 'minValue', parseFloat(parsedText))
                                         }
-                                            mainApp.updateParameter(modelData, 'minValue', parseFloat(text))
-                                        }
                                     }
 
                                     Label {
