@@ -62,8 +62,8 @@ class MainApp(QObject):
         self.selectedParameter = None
         
     def check_for_updates(self):
-        # os.chdir("/home/pi/test-QML")
-        # os.system("sudo git pull")
+        os.chdir("/home/pi/test-QML/test-QML")
+        os.system("sudo git pull")
         pass
 
     # Fungsi untuk memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
