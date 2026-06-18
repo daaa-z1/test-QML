@@ -17,7 +17,7 @@ class MainApp(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         
-        self.check_for_updates()
+        #self.check_for_updates()
 
         # Buat objek LabJack
         self.d = u6.U6()
@@ -63,7 +63,7 @@ class MainApp(QObject):
         
     def check_for_updates(self):
         os.chdir("/home/pi/test-QML/test-QML")
-        os.system("sudo git pull")
+        os.system("git pull")
         pass
 
     # Fungsi untuk memastikan bahwa tabel memiliki satu ID, jika belum, tambahkan data default
