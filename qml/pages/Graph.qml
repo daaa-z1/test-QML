@@ -37,12 +37,12 @@ Page {
         }
 
         // Ketebalan garis diatur melalui properti width
-        LineSeries { id: lineSeries1; name: "Line 1"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: #ff5555 }
-        LineSeries { id: lineSeries2; name: "Line 2"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: #55ff55 }
-        LineSeries { id: lineSeries3; name: "Line 3"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: #5555ff }
-        LineSeries { id: lineSeries4; name: "Line 4"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: #ffff55 }
-        LineSeries { id: lineSeries5; name: "Line 5"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: #ff55ff }
-        LineSeries { id: lineSeries6; name: "Line 6"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: #55ffff }
+        LineSeries { id: lineSeries1; name: "Line 1"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#ff5555" }
+        LineSeries { id: lineSeries2; name: "Line 2"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#55ff55" }
+        LineSeries { id: lineSeries3; name: "Line 3"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#5555ff" }
+        LineSeries { id: lineSeries4; name: "Line 4"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#ffff55" }
+        LineSeries { id: lineSeries5; name: "Line 5"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#ff55ff" }
+        LineSeries { id: lineSeries6; name: "Line 6"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#55ffff" }
 
         Component.onCompleted: {
             lineSeries1.visible = false;
