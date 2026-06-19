@@ -248,11 +248,7 @@ class MainApp(QObject):
         calculated_values = [max(min(value, max_val), min_val) for value, max_val, min_val in zip(calculated_values, max_values, min_values)]
         for key in ['curr_v', 'aktual']:
             idx = self.keys.index(key)
-
-            min_s = self._parameter[key]['minScale']
-            max_s = self._parameter[key]['maxScale']
-
-            calculated_values[idx] = max_s - (calculated_values[idx] - min_s)
+            calculated_values[idx] = 6.7 - calculated_values[idx]
         calculated_values = [round(value, 2) for value in calculated_values]
         self.value = {key: calculated_values[i] for i, key in enumerate(keys)}
         
