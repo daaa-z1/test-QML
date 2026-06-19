@@ -13,6 +13,26 @@ Page {
 
     property var current_keys: []
     property bool testing: false
+    // PROPERTY BARU: Menyimpan waktu mulai pengujian untuk nama file CSV
+    property string testStartTime: ""
+
+    // PENINGKATAN 2: Timer statis untuk mencegah memory leak
+    Timer {
+        id: testTimer
+        interval: 0
+        running: false
+        repeat: false
+        onTriggered: {
+            finishTest("Custom_Test");
+        }
+    }
+
+    // PENINGKATAN 3: Auto-save jika page ditutup/berpindah saat testing berjalan
+    Component.onDestruction: {
+        if (testing) {
+            chartView.saveTestData("Interrupted_Test");
+        }
+    }
 
     ChartView {
         id: chartView
@@ -24,19 +44,9 @@ Page {
         antialiasing: true
         title: "Testing Page Test Bench Experts"
 
-        ValueAxis {
-            id: axisX
-            min: 0
-            max: 10
-        }
+        ValueAxis { id: axisX; min: 0; max: 10 }
+        ValueAxis { id: axisY; min: 0; max: 100 }
 
-        ValueAxis {
-            id: axisY
-            min: 0
-            max: 100
-        }
-
-        // Ketebalan garis diatur melalui properti width
         LineSeries { id: lineSeries1; name: "Line 1"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#ff5555" }
         LineSeries { id: lineSeries2; name: "Line 2"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#55ff55" }
         LineSeries { id: lineSeries3; name: "Line 3"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#5555ff" }
@@ -45,12 +55,9 @@ Page {
         LineSeries { id: lineSeries6; name: "Line 6"; axisX: axisX; axisY: axisY; useOpenGL: true; width: 3; color: "#55ffff" }
 
         Component.onCompleted: {
-            lineSeries1.visible = false;
-            lineSeries2.visible = false;
-            lineSeries3.visible = false;
-            lineSeries4.visible = false;
-            lineSeries5.visible = false;
-            lineSeries6.visible = false;
+            lineSeries1.visible = false; lineSeries2.visible = false;
+            lineSeries3.visible = false; lineSeries4.visible = false;
+            lineSeries5.visible = false; lineSeries6.visible = false;
             mainApp.valueChanged.connect(updatePlot);
         }
 
@@ -58,7 +65,6 @@ Page {
             var globalMin = 999999;
             var globalMax = -999999;
 
-            // Cari min dan max global untuk menyesuaikan sumbu Y
             for (var i = 0; i < current_keys.length; i++) {
                 var key = current_keys[i];
                 var minV = mainApp.parameter(key, 'minValue') - 5;
@@ -67,7 +73,7 @@ Page {
                 if (maxV > globalMax) globalMax = maxV;
             }
 
-            if (globalMin === 999999) { globalMin = 0; globalMax = 100; } // Fallback
+            if (globalMin === 999999) { globalMin = 0; globalMax = 100; }
 
             axisY.min = globalMin;
             axisY.max = globalMax;
@@ -76,8 +82,8 @@ Page {
         }
 
         function saveTestData(testName) {
-            if (customerField.text.trim() !== "" && timeField.text.trim() !== "" && current_keys.length > 0) {
-                var maxCount = lineSeries1.count; // Semua ter-append bersamaan
+            if (customerField.text.trim() !== "" && current_keys.length > 0) {
+                var maxCount = lineSeries1.count;
                 var seriesList = [lineSeries1, lineSeries2, lineSeries3, lineSeries4, lineSeries5, lineSeries6];
                 var lineSeriesData = [];
 
@@ -91,9 +97,8 @@ Page {
                     lineSeriesData.push(rowData);
                 }
 
-                // Mengganti titik dua pada waktu agar tidak eror saat membuat nama file di OS tertentu
-                var safeTime = timeField.text.trim().replace(/:/g, "-");
-                var fileName = `${customerField.text.trim()}_${safeTime}_${testName}.csv`;
+                // PENINGKATAN 4: Menggunakan testStartTime yang dibekukan di awal test
+                var fileName = `${customerField.text.trim()}_${testStartTime}_${testName}.csv`;
                 var data = `${testName}\nTime,${current_keys.join(",")}\n`;
 
                 for (var k = 0; k < lineSeriesData.length; k++) {
@@ -101,14 +106,15 @@ Page {
                 }
 
                 mainApp.save_test_data(fileName, data);
-                console.log("Test data saved.");
+                console.log("Test data saved as: " + fileName);
             }
         }
 
         function updatePlot() {
-            if (!testing || current_keys.length === 0) return;
-            
+            // Jam tetap berjalan secara live di UI meskipun sedang tidak testing
             timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
+
+            if (!testing || current_keys.length === 0) return;
 
             var seriesList = [lineSeries1, lineSeries2, lineSeries3, lineSeries4, lineSeries5, lineSeries6];
 
@@ -121,12 +127,10 @@ Page {
                 seriesList[i].visible = true;
             }
 
-            // Sembunyikan series yang tidak digunakan
             for (var j = current_keys.length; j < 6; j++) {
                 seriesList[j].visible = false;
             }
 
-            // Geser sumbu X otomatis
             if (lineSeries1.count > axisX.max - axisX.min) {
                 axisX.min++;
                 axisX.max++;
@@ -148,12 +152,7 @@ Page {
             gradient: Gradient.RiskyConcrete
             layer.enabled: true
             layer.effect: InnerShadow {
-                samples: 24
-                color: "#000000"
-                radius: 16
-                spread: 0
-                horizontalOffset: -5
-                verticalOffset: -5
+                samples: 24; color: "#000000"; radius: 16; spread: 0; horizontalOffset: -5; verticalOffset: -5
             }
 
             Column {
@@ -163,7 +162,6 @@ Page {
 
                 Row {
                     spacing: 10
-
                     TextField {
                         id: dateField
                         text: Qt.formatDateTime(new Date(), "yyyy-MM-dd")
@@ -171,7 +169,6 @@ Page {
                         background: Rectangle { color: "lightgray"; radius: 5 }
                         width: (parent.parent.width - 30) / 2
                     }
-
                     TextField {
                         id: timeField
                         text: Qt.formatDateTime(new Date(), "HH:mm:ss")
@@ -181,49 +178,27 @@ Page {
                     }
                 }
 
-                TextField {
-                    id: customerField
-                    width: parent.width - 20
-                    placeholderText: "Nama Customer"
-                }
-
-                TextField {
-                    id: projectField
-                    width: parent.width - 20
-                    placeholderText: "Deskripsi Proyek"
-                }
+                TextField { id: customerField; width: parent.width - 20; placeholderText: "Nama Customer" }
+                TextField { id: projectField; width: parent.width - 20; placeholderText: "Deskripsi Proyek" }
 
                 Row {
                     spacing: 10
-
                     TextField {
                         id: timerInput
-                        placeholderText: "Waktu Pengujian"
+                        placeholderText: "Waktu (Menit)"
                         validator: DoubleValidator {}
                         width: (parent.parent.width - 30) / 2
+                        enabled: !testing // Kunci input saat sedang testing
                     }
-
-                    Text {
-                        id: timerField
-                        anchors.verticalCenter: timerInput.verticalCenter
-                        font.pixelSize: 16
-                        text: "(Menit)"
-                    }
+                    Text { anchors.verticalCenter: timerInput.verticalCenter; font.pixelSize: 16; text: "(Menit)" }
                 }
 
-                Text {
-                    text: "Pilih Parameter Uji:"
-                    font.bold: true
-                    font.pixelSize: 14
-                    color: "#333"
-                }
+                Text { text: "Pilih Parameter Uji:"; font.bold: true; font.pixelSize: 14; color: "#333" }
 
-                // Grid Layout agar checkbox rapi dan tidak terlalu panjang ke bawah
                 GridLayout {
                     columns: 2
                     columnSpacing: 10
                     rowSpacing: 0
-
                     CheckBox { id: cb_curr_v; text: "curr_v"; enabled: !testing }
                     CheckBox { id: cb_aktual; text: "aktual"; enabled: !testing }
                     CheckBox { id: cb_press_in; text: "press_in"; enabled: !testing }
@@ -232,43 +207,50 @@ Page {
                     CheckBox { id: cb_flow; text: "flow"; enabled: !testing }
                 }
 
+                // PENINGKATAN 1: Tombol berubah jadi toggle "Start / Stop"
                 Button {
                     id: startButton
-                    text: testing ? "Testing..." : "Start"
+                    text: testing ? "Stop" : "Start"
                     width: parent.width - 20
-                    enabled: !testing && 
-                             (cb_curr_v.checked || cb_aktual.checked || cb_press_in.checked || cb_press_a.checked || cb_press_b.checked || cb_flow.checked) && 
+                    enabled: (cb_curr_v.checked || cb_aktual.checked || cb_press_in.checked || cb_press_a.checked || cb_press_b.checked || cb_flow.checked) && 
                              customerField.text.trim() !== "" && timerInput.text.trim() !== ""
                     
                     background: Rectangle {
-                        color: startButton.pressed ? "#333" : "#fff"
+                        color: startButton.pressed ? "#333" : (testing ? "#ff5555" : "#fff") // Merah jika testing berjalan
                         radius: 5
                         border.color: "#555"
                         border.width: 1
-                        opacity: 1
-
                         DropShadow {
-                            horizontalOffset: 3
-                            verticalOffset: 3
-                            radius: 5
-                            samples: 5
-                            color: "#aa000000"
-                            source: parent
+                            horizontalOffset: 3; verticalOffset: 3; radius: 5; samples: 5; color: "#aa000000"; source: parent
                         }
                     }
+
+                    contentItem: Text {
+                        text: startButton.text
+                        color: testing ? "#fff" : "#000"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        font.bold: true
+                    }
+
                     onClicked: {
-                        current_keys = [];
+                        if (testing) {
+                            // Eksekusi Stop Manual
+                            finishTest("Manual_Stop");
+                        } else {
+                            // Eksekusi Start
+                            current_keys = [];
+                            if (cb_curr_v.checked) current_keys.push("curr_v");
+                            if (cb_aktual.checked) current_keys.push("aktual");
+                            if (cb_press_in.checked) current_keys.push("press_in");
+                            if (cb_press_a.checked) current_keys.push("press_a");
+                            if (cb_press_b.checked) current_keys.push("press_b");
+                            if (cb_flow.checked) current_keys.push("flow");
 
-                        if (cb_curr_v.checked) current_keys.push("curr_v");
-                        if (cb_aktual.checked) current_keys.push("aktual");
-                        if (cb_press_in.checked) current_keys.push("press_in");
-                        if (cb_press_a.checked) current_keys.push("press_a");
-                        if (cb_press_b.checked) current_keys.push("press_b");
-                        if (cb_flow.checked) current_keys.push("flow");
-
-                        if (current_keys.length > 0) {
-                            testing = true;
-                            startTest();
+                            if (current_keys.length > 0) {
+                                testing = true;
+                                startTest();
+                            }
                         }
                     }
                 }
@@ -277,23 +259,27 @@ Page {
     }
 
     function startTest() {
-        var timer = timerInput.text * 60000;
-        var testTimer = Qt.createQmlObject('import QtQuick 2.15; Timer { interval: 0; running: false; repeat: false; }', graphPage);
-        testTimer.interval = timer;
+        var timerMs = parseFloat(timerInput.text) * 60000;
+        
+        // Simpan waktu saat tombol Start ditekan (ubah karakter ':' menjadi '-')
+        testStartTime = Qt.formatDateTime(new Date(), "HH-mm-ss");
 
         chartView.setupPlot();
         chartView.title = "Testing: " + current_keys.join(", ");
 
-        testTimer.running = true;
+        // Aktifkan timer statis
+        testTimer.interval = timerMs;
+        testTimer.start();
+    }
 
-        testTimer.triggered.connect(function() {
-            Qt.callLater(function() {
-                chartView.saveTestData("Custom_Test");
-                testTimer.destroy();
-                resetTest();
-                testing = false;
-                chartView.title = "Test Completed";
-            }, 500);
+    // Fungsi terpusat untuk menyelesaikan/menghentikan tes
+    function finishTest(testName) {
+        testTimer.stop();
+        Qt.callLater(function() {
+            chartView.saveTestData(testName);
+            resetTest();
+            testing = false;
+            chartView.title = (testName === "Manual_Stop") ? "Test Stopped Manually" : "Test Completed";
         });
     }
 
