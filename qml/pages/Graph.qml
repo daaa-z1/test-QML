@@ -13,10 +13,8 @@ Page {
 
     property var current_keys: []
     property bool testing: false
-    // PROPERTY BARU: Menyimpan waktu mulai pengujian untuk nama file CSV
     property string testStartTime: ""
 
-    // PENINGKATAN 2: Timer statis untuk mencegah memory leak
     Timer {
         id: testTimer
         interval: 0
@@ -27,8 +25,8 @@ Page {
         }
     }
 
-    // PENINGKATAN 3: Auto-save jika page ditutup/berpindah saat testing berjalan
     Component.onDestruction: {
+        // Hanya memicu Interrupted_Test jika keluar paksa saat sedang testing
         if (testing) {
             chartView.saveTestData("Interrupted_Test");
         }
@@ -97,12 +95,12 @@ Page {
                     lineSeriesData.push(rowData);
                 }
 
-                // PENINGKATAN 4: Menggunakan testStartTime yang dibekukan di awal test
-                var fileName = `${customerField.text.trim()}_${testStartTime}_${testName}.csv`;
-                var data = `${testName}\nTime,${current_keys.join(",")}\n`;
+                // FIX: Penggunaan string klasik (+) untuk mencegah error parsing template literal pada Engine QtQML
+                var fileName = customerField.text.trim() + "_" + testStartTime + "_" + testName + ".csv";
+                var data = testName + "\nTime," + current_keys.join(",") + "\n";
 
                 for (var k = 0; k < lineSeriesData.length; k++) {
-                    data += `${lineSeriesData[k].join(",")}\n`;
+                    data += lineSeriesData[k].join(",") + "\n";
                 }
 
                 mainApp.save_test_data(fileName, data);
@@ -111,7 +109,6 @@ Page {
         }
 
         function updatePlot() {
-            // Jam tetap berjalan secara live di UI meskipun sedang tidak testing
             timeField.text = Qt.formatDateTime(new Date(), "HH:mm:ss");
 
             if (!testing || current_keys.length === 0) return;
@@ -188,7 +185,7 @@ Page {
                         placeholderText: "Waktu (Menit)"
                         validator: DoubleValidator {}
                         width: (parent.parent.width - 30) / 2
-                        enabled: !testing // Kunci input saat sedang testing
+                        enabled: !testing
                     }
                     Text { anchors.verticalCenter: timerInput.verticalCenter; font.pixelSize: 16; text: "(Menit)" }
                 }
@@ -207,7 +204,6 @@ Page {
                     CheckBox { id: cb_flow; text: "flow"; enabled: !testing }
                 }
 
-                // PENINGKATAN 1: Tombol berubah jadi toggle "Start / Stop"
                 Button {
                     id: startButton
                     text: testing ? "Stop" : "Start"
@@ -216,7 +212,7 @@ Page {
                              customerField.text.trim() !== "" && timerInput.text.trim() !== ""
                     
                     background: Rectangle {
-                        color: startButton.pressed ? "#333" : (testing ? "#ff5555" : "#fff") // Merah jika testing berjalan
+                        color: startButton.pressed ? "#333" : (testing ? "#ff5555" : "#fff")
                         radius: 5
                         border.color: "#555"
                         border.width: 1
@@ -235,10 +231,8 @@ Page {
 
                     onClicked: {
                         if (testing) {
-                            // Eksekusi Stop Manual
                             finishTest("Manual_Stop");
                         } else {
-                            // Eksekusi Start
                             current_keys = [];
                             if (cb_curr_v.checked) current_keys.push("curr_v");
                             if (cb_aktual.checked) current_keys.push("aktual");
@@ -260,37 +254,42 @@ Page {
 
     function startTest() {
         var timerMs = parseFloat(timerInput.text) * 60000;
-        
-        // Simpan waktu saat tombol Start ditekan (ubah karakter ':' menjadi '-')
         testStartTime = Qt.formatDateTime(new Date(), "HH-mm-ss");
 
         chartView.setupPlot();
         chartView.title = "Testing: " + current_keys.join(", ");
 
-        // Aktifkan timer statis
         testTimer.interval = timerMs;
         testTimer.start();
     }
 
-    // Fungsi terpusat untuk menyelesaikan/menghentikan tes
     function finishTest(testName) {
+        // FIX 1: Set testing = false SEBELUM hal lain untuk mengunci grafik secara real-time
+        testing = false;
+        
+        // FIX 2: Matikan timer backend
         testTimer.stop();
-        Qt.callLater(function() {
-            chartView.saveTestData(testName);
-            resetTest();
-            testing = false;
-            chartView.title = (testName === "Manual_Stop") ? "Test Stopped Manually" : "Test Completed";
-        });
+
+        // FIX 3: Simpan secara sinkron tanpa Qt.callLater agar tidak terjadi delay
+        chartView.saveTestData(testName);
+        
+        // Bersihkan dan perbarui UI
+        resetTest();
+        chartView.title = (testName === "Manual_Stop") ? "Test Stopped Manually" : "Test Completed";
     }
 
     function resetTest() {
         axisX.min = 0;
         axisX.max = 10;
-        chartView.children.forEach(function(child) {
-            if (child.toString().indexOf("LineSeries") !== -1) {
-                child.clear();
-            }
-        });
+        
+        // FIX 4: Membersihkan series secara eksplisit jauh lebih stabil 
+        // daripada looping chartView.children di QML yang rawan error
+        lineSeries1.clear();
+        lineSeries2.clear();
+        lineSeries3.clear();
+        lineSeries4.clear();
+        lineSeries5.clear();
+        lineSeries6.clear();
     }
 
     Connections {
