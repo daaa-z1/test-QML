@@ -252,7 +252,7 @@ class MainApp(QObject):
             min_s = self._parameter[key]['minScale']
             max_s = self._parameter[key]['maxScale']
 
-    calculated_values[idx] = max_s - (calculated_values[idx] - min_s)
+            calculated_values[idx] = max_s - (calculated_values[idx] - min_s)
         calculated_values = [round(value, 2) for value in calculated_values]
         self.value = {key: calculated_values[i] for i, key in enumerate(keys)}
         
